@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafetyNet - Register Your Interest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --brand-blue: #4F6BF6;
+            --brand-blue-dark: #3B5AE8;
+            --brand-blue-light: #5B7CFF;
+            --text-primary: #1a1a2e;
+            --text-secondary: #64648c;
+            --text-muted: #9494b8;
+            --border-color: #e2e2f0;
+            --border-focus: #4F6BF6;
+            --bg-white: #ffffff;
+            --bg-light: #f8f9fc;
+            --bg-blue-tint: #f0f4ff;
+            --error-red: #dc2626;
+            --error-bg: #fef2f2;
+            --success-green: #16a34a;
+            --success-bg: #f0fdf4;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .form-container {
+            max-width: 580px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .form-header {
+            background: linear-gradient(135deg, #5B7CFF 0%, #4F6BF6 50%, #3B5AE8 100%);
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-header p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+        }
+
+        /* Form Body */
+        .form-body {
+            padding: 32px;
+        }
+
+        /* Field Groups */
+        .field-group {
+            margin-bottom: 24px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .field-label .optional {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Input Styles */
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-family: inherit;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-white);
+            color: var(--text-primary);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(79, 107, 246, 0.12);
+        }
+
+        .form-input.error {
+            border-color: var(--error-red);
+        }
+
+        .form-input.error:focus {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select.form-input {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2364648c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        /* Help Text */
+        .help-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Error Messages */
+        .error-message {
+            display: none;
+            font-size: 13px;
+            color: var(--error-red);
+            margin-top: 6px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        @media (max-width: 540px) {
+            .button-group {
+                flex-direction: column;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--brand-blue);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--brand-blue-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--brand-blue);
+            border: 1.5px solid rgba(79, 107, 246, 0.3);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--bg-blue-tint);
+            border-color: var(--brand-blue);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Spinner */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Optional Questions Section */
+        .optional-section {
+            display: none;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .optional-section.show {
+            display: block;
+            animation: fadeSlideIn 0.3s ease;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Checkbox Options */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-white);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--brand-blue);
+            background: var(--bg-blue-tint);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--brand-blue);
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .checkbox-label strong {
+            font-weight: 600;
+        }
+
+        /* Radio Options */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            accent-color: var(--brand-blue);
+            cursor: pointer;
+        }
+
+        .radio-label {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        /* User Testing Box */
+        .user-testing-box {
+            background: var(--bg-blue-tint);
+            border: 1px solid rgba(79, 107, 246, 0.2);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        /* Conditional Fields */
+        .conditional-field {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .conditional-field.show {
+            display: block;
+            animation: fadeSlideIn 0.2s ease;
+        }
+
+        /* Form Error Alert */
+        .form-error {
+            display: none;
+            background: var(--error-bg);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 24px;
+        }
+
+        .form-error.show {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .form-error-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--error-red);
+            flex-shrink: 0;
+        }
+
+        .form-error-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 2px;
+        }
+
+        .form-error-content p {
+            font-size: 14px;
+            color: #b91c1c;
+        }
+
+        /* Success State */
+        .success-message {
+            display: none;
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeSlideIn 0.3s ease;
+        }
+
+        .success-icon-wrap {
+            width: 72px;
+            height: 72px;
+            background: var(--success-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .success-icon {
+            width: 36px;
+            height: 36px;
+            color: var(--success-green);
+        }
+
+        .success-message h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .user-testing-confirm {
+            display: none;
+            font-size: 15px;
+            color: var(--brand-blue);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .user-testing-confirm.show {
+            display: block;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--brand-blue);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--brand-blue-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            .form-header {
+                padding: 36px 24px;
+            }
+
+            .form-header h1 {
+                font-size: 26px;
+            }
+
+            .form-header p {
+                font-size: 15px;
+            }
+
+            .form-body {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <!-- Header -->
+    <div class="form-header">
+        <h1>Register Your Interest</h1>
+        <p>Be first to try SafetyNet — one clear alert when you can't respond.</p>
+    </div>
+
+    <!-- Form -->
+    <form id="registrationForm" class="form-body">
+        
+        <!-- Email Field -->
+        <div class="field-group">
+            <label for="email" class="field-label">Email</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email"
+                class="form-input"
+                placeholder="you@example.com"
+                required
+                autocomplete="email"
+                aria-describedby="email-help email-error">
+            <p id="email-help" class="help-text">We'll let you know when early access for SafetyNet is ready.</p>
+            <p id="email-error" class="error-message" role="alert">Please enter a valid email address</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group" id="mainButtons">
+            <button type="button" id="joinEarlyAccessBtn" class="btn btn-primary">
+                <span>Join early access</span>
+                <span class="spinner" id="joinSpinner"></span>
+            </button>
+            <button type="button" id="showQuestionsBtn" class="btn btn-secondary">
+                <span>Answer a few quick questions</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Optional Questions Section -->
+        <div id="optionalSection" class="optional-section">
+            
+            <div class="section-header">
+                <h2>Optional: help us shape SafetyNet</h2>
+                <p>Answer a few quick questions so we can design SafetyNet around real use.</p>
+            </div>
+
+            <!-- First Name -->
+            <div class="field-group">
+                <label for="name" class="field-label">
+                    First name <span class="optional">(optional)</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name"
+                    class="form-input"
+                    placeholder="Your first name"
+                    autocomplete="given-name">
+            </div>
+
+            <!-- What would you use SafetyNet for? -->
+            <div class="field-group">
+                <label for="use-case" class="field-label">
+                    What would you use SafetyNet for? <span class="optional">(optional)</span>
+                </label>
+                <select id="use-case" name="use_case" class="form-input">
+                    <option value="">Select an option...</option>
+                    <option value="traveling-alone">Solo or work travel</option>
+                    <option value="dating">Dating (first dates, meeting new people)</option>
+                    <option value="solo-activities">Everyday activities (hiking, running, commuting)</option>
+                    <option value="general-safety">General safety for myself or loved ones</option>
+                    <option value="other">Other (please specify)</option>
+                </select>
+                <div id="otherUseCaseField" class="conditional-field">
+                    <input 
+                        type="text" 
+                        id="other-use-case" 
+                        name="other_use_case"
+                        class="form-input"
+                        placeholder="Please tell us what you'd use SafetyNet for...">
+                </div>
+            </div>
+
+            <!-- Which features interest you? -->
+            <div class="field-group">
+                <label class="field-label">
+                    Which SafetyNet features interest you? <span class="optional">(optional)</span>
+                </label>
+                <p class="help-text" style="margin-bottom: 12px;">Select all that apply</p>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="clear-safety-alert">
+                        <span class="checkbox-label"><strong>One clear Safety Alert</strong> – a single clear alert when something might be wrong</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="critical-info-available">
+                        <span class="checkbox-label"><strong>Critical Safety Info</strong> – where you are, what you're doing, who you're with</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="offline-safety-alerts">
+                        <span class="checkbox-label"><strong>Offline alerts</strong> – Safety Alerts sent even if you can't access your phone</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="privacy-by-default">
+                        <span class="checkbox-label"><strong>Private by default</strong> – nothing shared until safety matters</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="no-tracking">
+                        <span class="checkbox-label"><strong>No tracking</strong> – no 24/7 live location</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="quick-setup">
+                        <span class="checkbox-label"><strong>Fast setup</strong> – Safe Time in under a minute</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="stay-in-control">
+                        <span class="checkbox-label"><strong>You stay in control</strong> – your Safe Time, your message, your grace period</span>
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="features" value="other" id="featureOtherCheckbox">
+                        <span class="checkbox-label"><strong>Other</strong> – please specify below</span>
+                    </label>
+                </div>
+                <div id="otherFeatureField" class="conditional-field">
+                    <input 
+                        type="text" 
+                        id="other-feature" 
+                        name="other_feature"
+                        class="form-input"
+                        placeholder="Please describe the feature that interests you...">
+                </div>
+            </div>
+
+            <!-- User Testing Interest -->
+            <div class="field-group">
+                <div class="user-testing-box">
+                    <label class="field-label" style="margin-bottom: 12px;">
+                        Would you be interested in answering follow-up questions to help shape SafetyNet? <span class="optional">(optional)</span>
+                    </label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="user_testing_interest" value="yes">
+                            <span class="radio-label">Yes, happy to provide more input (and get early access)</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="user_testing_interest" value="no">
+                            <span class="radio-label">No, just keep me updated</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How did you find SafetyNet? -->
+            <div class="field-group">
+                <label for="source" class="field-label">
+                    How did you find SafetyNet? <span class="optional">(optional)</span>
+                </label>
+                <select id="source" name="source" class="form-input">
+                    <option value="">Select an option...</option>
+                    <option value="friend-family">Friend or family told me</option>
+                    <option value="social-media">Social media</option>
+                    <option value="search-engine">Search engine</option>
+                    <option value="news-article">News or article</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Anything else? -->
+            <div class="field-group">
+                <label for="other-notes" class="field-label">
+                    Anything else we should know? <span class="optional">(optional)</span>
+                </label>
+                <textarea 
+                    id="other-notes" 
+                    name="other_notes"
+                    class="form-input"
+                    placeholder="Features you'd want, concerns, or feedback... this is your safety tool."></textarea>
+            </div>
+
+            <!-- Complete Registration Button -->
+            <button type="submit" id="completeBtn" class="btn btn-primary" style="width: 100%;">
+                <span id="completeBtnText">Complete registration</span>
+                <span class="spinner" id="completeSpinner"></span>
+            </button>
+        </div>
+
+        <!-- Form Error -->
+        <div id="formError" class="form-error" role="alert">
+            <svg class="form-error-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/>
+            </svg>
+            <div class="form-error-content">
+                <h4>Unable to submit</h4>
+                <p id="formErrorMessage">Please check your connection and try again.</p>
+            </div>
+        </div>
+    </form>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        <div class="success-icon-wrap">
+            <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <h2>You're on the list!</h2>
+        <p>Thanks for your interest in SafetyNet. We'll keep you updated as we build this together.</p>
+        <p id="userTestingConfirm" class="user-testing-confirm">We'll reach out in the next 2–3 weeks with follow-up questions.</p>
+        <a class="back-link" onclick="window.location.reload()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Back to SafetyNet
+        </a>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // CONFIGURATION - Replace with your Supabase details
+    // ============================================
+    const SUPABASE_URL = 'https://igzyfbzayuimdnjhapog.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnenlmYnpheXVpbWRuamhhcG9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwNjA3MTcsImV4cCI6MjA3MDYzNjcxN30.3POIFC1Vs97GOPQCc0MJaM0GXs0f08kXcMHEWymn1Os';
+    const TABLE_NAME = 'feedback';
+
+    // ============================================
+    // DOM Elements
+    // ============================================
+    const form = document.getElementById('registrationForm');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const joinEarlyAccessBtn = document.getElementById('joinEarlyAccessBtn');
+    const joinSpinner = document.getElementById('joinSpinner');
+    const showQuestionsBtn = document.getElementById('showQuestionsBtn');
+    const mainButtons = document.getElementById('mainButtons');
+    const optionalSection = document.getElementById('optionalSection');
+    const completeBtn = document.getElementById('completeBtn');
+    const completeBtnText = document.getElementById('completeBtnText');
+    const completeSpinner = document.getElementById('completeSpinner');
+    const formError = document.getElementById('formError');
+    const formErrorMessage = document.getElementById('formErrorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const userTestingConfirm = document.getElementById('userTestingConfirm');
+    const useCaseSelect = document.getElementById('use-case');
+    const otherUseCaseField = document.getElementById('otherUseCaseField');
+    const featureOtherCheckbox = document.getElementById('featureOtherCheckbox');
+    const otherFeatureField = document.getElementById('otherFeatureField');
+
+    // ============================================
+    // Email Validation
+    // ============================================
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Real-time email validation
+    emailInput.addEventListener('blur', () => {
+        const email = emailInput.value.trim();
+        if (email && !isValidEmail(email)) {
+            emailError.classList.add('show');
+            emailInput.classList.add('error');
+        } else {
+            emailError.classList.remove('show');
+            emailInput.classList.remove('error');
+        }
+    });
+
+    emailInput.addEventListener('input', () => {
+        emailError.classList.remove('show');
+        emailInput.classList.remove('error');
+        formError.classList.remove('show');
+    });
+
+    // ============================================
+    // Show Optional Questions
+    // ============================================
+    showQuestionsBtn.addEventListener('click', () => {
+        optionalSection.classList.add('show');
+        mainButtons.style.display = 'none';
+        
+        setTimeout(() => {
+            optionalSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    });
+
+    // ============================================
+    // Conditional Field Toggles
+    // ============================================
+    useCaseSelect.addEventListener('change', () => {
+        if (useCaseSelect.value === 'other') {
+            otherUseCaseField.classList.add('show');
+        } else {
+            otherUseCaseField.classList.remove('show');
+        }
+    });
+
+    featureOtherCheckbox.addEventListener('change', () => {
+        if (featureOtherCheckbox.checked) {
+            otherFeatureField.classList.add('show');
+        } else {
+            otherFeatureField.classList.remove('show');
+        }
+    });
+
+    // ============================================
+    // Submission Handler
+    // ============================================
+    async function handleSubmission(isQuickJoin) {
+        // Clear previous errors
+        formError.classList.remove('show');
+        emailError.classList.remove('show');
+        emailInput.classList.remove('error');
+
+        // Get email
+        const email = emailInput.value.trim();
+
+        // Validate email
+        if (!email) {
+            emailError.textContent = 'Email is required';
+            emailError.classList.add('show');
+            emailInput.classList.add('error');
+            emailInput.focus();
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            emailError.textContent = 'Please enter a valid email address';
+            emailError.classList.add('show');
+            emailInput.classList.add('error');
+            emailInput.focus();
+            return;
+        }
+
+        // Get optional field values
+        const name = document.getElementById('name')?.value.trim() || '';
+        const useCase = useCaseSelect.value;
+        const otherUseCase = document.getElementById('other-use-case')?.value.trim() || '';
+        const source = document.getElementById('source')?.value || '';
+        const otherNotes = document.getElementById('other-notes')?.value.trim() || '';
+        
+        const features = Array.from(document.querySelectorAll('input[name="features"]:checked'))
+            .map(checkbox => checkbox.value);
+        
+        const otherFeature = document.getElementById('other-feature')?.value.trim() || '';
+        const userTestingInterest = document.querySelector('input[name="user_testing_interest"]:checked')?.value || null;
+
+        // Validate conditional fields if not quick join
+        if (!isQuickJoin) {
+            if (useCase === 'other' && !otherUseCase) {
+                formErrorMessage.textContent = 'Please specify what you would use SafetyNet for';
+                formError.classList.add('show');
+                document.getElementById('other-use-case').focus();
+                return;
+            }
+
+            if (featureOtherCheckbox.checked && !otherFeature) {
+                formErrorMessage.textContent = 'Please describe the feature that interests you';
+                formError.classList.add('show');
+                document.getElementById('other-feature').focus();
+                return;
+            }
+        }
+
+        // Show loading state
+        const btn = isQuickJoin ? joinEarlyAccessBtn : completeBtn;
+        const spinner = isQuickJoin ? joinSpinner : completeSpinner;
+        const btnText = isQuickJoin ? joinEarlyAccessBtn.querySelector('span:first-child') : completeBtnText;
+        const originalText = btnText.textContent;
+
+        btn.disabled = true;
+        btnText.textContent = 'Submitting...';
+        spinner.style.display = 'inline-block';
+
+        // Prepare data for Supabase
+        const feedbackData = {
+            email: email,
+            name: isQuickJoin ? null : (name || null),
+            use_case: isQuickJoin ? null : (useCase || null),
+            other_use_case: (isQuickJoin || useCase !== 'other') ? null : (otherUseCase || null),
+            features: isQuickJoin ? null : (features.length > 0 ? features : null),
+            other_feature: (isQuickJoin || !featureOtherCheckbox.checked) ? null : (otherFeature || null),
+            user_testing_interest: isQuickJoin ? null : userTestingInterest,
+            source: isQuickJoin ? null : (source || null),
+            other_notes: isQuickJoin ? null : (otherNotes || null),
+            created_at: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(feedbackData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Success - show success message
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+
+            // Show user testing confirmation if they opted in
+            if (userTestingInterest === 'yes') {
+                userTestingConfirm.classList.add('show');
+            }
+
+            // Optional: Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'feedback_submitted', {
+                    'submission_type': isQuickJoin ? 'quick_join' : 'complete',
+                    'use_case': useCase,
+                    'features_count': features.length,
+                    'user_testing_interest': userTestingInterest,
+                    'has_name': !!name,
+                    'source': source
+                });
+            }
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            
+            formErrorMessage.textContent = 'Unable to submit. Please check your connection and try again.';
+            formError.classList.add('show');
+            
+            // Reset button state
+            btn.disabled = false;
+            btnText.textContent = originalText;
+            spinner.style.display = 'none';
+
+            formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    // ============================================
+    // Event Listeners
+    // ============================================
+    joinEarlyAccessBtn.addEventListener('click', () => handleSubmission(true));
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleSubmission(false);
+    });
+</script>
+
+</body>
+</html>

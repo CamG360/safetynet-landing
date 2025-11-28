@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafetyNet - Personal Safety, Simplified</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use the 'Inter' font family -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6', // Example blue
+                            dark: '#1F2937',
+                            light: '#F9FAFB',
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <!-- Add smooth scrolling behavior and custom arrow styles -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .step-card {
+            transition: transform 0.2s;
+        }
+
+        /* Desktop Arrows between cards */
+        @media (min-width: 768px) {
+            .arrow-flow-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #D1D5DB;
+                /* gray-300 */
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-gray-800 bg-white">
+
+    <!-- [GLOBAL: STICKY NAVIGATION HEADER] -->
+    <nav aria-label="Primary" class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold text-blue-600">SafetyNet</a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors">How it Works</a>
+                    <a href="#use-cases" class="text-gray-600 hover:text-blue-600 transition-colors">Use Cases</a>
+                    <a href="#setup" class="text-gray-600 hover:text-blue-600 transition-colors">Setup</a>
+                    <!-- Outline Style Button -->
+                    <a href="#register"
+                        class="ml-4 bg-white text-blue-600 border border-blue-600 px-5 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors shadow-sm">
+                        Register your interest
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="menuBtn" aria-label="Open navigation menu" class="text-gray-700 focus:outline-none">
+                        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white shadow-lg border-t border-gray-100">
+            <a href="#how-it-works" class="block px-6 py-3 text-gray-700 hover:bg-gray-50">How it Works</a>
+            <a href="#use-cases" class="block px-6 py-3 text-gray-700 hover:bg-gray-50">Use Cases</a>
+            <a href="#setup" class="block px-6 py-3 text-gray-700 hover:bg-gray-50">Setup</a>
+            <a href="#register" class="block px-6 py-4 bg-gray-50 text-center text-blue-600 font-semibold rounded-b-lg">
+                Register your interest
+            </a>
+        </div>
+    </nav>
+
+    <!-- [SECTION 1: HERO] -->
+    <header class="container mx-auto px-6 pt-24 pb-16 md:pt-32 md:pb-20 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold max-w-3xl mx-auto leading-tight text-gray-900">
+            <span class="text-blue-600">SafetyNet</span> alerts your friend automatically if you don’t confirm you’re
+            safe.
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-8 max-w-lg mx-auto leading-relaxed">
+            <span class="italic">"Text me when you're safe."</span><br>
+            You can't text if you're not —<br>
+            <span class="font-bold text-gray-800">SafetyNet solves this.</span>
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a href="#register"
+                class="w-full sm:w-auto bg-blue-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg">
+                Register your interest
+            </a>
+            <a href="#how-it-works" class="w-full sm:w-auto text-blue-600 font-medium hover:underline py-2">
+                See how it works →
+            </a>
+        </div>
+        <p class="mt-8 text-sm md:text-base text-gray-500 font-medium">
+            Works offline <span class="mx-2 text-gray-300">•</span> Private by default <span
+                class="mx-2 text-gray-300">•</span> Customisable
+        </p>
+    </header>
+
+    <!-- [SECTION 2: THE PROBLEM] -->
+    <section class="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-12 uppercase tracking-wide">
+                The problem with "Text me when you're safe"
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 text-left">
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full">
+                    <p class="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded uppercase tracking-wide">You</span>
+                    </p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Have to remember to text <br><span
+                            class="text-gray-400 italic text-base">(what if you can't?)</span></p>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm flex flex-col h-full">
+                    <p class="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                        <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded uppercase tracking-wide">Your
+                            Friend</span>
+                    </p>
+                    <p class="text-gray-700 text-lg leading-relaxed">Waits and wonders... <br><span
+                            class="text-gray-500 italic text-base">should I be worried yet?</span></p>
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <h3 class="text-2xl md:text-3xl font-bold text-blue-600 mb-10">SafetyNet removes the ambiguity.</h3>
+
+                <ul class="space-y-4 text-left max-w-lg mx-auto mb-12">
+                    <li class="flex items-start gap-3 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6 text-green-500 shrink-0">
+                            <path fill-rule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-lg">You don't have to remember to text</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6 text-green-500 shrink-0">
+                            <path fill-rule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-lg">Your friend only gets alerted when something might be wrong</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6 text-green-500 shrink-0">
+                            <path fill-rule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-lg">No constant check-ins, no notification fatigue</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6 text-green-500 shrink-0">
+                            <path fill-rule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-lg">One clear signal when it matters</span>
+                    </li>
+                </ul>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div
+                        class="p-6 bg-red-50 rounded-xl border border-red-100 shadow-sm hover:shadow-md transition-shadow">
+                        <p class="font-semibold text-red-900 text-lg">If they receive an alert <br><span
+                                class="text-red-600 text-2xl font-bold">→ act on it</span></p>
+                    </div>
+                    <div
+                        class="p-6 bg-green-50 rounded-xl border border-green-100 shadow-sm hover:shadow-md transition-shadow">
+                        <p class="font-semibold text-green-900 text-lg">If they don't <br><span
+                                class="text-green-600 text-2xl font-bold">→ relax, you're safe</span></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- [SECTION 3: MECHANISM / CONCEPT FLOW] -->
+    <section id="how-it-works" class="py-16 md:py-24 bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 max-w-6xl">
+
+            <!-- Anchoring Header -->
+            <div class="text-center mb-16">
+                <p class="text-blue-600 font-bold tracking-widest uppercase mb-2 text-sm md:text-base">How it works</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Create your SafetyNet</h2>
+            </div>
+
+            <!-- The 3-Step Flow -->
+            <div class="flex flex-col md:flex-row justify-between items-stretch gap-8 md:gap-0">
+
+                <!-- STEP 1: SET SAFE TIME -->
+                <div
+                    class="flex-1 bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500 relative mx-2 step-card">
+                    <div
+                        class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-md">
+                        1</div>
+
+                    <div class="mt-6 text-center">
+                        <h3 class="font-bold text-xl mb-2">Set your Safe Time</h3>
+                        <p class="text-sm text-gray-500 mb-6">like setting a reminder</p>
+
+                        <!-- Visual: Phone UI Mockup (Blue) -->
+                        <div class="bg-gray-100 rounded-lg p-4 max-w-[200px] mx-auto border border-gray-200">
+                            <div
+                                class="flex items-center justify-center mb-3 bg-blue-100 py-2 rounded text-blue-800 font-bold text-sm gap-2">
+                                <!-- Clock Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                Safe Time: 22:00
+                            </div>
+                            <div class="h-2 w-3/4 bg-gray-300 rounded mb-2 mx-auto"></div>
+                            <div class="h-2 w-1/2 bg-gray-300 rounded mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARROW INDICATOR (Desktop) -->
+                <div class="hidden md:flex items-center justify-center text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
+
+                <!-- STEP 2: REMINDER / CHECK -->
+                <div
+                    class="flex-1 bg-white p-6 rounded-xl shadow-sm border-t-4 border-amber-400 relative mx-2 step-card">
+                    <div
+                        class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-amber-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-md">
+                        2</div>
+
+                    <div class="mt-6 text-center">
+                        <h3 class="font-bold text-xl mb-2">Confirm you are safe by that time</h3>
+                        <p class="text-sm text-gray-500 mb-6">with a grace period because life happens</p>
+
+                        <!-- Visual: Phone UI Mockup (Amber/Green) -->
+                        <div
+                            class="bg-gray-100 rounded-lg p-4 max-w-[200px] mx-auto border border-gray-200 relative overflow-hidden flex flex-col items-center justify-center min-h-[100px]">
+                            <!-- The Green Action Button -->
+                            <div
+                                class="bg-green-500 text-white text-sm font-bold py-2 px-4 rounded shadow-sm cursor-pointer hover:bg-green-600 transition flex items-center justify-center gap-2 w-full mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                I'm Safe
+                            </div>
+                            <!-- Binary Outcome Text -->
+                            <p class="text-[11px] text-gray-500 leading-tight">
+                                If you're safe, nothing else needs to happen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARROW INDICATOR (Desktop) -->
+                <div class="hidden md:flex items-center justify-center text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
+
+                <!-- STEP 3: SAFETY ALERT -->
+                <div class="flex-1 bg-white p-6 rounded-xl shadow-sm border-t-4 border-red-500 relative mx-2 step-card">
+                    <div
+                        class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-md">
+                        3</div>
+
+                    <div class="mt-6 text-center">
+                        <h3 class="font-bold text-xl mb-2">If you're not safe</h3>
+                        <p class="text-sm text-gray-500 mb-6">we send a Safety Alert to your friend</p>
+
+                        <!-- Visual: Phone UI Mockup (Red/Critical Info) -->
+                        <div class="bg-red-50 rounded-lg p-4 max-w-[200px] mx-auto border border-red-200 relative">
+                            <!-- Badge simulating Friend's Phone -->
+                            <div
+                                class="absolute -top-3 -right-3 bg-gray-100 text-gray-600 border border-gray-200 text-[10px] px-2 py-1 rounded tracking-wider shadow-sm whitespace-nowrap font-semibold">
+                                What your friend sees</div>
+
+                            <div class="flex flex-col gap-2 mb-2 text-left">
+                                <div
+                                    class="flex items-center justify-center mb-1 bg-red-100 py-2 rounded text-red-800 font-bold text-sm w-full gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-3 h-3">
+                                        <path fill-rule="evenodd"
+                                            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Safety Alert
+                                </div>
+                                <ul class="list-disc pl-3 space-y-1.5 mt-1 text-left">
+                                    <li class="text-[10px] text-gray-800 font-medium leading-tight">
+                                        Your Safe Time has been missed - something is wrong
+                                    </li>
+                                    <li class="text-[10px] text-gray-800 font-medium leading-tight">
+                                        A customised message from you with critical safety info.
+                                    </li>
+                                    <li class="text-[10px] text-gray-800 font-medium leading-tight">
+                                        Clear instructions on what to do next
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- DEMO BUTTON -->
+                        <button
+                            class="open-modal-btn w-full mt-6 bg-blue-600 text-white py-2 rounded-lg font-semibold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                            See demo Safety Alert
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Concept Footer -->
+            <div class="text-center mt-16">
+                <p class="text-sm text-gray-400 font-medium">
+                    Works offline <span class="mx-2 opacity-50">•</span> Private by default <span
+                        class="mx-2 opacity-50">•</span> Customisable
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- [SECTION 4: USE CASES (UPDATED)] -->
+    <section id="use-cases" class="bg-gray-50 py-24 md:py-32">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <!-- Anchoring Header -->
+            <div class="text-center mb-16">
+                <p class="text-blue-600 font-bold tracking-widest uppercase mb-2 text-sm md:text-base">Use Cases</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+                    Everyday activities
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Use Case 1: Solo Travel -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <!-- Soft UI Icon: Plane (Blue) -->
+                        <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mr-4 shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-7 h-7 text-blue-600">
+                                <path
+                                    d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">Solo Travel</h4>
+                    </div>
+                    <div class="space-y-4 flex-1">
+                        <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                            <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Safe Time</p>
+                            <p class="text-blue-900 font-medium italic">“Arriving at hotel by 10 PM”</p>
+                        </div>
+                        <div class="text-gray-600 text-sm leading-relaxed">
+                            <p class="font-bold text-gray-900 mb-3">If you're not safe, your friend receives:</p>
+
+                            <div class="mb-3">
+                                <p class="font-semibold text-gray-900 mb-1.5">Critical info:</p>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>Your hotel booking details and location</li>
+                                    <li>Flight info and expected arrival time</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p class="font-semibold text-gray-900 mb-1.5">Instructions:</p>
+                                <ol class="list-decimal pl-4 space-y-1">
+                                    <li>Call hotel to verify check-in</li>
+                                    <li>Contact police if not checked in</li>
+                                    <li>Here's my passport number and emergency contacts</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Use Case 2: First Date -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <!-- Soft UI Icon: Heart (Rose) -->
+                        <div class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mr-4 shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-7 h-7 text-pink-600">
+                                <path
+                                    d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">First Date</h4>
+                    </div>
+                    <div class="space-y-4 flex-1">
+                        <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                            <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Safe Time</p>
+                            <p class="text-blue-900 font-medium italic">“Dinner with Alex safe by 11 PM”</p>
+                        </div>
+                        <div class="text-gray-600 text-sm leading-relaxed">
+                            <p class="font-bold text-gray-900 mb-3">If you're not safe, your friend receives:</p>
+
+                            <div class="mb-3">
+                                <p class="font-semibold text-gray-900 mb-1.5">Critical info:</p>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>Restaurant name and location</li>
+                                    <li>Alex's contact info (from dating app)</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p class="font-semibold text-gray-900 mb-1.5">Instructions:</p>
+                                <ol class="list-decimal pl-4 space-y-1">
+                                    <li>Call me first</li>
+                                    <li>Try the restaurant</li>
+                                    <li>If no response after 30 min, consider contacting authorities with this info</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Use Case 3: Everyday activities -->
+                <div
+                    class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <!-- Soft UI Icon: Bolt/Activity (Amber) -->
+                        <div class="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mr-4 shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-7 h-7 text-amber-600">
+                                <path fill-rule="evenodd"
+                                    d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-900">Everyday activities</h4>
+                    </div>
+                    <div class="space-y-4 flex-1">
+                        <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                            <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-1">Safe Time</p>
+                            <p class="text-blue-900 font-medium italic">“Morning run ends 8 AM”</p>
+                        </div>
+                        <div class="text-gray-600 text-sm leading-relaxed">
+                            <p class="font-bold text-gray-900 mb-3">If you're not safe, your friend receives:</p>
+
+                            <div class="mb-3">
+                                <p class="font-semibold text-gray-900 mb-1.5">Critical info:</p>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>Your planned route and expected duration</li>
+                                    <li>When you started</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p class="font-semibold text-gray-900 mb-1.5">Instructions:</p>
+                                <ol class="list-decimal pl-4 space-y-1">
+                                    <li>Try calling</li>
+                                    <li>Check my usual route</li>
+                                    <li>Contact local police if not back within 1 hour of expected time</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SECTION 5: WHY SAFETYNET? - 6 POINTS] -->
+    <section class="bg-white py-24 md:py-32 border-t border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    WHY SAFETYNET?
+                </h2>
+                <p class="text-xl text-gray-600">The simple reasons people choose SafetyNet</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Point 1: One clear safety alert -->
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">One clear safety alert when something might be wrong
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Your friend only receives a safety alert if there’s a potential issue — not reminders or
+                        constant updates. No noise, no spam — just one clear signal when you don’t confirm you are safe.
+                    </p>
+                </div>
+
+                <!-- Point 2: Critical Info -->
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Critical info, exactly when needed</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Add private plans and context — who you’re meeting, where you’re staying, when you should be
+                        home. This Critical Safety Info is only shared with your friend if something might be wrong.
+                    </p>
+                </div>
+
+                <!-- Point 3: Proactive -->
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Proactive protection, even when you can’t reach your
+                        phone</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        If you don’t confirm you are safe by your Safe Time, SafetyNet sends an alert from our servers —
+                        even if your phone is off, dead, or out of reach.
+                    </p>
+                </div>
+
+                <!-- Point 4: No Tracking -->
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">No tracking — privacy until safety is at risk</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        SafetyNet doesn’t track your live location. Nothing is shared while you go about your day;
+                        information is only sent if you don’t confirm you are safe on time.
+                    </p>
+                </div>
+
+                <!-- Point 5: Fast Setup -->
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Takes under a minute, then runs in the background</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Set a Safe Time in under a minute. After that, simply tap “I’m Safe” when you’re done — no
+                        ongoing setup, no heavy configuration.
+                    </p>
+                </div>
+
+                <!-- Point 6: Control -->
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">You stay in control</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Choose who gets alerted, customise the message in your own words, and set a grace period that
+                        fits your routine before any alert is sent.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SECTION 6: SETUP] -->
+    <section id="setup" class="py-24 md:py-32">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">
+                Setup: 3 simple steps (under 1 min)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-xl border-t-4 border-blue-500 shadow-lg relative flex flex-col h-full">
+                    <div
+                        class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-1.5 rounded-full font-bold text-sm shadow-md tracking-wide uppercase">
+                        Step 1
+                    </div>
+
+                    <div class="mt-6 mb-6">
+                        <h4
+                            class="text-xl font-bold text-gray-900 mb-2 min-h-[3.5rem] flex items-end justify-center md:justify-start">
+                            Set your Safe Time</h4>
+                        <p class="text-gray-600 min-h-[3rem]">The time by which you would expect to be safe.</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
+                        <p class="text-sm text-gray-700"><span
+                                class="font-bold text-blue-800 block mb-1">Example:</span> Will be home by 22:00</p>
+                    </div>
+
+                    <p class="text-sm text-gray-500 italic mt-auto border-t border-gray-100 pt-4">
+                        You can change your Safe Time as life changes.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-xl border-t-4 border-blue-500 shadow-lg relative flex flex-col h-full">
+                    <div
+                        class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-1.5 rounded-full font-bold text-sm shadow-md tracking-wide uppercase">
+                        Step 2
+                    </div>
+
+                    <div class="mt-6 mb-6">
+                        <h4
+                            class="text-xl font-bold text-gray-900 mb-2 min-h-[3.5rem] flex items-end justify-center md:justify-start leading-tight">
+                            Customise your Safety Alert message</h4>
+                        <p class="text-gray-600 min-h-[3rem]">Quickly set out what you're doing and where.</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
+                        <p class="text-sm text-gray-700"><span
+                                class="font-bold text-blue-800 block mb-1">Example:</span> Last minute running date with
+                            James (Tinder) around the Lake. Call me if you get this message.</p>
+                    </div>
+
+                    <p class="text-sm text-gray-500 italic mt-auto border-t border-gray-100 pt-4">
+                        Your customised message allows the recipient to understand your specific situation and exactly
+                        what to do.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-xl border-t-4 border-blue-500 shadow-lg relative flex flex-col h-full">
+                    <div
+                        class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-1.5 rounded-full font-bold text-sm shadow-md tracking-wide uppercase">
+                        Step 3
+                    </div>
+
+                    <div class="mt-6 mb-6">
+                        <h4
+                            class="text-xl font-bold text-gray-900 mb-2 min-h-[3.5rem] flex items-end justify-center md:justify-start leading-tight">
+                            Enter your friend's contact details</h4>
+                        <p class="text-gray-600 min-h-[3rem]">Usually your emergency contact.</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
+                        <p class="text-sm text-gray-700"><span
+                                class="font-bold text-blue-800 block mb-1">Example:</span> The person you might "text
+                            when you're safe"</p>
+                    </div>
+
+                    <p class="text-sm text-gray-500 italic mt-auto border-t border-gray-100 pt-4">
+                        Your Friend would receive the Safety Alert in the event that it is triggered, along with the
+                        customised message.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [SECTION 7: REPLACED WITH "WHEN THINGS GO WRONG")] -->
+    <section class="bg-white py-16 md:py-24 border-t border-gray-100">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 sm:text-sm">
+                    Most safety tools only work when you can access your phone
+                </p>
+                <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
+                    When things go wrong, which safety tool actually protects you?
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-sm text-gray-600 sm:text-base">
+                    SafetyNet is the one tool that protects you when you can't access your phone.
+                </p>
+            </div>
+
+            <!-- "When Things Go Wrong" Table -->
+            <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+                <table class="w-full">
+                    <thead class="bg-gray-100 border-b border-gray-200">
+                        <tr class="text-left text-xs font-bold uppercase tracking-wide text-gray-700">
+                            <th class="px-6 py-4">When things go wrong</th>
+                            <th class="px-6 py-4">Ability to send a Safety Alert?</th>
+                            <th class="px-6 py-4">Critical Info Shared?</th>
+                            <th class="px-6 py-4">Works when can't access phone?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- Scenario 1 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="font-semibold text-gray-900">You can access your phone</div>
+                                <div class="text-xs text-gray-500 mt-1">Your phone is accessible, powered, in your hands
+                                </div>
+                            </td>
+                            <td class="px-6 py-4"><span class="text-green-700 font-semibold">✓ Yes</span><br><span
+                                    class="text-xs text-gray-600">(you text/call)</span></td>
+                            <td class="px-6 py-4"><span class="text-gray-600">Only if you manually add it</span></td>
+                            <td class="px-6 py-4"><span class="text-gray-600 font-semibold">N/A</span></td>
+                        </tr>
+
+                        <!-- Scenario 2 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="font-semibold text-gray-900">Someone's tracking your location</div>
+                                <div class="text-xs text-gray-500 mt-1">Life360, Find My Friends, Google Maps sharing
+                                </div>
+                            </td>
+                            <td class="px-6 py-4"><span class="text-red-600 font-semibold">No</span></td>
+                            <td class="px-6 py-4"><span class="text-red-600">Never (location only)</span></td>
+                            <td class="px-6 py-4"><span class="text-gray-600 font-semibold">N/A</span></td>
+                        </tr>
+
+                        <!-- Scenario 3: The Problem -->
+                        <tr class="bg-red-50 border-t-2 border-red-300">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-gray-900 text-base">You can't access your phone</div>
+                                <div class="text-xs text-red-700 font-semibold mt-1">Phone is dead, lost, stolen, or
+                                    physically inaccessible</div>
+                            </td>
+                            <td class="px-6 py-4"><span class="text-red-600 font-bold text-lg">✗ No</span></td>
+                            <td class="px-6 py-4"><span class="text-red-600 font-bold">✗ No</span></td>
+                            <td class="px-6 py-4"><span class="text-red-600 font-bold">✗ No</span></td>
+                        </tr>
+
+                        <!-- THE ANSWER: SafetyNet -->
+                        <tr class="bg-blue-50 border-t-2 border-blue-500">
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-gray-900 text-base">★ SafetyNet closes the gap</div>
+                                <div class="text-xs text-blue-700 font-semibold mt-1">Fills the protection gap when you
+                                    need it most</div>
+                            </td>
+                            <td class="px-6 py-4"><span class="text-blue-700 font-bold text-lg">✓ Yes</span><br><span
+                                    class="text-xs text-blue-600">Alerts sent from server, not device dependent</span>
+                            </td>
+                            <td class="px-6 py-4"><span class="text-blue-700 font-bold">✓ Yes</span><br><span
+                                    class="text-xs text-blue-600">Full critical safety info</span></td>
+                            <td class="px-6 py-4"><span class="text-blue-700 font-bold">✓ Yes</span><br><span
+                                    class="text-xs text-blue-600">Automatic safety alert sent</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Where Tools Fail Button (below table) -->
+            <div class="text-center mt-12">
+                <a href="#"
+                    class="inline-block bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
+                    Where tools fail →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- [SECTION 8: COMPARISON] -->
+    <section class="bg-gray-50 py-10 sm:py-14 md:py-16 border-t border-gray-200">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <!-- Eyebrow + heading -->
+            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 sm:text-sm">
+                Compare SafetyNet
+            </p>
+            <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
+                How SafetyNet compares to Life360 and Noonlight
+            </h2>
+            <p class="mt-3 max-w-2xl text-sm text-gray-600 sm:text-base">
+                A quick overview of the differences that matter most for everyday safety.
+            </p>
+
+            <!-- SUMMARY MATRIX -->
+            <div class="mt-8 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border-collapse text-left text-sm text-gray-600">
+                        <thead>
+                            <tr
+                                class="bg-gray-100 text-xs uppercase tracking-wide text-gray-500 border-b border-gray-200">
+                                <th class="px-4 py-3 sm:px-5">Category</th>
+                                <th class="px-4 py-3 sm:px-5 text-gray-900 font-bold">SafetyNet</th>
+                                <th class="px-4 py-3 sm:px-5">Life360</th>
+                                <th class="px-4 py-3 sm:px-5">Noonlight</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- Row 1 -->
+                            <tr>
+                                <th scope="row"
+                                    class="whitespace-nowrap px-4 py-4 text-xs font-bold text-gray-900 sm:px-5 sm:text-sm bg-gray-50/50">
+                                    How it protects you
+                                </th>
+                                <td class="px-4 py-4 sm:px-5 bg-blue-50/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-green-600 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="font-bold text-gray-900">Proactive</span>; works if you can’t reach
+                                    your phone.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <!-- Amber for Reactive (Caution) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-amber-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Reactive; depends on live tracking.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-amber-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Reactive; requires SOS action.
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr>
+                                <th scope="row"
+                                    class="whitespace-nowrap px-4 py-4 text-xs font-bold text-gray-900 sm:px-5 sm:text-sm bg-gray-50/50">
+                                    Location &amp; sharing
+                                </th>
+                                <td class="px-4 py-4 sm:px-5 bg-blue-50/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-green-600 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="font-bold text-gray-900">No tracking</span>; private until safety is at
+                                    risk.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <!-- Amber for Warning (Tracking) -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-amber-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Continuous GPS tracking.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <!-- Gray for limitation -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-gray-400 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 11-1.06 1.06L12 13.06l-2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    GPS shared only during SOS.
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr>
+                                <th scope="row"
+                                    class="whitespace-nowrap px-4 py-4 text-xs font-bold text-gray-900 sm:px-5 sm:text-sm bg-gray-50/50">
+                                    Critical Safety Info
+                                </th>
+                                <td class="px-4 py-4 sm:px-5 bg-blue-50/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-green-600 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="font-bold text-gray-900">Yes</span> — your private plans, shared only
+                                    when needed.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <!-- Red X for No -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-red-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    No — no context beyond location.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-red-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    No — no context beyond location.
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr>
+                                <th scope="row"
+                                    class="whitespace-nowrap px-4 py-4 text-xs font-bold text-gray-900 sm:px-5 sm:text-sm bg-gray-50/50">
+                                    Ease of use
+                                </th>
+                                <td class="px-4 py-4 sm:px-5 bg-blue-50/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-green-600 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    1-minute setup; best for everyday life.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <!-- Gray for Neutral -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-gray-400 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Multi-step setup; best for families.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-gray-400 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Simple; best for emergencies.
+                                </td>
+                            </tr>
+
+                            <!-- Row 5 -->
+                            <tr>
+                                <th scope="row"
+                                    class="whitespace-nowrap px-4 py-4 text-xs font-bold text-gray-900 sm:px-5 sm:text-sm bg-gray-50/50">
+                                    Reliability
+                                </th>
+                                <td class="px-4 py-4 sm:px-5 bg-blue-50/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-green-600 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Alerts raised without device; works worldwide.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-red-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Device-dependent.
+                                </td>
+                                <td class="px-4 py-4 sm:px-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="w-5 h-5 text-red-500 inline-block mr-1 align-text-bottom">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM8.47 8.47a.75.75 0 011.06 0L12 10.94l2.47-2.47a.75.75 0 111.06 1.06L13.06 12l2.47 2.47a.75.75 0 01-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Device-dependent.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [FOOTER] -->
+     <section id="register" class="py-16 bg-gray-50 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900">Secure Your Spot</h2>
+                <p class="text-gray-600 mt-2">Join the waitlist for early access.</p>
+            </div>
+            
+            <iframe 
+                src="form.html" 
+                width="100%" 
+                height="750px" 
+                frameborder="0" 
+                style="border: none; overflow: hidden; max-width: 600px; margin: 0 auto; display: block; background: transparent;"
+                scrolling="no">
+            </iframe>
+        </div>
+    </section>
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <p class="text-xl font-bold text-blue-600">SafetyNet</p>
+            <p class="text-gray-600 mt-2">Your SafetyNet. Anywhere. Anytime.</p>
+            <div class="mt-8 pt-8 border-t border-gray-100">
+                <p class="text-sm text-gray-500">
+                    © 2025 SafetyNet |
+                    <a href="#" class="hover:text-blue-600 underline">Privacy Policy</a> |
+                    <a href="#" class="hover:text-blue-600 underline">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- [MODAL WINDOW: PREVIEW SAFETY ALERT - UPDATED VERSION] -->
+    <div id="alertModal"
+        class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-6 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl max-w-xl w-full relative overflow-hidden">
+            <!-- Close Button -->
+            <button id="closeModalBtn" aria-label="Close sample alert"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10 bg-white rounded-full p-1.5 shadow-sm">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Email Header (Gmail-style) -->
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-5 h-5 text-red-600">
+                            <path fill-rule="evenodd"
+                                d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-sm font-semibold text-gray-900">SafetyNet Alert</div>
+                        <div class="text-xs text-gray-500">to Kate</div>
+                    </div>
+                    <div class="text-xs text-gray-400">Just now</div>
+                </div>
+                <h3 class="text-base font-bold text-gray-900 leading-snug">
+                    SafetyNet Alert – Missed Safe Time for "Last minute two day trip to LA"
+                </h3>
+            </div>
+
+            <!-- Email Body -->
+            <div class="p-6 max-h-[70vh] overflow-y-auto space-y-4">
+
+                <!-- Greeting -->
+                <p class="text-gray-800">Hi Kate,</p>
+
+                <p class="text-sm text-gray-600">
+                    I asked SafetyNet to alert you if I didn't confirm I was safe on time.
+                </p>
+
+                <!-- Plan Details -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Plan Details</div>
+                    <div class="text-sm space-y-1.5">
+                        <div class="font-semibold text-gray-900 italic mb-2">"Last minute two day trip to LA"</div>
+                        <div class="text-gray-700">– Staying at Airbnb in West Hollywood</div>
+                        <div class="text-gray-700">– Address: <span class="text-blue-600 underline cursor-pointer">123
+                                Example St, West Hollywood, CA</span></div>
+                        <div class="text-gray-700">– Expected check-in: 11pm</div>
+                        <div class="text-gray-700">– Meeting James (Tinder), phone: <span class="text-blue-600">+61 456
+                                334 234</span></div>
+                    </div>
+                </div>
+
+                <!-- Missed Safe Time Alert -->
+                <div class="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+                    <div class="flex items-start gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5">
+                            <path fill-rule="evenodd"
+                                d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <div class="flex-1">
+                            <div class="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">Missed Safe Time
+                            </div>
+                            <div class="text-sm text-red-900">
+                                I was supposed to confirm I was safe by <strong>16 Nov, 23:00</strong> and I didn't.
+                            </div>
+                            <div class="text-xs text-red-700 italic mt-1">
+                                Alert sent: 16 Nov, 23:15 (15 min after grace period)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What You Can Do -->
+                <div class="bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-4">
+                    <div class="text-xs font-bold text-amber-900 uppercase tracking-wider mb-2">What you can do:</div>
+                    <ol class="text-sm text-amber-900 space-y-2 list-decimal list-inside">
+                        <li><strong>Try to reach me</strong> – Call or text my number</li>
+                        <li><strong>If no response within 30 min</strong> – Try James (contact above)</li>
+                        <li><strong>If still no contact</strong> – Consider local authorities or Airbnb host</li>
+                    </ol>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 pt-2">
+                    <button
+                        class="flex-1 bg-blue-600 text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                            <path fill-rule="evenodd"
+                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Call Now
+                    </button>
+                    <button
+                        class="flex-1 bg-gray-600 text-white px-4 py-2.5 rounded-lg font-semibold text-sm hover:bg-gray-700 transition-colors flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                            <path
+                                d="M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 00-1.032-.211 50.89 50.89 0 00-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 002.433 3.984L7.28 21.53A.75.75 0 016 21v-4.03a48.527 48.527 0 01-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979z" />
+                            <path
+                                d="M15.75 7.5c-1.376 0-2.739.057-4.086.169C10.124 7.797 9 9.103 9 10.609v4.285c0 1.507 1.128 2.814 2.67 2.94 1.243.102 2.5.157 3.768.165l2.782 2.781a.75.75 0 001.28-.53v-2.39l.33-.026c1.542-.125 2.67-1.433 2.67-2.94v-4.286c0-1.505-1.125-2.811-2.664-2.94A49.392 49.392 0 0015.75 7.5z" />
+                        </svg>
+                        Send SMS
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Footer Context -->
+            <div class="bg-gray-50 px-6 py-3 border-t border-gray-100 text-center">
+                <p class="text-xs text-gray-500 text-center">
+                    This is what your emergency contact receives if you don't confirm you're safe
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript for Mobile Menu and Modal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Modal Toggle
+            const openModalBtns = document.querySelectorAll('.open-modal-btn'); // Updated to querySelectorAll
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const alertModal = document.getElementById('alertModal');
+
+            if (openModalBtns.length > 0 && closeModalBtn && alertModal) {
+                openModalBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        alertModal.classList.remove('hidden');
+                    });
+                });
+
+                closeModalBtn.addEventListener('click', () => {
+                    alertModal.classList.add('hidden');
+                });
+
+                // Close modal by clicking on the background overlay
+                alertModal.addEventListener('click', (e) => {
+                    if (e.target === alertModal) {
+                        alertModal.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Comparison Table Toggle
+            const toggleComparisonBtn = document.getElementById('toggleComparisonBtn');
+            const detailedComparison = document.getElementById('detailedComparison');
+            if (toggleComparisonBtn && detailedComparison) {
+                toggleComparisonBtn.addEventListener('click', () => {
+                    detailedComparison.classList.toggle('hidden');
+                    toggleComparisonBtn.textContent = detailedComparison.classList.contains('hidden')
+                        ? "Show detailed comparison"
+                        : "Hide detailed comparison";
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
