@@ -524,7 +524,7 @@
             <!-- Form Header -->
             <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-8 text-center rounded-t-2xl">
                 <h1 class="text-3xl font-bold text-white mb-2">Join the Waitlist</h1>
-                <p class="text-blue-100">Be first to try SafetyNet — one clear alert when you can't respond.</p>
+                <p class="text-blue-100">Automatic safety alerts when you can't reach your phone</p>
             </div>
 
             <!-- Form Body -->
@@ -542,7 +542,7 @@
                         <div class="spinner border-white" id="joinSpinner"></div>
                     </button>
                     <button type="button" id="showQuestionsBtn" class="w-full py-3 bg-white text-blue-600 font-bold border-2 border-blue-100 rounded-xl hover:bg-blue-50 transition">
-                        Answer a few quick questions
+                        or answer a few quick questions first
                     </button>
                 </div>
 
@@ -556,23 +556,24 @@
                     </div>
 
                     <div class="mb-6">
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Primary Use Case</label>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">When would you likely use SafetyNet (select all that apply)</label>
                         <select id="use-case" class="w-full p-3 border border-slate-300 rounded-xl bg-white">
                             <option value="">Select an option...</option>
                             <option value="traveling-alone">Solo Travel</option>
                             <option value="dating">Dating</option>
                             <option value="solo-activities">Running/Hiking</option>
                             <option value="everyday-activities">Everyday Activities</option>
+                            <option value="other">Other (please specify)</option>
                         </select>
                     </div>
 
                     <div class="mb-6">
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Anything else we should know? <span class="font-normal text-slate-400">(optional)</span></label>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Anything else you would like to add? <span class="font-normal text-slate-400">(optional)</span></label>
                         <textarea id="other-notes" class="w-full p-3 border border-slate-300 rounded-xl" rows="3" placeholder="Features, concerns, or ideas..."></textarea>
                     </div>
 
                     <button type="submit" id="completeBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
-                        <span>Complete Registration</span>
+                        <span>Join Now</span>
                         <div class="spinner border-white" id="completeSpinner"></div>
                     </button>
                 </div>
