@@ -49,6 +49,179 @@
             transform: scale(1);
             opacity: 1;
         }
+
+        /* SafetyNet Alert Card Styles */
+        .alert-card {
+            --alert-red: #E53935;
+            --alert-red-light: #FFEBEE;
+            --alert-red-dark: #C62828;
+            --text-primary: #1a1a2e;
+            --text-secondary: #64748b;
+            --bg-card: #ffffff;
+            --border-subtle: #e2e8f0;
+        }
+
+        .alert-header {
+            background: var(--alert-red);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .alert-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .alert-icon svg {
+            width: 14px;
+            height: 14px;
+            fill: white;
+        }
+
+        .alert-title {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .alert-content {
+            padding: 28px 24px 24px;
+        }
+
+        .missed-label {
+            color: var(--alert-red);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .time-display {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .time-context {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .progress-container {
+            height: 6px;
+            background: var(--alert-red-light);
+            border-radius: 3px;
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--alert-red);
+            border-radius: 3px;
+            width: 100%;
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .instructions-header {
+            font-size: 13px;
+            color: var(--alert-red);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .context-item {
+            padding: 8px 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .context-label-inline {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .context-value-inline {
+            color: var(--text-primary);
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .instruction-item:last-child {
+            border-bottom: none;
+        }
+
+        .instruction-number {
+            width: 24px;
+            height: 24px;
+            background: var(--alert-red-light);
+            color: var(--alert-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .instruction-text {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body class="text-slate-800 bg-white">
@@ -110,56 +283,116 @@
             </div>
 
             <!-- Right: Visual Context (COMPACT DISPLAY) -->
-            <div class="relative mt-12 lg:mt-0 flex justify-center lg:justify-end">
-                <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-purple-50 rounded-full blur-3xl opacity-60 w-3/4 h-3/4 mx-auto my-auto"></div>
+            <div class="relative mt-12 lg:mt-0">
+                <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-purple-50 rounded-full blur-3xl opacity-60"></div>
 
-                <!-- Active Status Widget -->
-                <div class="relative w-full max-w-[320px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
-                    <!-- Header Strip -->
-                    <div class="bg-blue-600 px-5 py-3 flex justify-between items-center">
-                        <div class="flex items-center text-white gap-2">
-                            <i data-lucide="shield-check" class="w-4 h-4"></i>
-                            <span class="text-xs font-bold uppercase tracking-wider">SafetyNet Active</span>
+                <!-- Container for both cards: stacked on mobile, side by side on desktop -->
+                <div class="relative flex flex-col lg:flex-row gap-6 justify-center lg:justify-end">
+
+                    <!-- Active Status Widget -->
+                    <div class="w-full max-w-[320px] mx-auto lg:mx-0 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
+                        <!-- Header Strip -->
+                        <div class="bg-blue-600 px-5 py-3 flex justify-between items-center">
+                            <div class="flex items-center text-white gap-2">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold uppercase tracking-wider">SafetyNet Active</span>
+                            </div>
+                            <div class="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
                         </div>
-                        <div class="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
+
+                        <!-- Main Card Content -->
+                        <div class="p-6">
+                            <div class="flex justify-between items-end mb-4">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wide">Check-in Safe:</span>
+                                    <div class="text-3xl font-bold text-slate-900 mt-1">1 hr 28 mins</div>
+                                </div>
+                                <!-- Edit Button -->
+                                <div class="text-right">
+                                    <button class="text-slate-400 hover:text-blue-600 transition flex items-center gap-1 text-xs font-bold bg-slate-50 hover:bg-slate-100 px-2 py-1 rounded">
+                                        <i data-lucide="pencil" class="w-3 h-3"></i> Edit
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-5">
+                                <div class="bg-blue-600 w-3/4 h-full rounded-full"></div>
+                            </div>
+
+                            <!-- Info Text -->
+                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-4">
+                                <p class="text-sm text-slate-600 leading-relaxed">
+                                    If you can't check-in safe, an <span class="font-semibold text-slate-900">alert</span> will be sent to your emergency <strong class="text-slate-900">contact</strong>.
+                                </p>
+                            </div>
+
+                            <!-- Action Button -->
+                            <button class="w-full py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition flex items-center justify-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                I'm Safe
+                            </button>
+                                <p class="text-sm text-slate-600 leading-relaxed">
+                                    If safe, nothing else happens
+                                </p>
+                        </div>
                     </div>
 
-                    <!-- Main Card Content -->
-                    <div class="p-6">
-                        <div class="flex justify-between items-end mb-4">
-                            <div>
-                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wide">Check-in Safe:</span>
-                                <div class="text-3xl font-bold text-slate-900 mt-1">1 hr 28 mins</div>
+                    <!-- Safety Alert Widget -->
+                    <div class="alert-card w-full max-w-[320px] mx-auto lg:mx-0 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
+                        <!-- Alert Header -->
+                        <div class="alert-header">
+                            <div class="alert-badge">
+                                <div class="alert-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                                    </svg>
+                                </div>
+                                <span class="alert-title">Safety Alert</span>
                             </div>
-                            <!-- Edit Button -->
-                            <div class="text-right">
-                                <button class="text-slate-400 hover:text-blue-600 transition flex items-center gap-1 text-xs font-bold bg-slate-50 hover:bg-slate-100 px-2 py-1 rounded">
-                                    <i data-lucide="pencil" class="w-3 h-3"></i> Edit
-                                </button>
+                            <div class="pulse-dot"></div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="alert-content">
+                            <div class="intro-text">Alex asked us to contact you when something might be wrong.</div>
+
+                            <div class="missed-label">Check In Safe Time Missed:</div>
+                            <div class="time-display">23:00</div>
+                            <div class="time-context">+ 30 min grace period passed</div>
+
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                            </div>
+
+                            <!-- Essential Context Section -->
+                            <div class="instructions-header">Essential Context</div>
+                            <div class="context-item">
+                                <span class="context-label-inline">Plan:</span>
+                                <span class="context-value-inline">Last minute trip to meet James</span>
+                            </div>
+                            <div class="context-item">
+                                <span class="context-label-inline">Location:</span>
+                                <span class="context-value-inline">123 Sunset Blvd, West Hollywood</span>
+                            </div>
+
+                            <!-- Instructions -->
+                            <div class="instructions-header" style="margin-top: 24px;">What to do</div>
+                            <div class="instruction-item">
+                                <div class="instruction-number">1</div>
+                                <div class="instruction-text">Call Alex</div>
+                            </div>
+                            <div class="instruction-item">
+                                <div class="instruction-number">2</div>
+                                <div class="instruction-text">Go to the location above</div>
+                            </div>
+                            <div class="instruction-item">
+                                <div class="instruction-number">3</div>
+                                <div class="instruction-text">Call emergency services if needed</div>
                             </div>
                         </div>
-
-                        <!-- Progress Bar -->
-                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-5">
-                            <div class="bg-blue-600 w-3/4 h-full rounded-full"></div>
-                        </div>
-
-                        <!-- Info Text -->
-                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-4">
-                            <p class="text-sm text-slate-600 leading-relaxed">
-                                If you can't check-in safe, an <span class="font-semibold text-slate-900">alert</span> will be sent to your emergency <strong class="text-slate-900">contact</strong>.
-                            </p>
-                        </div>
-
-                        <!-- Action Button -->
-                        <button class="w-full py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition flex items-center justify-center gap-2">
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                            I'm Safe
-                        </button>
-                            <p class="text-sm text-slate-600 leading-relaxed">
-                                If safe, nothing else happens  
-                            </p>
                     </div>
+
                 </div>
             </div>
         </div>
