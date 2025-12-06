@@ -157,9 +157,17 @@
                             I'm Safe
                         </button>
                             <p class="text-sm text-slate-600 leading-relaxed">
-                                If safe, nothing else happens  
+                                If safe, nothing else happens
                             </p>
                     </div>
+                </div>
+
+                <!-- Safety Alert Demo Button -->
+                <div class="relative w-full max-w-[320px] mt-4">
+                    <button class="open-alert-demo w-full bg-red-50 text-red-700 font-bold py-3 px-4 rounded-xl border border-red-100 hover:bg-red-100 hover:border-red-200 transition flex items-center justify-center gap-2 group">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                        Click for Safety Alert demo
+                    </button>
                 </div>
             </div>
         </div>
@@ -626,11 +634,13 @@
 
         // --- Alert Demo Modal ---
         const alertModal = document.getElementById('alertDemoModal');
-        const openAlertBtn = document.getElementById('openAlertDemoBtn');
+        const openAlertBtns = document.querySelectorAll('.open-alert-demo, #openAlertDemoBtn');
         const closeAlertBtn = document.getElementById('closeAlertDemoBtn');
 
-        if (openAlertBtn && closeAlertBtn && alertModal) {
-            openAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+        if (closeAlertBtn && alertModal) {
+            openAlertBtns.forEach(btn => {
+                btn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+            });
             closeAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', false));
             alertModal.addEventListener('click', (e) => {
                 if (e.target === alertModal) toggleModal('alertDemoModal', false);
