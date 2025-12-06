@@ -339,9 +339,19 @@
                     </div>
 
                     <!-- Safety Alert Demo Button -->
-                    <button id="heroSafetyAlertBtn" class="mt-6 w-full max-w-[340px] bg-red-50 text-red-700 font-bold py-3 px-4 rounded-xl border border-red-200 hover:bg-red-100 hover:border-red-300 transition flex items-center justify-center gap-2 group">
-                        <i data-lucide="alert-circle" class="w-4 h-4"></i>
-                        Automatic Safety Alert Demo
+                    <button id="heroSafetyAlertBtn" class="mt-6 w-full max-w-sm bg-red-50 hover:bg-red-100 text-red-800 border border-red-100 p-4 rounded-xl flex items-center justify-between gap-4 transition-all hover:shadow-md group z-10 relative text-left">
+
+                        <div class="flex items-center gap-3">
+                            <div class="bg-white p-2 rounded-lg text-red-500 shadow-sm border border-red-50">
+                                <i data-lucide="alert-triangle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-base leading-tight">Automatic Safety Alert Demo</div>
+                                <div class="text-xs text-red-600/70 font-medium mt-0.5">Sends your customised context & instructions</div>
+                            </div>
+                        </div>
+
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-red-300 group-hover:translate-x-1 transition-transform"></i>
                     </button>
 
                 </div>
