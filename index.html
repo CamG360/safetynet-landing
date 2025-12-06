@@ -286,11 +286,11 @@
             <div class="relative mt-12 lg:mt-0">
                 <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-purple-50 rounded-full blur-3xl opacity-60"></div>
 
-                <!-- Container for both cards: stacked on mobile, side by side on desktop -->
-                <div class="relative flex flex-col lg:flex-row gap-6 justify-center lg:justify-end">
+                <!-- Container for SafetyNet widget -->
+                <div class="relative flex flex-col items-center">
 
-                    <!-- Active Status Widget -->
-                    <div class="w-full max-w-[320px] mx-auto lg:mx-0 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
+                    <!-- Active Status Widget (Compact Version) -->
+                    <div class="w-full max-w-[340px] mx-auto bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
                         <!-- Header Strip -->
                         <div class="bg-blue-600 px-5 py-3 flex justify-between items-center">
                             <div class="flex items-center text-white gap-2">
@@ -300,9 +300,9 @@
                             <div class="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
                         </div>
 
-                        <!-- Main Card Content -->
-                        <div class="p-6">
-                            <div class="flex justify-between items-end mb-4">
+                        <!-- Main Card Content (Compact) -->
+                        <div class="p-5">
+                            <div class="flex justify-between items-end mb-3">
                                 <div>
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wide">Check-in Safe:</span>
                                     <div class="text-3xl font-bold text-slate-900 mt-1">1 hr 28 mins</div>
@@ -316,12 +316,12 @@
                             </div>
 
                             <!-- Progress Bar -->
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-5">
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-4">
                                 <div class="bg-blue-600 w-3/4 h-full rounded-full"></div>
                             </div>
 
-                            <!-- Info Text -->
-                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-4">
+                            <!-- Info Text (Compact) -->
+                            <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 mb-3">
                                 <p class="text-sm text-slate-600 leading-relaxed">
                                     If you can't check-in safe, an <span class="font-semibold text-slate-900">alert</span> will be sent to your emergency <strong class="text-slate-900">contact</strong>.
                                 </p>
@@ -332,66 +332,17 @@
                                 <i data-lucide="check" class="w-4 h-4"></i>
                                 I'm Safe
                             </button>
-                                <p class="text-sm text-slate-600 leading-relaxed">
-                                    If safe, nothing else happens
-                                </p>
+                            <p class="text-xs text-center text-slate-500 mt-2">
+                                If safe, nothing else happens
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Safety Alert Widget -->
-                    <div class="alert-card w-full max-w-[320px] mx-auto lg:mx-0 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
-                        <!-- Alert Header -->
-                        <div class="alert-header">
-                            <div class="alert-badge">
-                                <div class="alert-icon">
-                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-                                    </svg>
-                                </div>
-                                <span class="alert-title">Safety Alert</span>
-                            </div>
-                            <div class="pulse-dot"></div>
-                        </div>
-
-                        <!-- Main Content -->
-                        <div class="alert-content">
-                            <div class="intro-text">Alex asked us to contact you when something might be wrong.</div>
-
-                            <div class="missed-label">Check In Safe Time Missed:</div>
-                            <div class="time-display">23:00</div>
-                            <div class="time-context">+ 30 min grace period passed</div>
-
-                            <div class="progress-container">
-                                <div class="progress-bar"></div>
-                            </div>
-
-                            <!-- Essential Context Section -->
-                            <div class="instructions-header">Essential Context</div>
-                            <div class="context-item">
-                                <span class="context-label-inline">Plan:</span>
-                                <span class="context-value-inline">Last minute trip to meet James</span>
-                            </div>
-                            <div class="context-item">
-                                <span class="context-label-inline">Location:</span>
-                                <span class="context-value-inline">123 Sunset Blvd, West Hollywood</span>
-                            </div>
-
-                            <!-- Instructions -->
-                            <div class="instructions-header" style="margin-top: 24px;">What to do</div>
-                            <div class="instruction-item">
-                                <div class="instruction-number">1</div>
-                                <div class="instruction-text">Call Alex</div>
-                            </div>
-                            <div class="instruction-item">
-                                <div class="instruction-number">2</div>
-                                <div class="instruction-text">Go to the location above</div>
-                            </div>
-                            <div class="instruction-item">
-                                <div class="instruction-number">3</div>
-                                <div class="instruction-text">Call emergency services if needed</div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Safety Alert Demo Button -->
+                    <button id="heroSafetyAlertBtn" class="mt-6 w-full max-w-[340px] bg-red-50 text-red-700 font-bold py-3 px-4 rounded-xl border border-red-200 hover:bg-red-100 hover:border-red-300 transition flex items-center justify-center gap-2 group">
+                        <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                        Safety Alert Demo
+                    </button>
 
                 </div>
             </div>
@@ -701,49 +652,62 @@
 
     <!-- [MODAL 1: DEMO ALERT] -->
     <div id="alertDemoModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm overflow-y-auto">
-        <div class="bg-white rounded-xl shadow-2xl max-w-xl w-full relative modal-content">
-            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center rounded-t-xl">
-                <h3 class="text-sm font-semibold text-gray-700">Preview: What your contact receives</h3>
-                <button id="closeAlertDemoBtn" class="text-gray-400 hover:text-gray-600">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            <div class="p-6 max-h-[75vh] overflow-y-auto">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                        <i data-lucide="shield-alert" class="w-5 h-5 text-red-600"></i>
+        <div class="relative max-w-md w-full modal-content">
+            <button id="closeAlertDemoBtn" class="absolute -top-3 -right-3 bg-white rounded-full p-2 shadow-xl hover:bg-gray-100 transition z-10">
+                <i data-lucide="x" class="w-5 h-5 text-gray-600"></i>
+            </button>
+
+            <!-- Safety Alert Widget (Demo) -->
+            <div class="alert-card w-full bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+                <!-- Alert Header -->
+                <div class="alert-header">
+                    <div class="alert-badge">
+                        <div class="alert-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                            </svg>
+                        </div>
+                        <span class="alert-title">Safety Alert</span>
                     </div>
-                    <div>
-                        <div class="text-sm font-bold text-gray-900">SafetyNet Alert</div>
-                        <div class="text-xs text-gray-500">Subject: Missed Check-in for "LA Trip"</div>
-                    </div>
+                    <div class="pulse-dot"></div>
                 </div>
-                <div class="space-y-4">
-                    <p class="text-gray-800 text-sm">Hi Kate,<br><br>I asked SafetyNet to alert you if I didn't confirm I was safe on time.</p>
-                    <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-4">
-                        <div class="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">The Plan</div>
-                        <div class="text-sm space-y-1.5 text-gray-700">
-                            <p><strong>Context:</strong> "Last minute trip to meet James"</p>
-                            <p><strong>Location:</strong> 123 Sunset Blvd, West Hollywood</p>
-                            <p><strong>Expected Safe Time:</strong> 11:00 PM</p>
-                        </div>
+
+                <!-- Main Content -->
+                <div class="alert-content">
+                    <div class="intro-text">Alex asked us to contact you when something might be wrong.</div>
+
+                    <div class="missed-label">Check In Safe Time Missed:</div>
+                    <div class="time-display">23:00</div>
+                    <div class="time-context">+ 30 min grace period passed</div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
                     </div>
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                        <div class="flex items-start gap-3">
-                            <i data-lucide="alert-circle" class="w-5 h-5 text-red-600 mt-0.5"></i>
-                            <div>
-                                <h4 class="text-sm font-bold text-red-700">Missed Check-in</h4>
-                                <p class="text-sm text-red-800 mt-1">I did not check in by 11:00 PM (plus 15m grace period). This alert was sent automatically.</p>
-                            </div>
-                        </div>
+
+                    <!-- Essential Context Section -->
+                    <div class="instructions-header">Essential Context</div>
+                    <div class="context-item">
+                        <span class="context-label-inline">Plan:</span>
+                        <span class="context-value-inline">Last minute trip to meet James</span>
                     </div>
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">My Instructions</h4>
-                        <ol class="list-decimal pl-4 text-sm text-slate-700 space-y-2">
-                            <li>Try calling my phone first.</li>
-                            <li>If no answer in 30 mins, call the hotel (Reception: +1 555 0199).</li>
-                            <li>My location was last active at the hotel address.</li>
-                        </ol>
+                    <div class="context-item">
+                        <span class="context-label-inline">Location:</span>
+                        <span class="context-value-inline">123 Sunset Blvd, West Hollywood</span>
+                    </div>
+
+                    <!-- Instructions -->
+                    <div class="instructions-header" style="margin-top: 24px;">What to do</div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">1</div>
+                        <div class="instruction-text">Call Alex</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">2</div>
+                        <div class="instruction-text">Go to the location above</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">3</div>
+                        <div class="instruction-text">Call emergency services if needed</div>
                     </div>
                 </div>
             </div>
@@ -860,10 +824,18 @@
         // --- Alert Demo Modal ---
         const alertModal = document.getElementById('alertDemoModal');
         const openAlertBtn = document.getElementById('openAlertDemoBtn');
+        const heroSafetyAlertBtn = document.getElementById('heroSafetyAlertBtn');
         const closeAlertBtn = document.getElementById('closeAlertDemoBtn');
 
-        if (openAlertBtn && closeAlertBtn && alertModal) {
-            openAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+        if (closeAlertBtn && alertModal) {
+            // Hero section button
+            if (heroSafetyAlertBtn) {
+                heroSafetyAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+            }
+            // "How it works" section button
+            if (openAlertBtn) {
+                openAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+            }
             closeAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', false));
             alertModal.addEventListener('click', (e) => {
                 if (e.target === alertModal) toggleModal('alertDemoModal', false);
