@@ -349,74 +349,123 @@
         </div>
     </header>
 
-    <!-- [SECTION 2: THE PROBLEM] -->
-    <section id="problem" class="py-24 bg-slate-50">
+    <!-- NEW SECTION: THE PROBLEM / SOLUTION -->
+    <section id="problem" class="bg-white py-24 relative overflow-hidden border-t border-slate-100">
         <div class="max-w-4xl mx-auto px-6">
+
+            <!-- Section Header -->
             <div class="text-center mb-16">
-                <h2 class="text-sm font-bold text-slate-500 tracking-widest uppercase mb-3">The Old Way vs. The New Way</h2>
-                <h3 class="text-3xl font-bold text-slate-900">The Limits of "Text Me When You're Safe"</h3>
+                <span class="text-blue-600 font-semibold tracking-wider text-sm uppercase">The Old Way vs The New Way</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mt-2">The Limits of "Text Me When You're Safe"</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 mb-12">
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group hover:border-red-200 transition">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-slate-200 group-hover:bg-red-400 transition"></div>
-                    <h4 class="text-lg font-bold text-slate-900 mb-2 uppercase tracking-wide">You</h4>
-                    <p class="text-xl text-slate-600 font-medium leading-relaxed">
-                        You can't text if <br><span class="text-red-500 font-bold">something happens.</span>
+            <!-- 1. THE PROBLEM (The Anxiety Gap) -->
+            <div class="grid md:grid-cols-2 gap-4 mb-8">
+                <!-- Left: You -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 relative group hover:border-red-200 transition-colors">
+                    <div class="absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white border border-slate-200 p-1.5 rounded-full text-slate-300 md:block hidden">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4 text-slate-400"></i> YOU
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        You can't text if <span class="text-red-500 font-semibold bg-red-50 px-1 rounded">something happens</span>. You are physically unable to reach your phone.
                     </p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden group hover:border-red-200 transition">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-slate-200 group-hover:bg-red-400 transition"></div>
-                    <h4 class="text-lg font-bold text-slate-900 mb-2 uppercase tracking-wide">Your friends or family</h4>
-                    <p class="text-xl text-slate-600 font-medium leading-relaxed">
-                        Wait for a text and wonder... <br><span class="italic text-slate-500">"Are they just busy?"</span>
+
+                <!-- Right: Family -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:border-orange-200 transition-colors">
+                    <h3 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4 text-slate-400"></i> FAMILY & FRIENDS
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        They wait for a text and wonder... <br>
+                        <span class="italic text-slate-500">"Are they just busy? Or in trouble?"</span>
                     </p>
                 </div>
             </div>
 
-            <div class="text-center mb-12 relative">
-                <div class="absolute inset-0 flex items-center" aria-hidden="true"><div class="w-full border-t border-slate-200"></div></div>
-                <div class="relative flex justify-center"><span class="px-6 py-2 bg-blue-600 text-white text-lg font-bold rounded-full shadow-lg">SafetyNet solves this.</span></div>
+            <!-- 2. THE BRIDGE (Visual Connector) -->
+            <div class="flex justify-center -my-5 relative z-10">
+                <div class="bg-blue-600 text-white px-6 py-2 rounded-full shadow-lg shadow-blue-200 text-sm font-bold flex items-center gap-2 ring-4 ring-white">
+                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                    SafetyNet solves this
+                </div>
             </div>
 
-            <!-- Value Points -->
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-blue-100">
-                <div class="grid gap-8">
-                    <ul class="space-y-6">
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mt-1"><i data-lucide="zap" class="w-5 h-5 text-blue-600"></i></div>
-                            <div class="ml-4"><h5 class="text-lg font-bold text-slate-900">Automatic Safety</h5><p class="text-slate-600">System monitors your <strong class="text-slate-800">safety status</strong> so you don't have to.</p></div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mt-1"><i data-lucide="bell-off" class="w-5 h-5 text-blue-600"></i></div>
-                            <div class="ml-4"><h5 class="text-lg font-bold text-slate-900">No False Alarms</h5><p class="text-slate-600">Contacts are <em>only</em> alerted if you <strong class="text-slate-800">miss your check-in</strong>.</p></div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mt-1"><i data-lucide="file-text" class="w-5 h-5 text-blue-600"></i></div>
-                            <div class="ml-4"><h5 class="text-lg font-bold text-slate-900">Essential Context</h5><p class="text-slate-600"><strong class="text-slate-800">Safety Alerts</strong> include plans & instructions immediately.</p></div>
-                        </li>
-                        <!-- Zero Fatigue -->
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mt-1"><i data-lucide="moon" class="w-5 h-5 text-blue-600"></i></div>
-                            <div class="ml-4"><h5 class="text-lg font-bold text-slate-900">Zero Fatigue</h5><p class="text-slate-600">No constant check-ins with friends, no notification spam.</p></div>
-                        </li>
-                        <!-- Signal Clarity -->
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mt-1"><i data-lucide="radio" class="w-5 h-5 text-blue-600"></i></div>
-                            <div class="ml-4"><h5 class="text-lg font-bold text-slate-900">Signal Clarity</h5><p class="text-slate-600">One clear <strong class="text-slate-800">Safety Signal</strong> when it matters.</p></div>
-                        </li>
-                    </ul>
+            <!-- 3. THE SOLUTION (Feature Grid) -->
+            <div class="bg-white border-2 border-blue-100 rounded-3xl shadow-xl shadow-slate-200/50 p-8 pt-12 mt-0">
+
+                <div class="grid md:grid-cols-2 gap-y-8 gap-x-12 mb-10">
+                    <div class="flex gap-4">
+                        <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                            <i data-lucide="zap" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Automatic Safety</h4>
+                            <p class="text-sm text-slate-600 mt-1">System monitors your status so you don't have to check in constantly.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                            <i data-lucide="bell-off" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">No False Alarms</h4>
+                            <p class="text-sm text-slate-600 mt-1">Contacts are <em>only</em> alerted if you actually miss your check-in.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                            <i data-lucide="file-text" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Essential Context</h4>
+                            <p class="text-sm text-slate-600 mt-1">Alerts include your pre-set plans & instructions immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                            <i data-lucide="rss" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Signal Clarity</h4>
+                            <p class="text-sm text-slate-600 mt-1">One clear <strong>Safety Signal</strong> when it matters.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- 4. THE OUTCOME (Footer) -->
+                <div class="grid md:grid-cols-2 gap-4 border-t border-slate-100 pt-8">
+                    <!-- Red State -->
+                    <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+                        <div class="flex items-center gap-2 text-red-700 font-bold text-sm mb-2 uppercase tracking-wide">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i> If Safety Alert Received
+                        </div>
+                        <p class="text-sm text-red-900/80 leading-relaxed">
+                            It is clear that something is wrong. They have your essential context and instructions to act immediately.
+                        </p>
                 <div class="grid md:grid-cols-2 gap-4 mt-10 pt-10 border-t border-slate-100">
                     <div class="bg-red-50 p-6 rounded-xl border border-red-100">
                         <div class="text-red-800 font-bold text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="shield-alert" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> If Safety Alert Received</div>
                         <p class="text-red-900 font-medium text-sm">It is clear that something might be wrong, and they have the essential context and instructions to act.</p>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-xl border border-green-100">
-                        <div class="text-green-800 font-bold text-sm uppercase mb-2 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4"></i> If No Alert Received</div>
-                        <p class="text-green-900 font-medium text-sm">Relax, they know you're okay <strong class="underline decoration-green-300 decoration-2">living your life</strong>.</p>
+
+                    <!-- Green State -->
+                    <div class="bg-green-50 rounded-xl p-5 border border-green-100">
+                        <div class="flex items-center gap-2 text-green-700 font-bold text-sm mb-2 uppercase tracking-wide">
+                            <i data-lucide="check" class="w-4 h-4"></i> If No Alert Received
+                        </div>
+                        <p class="text-sm text-green-900/80 leading-relaxed">
+                            Relax. They know you're okay and just living your life. No news is good news.
+                        </p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
