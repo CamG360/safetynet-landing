@@ -744,51 +744,58 @@
                 <i data-lucide="x" class="w-5 h-5 text-gray-600"></i>
             </button>
 
-            <!-- Bottom Modal: Automatic Alert (ALERT STATE) -->
-            <!-- TRANSFORMED into a Modal Card to match the Top Card -->
-            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden z-10 relative border border-slate-100">
-                <!-- Red Header -->
-                <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
-                    <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
-                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                        Safety Alert Sent
+            <!-- Safety Alert Widget (Demo) -->
+            <div class="alert-card w-full bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+                <!-- Alert Header -->
+                <div class="alert-header">
+                    <div class="alert-badge">
+                        <div class="alert-icon">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                            </svg>
+                        </div>
+                        <span class="alert-title">Safety Alert</span>
                     </div>
-                    <!-- Red/White Pulse -->
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                    </span>
+                    <div class="pulse-dot"></div>
                 </div>
 
-                <!-- Body -->
-                <div class="p-6 space-y-5">
+                <!-- Main Content -->
+                <div class="alert-content">
+                    <div class="intro-text">We were asked by Alex to contact you when something might be wrong.</div>
 
-                    <!-- Alert Status -->
-                    <div class="flex items-start gap-4">
-                        <div class="bg-red-50 p-3 rounded-xl text-red-600">
-                             <i data-lucide="send" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-slate-900 text-lg">Contacts Notified</div>
-                            <p class="text-sm text-slate-500 leading-snug mt-1">
-                                Your <span class="font-semibold text-slate-700">custom message</span> and <span class="font-semibold text-slate-700">instructions</span> have been sent.
-                            </p>
-                        </div>
+                    <div class="missed-label">Check In Safe Time Missed:</div>
+                    <div class="time-display">23:00</div>
+                    <div class="time-context">+ 30 min grace period passed</div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
                     </div>
 
-                    <!-- Context Visual -->
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center gap-3">
-                         <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
-                         <div class="text-xs font-mono text-slate-500">
-                            Location & Context Data Attached
-                         </div>
+                    <!-- Essential Context Section -->
+                    <div class="instructions-header">Essential Context</div>
+                    <div class="context-item">
+                        <span class="context-label-inline">Plan:</span>
+                        <span class="context-value-inline">Last minute trip to meet James</span>
+                    </div>
+                    <div class="context-item">
+                        <span class="context-label-inline">Location:</span>
+                        <span class="context-value-inline">123 Sunset Blvd, West Hollywood</span>
                     </div>
 
-                    <!-- Ghost Button for "False Alarm" -->
-                    <button class="w-full py-3 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-all">
-                        I'm safe, cancel alert
-                    </button>
-
+                    <!-- Instructions -->
+                    <div class="instructions-header" style="margin-top: 24px;">What to do</div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">1</div>
+                        <div class="instruction-text">Call Alex</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">2</div>
+                        <div class="instruction-text">Go to the location above</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-number">3</div>
+                        <div class="instruction-text">Call emergency services if needed</div>
+                    </div>
                 </div>
             </div>
         </div>
