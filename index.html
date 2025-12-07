@@ -362,19 +362,50 @@
                         </div>
                     </div>
 
-                    <!-- Safety Alert Demo Button -->
-                    <button id="heroSafetyAlertBtn" class="mt-4 w-full max-w-[340px] bg-red-50 text-left py-4 px-5 rounded-xl border border-red-200 hover:bg-red-100 hover:border-red-300 transition flex items-center gap-4 group">
-                        <!-- Icon in white circle -->
-                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm">
-                            <i data-lucide="shield-alert" class="w-5 h-5 text-red-600 group-hover:scale-110 transition-transform"></i>
+                    <!-- Safety Alert Demo Card -->
+                    <button id="heroSafetyAlertBtn" class="mt-4 w-full max-w-[340px] bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
+                        <!-- Red Header -->
+                        <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
+                            <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
+                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                                Safety Alert Sent
+                            </div>
+                            <!-- Red/White Pulse -->
+                            <span class="relative flex h-2 w-2">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                            </span>
                         </div>
-                        <!-- Two-line text content -->
-                        <div class="flex-1">
-                            <div class="text-red-900 font-bold text-base leading-tight">Automatic Safety Alert</div>
-                            <div class="text-red-700/80 text-sm mt-0.5">Sends your customised message and instructions to your contact</div>
+
+                        <!-- Body -->
+                        <div class="p-6 space-y-5">
+                            <!-- Alert Status -->
+                            <div class="flex items-start gap-4">
+                                <div class="bg-red-50 p-3 rounded-xl text-red-600">
+                                     <i data-lucide="send" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-slate-900 text-lg">Contacts Notified</div>
+                                    <p class="text-sm text-slate-500 leading-snug mt-1">
+                                        Your <span class="font-semibold text-slate-700">custom message</span> and <span class="font-semibold text-slate-700">instructions</span> have been sent.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Context Visual -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center gap-3">
+                                 <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
+                                 <div class="text-xs font-mono text-slate-500">
+                                    Location & Context Data Attached
+                                 </div>
+                            </div>
+
+                            <!-- Click to view details hint -->
+                            <div class="flex items-center justify-center gap-2 text-slate-400 text-xs group-hover:text-blue-600 transition-colors">
+                                <span>Click to view full alert details</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </div>
                         </div>
-                        <!-- Chevron arrow -->
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-red-600/60 shrink-0"></i>
                     </button>
 
                 </div>
@@ -551,18 +582,49 @@
                         <h3 class="font-bold text-xl text-slate-900 mb-2">If you're not safe</h3>
                         <p class="text-sm text-slate-500 mb-6">We automatically send your pre-set essential context and instructions to your contacts.</p>
 
-                        <button id="openAlertDemoBtn" class="w-full bg-red-50 text-left py-4 px-5 rounded-xl border border-red-200 hover:bg-red-100 hover:border-red-300 transition flex items-center gap-4 group">
-                            <!-- Icon in white circle -->
-                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm">
-                                <i data-lucide="shield-alert" class="w-5 h-5 text-red-600 group-hover:scale-110 transition-transform"></i>
+                        <button id="openAlertDemoBtn" class="w-full bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
+                            <!-- Red Header -->
+                            <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
+                                <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
+                                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                                    Safety Alert Sent
+                                </div>
+                                <!-- Red/White Pulse -->
+                                <span class="relative flex h-2 w-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                                </span>
                             </div>
-                            <!-- Two-line text content -->
-                            <div class="flex-1">
-                                <div class="text-red-900 font-bold text-base leading-tight">Automatic Safety Alert</div>
-                                <div class="text-red-700/80 text-sm mt-0.5">Sent to your contact with your customised context & instructions</div>
+
+                            <!-- Body -->
+                            <div class="p-6 space-y-5">
+                                <!-- Alert Status -->
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-red-50 p-3 rounded-xl text-red-600">
+                                         <i data-lucide="send" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-lg">Contacts Notified</div>
+                                        <p class="text-sm text-slate-500 leading-snug mt-1">
+                                            Your <span class="font-semibold text-slate-700">custom message</span> and <span class="font-semibold text-slate-700">instructions</span> have been sent.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Context Visual -->
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center gap-3">
+                                     <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i>
+                                     <div class="text-xs font-mono text-slate-500">
+                                        Location & Context Data Attached
+                                     </div>
+                                </div>
+
+                                <!-- Click to view details hint -->
+                                <div class="flex items-center justify-center gap-2 text-slate-400 text-xs group-hover:text-blue-600 transition-colors">
+                                    <span>Click to view full alert details</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </div>
                             </div>
-                            <!-- Chevron arrow -->
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-red-600/60 shrink-0"></i>
                         </button>
                     </div>
                 </div>
