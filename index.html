@@ -363,7 +363,7 @@
                     </div>
 
                     <!-- Safety Alert Demo Card -->
-                    <button id="heroSafetyAlertBtn" class="mt-4 w-full max-w-[340px] bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
+                    <div id="heroSafetyAlertBtn" class="mt-4 w-full max-w-[340px] bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
                         <!-- Red Header -->
                         <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
                             <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
@@ -404,7 +404,7 @@
                                 Cancel safety alert
                             </button>
                         </div>
-                    </button>
+                    </div>
 
                 </div>
             </div>
@@ -580,7 +580,7 @@
                         <h3 class="font-bold text-xl text-slate-900 mb-2">If you're not safe</h3>
                         <p class="text-sm text-slate-500 mb-6">We automatically send your pre-set essential context and instructions to your contacts.</p>
 
-                        <button id="openAlertDemoBtn" class="w-full bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
+                        <div id="openAlertDemoBtn" class="w-full bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
                             <!-- Red Header -->
                             <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
                                 <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
@@ -622,8 +622,14 @@
                                     <span>Click to view full alert details</span>
                                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                                 </div>
+
+                                <!-- NEW CTA: Cancel safety alert  -->
+                                <button class="w-full py-3 px-4 rounded-xl border-2 border-red-500 text-red-500 font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                    Cancel safety alert
+                                </button>
                             </div>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -977,11 +983,19 @@
         if (closeAlertBtn && alertModal) {
             // Hero section button
             if (heroSafetyAlertBtn) {
-                heroSafetyAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+                heroSafetyAlertBtn.addEventListener('click', (e) => {
+                    // Don't open modal if clicking the cancel button
+                    if (e.target.closest('button')) return;
+                    toggleModal('alertDemoModal', true);
+                });
             }
             // "How it works" section button
             if (openAlertBtn) {
-                openAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
+                openAlertBtn.addEventListener('click', (e) => {
+                    // Don't open modal if clicking the cancel button
+                    if (e.target.closest('button')) return;
+                    toggleModal('alertDemoModal', true);
+                });
             }
             closeAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', false));
             alertModal.addEventListener('click', (e) => {
