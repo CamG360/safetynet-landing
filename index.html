@@ -338,30 +338,34 @@
                     <!-- SafetyNet Logic Signpost -->
                     <div class="mt-6 w-full max-w-[340px] bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm p-4 space-y-3">
                         <!-- Check-in Option -->
-                        <div class="flex gap-3 items-start">
+                        <div class="flex items-start gap-3">
                             <div class="mt-0.5 text-blue-600 shrink-0">
                                 <i data-lucide="shield-check" class="w-4 h-4"></i>
                             </div>
-                            <p class="text-sm text-slate-600 leading-snug">
-                                Tap <span class="font-semibold text-slate-900">"I'm Safe"</span> before your check-in time and SafetyNet turns off. Simple as that.
-                            </p>
+                            <div class="flex-1">
+                                <p class="text-sm text-slate-700 leading-relaxed">
+                                    Tap <span class="font-bold text-slate-900">"I'm Safe"</span> → SafetyNet ends. No alert sent.
+                                </p>
+                            </div>
                         </div>
 
                         <!-- No Check-in Option -->
-                        <div class="flex gap-3 items-start">
+                        <div class="flex items-start gap-3">
                             <div class="mt-0.5 text-red-500 shrink-0">
                                 <i data-lucide="shield-alert" class="w-4 h-4"></i>
                             </div>
-                            <p class="text-sm text-slate-600 leading-snug">
-                                <span class="font-semibold text-slate-900">Miss your check-in?</span> SafetyNet knows something might be wrong and sends an alert to your emergency contact.
-                            </p>
+                            <div class="flex-1">
+                                <p class="text-sm text-slate-700 leading-relaxed">
+                                    <span class="font-bold text-slate-900">Don't tap "I'm Safe"?</span> → Alert sent to your contact.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Safety Alert Demo Card -->
                     <div id="heroSafetyAlertBtn" class="mt-4 w-full max-w-[340px] bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
                         <!-- Red Header -->
-                        <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
+                        <div class="bg-red-600 px-5 py-3 flex justify-between items-center text-white">
                             <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
                                 <i data-lucide="shield-alert" class="w-4 h-4"></i>
                                 Safety Alert Sent
@@ -374,7 +378,7 @@
                         </div>
 
                         <!-- Body -->
-                        <div class="p-6 space-y-5">
+                        <div class="p-5 space-y-4">
                             <!-- Alert Status -->
                             <div class="flex items-start gap-4">
                                 <div class="bg-red-50 p-3 rounded-xl text-red-600">
@@ -580,7 +584,7 @@
 
                         <div id="openAlertDemoBtn" class="w-full bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
                             <!-- Red Header -->
-                            <div class="bg-red-600 px-6 py-4 flex justify-between items-center text-white">
+                            <div class="bg-red-600 px-5 py-3 flex justify-between items-center text-white">
                                 <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
                                     <i data-lucide="shield-alert" class="w-4 h-4"></i>
                                     Safety Alert Sent
@@ -593,7 +597,7 @@
                             </div>
 
                             <!-- Body -->
-                            <div class="p-6 space-y-5">
+                            <div class="p-5 space-y-4">
                                 <!-- Alert Status -->
                                 <div class="flex items-start gap-4">
                                     <div class="bg-red-50 p-3 rounded-xl text-red-600">
