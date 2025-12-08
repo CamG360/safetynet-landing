@@ -50,6 +50,75 @@
             opacity: 1;
         }
 
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            display: none;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 3px;
+            background-color: #475569;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Disabled Button Styles */
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .faq-question {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .faq-question:hover {
+            color: #2563eb;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 1rem;
+            padding-bottom: 1.5rem;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
         /* SafetyNet Alert Card Styles */
         .alert-card {
             --alert-red: #E53935;
@@ -234,16 +303,40 @@
                 SafetyNet
             </div>
 
+            <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
                 <a href="#problem" class="hover:text-blue-600 transition">The Problem</a>
                 <a href="#how-it-works" class="hover:text-blue-600 transition">How it Works</a>
                 <a href="#use-cases" class="hover:text-blue-600 transition">Use Cases</a>
                 <a href="#comparison" class="hover:text-blue-600 transition">Why Us?</a>
+                <a href="#faq" class="hover:text-blue-600 transition">FAQ</a>
             </div>
 
-            <button class="open-registration-modal px-5 py-2.5 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+            <!-- Desktop CTA -->
+            <button class="hidden md:block open-registration-modal px-5 py-2.5 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200">
                 Join the Waitlist
             </button>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-slate-100 absolute top-20 left-0 right-0 shadow-lg">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#problem" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">The Problem</a>
+                <a href="#how-it-works" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">How it Works</a>
+                <a href="#use-cases" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">Use Cases</a>
+                <a href="#comparison" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">Why Us?</a>
+                <a href="#faq" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">FAQ</a>
+                <button class="open-registration-modal w-full px-5 py-3 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg">
+                    Join the Waitlist
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -309,8 +402,8 @@
                                 </div>
                                 <!-- Edit Button -->
                                 <div class="text-right">
-                                    <button class="text-slate-400 hover:text-blue-600 transition flex items-center gap-1 text-xs font-bold bg-slate-50 hover:bg-slate-100 px-2 py-1 rounded">
-                                        <i data-lucide="pencil" class="w-3 h-3"></i> Edit
+                                    <button class="text-slate-400 hover:text-blue-600 transition flex items-center gap-1 text-xs font-bold bg-slate-50 hover:bg-slate-100 px-2 py-1 rounded" disabled>
+                                        <i data-lucide="pencil" class="w-3 h-3"></i> Edit <span class="text-[10px] font-normal ml-0.5">(Demo)</span>
                                     </button>
                                 </div>
                             </div>
@@ -328,9 +421,9 @@
                             </div>
 
                             <!-- Action Button -->
-                            <button class="w-full py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition flex items-center justify-center gap-2">
+                            <button class="w-full py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition flex items-center justify-center gap-2" disabled>
                                 <i data-lucide="check" class="w-4 h-4"></i>
-                                I'm Safe
+                                I'm Safe <span class="text-xs font-normal text-slate-400 ml-1">(Demo)</span>
                             </button>
                         </div>
                     </div>
@@ -396,9 +489,9 @@
                             </div>
 
                             <!-- NEW CTA: Cancel safety alert  -->
-                            <button class="w-full py-3 px-4 rounded-xl border-2 border-red-500 text-red-500 font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group">
+                            <button class="w-full py-3 px-4 rounded-xl border-2 border-red-500 text-red-500 font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group" disabled onclick="event.stopPropagation()">
                                 <i data-lucide="x" class="w-4 h-4"></i>
-                                Cancel safety alert
+                                Cancel safety alert <span class="text-xs font-normal text-red-400 ml-1">(Demo)</span>
                             </button>
                         </div>
                     </div>
@@ -643,9 +736,9 @@
                                 </div>
 
                                 <!-- NEW CTA: Cancel safety alert  -->
-                                <button class="w-full py-3 px-4 rounded-xl border-2 border-red-500 text-red-500 font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group">
+                                <button class="w-full py-3 px-4 rounded-xl border-2 border-red-500 text-red-500 font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group" disabled onclick="event.stopPropagation()">
                                     <i data-lucide="x" class="w-4 h-4"></i>
-                                    Cancel safety alert
+                                    Cancel safety alert <span class="text-xs font-normal text-red-400 ml-1">(Demo)</span>
                                 </button>
                             </div>
                         </div>
@@ -819,6 +912,95 @@
         </div>
     </section>
 
+    <!-- [SECTION 6: FAQ] -->
+    <section id="faq" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+                <p class="text-slate-500 text-lg">Everything you need to know about SafetyNet</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How does SafetyNet protect my privacy?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        Your information stays private until you need help. We only store what you explicitly set up (safe times, emergency contacts, custom messages). No continuous location tracking, no background data collection. Your safety information is only shared with your chosen contacts if an alert is triggered.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How does it work offline or with a dead battery?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        SafetyNet operates from the cloud, not your phone. When you set a safe time, our servers monitor it independently. If you don't check in (whether due to no signal, dead battery, or any other reason), the alert goes out automatically. Your phone doesn't need to be working for the system to function.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Will this drain my battery?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        No significant battery drain. SafetyNet uses minimal resources because the monitoring happens in the cloud, not on your device. You only interact with the app when setting up a safe time or checking in, which takes seconds.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What if I forget to check in but I'm safe?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        We include customizable grace periods and reminder notifications before any alert is sent. If an alert does go out, you can immediately cancel it with one tap to let your contacts know it was a false alarm. We're designed to minimize false alarms while keeping you safe.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How is this different from Find My Friends or Life360?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        Location sharing apps require your phone to be working. If you can't reach your phone (dead battery, no signal, emergency situation), they fail silently - your contacts just see your last location and don't know if you're okay or in trouble. SafetyNet sends a clear alert with your context and instructions, so there's no ambiguity. We're built specifically for the scenario where "text me when you're safe" doesn't work.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">When will SafetyNet be available?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        We're currently in development and building our early access waitlist. Join the waitlist to be among the first to use SafetyNet when we launch. Early access members will get priority access and the opportunity to shape the product with their feedback.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Is SafetyNet free?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        We're finalizing our pricing model. Our goal is to make SafetyNet accessible while sustaining the reliable cloud infrastructure needed for 24/7 safety monitoring. Early access members will receive special pricing. Join the waitlist to stay updated.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- [FOOTER] -->
     <footer class="bg-slate-900 text-slate-400 py-16">
         <div class="max-w-6xl mx-auto px-6 text-center">
@@ -844,9 +1026,9 @@
     </footer>
 
     <!-- [MODAL 1: DEMO ALERT] -->
-    <div id="alertDemoModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm overflow-y-auto">
+    <div id="alertDemoModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="alertModalTitle">
         <div class="relative max-w-md w-full modal-content">
-            <button id="closeAlertDemoBtn" class="absolute -top-3 -right-3 bg-white rounded-full p-2 shadow-xl hover:bg-gray-100 transition z-10">
+            <button id="closeAlertDemoBtn" class="absolute -top-3 -right-3 bg-white rounded-full p-2 shadow-xl hover:bg-gray-100 transition z-10" aria-label="Close alert demo">
                 <i data-lucide="x" class="w-5 h-5 text-gray-600"></i>
             </button>
 
@@ -860,7 +1042,7 @@
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
                             </svg>
                         </div>
-                        <span class="alert-title">Safety Alert</span>
+                        <span class="alert-title" id="alertModalTitle">Safety Alert</span>
                     </div>
                     <div class="pulse-dot"></div>
                 </div>
@@ -908,49 +1090,39 @@
     </div>
 
     <!-- [MODAL 2: REGISTRATION] -->
-    <div id="registrationModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm overflow-y-auto">
+    <div id="registrationModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="registrationModalTitle">
         <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full relative my-8 modal-content">
-            <button id="closeRegistrationBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 z-10 bg-slate-100 rounded-full p-2">
+            <button id="closeRegistrationBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 z-10 bg-slate-100 rounded-full p-2" aria-label="Close registration form">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
             <!-- Form Header -->
             <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-8 text-center rounded-t-2xl">
-                <h1 class="text-3xl font-bold text-white mb-2">Join the Waitlist</h1>
+                <h1 id="registrationModalTitle" class="text-3xl font-bold text-white mb-2">Join the Waitlist</h1>
                 <p class="text-blue-100">Automatic safety alerts when you can't reach your phone</p>
             </div>
 
             <!-- Form Body -->
             <form id="registrationForm" class="p-8">
+                <!-- Required Email -->
                 <div class="mb-6">
-                    <label for="email" class="block text-sm font-bold text-slate-900 mb-2">Email</label>
+                    <label for="email" class="block text-sm font-bold text-slate-900 mb-2">Email *</label>
                     <input type="email" id="email" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="you@example.com" required>
                     <p id="email-error" class="text-red-500 text-sm mt-2 hidden">Please enter a valid email address</p>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="flex flex-col gap-3" id="mainButtons">
-                    <button type="button" id="joinEarlyAccessBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
-                        <span>Join early access</span>
-                        <div class="spinner border-white" id="joinSpinner"></div>
-                    </button>
-                    <button type="button" id="showQuestionsBtn" class="w-full py-3 bg-white text-blue-600 font-bold border-2 border-blue-100 rounded-xl hover:bg-blue-50 transition">
-                        or answer a few quick questions first
-                    </button>
-                </div>
+                <!-- Optional Fields Section -->
+                <div class="mb-8 pb-6 border-b border-slate-100">
+                    <h3 class="text-sm font-bold text-slate-700 mb-4">Optional: Help us shape SafetyNet</h3>
 
-                <!-- Optional Questions (Hidden by default) -->
-                <div id="optionalSection" class="optional-section mt-8 pt-8 border-t border-slate-100">
-                    <h2 class="text-lg font-bold text-slate-900 mb-4">Optional: Help us shape SafetyNet</h2>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-slate-700 mb-2">First Name <span class="font-normal text-slate-400">(optional)</span></label>
-                        <input type="text" id="name" class="w-full p-3 border border-slate-300 rounded-xl">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-slate-700 mb-2">First Name <span class="text-slate-400 text-xs">(optional)</span></label>
+                        <input type="text" id="name" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500">
                     </div>
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-slate-700 mb-2">When are you likely use SafetyNet (select all that apply)<span class="font-normal text-slate-400">(optional)</span></label>
-                        <select id="use-case" class="w-full p-3 border border-slate-300 rounded-xl bg-white">
+                    <div class="mb-4">
+                        <label for="use-case" class="block text-sm font-medium text-slate-700 mb-2">When are you likely to use SafetyNet? <span class="text-slate-400 text-xs">(optional)</span></label>
+                        <select id="use-case" class="w-full p-3 border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-500">
                             <option value="">Select an option...</option>
                             <option value="traveling-alone">Solo Travel</option>
                             <option value="dating">Dating</option>
@@ -960,16 +1132,17 @@
                         </select>
                     </div>
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Anything else you would like to add? <span class="font-normal text-slate-400">(optional)</span></label>
-                        <textarea id="other-notes" class="w-full p-3 border border-slate-300 rounded-xl" rows="3" placeholder="Ideas,concerns, questions..."></textarea>
+                    <div class="mb-4">
+                        <label for="other-notes" class="block text-sm font-medium text-slate-700 mb-2">Anything else you'd like to add? <span class="text-slate-400 text-xs">(optional)</span></label>
+                        <textarea id="other-notes" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Ideas, concerns, questions..."></textarea>
                     </div>
-
-                    <button type="submit" id="completeBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
-                        <span>Join Now</span>
-                        <div class="spinner border-white" id="completeSpinner"></div>
-                    </button>
                 </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                    <span>Join the Waitlist</span>
+                    <div class="spinner border-white" id="submitSpinner"></div>
+                </button>
 
                 <!-- Success Message -->
                 <div id="successMessage" class="success-message text-center py-8">
@@ -998,13 +1171,18 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnenlmYnpheXVpbWRuamhhcG9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwNjA3MTcsImV4cCI6MjA3MDYzNjcxN30.3POIFC1Vs97GOPQCc0MJaM0GXs0f08kXcMHEWymn1Os';
         const TABLE_NAME = 'feedback';
 
-        // --- Generic Modal Logic ---
+        // --- Generic Modal Logic with Keyboard Support ---
         function toggleModal(modalId, show) {
             const modal = document.getElementById(modalId);
             if (show) {
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                setTimeout(() => modal.classList.add('modal-active'), 10);
+                setTimeout(() => {
+                    modal.classList.add('modal-active');
+                    // Focus first input or button in modal
+                    const firstFocusable = modal.querySelector('input, button, textarea, select');
+                    if (firstFocusable) firstFocusable.focus();
+                }, 10);
             } else {
                 modal.classList.remove('modal-active');
                 setTimeout(() => {
@@ -1013,6 +1191,21 @@
                 }, 200);
             }
         }
+
+        // --- Keyboard Event Handler for ESC key ---
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                // Check if any modal is open
+                const alertModal = document.getElementById('alertDemoModal');
+                const regModal = document.getElementById('registrationModal');
+
+                if (alertModal && !alertModal.classList.contains('hidden')) {
+                    toggleModal('alertDemoModal', false);
+                } else if (regModal && !regModal.classList.contains('hidden')) {
+                    toggleModal('registrationModal', false);
+                }
+            }
+        });
 
         // --- Alert Demo Modal ---
         const alertModal = document.getElementById('alertDemoModal');
@@ -1058,94 +1251,144 @@
             });
         }
 
+        // --- Mobile Menu Logic ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                }
+            });
+        }
+
+        // --- Email Validation Function ---
+        function validateEmail(email) {
+            // RFC 5322 compliant regex for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
         // --- Registration Form Logic ---
         const form = document.getElementById('registrationForm');
-        const optionalSection = document.getElementById('optionalSection');
-        const mainButtons = document.getElementById('mainButtons');
         const successMessage = document.getElementById('successMessage');
-        const showQuestionsBtn = document.getElementById('showQuestionsBtn');
+        const submitBtn = document.getElementById('submitBtn');
 
-        if (showQuestionsBtn) {
-            showQuestionsBtn.addEventListener('click', () => {
-                optionalSection.style.display = 'block';
-                mainButtons.style.display = 'none';
+        if (form && submitBtn) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const spinner = document.getElementById('submitSpinner');
+                const span = submitBtn.querySelector('span');
+                const emailInput = document.getElementById('email');
+                const emailError = document.getElementById('email-error');
+
+                // Validate email
+                const email = emailInput.value.trim();
+                if (!validateEmail(email)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.classList.remove('hidden');
+                    emailInput.focus();
+                    return;
+                }
+
+                // Hide any previous errors
+                emailError.classList.add('hidden');
+
+                // Gather all form data
+                const name = document.getElementById('name').value.trim();
+                const useCase = document.getElementById('use-case').value;
+                const otherNotes = document.getElementById('other-notes').value.trim();
+
+                // Disable button and show loading state
+                submitBtn.disabled = true;
+                const originalText = span.textContent;
+                span.textContent = 'Submitting...';
+                spinner.style.display = 'block';
+
+                try {
+                    // Prepare Payload
+                    const feedbackData = {
+                        email: email,
+                        name: name || null,
+                        use_case: useCase || null,
+                        other_notes: otherNotes || null,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+                        method: 'POST',
+                        headers: {
+                            'apikey': SUPABASE_ANON_KEY,
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                            'Content-Type': 'application/json',
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify(feedbackData)
+                    });
+
+                    if (!response.ok) throw new Error('Submission failed');
+
+                    // Success State - Hide form, show success message
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Reinitialize icons in success message
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+
+                } catch (error) {
+                    console.error("Error:", error);
+                    emailError.textContent = "Something went wrong. Please try again.";
+                    emailError.classList.remove('hidden');
+
+                    // Reset Button
+                    submitBtn.disabled = false;
+                    span.textContent = originalText;
+                    spinner.style.display = 'none';
+                }
             });
         }
 
-        const handleSubmission = async (btnId, spinnerId) => {
-            const btn = document.getElementById(btnId);
-            const spinner = document.getElementById(spinnerId);
-            const span = btn.querySelector('span');
+        // --- FAQ Accordion Logic ---
+        const faqQuestions = document.querySelectorAll('.faq-question');
 
-            const email = document.getElementById('email').value;
-            if(!email.includes('@')) {
-                document.getElementById('email-error').classList.remove('hidden');
-                return;
-            }
+        faqQuestions.forEach((question) => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
 
-            // Gather additional data
-            const name = document.getElementById('name').value;
-            const useCase = document.getElementById('use-case').value;
-            const otherNotes = document.getElementById('other-notes').value;
-
-            btn.disabled = true;
-            const originalText = span.textContent;
-            span.textContent = 'Submitting...';
-            spinner.style.display = 'block';
-
-            try {
-                // Prepare Payload
-                const feedbackData = {
-                    email: email,
-                    name: name || null,
-                    use_case: useCase || null,
-                    other_notes: otherNotes || null,
-                    created_at: new Date().toISOString()
-                };
-
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
-                    method: 'POST',
-                    headers: {
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal'
-                    },
-                    body: JSON.stringify(feedbackData)
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
                 });
 
-                if (!response.ok) throw new Error('Submission failed');
-
-                // Success State
-                form.querySelector('.mb-6').style.display = 'none'; // Hide email field
-                mainButtons.style.display = 'none';
-                optionalSection.style.display = 'none';
-                successMessage.style.display = 'block';
-
-            } catch (error) {
-                console.error("Error:", error);
-                document.getElementById('email-error').textContent = "Something went wrong. Please try again.";
-                document.getElementById('email-error').classList.remove('hidden');
-
-                // Reset Button
-                btn.disabled = false;
-                span.textContent = originalText;
-                spinner.style.display = 'none';
-            }
-        };
-
-        const joinEarlyAccessBtn = document.getElementById('joinEarlyAccessBtn');
-        const completeBtn = document.getElementById('completeBtn');
-
-        if (joinEarlyAccessBtn) {
-            joinEarlyAccessBtn.addEventListener('click', () => handleSubmission('joinEarlyAccessBtn', 'joinSpinner'));
-        }
-        if (completeBtn) {
-            completeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                handleSubmission('completeBtn', 'completeSpinner');
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
             });
-        }
+        });
 
     </script>
 </body>
