@@ -501,6 +501,183 @@
         </div>
     </header>
 
+    <!-- [NEW SECTION: HOW IT WORKS - THE CONCEPT] -->
+    <section class="w-full bg-slate-50/50 py-16 px-4 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <p class="text-emerald-600 font-bold tracking-wide uppercase text-xs mb-2">
+                    The Concept
+                </p>
+                <h2 class="text-3xl font-bold text-slate-900">
+                    Create your SafetyNet in under a minute
+                </h2>
+            </div>
+
+            <!-- The 3-Step Flow -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+
+                <!-- Connector Line (Desktop Only) -->
+                <div class="hidden md:block absolute top-[180px] left-[20%] right-[20%] h-0.5 bg-slate-200 -z-10 border-t-2 border-dashed border-slate-300"></div>
+
+                <!-- STEP 1 -->
+                <div class="flex flex-col items-center group">
+                    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
+                        1. Set your Safe Time and activate.
+                    </h3>
+
+                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden" style="height: 310px;">
+                        <!-- Banner Header -->
+                        <div class="bg-blue-600 p-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <!-- Shield Icon with nested Clock -->
+                                <div class="relative flex items-center justify-center w-8 h-8">
+                                    <i data-lucide="shield" class="text-white opacity-20 fill-current" style="width: 28px; height: 28px;"></i>
+                                    <i data-lucide="clock" class="text-white absolute" style="width: 14px; height: 14px;"></i>
+                                </div>
+                                <span class="text-white font-bold tracking-wide text-sm">SafetyNet</span>
+                            </div>
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-4 flex-1 flex flex-col relative">
+                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
+                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Safe Time:</p>
+                                <div class="text-3xl font-mono font-bold text-slate-800 tracking-tight">22:00</div>
+                                <!-- 0% Full Bar -->
+                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
+                                    <div class="h-full w-0 bg-blue-500 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="absolute left-4 right-4 h-px bg-slate-100" style="bottom: 70px;"></div>
+
+                            <div class="pt-4 w-full mt-auto z-10 bg-white">
+                                <button class="w-full bg-blue-100 text-blue-700 font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 cursor-default text-sm" disabled>
+                                    SafetyNet Active
+                                </button>
+                                <p class="text-center text-slate-400 mt-2" style="font-size: 10px;">Grace Period: 30 mins</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
+                        Going for a run or a date? Simply set the time you expect to be safe by.
+                    </p>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="flex flex-col items-center group">
+                    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
+                        2. SafetyNet stands guard
+                    </h3>
+
+                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden" style="height: 310px;">
+                        <!-- Banner Header -->
+                        <div class="bg-blue-600 p-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <!-- Shield Icon with nested Check -->
+                                <div class="relative flex items-center justify-center w-8 h-8">
+                                    <i data-lucide="shield" class="text-white opacity-20 fill-current" style="width: 28px; height: 28px;"></i>
+                                    <i data-lucide="check" class="text-white absolute" style="width: 14px; height: 14px;"></i>
+                                </div>
+                                <span class="text-white font-bold tracking-wide text-sm">SafetyNet Active</span>
+                            </div>
+                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-4 flex-1 flex flex-col relative">
+                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
+                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Time remaining:</p>
+                                <span class="text-3xl font-mono text-slate-600 font-bold">1h 28m</span>
+                                <!-- 65% Full Bar -->
+                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
+                                    <div class="h-full bg-emerald-500 rounded-full" style="width: 65%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="absolute left-4 right-4 h-px bg-slate-100" style="bottom: 70px;"></div>
+
+                            <div class="mt-auto pt-4 z-10 bg-white">
+                                <button class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition-colors text-sm" disabled>
+                                    <i data-lucide="check" style="width: 18px; height: 18px;"></i>
+                                    I'm Safe
+                                </button>
+                                <p class="text-center text-slate-400 mt-2" style="font-size: 10px;">Tap to confirm you're safe</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
+                        If you are okay, just tap the button. Nothing else happens.
+                    </p>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="flex flex-col items-center group">
+                    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
+                        3. SafetyNet speaks for you
+                    </h3>
+
+                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-red-100 mb-6 relative flex flex-col overflow-hidden" style="height: 310px;">
+                        <!-- Banner Header -->
+                        <div class="bg-red-600 p-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <!-- Shield Icon with nested Bell -->
+                                <div class="relative flex items-center justify-center w-8 h-8">
+                                    <i data-lucide="shield" class="text-white opacity-20 fill-current" style="width: 28px; height: 28px;"></i>
+                                    <i data-lucide="bell" class="text-white absolute" style="width: 14px; height: 14px;"></i>
+                                </div>
+                                <span class="text-white font-bold tracking-wide text-sm">Safety Alert Sent</span>
+                            </div>
+                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-4 flex-1 flex flex-col relative">
+                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
+                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Status:</p>
+                                <span class="text-xl font-bold text-red-600 tracking-tight leading-tight">
+                                    Emergency Contact<br>Notified
+                                </span>
+
+                                <!-- 100% Full Red Bar -->
+                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
+                                    <div class="h-full w-full bg-red-500 rounded-full"></div>
+                                </div>
+
+                                <p class="text-center text-slate-500 font-medium mt-1" style="font-size: 10px;">Plans & Instructions shared</p>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="absolute left-4 right-4 h-px bg-slate-100" style="bottom: 70px;"></div>
+
+                            <div class="space-y-2 mt-auto pt-4 z-10 bg-white">
+                                <button class="w-full bg-white border-2 border-red-200 text-red-500 hover:bg-red-50 font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition-colors text-sm" disabled>
+                                    Cancel Safety Alert
+                                </button>
+                                <p class="text-xs text-center text-blue-500 cursor-pointer hover:underline flex items-center justify-center gap-1 font-medium">
+                                    Click to view demo <i data-lucide="arrow-right" style="width: 12px; height: 12px;"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
+                        If you miss your Safe Time, and can't tap "I'm Safe", SafetyNet speaks for you by sending a Safety alert to your emergency contact.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
     <!-- NEW SECTION: THE PROBLEM / SOLUTION -->
     <section id="problem" class="bg-slate-50 py-24 relative overflow-hidden border-t border-slate-100">
         <div class="max-w-6xl mx-auto px-4 md:px-8 flex justify-center">
