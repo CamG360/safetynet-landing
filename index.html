@@ -529,44 +529,46 @@
                         3. SafetyNet speaks for you
                     </h3>
 
-                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-red-100 mb-6 relative flex flex-col overflow-hidden h-[310px]">
-                        <!-- Banner Header -->
-                        <div class="bg-red-600 p-3 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <div class="relative flex items-center justify-center w-8 h-8">
-                                    <i data-lucide="shield" class="text-white opacity-20" style="width: 28px; height: 28px;"></i>
-                                    <i data-lucide="bell" class="text-white absolute" style="width: 14px; height: 14px; stroke-width: 2.5;"></i>
-                                </div>
-                                <span class="text-white font-bold tracking-wide text-sm">Safety Alert Sent</span>
+                    <div id="openAlertDemoBtn" class="w-64 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group mb-6">
+                        <!-- Red Header -->
+                        <div class="bg-red-600 px-5 py-3 flex justify-between items-center text-white">
+                            <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
+                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                                Safety Alert Sent
                             </div>
-                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                            <!-- Red/White Pulse -->
+                            <span class="relative flex h-2 w-2">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                            </span>
                         </div>
 
-                        <div class="p-4 flex-1 flex flex-col relative">
-                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Status:</p>
-                                <span class="text-xl font-bold text-red-600 tracking-tight leading-tight">
-                                    Emergency Contact<br/>Notified
-                                </span>
-
-                                <!-- 100% Full Red Bar -->
-                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
-                                    <div class="h-full w-full bg-red-500 rounded-full"></div>
+                        <!-- Body -->
+                        <div class="p-5 space-y-2">
+                            <!-- Alert Status -->
+                            <div class="flex items-start gap-4">
+                                <div class="bg-red-50 p-3 rounded-xl text-red-600">
+                                     <i data-lucide="send" class="w-6 h-6"></i>
                                 </div>
-
-                                <p class="text-[10px] text-center text-slate-500 font-medium mt-1">Plans & Instructions shared</p>
+                                <div>
+                                    <div class="font-bold text-slate-900 text-lg">Contacts Notified</div>
+                                    <p class="text-sm text-slate-500 leading-snug mt-1">
+                                        Your <span class="font-semibold text-slate-700">custom message</span> and <span class="font-semibold text-slate-700">instructions</span> have been sent.
+                                    </p>
+                                </div>
                             </div>
 
-                            <div class="absolute left-4 right-4 bottom-[70px] h-px bg-slate-100"></div>
-
-                            <div class="space-y-2 mt-auto pt-4 z-10 bg-white">
-                                <button class="w-full bg-white border-2 border-red-200 text-red-500 hover:bg-red-50 font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition-colors text-sm">
-                                    Cancel Safety Alert
-                                </button>
-                                <p class="text-xs text-center text-blue-500 cursor-pointer hover:underline flex items-center justify-center gap-1 font-medium">
-                                    Click to view demo <i data-lucide="arrow-right" style="width: 12px; height: 12px;"></i>
-                                </p>
+                            <!-- Click to view details hint -->
+                            <div class="flex items-center justify-center gap-2 text-slate-400 text-xs group-hover:text-blue-600 transition-colors">
+                                <span>Click to view demo</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
                             </div>
+
+                            <!-- NEW CTA: Cancel safety alert  -->
+                            <button class="w-full py-2 px-4 rounded-xl border-2 border-red-500 text-red-500 text-xs font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group" disabled onclick="event.stopPropagation()">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                                Cancel safety alert <span class="text-xs font-normal text-red-400 ml-1">(Demo)</span>
+                            </button>
                         </div>
                     </div>
 
@@ -762,47 +764,12 @@
                         <h3 class="font-bold text-xl text-slate-900 mb-1">If you're not safe</h3>
                         <p class="text-sm text-slate-500 mb-4">We automatically send your pre-set essential context and instructions to your contacts.</p>
 
-                        <div id="openAlertDemoBtn" class="w-full bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
-                            <!-- Red Header -->
-                            <div class="bg-red-600 px-5 py-3 flex justify-between items-center text-white">
-                                <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
-                                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                                    Safety Alert Sent
-                                </div>
-                                <!-- Red/White Pulse -->
-                                <span class="relative flex h-2 w-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                                </span>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 flex flex-col items-center w-full">
+                            <div class="bg-red-50 p-3 rounded-xl text-red-600 mb-2">
+                                <i data-lucide="shield-alert" class="w-8 h-8"></i>
                             </div>
-
-                            <!-- Body -->
-                            <div class="p-5 space-y-2">
-                                <!-- Alert Status -->
-                                <div class="flex items-start gap-4">
-                                    <div class="bg-red-50 p-3 rounded-xl text-red-600">
-                                         <i data-lucide="send" class="w-6 h-6"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold text-slate-900 text-lg">Contacts Notified</div>
-                                        <p class="text-sm text-slate-500 leading-snug mt-1">
-                                            Your <span class="font-semibold text-slate-700">custom message</span> and <span class="font-semibold text-slate-700">instructions</span> have been sent.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- Click to view details hint -->
-                                <div class="flex items-center justify-center gap-2 text-slate-400 text-xs group-hover:text-blue-600 transition-colors">
-                                    <span>Click to view demo</span>
-                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                                </div>
-
-                                <!-- NEW CTA: Cancel safety alert  -->
-                                <button class="w-full py-2 px-4 rounded-xl border-2 border-red-500 text-red-500 text-xs font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group" disabled onclick="event.stopPropagation()">
-                                    <i data-lucide="x" class="w-4 h-4"></i>
-                                    Cancel safety alert <span class="text-xs font-normal text-red-400 ml-1">(Demo)</span>
-                                </button>
-                            </div>
+                            <div class="text-sm font-bold text-slate-900 mb-1">Safety Alert Sent</div>
+                            <p class="text-[10px] text-slate-500 text-center">Emergency contacts notified with your custom message and instructions.</p>
                         </div>
                     </div>
                 </div>
