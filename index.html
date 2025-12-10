@@ -580,106 +580,74 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: THE PROBLEM / SOLUTION -->
-    <section id="problem" class="bg-slate-50 py-24 relative overflow-hidden border-t border-slate-100">
-        <div class="max-w-6xl mx-auto px-4 md:px-8 flex justify-center">
-            <div class="max-w-md w-full flex flex-col items-center space-y-6">
+    <!-- NEW SECTION: WHY "TEXT ME WHEN YOU'RE SAFE" CAN FAIL -->
+    <section id="problem" class="w-full bg-white py-20 px-4 font-sans">
+        <div class="max-w-4xl mx-auto space-y-8">
 
-                <!-- Header -->
-                <div class="text-center mb-4">
-                    <h2 class="text-2xl font-bold text-slate-900">Why SafetyNet?</h2>
-                    <p class="text-slate-500 text-sm">Your safeguard for everyday life.</p>
-                </div>
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">
+                    Why "text me when you're safe" can fail
+                </h2>
+                <p class="text-slate-500 mt-2">
+                    The gap between "I'm in trouble" and raising the alarm
+                </p>
+            </div>
 
-                <!-- POINT 1: YOU -->
-                <div class="w-full bg-white rounded-2xl p-6 shadow-sm border border-slate-100 relative group transition-all hover:shadow-md">
-                    <div class="absolute -left-3 top-6 bg-blue-600 text-white p-2 rounded-lg shadow-lg">
+            <!-- The Scenario: Side-by-Side Split -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- LEFT: YOU -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 flex flex-col h-full relative overflow-hidden group hover:border-blue-100 transition-colors">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                    <div class="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center text-blue-600 mb-6">
                         <i data-lucide="user" class="w-6 h-6"></i>
                     </div>
-                    <div class="pl-8">
-                        <h3 class="font-bold text-lg text-slate-800 mb-2">You</h3>
-                        <p class="text-slate-600 leading-relaxed">
-                            Something happens. You can't reach your phone to send that text.
-                        </p>
-                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">You</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Something happens. You are injured, or in a situation where you <span class="font-semibold text-slate-800">cannot reach your phone</span> to send a text.
+                    </p>
                 </div>
 
-                <!-- Connector Arrow -->
-                <i data-lucide="arrow-down" class="w-6 h-6 text-slate-300 animate-bounce"></i>
-
-                <!-- POINT 2: FRIENDS & FAMILY -->
-                <div class="w-full bg-white rounded-2xl p-6 shadow-sm border border-slate-100 relative group transition-all hover:shadow-md">
-                    <div class="absolute -left-3 top-6 bg-indigo-600 text-white p-2 rounded-lg shadow-lg">
+                <!-- RIGHT: FRIENDS -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 flex flex-col h-full relative overflow-hidden group hover:border-indigo-100 transition-colors">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                    <div class="bg-indigo-100 w-12 h-12 rounded-xl flex items-center justify-center text-indigo-600 mb-6">
                         <i data-lucide="users" class="w-6 h-6"></i>
                     </div>
-                    <div class="pl-8">
-                        <h3 class="font-bold text-lg text-slate-800 mb-2">Friends & Family</h3>
-                        <p class="text-slate-600 leading-relaxed">
-                            They wait for your text. They call, but get no answer. <span class="font-semibold text-red-500">Panic sets in.</span>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- POINT 3 & 4: THE PROBLEM (Distinct Box) -->
-                <div class="w-full relative py-2">
-                    <!-- Connector Line running behind -->
-                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -z-10 transform -translate-x-1/2"></div>
-
-                    <div class="bg-slate-800 text-white rounded-xl p-6 shadow-xl transform scale-105 border-l-4 border-red-500 relative overflow-hidden">
-                        <!-- Background Pattern -->
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <i data-lucide="message-square-off" class="w-24 h-24"></i>
-                        </div>
-
-                        <div class="relative z-10">
-                            <div class="flex items-center space-x-3 mb-3">
-                                <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400"></i>
-                                <h4 class="font-bold text-red-100 uppercase tracking-wider text-xs">The Critical Flaw</h4>
-                            </div>
-
-                            <h3 class="text-xl font-bold mb-3">
-                                "Text Me When You're Safe" fails in silence.
-                            </h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                The current system relies on you being able to act. If you are incapacitated or silenced, the system breaks.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Connector Arrow -->
-                <i data-lucide="arrow-down" class="w-6 h-6 text-slate-300 animate-bounce"></i>
-
-                <!-- POINT 5 & 6: THE SOLUTION (Safeguard) -->
-                <div class="w-full bg-emerald-50 rounded-2xl p-8 shadow-sm border-2 border-emerald-100 relative overflow-hidden text-center">
-
-                    <!-- Decorative Net/Grid Background - Stronger, structured -->
-                    <div class="absolute inset-0 opacity-10"
-                         style="background-image: radial-gradient(#059669 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-
-                    <div class="relative z-10 flex flex-col items-center">
-                        <div class="bg-white p-4 rounded-xl shadow-md mb-4 text-emerald-600 border border-emerald-100">
-                            <i data-lucide="shield-check" class="w-8 h-8"></i>
-                        </div>
-
-                        <h3 class="font-bold text-xl text-slate-800 mb-2">The Solution</h3>
-                        <p class="text-slate-700 font-medium text-lg leading-snug">
-                            SafetyNet is your <span class="text-emerald-700 font-extrabold">Safeguard</span>.
-                        </p>
-
-                        <div class="mt-4 bg-white/60 p-4 rounded-lg border border-emerald-100/50 backdrop-blur-sm">
-                             <div class="flex items-start space-x-3">
-                                <i data-lucide="activity" class="w-5 h-5 text-emerald-600 mt-1 shrink-0"></i>
-                                <p class="text-slate-600 text-sm text-left">
-                                    "If you go silent, the safeguard speaks for you—automatically alerting your loved ones with context."
-                                </p>
-                             </div>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Friends & Family</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        They wait for your "I'm safe" text. They call, but get no answer. They text, but get no reply. <span class="font-semibold text-red-500 italic">"Is something wrong, or are you just busy?"</span>
+                    </p>
                 </div>
 
             </div>
+
+            <!-- The Critical Flaw: Lighter Design -->
+            <div class="bg-red-50 rounded-2xl p-8 md:p-10 border border-red-100 relative overflow-hidden mt-8">
+                <!-- Background Icon -->
+                <div class="absolute -right-6 -bottom-6 opacity-5 text-red-900 transform rotate-12">
+                    <i data-lucide="message-square-off" style="width: 200px; height: 200px;"></i>
+                </div>
+
+                <div class="relative z-10 max-w-2xl">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-red-100 p-2 rounded-lg">
+                            <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600"></i>
+                        </div>
+                        <span class="text-red-700 font-bold tracking-wider uppercase text-sm">The Critical Flaw</span>
+                    </div>
+
+                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+                        "Text Me When You're Safe" fails in silence.
+                    </h3>
+
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        The current system relies on you being able to act. If you go silent, the system breaks. <span class="text-slate-900 font-semibold">SafetyNet was built to provide the safeguard for this exact scenario.</span>
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
