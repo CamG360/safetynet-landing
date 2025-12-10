@@ -340,164 +340,75 @@
         </div>
     </nav>
 
-    <!-- [SECTION 1: HERO] -->
-    <header class="hero-gradient pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+    <!-- [SECTION 1: HERO - WAITLIST] -->
+    <header class="bg-slate-50 pt-32 pb-20 lg:pt-40 lg:pb-28 min-h-[600px] flex flex-col items-center justify-center">
+        <div class="max-w-3xl w-full px-6 text-center space-y-8">
 
-            <!-- Left: Value Prop -->
-            <div>
-                <h1 class="text-4xl lg:text-5xl font-bold text-slate-900 leading-[1.15] mb-6">
-                    Automatic safety alerts when you <span class="text-blue-600">can't reach your phone</span>.
+            <!-- HEADER BLOCK -->
+            <div class="space-y-4">
+                <!-- 1. The PROMISE (Headline) -->
+                <div class="inline-flex items-center justify-center space-x-2 bg-emerald-100/50 px-3 py-1 rounded-full mb-2">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                    <span class="text-emerald-800 text-xs font-bold tracking-wide uppercase">Early Access</span>
+                </div>
+
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    SafetyNet is your <span class="text-emerald-600">safeguard</span><br />
+                    for everyday life.
                 </h1>
 
-                <div class="bg-white border-l-4 border-blue-600 p-6 rounded-r-xl shadow-sm mb-8">
-                    <p class="text-xl text-slate-500 italic font-serif mb-2">"Text me when you're safe."</p>
-                    <p class="text-lg font-bold text-slate-900">
-                        You can't text if something happens.<br>
-                        <span class="text-blue-600">SafetyNet solves this.</span>
+                <!-- 2. The MECHANICS (Subhead) -->
+                <p class="text-xl text-slate-600 font-medium max-w-2xl mx-auto">
+                    Automatic safety alerts when you can't reach your phone.
+                </p>
+
+                <!-- 3. The CONTEXT (Bridge) -->
+                <div class="bg-white/50 border border-slate-200 inline-block px-4 py-2 rounded-lg mt-2">
+                    <p class="text-slate-500 italic text-sm">
+                        "Text me when you're safe" fails when you can't text. <span class="not-italic font-semibold text-slate-700">SafetyNet speaks for you.</span>
                     </p>
                 </div>
+            </div>
 
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="open-registration-modal px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-lg shadow-blue-200/50">
-                        Join the Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            <!-- ACTIONS BLOCK (Primary & Secondary) -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg mx-auto">
+
+                <!-- Input & Join (Grouped for mobile flow) -->
+                <div class="flex-1 w-full bg-white p-1.5 rounded-xl shadow-lg border border-slate-100 flex gap-2">
+                    <input
+                        type="email"
+                        id="heroEmailInput"
+                        placeholder="Enter your email"
+                        class="flex-1 px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 text-slate-800 placeholder:text-slate-400"
+                    />
+                    <button id="heroJoinWaitlistBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 md:px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg whitespace-nowrap">
+                        Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
-                    <a href="#how-it-works" class="px-8 py-4 bg-white text-slate-700 font-semibold rounded-xl border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center">
-                        See how it works
-                    </a>
                 </div>
 
-                <!-- HERO FOOTER -->
-                <div class="mt-12 flex flex-wrap justify-center gap-6 lg:gap-10 text-sm text-slate-400 font-medium border-t border-slate-100 pt-8">
-                    <span class="flex items-center gap-2"><i data-lucide="wifi-off" class="w-4 h-4 text-blue-300"></i> Custom Grace Periods</span>
-                    <span class="flex items-center gap-2"><i data-lucide="lock" class="w-4 h-4 text-blue-300"></i> Custom Messages</span>
-                    <span class="flex items-center gap-2"><i data-lucide="sliders" class="w-4 h-4 text-blue-300"></i> Works Offline</span>
+                <!-- Secondary CTA - Informational -->
+                <a href="#how-it-works" class="text-slate-500 hover:text-slate-800 font-medium px-4 py-3 rounded-lg transition-colors flex items-center gap-2 text-sm sm:text-base">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    See how it works
+                </a>
+            </div>
+
+            <!-- SOCIAL PROOF / TRUST (Updated Footer) -->
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 pt-4 text-slate-400 text-sm font-medium">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+                    <span>Works Offline</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+                    <span>Custom Messages</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+                    <span>Smart Check-ins</span>
                 </div>
             </div>
 
-            <!-- Right: Visual Context (COMPACT DISPLAY) -->
-            <div class="relative mt-12 lg:mt-0">
-                <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-purple-50 rounded-full blur-3xl opacity-60"></div>
-
-                <!-- Container for SafetyNet widget -->
-                <div class="relative flex flex-col items-center">
-
-                    <!-- Active Status Widget (Compact Version) -->
-                    <div class="w-full max-w-[340px] mx-auto bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
-                        <!-- Header Strip -->
-                        <div class="bg-blue-600 px-5 py-3 flex justify-between items-center">
-                            <div class="flex items-center text-white gap-2">
-                                <i data-lucide="shield-check" class="w-4 h-4"></i>
-                                <span class="text-xs font-bold uppercase tracking-wider">SafetyNet Active</span>
-                            </div>
-                            <div class="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-                        </div>
-
-                        <!-- Main Card Content (Compact) -->
-                        <div class="p-5">
-                            <div class="flex justify-between items-end mb-3">
-                                <div>
-                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wide">Check-in Safe:</span>
-                                    <div class="text-3xl font-bold text-slate-900 mt-1">1 hr 28 mins</div>
-                                </div>
-                                <!-- Edit Button -->
-                                <div class="text-right">
-                                    <button class="text-slate-400 hover:text-blue-600 transition flex items-center gap-1 text-xs font-bold bg-slate-50 hover:bg-slate-100 px-2 py-1 rounded" disabled>
-                                        <i data-lucide="pencil" class="w-3 h-3"></i> Edit <span class="text-[10px] font-normal ml-0.5">(Demo)</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Progress Bar -->
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-4">
-                                <div class="bg-blue-600 w-3/4 h-full rounded-full"></div>
-                            </div>
-
-                            <!-- Info Text (Compact) -->
-                            <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 mb-3">
-                                <p class="text-sm text-slate-600 leading-relaxed">
-                                    If you can't check-in safe, an <span class="font-semibold text-slate-900">alert</span> is sent to your emergency <strong class="text-slate-900">contact</strong>.
-                                </p>
-                            </div>
-
-                            <!-- Action Button -->
-                            <button class="w-full py-3 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition flex items-center justify-center gap-2" disabled>
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                I'm Safe <span class="text-xs font-normal text-slate-400 ml-1">(Demo)</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- SafetyNet Logic Signpost -->
-                    <div class="mt-6 w-full max-w-[340px] bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm p-4 space-y-3">
-                        <!-- Check-in Option -->
-                        <div class="flex items-start gap-3">
-                            <div class="mt-0.5 text-blue-600 shrink-0">
-                                <i data-lucide="shield-check" class="w-4 h-4"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm text-slate-700 leading-relaxed">
-                                    Tap <span class="font-bold text-slate-900">"I'm Safe"</span> → SafetyNet ends. No alert sent.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- No Check-in Option -->
-                        <div class="flex items-start gap-3">
-                            <div class="mt-0.5 text-red-500 shrink-0">
-                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm text-slate-700 leading-relaxed">
-                                    <span class="font-bold text-slate-900">Can't tap "I'm Safe"?</span> → Safety Alert sent to your contact.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Safety Alert Demo Card -->
-                    <div id="heroSafetyAlertBtn" class="mt-4 w-full max-w-[340px] bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group">
-                        <!-- Red Header -->
-                        <div class="bg-red-600 px-5 py-3 flex justify-between items-center text-white">
-                            <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
-                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                                Safety Alert Sent
-                            </div>
-                            <!-- Red/White Pulse -->
-                            <span class="relative flex h-2 w-2">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                            </span>
-                        </div>
-
-                        <!-- Body -->
-                        <div class="p-5 space-y-4">
-                            <!-- Alert Status -->
-                            <div class="flex items-start gap-4">
-                                <div class="bg-red-50 p-3 rounded-xl text-red-600">
-                                     <i data-lucide="send" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-slate-900 text-lg">Contact Notified</div>
-                                </div>
-                            </div>
-
-                            <!-- Click to view details hint -->
-                            <div class="flex items-center justify-center gap-2 text-slate-400 text-xs group-hover:text-blue-600 transition-colors">
-                                <span>Click to view demo</span>
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </div>
-
-                            <!-- NEW CTA: Cancel safety alert  -->
-                            <button class="w-full py-2 px-4 rounded-xl border-2 border-red-500 text-red-500 text-xs font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group" disabled onclick="event.stopPropagation()">
-                                <i data-lucide="x" class="w-4 h-4"></i>
-                                Cancel safety alert <span class="text-xs font-normal text-red-400 ml-1">(Demo)</span>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </header>
 
@@ -1285,6 +1196,23 @@
             closeRegBtn.addEventListener('click', () => toggleModal('registrationModal', false));
             regModal.addEventListener('click', (e) => {
                 if (e.target === regModal) toggleModal('registrationModal', false);
+            });
+        }
+
+        // --- Hero Join Waitlist Button ---
+        const heroJoinBtn = document.getElementById('heroJoinWaitlistBtn');
+        const heroEmailInput = document.getElementById('heroEmailInput');
+        const modalEmailInput = document.getElementById('email');
+
+        if (heroJoinBtn && heroEmailInput && modalEmailInput) {
+            heroJoinBtn.addEventListener('click', () => {
+                // Pre-fill modal email if hero email has a value
+                const heroEmail = heroEmailInput.value.trim();
+                if (heroEmail) {
+                    modalEmailInput.value = heroEmail;
+                }
+                // Open the registration modal
+                toggleModal('registrationModal', true);
             });
         }
 
