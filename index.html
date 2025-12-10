@@ -897,7 +897,7 @@
 
             <!-- FAQ Category Tabs -->
             <div class="flex flex-wrap justify-center gap-2 mb-8">
-                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="getting-started">
+                <button class="faq-category-btn active px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="getting-started">
                     Getting Started
                 </button>
                 <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="how-it-works">
@@ -912,7 +912,7 @@
                 <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="launch-pricing">
                     Launch & Pricing
                 </button>
-                <button class="faq-category-btn active px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="all">
+                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="all">
                     All
                 </button>
             </div>
@@ -1430,6 +1430,35 @@
         const faqCategoryBtns = document.querySelectorAll('.faq-category-btn');
         const faqItems = document.querySelectorAll('.faq-item');
 
+        // Function to filter FAQs by category
+        function filterFAQs(selectedCategory) {
+            faqItems.forEach((item) => {
+                const itemCategory = item.getAttribute('data-category');
+
+                if (selectedCategory === 'all') {
+                    // Show all items
+                    item.classList.remove('hidden-faq');
+                } else if (itemCategory === selectedCategory) {
+                    // Show items matching the selected category
+                    item.classList.remove('hidden-faq');
+                } else {
+                    // Hide items that don't match
+                    item.classList.add('hidden-faq');
+                    // Also close any open FAQ items when hiding
+                    item.classList.remove('active');
+                    item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // Initialize on page load - filter based on active button
+        const activeBtn = document.querySelector('.faq-category-btn.active');
+        if (activeBtn) {
+            const initialCategory = activeBtn.getAttribute('data-category');
+            filterFAQs(initialCategory);
+        }
+
+        // Add click event listeners
         faqCategoryBtns.forEach((btn) => {
             btn.addEventListener('click', () => {
                 const selectedCategory = btn.getAttribute('data-category');
@@ -1439,23 +1468,7 @@
                 btn.classList.add('active');
 
                 // Filter FAQ items
-                faqItems.forEach((item) => {
-                    const itemCategory = item.getAttribute('data-category');
-
-                    if (selectedCategory === 'all') {
-                        // Show all items
-                        item.classList.remove('hidden-faq');
-                    } else if (itemCategory === selectedCategory) {
-                        // Show items matching the selected category
-                        item.classList.remove('hidden-faq');
-                    } else {
-                        // Hide items that don't match
-                        item.classList.add('hidden-faq');
-                        // Also close any open FAQ items when hiding
-                        item.classList.remove('active');
-                        item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-                    }
-                });
+                filterFAQs(selectedCategory);
             });
         });
 
