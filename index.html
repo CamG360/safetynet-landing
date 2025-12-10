@@ -94,6 +94,10 @@
         /* FAQ Styles */
         .faq-item {
             border-bottom: 1px solid #e2e8f0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .faq-item.hidden-faq {
+            display: none;
         }
         .faq-question {
             cursor: pointer;
@@ -117,6 +121,22 @@
         }
         .faq-item.active .faq-icon {
             transform: rotate(180deg);
+        }
+
+        /* FAQ Category Buttons */
+        .faq-category-btn {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid transparent;
+        }
+        .faq-category-btn:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+        .faq-category-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
         }
 
         /* SafetyNet Alert Card Styles */
@@ -875,9 +895,31 @@
                 <p class="text-slate-500 text-lg">Everything you need to know about SafetyNet</p>
             </div>
 
+            <!-- FAQ Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="faq-category-btn active px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="all">
+                    All
+                </button>
+                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="getting-started">
+                    Getting Started
+                </button>
+                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="how-it-works">
+                    How It Works
+                </button>
+                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="privacy">
+                    Privacy & Security
+                </button>
+                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="why-safetynet">
+                    Why SafetyNet
+                </button>
+                <button class="faq-category-btn px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="launch-pricing">
+                    Launch & Pricing
+                </button>
+            </div>
+
             <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 1: Privacy -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="privacy">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">How does SafetyNet protect my privacy?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -887,8 +929,8 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 2 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 2: How It Works -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">How does it work offline or with a dead battery?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -898,8 +940,8 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 3 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 3: How It Works -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">Will this drain my battery?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -909,8 +951,8 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 4 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 4: How It Works -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">What if I forget to check in but I'm safe?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -920,8 +962,8 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 5 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 5: Why SafetyNet -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="why-safetynet">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">How is this different from Find My Friends or Life360?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -931,8 +973,8 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 6 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 6: Launch & Pricing -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="launch-pricing">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">When will SafetyNet be available?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -942,8 +984,8 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 7 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+                <!-- FAQ Item 7: Launch & Pricing -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="launch-pricing">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
                         <h3 class="text-lg font-bold text-slate-900 pr-8">Is SafetyNet free?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
@@ -952,25 +994,26 @@
                         We're finalizing our pricing model. Our goal is to make SafetyNet accessible while sustaining the reliable cloud infrastructure needed for 24/7 safety monitoring. Early access members will receive special pricing. Join the waitlist to stay updated.
                     </div>
                 </div>
-                <!-- FAQ Item 8 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+
+                <!-- FAQ Item 8: Getting Started -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
-                        <h3 class="text-lg font-bold text-slate-900 pr-8">How will my emergency contacts know i use SafetyNet?</h3>
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How will my emergency contacts know I use SafetyNet?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
                     </button>
                     <div class="faq-answer text-slate-600 leading-relaxed">
-                        A confirmation request is sent to your emergency contact to set them up in the SafetyNet system.  It might also be a good idea to tell them before hand. 
+                        A confirmation request is sent to your emergency contact to set them up in the SafetyNet system. It might also be a good idea to tell them beforehand.
                     </div>
                 </div>
-                </div>
-                <!-- FAQ Item 9 -->
-                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6">
+
+                <!-- FAQ Item 9: Getting Started -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started">
                     <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
-                        <h3 class="text-lg font-bold text-slate-900 pr-8">How do i set-up a customised message and instructions for Safety Alerts? </h3>
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How do I set up a customized message and instructions for Safety Alerts?</h3>
                         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
                     </button>
                     <div class="faq-answer text-slate-600 leading-relaxed">
-                        You can create your customised message and instructions when you create a SafetyNet.     
+                        You can create your customized message and instructions when you create a SafetyNet.
                     </div>
                 </div>
             </div>
@@ -1380,6 +1423,39 @@
                     faqItem.classList.add('active');
                     question.setAttribute('aria-expanded', 'true');
                 }
+            });
+        });
+
+        // --- FAQ Category Filter Logic ---
+        const faqCategoryBtns = document.querySelectorAll('.faq-category-btn');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqCategoryBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const selectedCategory = btn.getAttribute('data-category');
+
+                // Update active button state
+                faqCategoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter FAQ items
+                faqItems.forEach((item) => {
+                    const itemCategory = item.getAttribute('data-category');
+
+                    if (selectedCategory === 'all') {
+                        // Show all items
+                        item.classList.remove('hidden-faq');
+                    } else if (itemCategory === selectedCategory) {
+                        // Show items matching the selected category
+                        item.classList.remove('hidden-faq');
+                    } else {
+                        // Hide items that don't match
+                        item.classList.add('hidden-faq');
+                        // Also close any open FAQ items when hiding
+                        item.classList.remove('active');
+                        item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    }
+                });
             });
         });
 
