@@ -890,128 +890,144 @@
     </section>
 
     <!-- [SECTION: OUR STORY] -->
-    <section id="our-story" class="py-24 bg-white border-t border-slate-100">
-        <div class="max-w-4xl mx-auto px-6">
+    <section id="our-story" class="py-24 bg-white border-t border-slate-100 font-sans">
+        <div class="max-w-6xl mx-auto px-6">
 
-            <!-- Founder Photo & Header -->
-            <div class="text-center mb-12">
-                <img src="images/campbell-mccord.png" alt="Campbell McCord, Founder of SafetyNet" class="w-32 h-32 rounded-full mx-auto mb-6 shadow-lg border-4 border-white ring-2 ring-slate-200">
-                <h3 class="text-2xl font-bold text-slate-900 mb-2">Campbell McCord</h3>
-                <p class="text-blue-600 font-semibold text-lg mb-8">Founder</p>
+            <!-- PART 1: The Founder & The Hook -->
+            <!-- UX Note: Using a grid here connects the face to the story immediately, rather than forcing the user to scroll past the bio to get to the 'Why'. -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
 
-                <div class="inline-flex items-center justify-center space-x-2 bg-blue-50 px-4 py-2 rounded-full mb-6">
-                    <i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i>
-                    <span class="text-blue-800 text-sm font-medium">20 years building safeguards for banks, insurers, and asset managers</span>
-                </div>
-            </div>
+                <!-- Left Column: Founder Profile (Trust Signal) -->
+                <div class="lg:col-span-4">
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 sticky top-8 text-center lg:text-left">
+                        <img
+                            src="images/campbell-mccord.png"
+                            alt="Campbell McCord, Founder of SafetyNet"
+                            class="w-32 h-32 rounded-full mx-auto lg:mx-0 mb-6 shadow-xl border-4 border-white ring-1 ring-slate-200"
+                        >
 
-            <!-- Story Opening -->
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold text-slate-900 mb-6 text-center">Why I Built SafetyNet</h2>
-                <p class="text-lg text-slate-700 leading-relaxed mb-4">
-                    I spent 20 years building safeguards for businesses and financial institutions.
-                </p>
-                <p class="text-lg text-slate-700 leading-relaxed mb-4">
-                    My job: figure out what could go wrong, then build systems that prevented problems or caught them fast. Silent systems that kept businesses safe while letting them operate freely.
-                </p>
-                <p class="text-lg text-slate-700 leading-relaxed">
-                    But in my own life, I kept seeing people face problems - from worst-case scenarios to everyday inconveniences - that would be easily detectable and managed in business, but weren't in people's everyday lives.
-                </p>
-            </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-1">Campbell McCord</h3>
+                        <p class="text-blue-600 font-bold text-sm uppercase tracking-wide mb-6">Founder</p>
 
-            <!-- Real-Life Examples as Cards -->
-            <div class="mb-12">
-                <h3 class="text-xl font-bold text-slate-900 mb-6">The situations that shaped SafetyNet:</h3>
-
-                <div class="space-y-4">
-                    <!-- Example 1: Spiked Drink -->
-                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-200 transition-colors">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Working in the UK</h4>
-                                <p class="text-slate-600 leading-relaxed">A friend's drink was spiked at a corporate event two hours from home - no one knew to look for her.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Example 2: London Incidents -->
-                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-200 transition-colors">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="map-pin" class="w-6 h-6 text-amber-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Back in London</h4>
-                                <ul class="text-slate-600 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>First date that wouldn't leave - hours of stress, no one knew there was a problem</li>
-                                    <li>Radio silence from a friend - turns out their phone was stolen</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Example 3: Traveling -->
-                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-200 transition-colors">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="plane" class="w-6 h-6 text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Whilst traveling</h4>
-                                <ul class="text-slate-600 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>Friends held hostage in an Airbnb for days - everyone assumed they were together, so they were fine</li>
-                                    <li>Adult sons missing on another continent - parents only realized days later</li>
-                                    <li>Solo travelers who wondered: would anyone even know if something happened?</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Example 4: New Zealand -->
-                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-blue-200 transition-colors">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="mountain" class="w-6 h-6 text-green-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Growing up in New Zealand</h4>
-                                <p class="text-slate-600 leading-relaxed">A colleague slipped and hit her head whilst tramping - no one knew anything was wrong until it was too late.</p>
-                            </div>
+                        <div class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                            <i data-lucide="briefcase" class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-slate-600 text-sm font-medium leading-relaxed">20 years building safeguards for banks, insurers, and asset managers</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- The Pattern -->
-            <div class="bg-red-50 rounded-2xl p-8 border border-red-100 mb-12">
-                <div class="flex items-start gap-4 mb-4">
-                    <div class="bg-red-100 p-2 rounded-lg flex-shrink-0">
-                        <i data-lucide="alert-circle" class="w-6 h-6 text-red-600"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">The pattern was clear:</h3>
-                        <p class="text-slate-700 leading-relaxed text-lg">
-                            Everyone assumed they were fine until they weren't. No one knew there was a problem, what the context was, or what to do.
+                <!-- Right Column: The Narrative -->
+                <div class="lg:col-span-8 flex flex-col justify-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-8">Why I Built SafetyNet</h2>
+
+                    <div class="prose prose-lg text-slate-600">
+                        <p class="leading-relaxed mb-6">
+                            I spent 20 years building safeguards for businesses and financial institutions.
+                        </p>
+                        <p class="leading-relaxed mb-6">
+                            My job: figure out what could go wrong, then build systems that prevented problems or caught them fast. Silent systems that kept businesses safe while letting them operate freely.
+                        </p>
+                        <p class="leading-relaxed font-medium text-slate-800">
+                            But in my own life, I kept seeing people face problems - from worst-case scenarios to everyday inconveniences - that would be easily detectable and managed in business, but weren't in people's everyday lives.
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- The Philosophy -->
-            <div class="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-                <div class="max-w-2xl mx-auto">
-                    <p class="text-lg text-slate-700 leading-relaxed mb-4">
-                        In business, we never operated this way. Uncertainty is a given - markets swing, systems fail, people make mistakes. But we didn't avoid risk. We built safeguards so we could take risks MORE confidently.
-                    </p>
-                    <p class="text-lg text-slate-700 leading-relaxed">
-                        Life deserves the same approach. You can't control everything. But you can control the safeguards you put in place. SafetyNet doesn't restrict your freedom - it enables it. Go on the date. Take the trip. Live alone in a new city. Because someone will notice if something goes wrong.
-                    </p>
+            <!-- PART 2: The Evidence -->
+            <!-- UX Note: Converted to a 2x2 Grid to reduce vertical scroll and group "pain points" visually. -->
+            <div class="mb-20">
+                <h3 class="text-xl font-bold text-slate-900 mb-8 border-l-4 border-blue-600 pl-4">The situations that shaped SafetyNet:</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Example 1: Working in London (Combined) -->
+                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-100 transition-colors">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-amber-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-2">Working in London</h4>
+                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                    <li>First date that wouldn't leave - hours of stress, no one knew there was a problem</li>
+                                    <li>Radio silence from a friend - turns out their phone was stolen</li>
+                                    <li>A friend's drink was spiked at a corporate event two hours from home - no one knew to look for her.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example 2: Whilst traveling (Edited) -->
+                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300 group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                                <i data-lucide="plane" class="w-5 h-5 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-2">Whilst traveling</h4>
+                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                    <li>Friends held hostage in an Airbnb for days - everyone assumed they were together, so they were fine</li>
+                                    <li>Adult sons missing on another continent - parents only realized days later</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example 3: Growing up in New Zealand (Edited) -->
+                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-green-300 transition-all duration-300 group md:col-span-2 lg:col-span-1 lg:col-start-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                                <i data-lucide="mountain" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-2">Growing up in New Zealand</h4>
+                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                    <li>A colleague slipped and hit her head whilst tramping - no one knew anything was wrong until it was too late.</li>
+                                    <li>Solo travelers who wondered: would anyone even know if something happened?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- PART 3: The Insight & The Vision -->
+            <!-- UX Note: Stacked vertically with max-width constraints to center the reader's eye for the conclusion/CTA. -->
+            <div class="max-w-4xl mx-auto space-y-8">
+
+                <!-- The Pattern (Problem Statement) -->
+                <div class="bg-red-50/50 rounded-2xl p-8 border-l-4 border-red-500">
+                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                        <div class="flex-shrink-0 hidden md:block">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+                                <i data-lucide="alert-circle" class="w-6 h-6 text-red-600"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                <i data-lucide="alert-circle" class="w-5 h-5 text-red-600 md:hidden"></i>
+                                The pattern was clear:
+                            </h3>
+                            <p class="text-slate-800 leading-relaxed text-lg">
+                                Everyone assumed they were fine until they weren't. No one knew there was a problem, what the context was, or what to do.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Philosophy (Solution Statement) -->
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                    <div class="max-w-3xl mx-auto">
+                        <p class="text-lg md:text-xl text-blue-50 leading-relaxed mb-6 font-light">
+                            In business, we never operated this way. Uncertainty is a given - markets swing, systems fail, people make mistakes. But we didn't avoid risk. We built safeguards so we could take risks <span class="text-white font-bold border-b border-blue-400">MORE confidently</span>.
+                        </p>
+                        <p class="text-lg md:text-xl text-blue-50 leading-relaxed font-medium">
+                            Life deserves the same approach. You can't control everything. But you can control the safeguards you put in place. SafetyNet doesn't restrict your freedom - it enables it. Go on the date. Take the trip. Live alone in a new city. Because someone will notice if something goes wrong.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
