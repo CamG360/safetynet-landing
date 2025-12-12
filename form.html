@@ -515,13 +515,13 @@
 
     <!-- Form -->
     <form id="registrationForm" class="form-body">
-        
+
         <!-- Email Field -->
         <div class="field-group">
             <label for="email" class="field-label">Email</label>
-            <input 
-                type="email" 
-                id="email" 
+            <input
+                type="email"
+                id="email"
                 name="email"
                 class="form-input"
                 placeholder="you@example.com"
@@ -532,167 +532,11 @@
             <p id="email-error" class="error-message" role="alert">Please enter a valid email address</p>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="button-group" id="mainButtons">
-            <button type="button" id="joinEarlyAccessBtn" class="btn btn-primary">
-                <span>Join early access</span>
-                <span class="spinner" id="joinSpinner"></span>
-            </button>
-            <button type="button" id="showQuestionsBtn" class="btn btn-secondary">
-                <span>Answer a few quick questions</span>
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m6 9 6 6 6-6"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Optional Questions Section -->
-        <div id="optionalSection" class="optional-section">
-            
-            <div class="section-header">
-                <h2>Optional: help us shape SafetyNet</h2>
-                <p>Answer a few quick questions so we can design SafetyNet around real use.</p>
-            </div>
-
-            <!-- First Name -->
-            <div class="field-group">
-                <label for="name" class="field-label">
-                    First name <span class="optional">(optional)</span>
-                </label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    name="name"
-                    class="form-input"
-                    placeholder="Your first name"
-                    autocomplete="given-name">
-            </div>
-
-            <!-- What would you use SafetyNet for? -->
-            <div class="field-group">
-                <label for="use-case" class="field-label">
-                    What would you use SafetyNet for? <span class="optional">(optional)</span>
-                </label>
-                <select id="use-case" name="use_case" class="form-input">
-                    <option value="">Select an option...</option>
-                    <option value="traveling-alone">Solo or work travel</option>
-                    <option value="dating">Dating (first dates, meeting new people)</option>
-                    <option value="solo-activities">Everyday activities (hiking, running, commuting)</option>
-                    <option value="general-safety">General safety for myself or loved ones</option>
-                    <option value="other">Other (please specify)</option>
-                </select>
-                <div id="otherUseCaseField" class="conditional-field">
-                    <input 
-                        type="text" 
-                        id="other-use-case" 
-                        name="other_use_case"
-                        class="form-input"
-                        placeholder="Please tell us what you'd use SafetyNet for...">
-                </div>
-            </div>
-
-            <!-- Which features interest you? -->
-            <div class="field-group">
-                <label class="field-label">
-                    Which SafetyNet features interest you? <span class="optional">(optional)</span>
-                </label>
-                <p class="help-text" style="margin-bottom: 12px;">Select all that apply</p>
-                <div class="checkbox-group">
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="clear-safety-alert">
-                        <span class="checkbox-label"><strong>One clear Safety Alert</strong> – a single clear alert when something might be wrong</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="critical-info-available">
-                        <span class="checkbox-label"><strong>Critical Safety Info</strong> – where you are, what you're doing, who you're with</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="offline-safety-alerts">
-                        <span class="checkbox-label"><strong>Offline alerts</strong> – Safety Alerts sent even if you can't access your phone</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="privacy-by-default">
-                        <span class="checkbox-label"><strong>Private by default</strong> – nothing shared until safety matters</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="no-tracking">
-                        <span class="checkbox-label"><strong>No tracking</strong> – no 24/7 live location</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="quick-setup">
-                        <span class="checkbox-label"><strong>Fast setup</strong> – Safe Time in under a minute</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="stay-in-control">
-                        <span class="checkbox-label"><strong>You stay in control</strong> – your Safe Time, your message, your grace period</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="features" value="other" id="featureOtherCheckbox">
-                        <span class="checkbox-label"><strong>Other</strong> – please specify below</span>
-                    </label>
-                </div>
-                <div id="otherFeatureField" class="conditional-field">
-                    <input 
-                        type="text" 
-                        id="other-feature" 
-                        name="other_feature"
-                        class="form-input"
-                        placeholder="Please describe the feature that interests you...">
-                </div>
-            </div>
-
-            <!-- User Testing Interest -->
-            <div class="field-group">
-                <div class="user-testing-box">
-                    <label class="field-label" style="margin-bottom: 12px;">
-                        Would you be interested in answering follow-up questions to help shape SafetyNet? <span class="optional">(optional)</span>
-                    </label>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="user_testing_interest" value="yes">
-                            <span class="radio-label">Yes, happy to provide more input (and get early access)</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="user_testing_interest" value="no">
-                            <span class="radio-label">No, just keep me updated</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- How did you find SafetyNet? -->
-            <div class="field-group">
-                <label for="source" class="field-label">
-                    How did you find SafetyNet? <span class="optional">(optional)</span>
-                </label>
-                <select id="source" name="source" class="form-input">
-                    <option value="">Select an option...</option>
-                    <option value="friend-family">Friend or family told me</option>
-                    <option value="social-media">Social media</option>
-                    <option value="search-engine">Search engine</option>
-                    <option value="news-article">News or article</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-
-            <!-- Anything else? -->
-            <div class="field-group">
-                <label for="other-notes" class="field-label">
-                    Anything else we should know? <span class="optional">(optional)</span>
-                </label>
-                <textarea 
-                    id="other-notes" 
-                    name="other_notes"
-                    class="form-input"
-                    placeholder="Features you'd want, concerns, or feedback... this is your safety tool."></textarea>
-            </div>
-
-            <!-- Complete Registration Button -->
-            <button type="submit" id="completeBtn" class="btn btn-primary" style="width: 100%;">
-                <span id="completeBtnText">Complete registration</span>
-                <span class="spinner" id="completeSpinner"></span>
-            </button>
-        </div>
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
+            <span id="submitBtnText">Join Waitlist</span>
+            <span class="spinner" id="submitSpinner"></span>
+        </button>
 
         <!-- Form Error -->
         <div id="formError" class="form-error" role="alert">
@@ -713,9 +557,8 @@
                 <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
         </div>
-        <h2>You're on the list!</h2>
-        <p>Thanks for your interest in SafetyNet. We'll keep you updated as we build this together.</p>
-        <p id="userTestingConfirm" class="user-testing-confirm">We'll reach out in the next 2–3 weeks with follow-up questions.</p>
+        <h2>You're on the waitlist!</h2>
+        <p>We'll be in touch soon with updates on SafetyNet.</p>
         <a class="back-link" onclick="window.location.reload()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"/>
@@ -727,7 +570,7 @@
 
 <script>
     // ============================================
-    // CONFIGURATION - Replace with your Supabase details
+    // CONFIGURATION
     // ============================================
     const SUPABASE_URL = 'https://igzyfbzayuimdnjhapog.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnenlmYnpheXVpbWRuamhhcG9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwNjA3MTcsImV4cCI6MjA3MDYzNjcxN30.3POIFC1Vs97GOPQCc0MJaM0GXs0f08kXcMHEWymn1Os';
@@ -739,22 +582,12 @@
     const form = document.getElementById('registrationForm');
     const emailInput = document.getElementById('email');
     const emailError = document.getElementById('email-error');
-    const joinEarlyAccessBtn = document.getElementById('joinEarlyAccessBtn');
-    const joinSpinner = document.getElementById('joinSpinner');
-    const showQuestionsBtn = document.getElementById('showQuestionsBtn');
-    const mainButtons = document.getElementById('mainButtons');
-    const optionalSection = document.getElementById('optionalSection');
-    const completeBtn = document.getElementById('completeBtn');
-    const completeBtnText = document.getElementById('completeBtnText');
-    const completeSpinner = document.getElementById('completeSpinner');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitBtnText = document.getElementById('submitBtnText');
+    const submitSpinner = document.getElementById('submitSpinner');
     const formError = document.getElementById('formError');
     const formErrorMessage = document.getElementById('formErrorMessage');
     const successMessage = document.getElementById('successMessage');
-    const userTestingConfirm = document.getElementById('userTestingConfirm');
-    const useCaseSelect = document.getElementById('use-case');
-    const otherUseCaseField = document.getElementById('otherUseCaseField');
-    const featureOtherCheckbox = document.getElementById('featureOtherCheckbox');
-    const otherFeatureField = document.getElementById('otherFeatureField');
 
     // ============================================
     // Email Validation
@@ -783,49 +616,19 @@
     });
 
     // ============================================
-    // Show Optional Questions
+    // Form Submission
     // ============================================
-    showQuestionsBtn.addEventListener('click', () => {
-        optionalSection.classList.add('show');
-        mainButtons.style.display = 'none';
-        
-        setTimeout(() => {
-            optionalSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 100);
-    });
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    // ============================================
-    // Conditional Field Toggles
-    // ============================================
-    useCaseSelect.addEventListener('change', () => {
-        if (useCaseSelect.value === 'other') {
-            otherUseCaseField.classList.add('show');
-        } else {
-            otherUseCaseField.classList.remove('show');
-        }
-    });
-
-    featureOtherCheckbox.addEventListener('change', () => {
-        if (featureOtherCheckbox.checked) {
-            otherFeatureField.classList.add('show');
-        } else {
-            otherFeatureField.classList.remove('show');
-        }
-    });
-
-    // ============================================
-    // Submission Handler
-    // ============================================
-    async function handleSubmission(isQuickJoin) {
         // Clear previous errors
         formError.classList.remove('show');
         emailError.classList.remove('show');
         emailInput.classList.remove('error');
 
-        // Get email
+        // Get and validate email
         const email = emailInput.value.trim();
 
-        // Validate email
         if (!email) {
             emailError.textContent = 'Email is required';
             emailError.classList.add('show');
@@ -842,57 +645,14 @@
             return;
         }
 
-        // Get optional field values
-        const name = document.getElementById('name')?.value.trim() || '';
-        const useCase = useCaseSelect.value;
-        const otherUseCase = document.getElementById('other-use-case')?.value.trim() || '';
-        const source = document.getElementById('source')?.value || '';
-        const otherNotes = document.getElementById('other-notes')?.value.trim() || '';
-        
-        const features = Array.from(document.querySelectorAll('input[name="features"]:checked'))
-            .map(checkbox => checkbox.value);
-        
-        const otherFeature = document.getElementById('other-feature')?.value.trim() || '';
-        const userTestingInterest = document.querySelector('input[name="user_testing_interest"]:checked')?.value || null;
-
-        // Validate conditional fields if not quick join
-        if (!isQuickJoin) {
-            if (useCase === 'other' && !otherUseCase) {
-                formErrorMessage.textContent = 'Please specify what you would use SafetyNet for';
-                formError.classList.add('show');
-                document.getElementById('other-use-case').focus();
-                return;
-            }
-
-            if (featureOtherCheckbox.checked && !otherFeature) {
-                formErrorMessage.textContent = 'Please describe the feature that interests you';
-                formError.classList.add('show');
-                document.getElementById('other-feature').focus();
-                return;
-            }
-        }
-
         // Show loading state
-        const btn = isQuickJoin ? joinEarlyAccessBtn : completeBtn;
-        const spinner = isQuickJoin ? joinSpinner : completeSpinner;
-        const btnText = isQuickJoin ? joinEarlyAccessBtn.querySelector('span:first-child') : completeBtnText;
-        const originalText = btnText.textContent;
-
-        btn.disabled = true;
-        btnText.textContent = 'Submitting...';
-        spinner.style.display = 'inline-block';
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Submitting...';
+        submitSpinner.style.display = 'inline-block';
 
         // Prepare data for Supabase
         const feedbackData = {
             email: email,
-            name: isQuickJoin ? null : (name || null),
-            use_case: isQuickJoin ? null : (useCase || null),
-            other_use_case: (isQuickJoin || useCase !== 'other') ? null : (otherUseCase || null),
-            features: isQuickJoin ? null : (features.length > 0 ? features : null),
-            other_feature: (isQuickJoin || !featureOtherCheckbox.checked) ? null : (otherFeature || null),
-            user_testing_interest: isQuickJoin ? null : userTestingInterest,
-            source: isQuickJoin ? null : (source || null),
-            other_notes: isQuickJoin ? null : (otherNotes || null),
             created_at: new Date().toISOString()
         };
 
@@ -916,46 +676,19 @@
             form.style.display = 'none';
             successMessage.classList.add('show');
 
-            // Show user testing confirmation if they opted in
-            if (userTestingInterest === 'yes') {
-                userTestingConfirm.classList.add('show');
-            }
-
-            // Optional: Analytics tracking
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'feedback_submitted', {
-                    'submission_type': isQuickJoin ? 'quick_join' : 'complete',
-                    'use_case': useCase,
-                    'features_count': features.length,
-                    'user_testing_interest': userTestingInterest,
-                    'has_name': !!name,
-                    'source': source
-                });
-            }
-
         } catch (error) {
             console.error('Submission error:', error);
-            
+
             formErrorMessage.textContent = 'Unable to submit. Please check your connection and try again.';
             formError.classList.add('show');
-            
+
             // Reset button state
-            btn.disabled = false;
-            btnText.textContent = originalText;
-            spinner.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtnText.textContent = 'Join Waitlist';
+            submitSpinner.style.display = 'none';
 
             formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-    }
-
-    // ============================================
-    // Event Listeners
-    // ============================================
-    joinEarlyAccessBtn.addEventListener('click', () => handleSubmission(true));
-    
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        handleSubmission(false);
     });
 </script>
 
