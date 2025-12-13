@@ -32,6 +32,16 @@
   - Form validation and submission
   - Smooth scroll navigation
 
+### Backend & Data
+- **Database**: Supabase (PostgreSQL)
+  - Project ID: `igzyfbzayuimdnjhapog`
+  - URL: `https://igzyfbzayuimdnjhapog.supabase.co`
+  - Dashboard: https://supabase.com/dashboard/project/igzyfbzayuimdnjhapog
+- **API**: Supabase REST API (direct fetch calls, no SDK)
+- **Authentication**: Anon key (public API key for client-side access)
+- **Table**: `feedback`
+- **Data Collected**: Email addresses + timestamps
+
 ---
 
 ## Build Tools & Pipeline
@@ -94,8 +104,9 @@ safetynet-landing/
 | Tailwind CSS | Latest | cdn.tailwindcss.com | Utility-first CSS framework |
 | Lucide Icons | Latest | unpkg.com | Icon library |
 | Google Fonts | - | fonts.googleapis.com | Inter typeface |
+| Supabase | REST API | igzyfbzayuimdnjhapog.supabase.co | Backend database (PostgreSQL) |
 
-**Note**: All dependencies are loaded via CDN at runtime. No local node_modules or package management.
+**Note**: All frontend dependencies are loaded via CDN at runtime. No local node_modules or package management. Supabase is accessed via direct REST API calls (no JS SDK).
 
 ---
 
@@ -161,11 +172,81 @@ If the project grows, consider:
 
 ---
 
-## Contact Form Backend
+## Backend Architecture
 
-**Current Implementation**: Unknown/TBD
-- Form exists in UI but backend integration needs verification
-- May require serverless function or third-party service (FormSpree, Netlify Forms, etc.)
+### Supabase Integration
+
+**Database**: PostgreSQL (via Supabase)
+- **Project**: `igzyfbzayuimdnjhapog`
+- **Region**: Auto-assigned by Supabase
+- **Tier**: Free tier (likely)
+
+**API Implementation**:
+```javascript
+// Configuration (hardcoded in both index.html and form.html)
+const SUPABASE_URL = 'https://igzyfbzayuimdnjhapog.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGci...'; // Public anon key
+const TABLE_NAME = 'feedback';
+
+// Form submission (vanilla fetch)
+const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+    method: 'POST',
+    headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify({ email, created_at: new Date().toISOString() })
+});
+```
+
+**Data Schema** (`feedback` table):
+- `email` (text): User email address
+- `created_at` (timestamp): Submission timestamp
+
+**Security Considerations**:
+- ⚠️ Anon key is **exposed in client-side code** (normal for public forms)
+- ⚠️ Should have Row Level Security (RLS) policies enabled in Supabase
+- ⚠️ Should restrict INSERT-only access for public users
+- ⚠️ Consider rate limiting to prevent spam
+
+**Files with Supabase Integration**:
+- `index.html:1435-1680` - Registration modal form
+- `form.html:575-670` - Standalone form page
+
+---
+
+## Data Flow Architecture
+
+```
+User Browser
+    │
+    ├─── Loads HTML/CSS/JS from Vercel CDN
+    │    └─── index.html (static file)
+    │         ├─── Tailwind CSS (cdn.tailwindcss.com)
+    │         ├─── Lucide Icons (unpkg.com)
+    │         └─── Google Fonts
+    │
+    └─── Form Submission (JavaScript fetch)
+         │
+         └─── POST https://igzyfbzayuimdnjhapog.supabase.co/rest/v1/feedback
+              │
+              └─── Supabase PostgreSQL Database
+                   └─── feedback table
+                        ├─── email (text)
+                        └─── created_at (timestamp)
+```
+
+**Request Flow**:
+1. User visits `safetynet-landing.vercel.app`
+2. Vercel serves static `index.html`
+3. Browser loads CSS/JS dependencies from CDNs
+4. User fills out registration form (modal or standalone)
+5. JavaScript validates email input
+6. Form submits via `fetch()` to Supabase REST API
+7. Data stored in `feedback` table
+8. Success message displayed to user
 
 ---
 
