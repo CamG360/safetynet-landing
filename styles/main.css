@@ -1,0 +1,334 @@
+/**
+ * SafetyNet Main Styles
+ * Landing page styling
+ */
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+
+/* Modal Styles */
+.form-input {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.conditional-field, .optional-section, .success-message, .form-error {
+    display: none;
+}
+
+.show {
+    display: block !important;
+}
+
+/* Modal Transitions */
+.modal-content {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.modal-active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+    display: none;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+}
+
+.mobile-menu.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 24px;
+    height: 3px;
+    background-color: #475569;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Disabled Button Styles */
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* FAQ Styles */
+.faq-item {
+    border-bottom: 1px solid #e2e8f0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.faq-item.hidden-faq {
+    display: none;
+}
+
+.faq-question {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.faq-question:hover {
+    color: #2563eb;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+/* FAQ Category Buttons */
+.faq-category-btn {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 2px solid transparent;
+}
+
+.faq-category-btn:hover {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.faq-category-btn.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+/* SafetyNet Alert Card Styles */
+.alert-card {
+    --alert-red: #E53935;
+    --alert-red-light: #FFEBEE;
+    --alert-red-dark: #C62828;
+    --text-primary: #1a1a2e;
+    --text-secondary: #64748b;
+    --bg-card: #ffffff;
+    --border-subtle: #e2e8f0;
+}
+
+.alert-header {
+    background: var(--alert-red);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.alert-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: white;
+}
+
+.alert-title {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.alert-content {
+    padding: 28px 24px 24px;
+}
+
+.missed-label {
+    color: var(--alert-red);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.intro-text {
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.time-display {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.time-context {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.progress-container {
+    height: 6px;
+    background: var(--alert-red-light);
+    border-radius: 3px;
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--alert-red);
+    border-radius: 3px;
+    width: 100%;
+    animation: progressPulse 2s ease-in-out infinite;
+}
+
+@keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.instructions-header {
+    font-size: 13px;
+    color: var(--alert-red);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.context-item {
+    padding: 8px 0;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.context-label-inline {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.context-value-inline {
+    color: var(--text-primary);
+}
+
+.instruction-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.instruction-item:last-child {
+    border-bottom: none;
+}
+
+.instruction-number {
+    width: 24px;
+    height: 24px;
+    background: var(--alert-red-light);
+    color: var(--alert-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.instruction-text {
+    font-size: 15px;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
