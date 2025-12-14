@@ -55,11 +55,17 @@ document.addEventListener('keydown', (e) => {
         // Check if any modal is open
         const alertModal = document.getElementById('alertDemoModal');
         const regModal = document.getElementById('registrationModal');
+        const privacyModal = document.getElementById('privacyPolicyModal');
+        const termsModal = document.getElementById('termsOfServiceModal');
 
         if (alertModal && !alertModal.classList.contains('hidden')) {
             toggleModal('alertDemoModal', false);
         } else if (regModal && !regModal.classList.contains('hidden')) {
             toggleModal('registrationModal', false);
+        } else if (privacyModal && !privacyModal.classList.contains('hidden')) {
+            toggleModal('privacyPolicyModal', false);
+        } else if (termsModal && !termsModal.classList.contains('hidden')) {
+            toggleModal('termsOfServiceModal', false);
         }
     }
 });
@@ -164,6 +170,42 @@ if (heroJoinBtn && heroEmailInput && modalEmailInput) {
 
         // Open the registration modal
         toggleModal('registrationModal', true);
+    });
+}
+
+// ============================================
+// Privacy Policy Modal
+// ============================================
+const privacyModal = document.getElementById('privacyPolicyModal');
+const openPrivacyBtn = document.getElementById('openPrivacyPolicyBtn');
+const closePrivacyBtn = document.getElementById('closePrivacyPolicyBtn');
+
+if (privacyModal && openPrivacyBtn && closePrivacyBtn) {
+    openPrivacyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleModal('privacyPolicyModal', true);
+    });
+    closePrivacyBtn.addEventListener('click', () => toggleModal('privacyPolicyModal', false));
+    privacyModal.addEventListener('click', (e) => {
+        if (e.target === privacyModal) toggleModal('privacyPolicyModal', false);
+    });
+}
+
+// ============================================
+// Terms of Service Modal
+// ============================================
+const termsModal = document.getElementById('termsOfServiceModal');
+const openTermsBtn = document.getElementById('openTermsOfServiceBtn');
+const closeTermsBtn = document.getElementById('closeTermsOfServiceBtn');
+
+if (termsModal && openTermsBtn && closeTermsBtn) {
+    openTermsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleModal('termsOfServiceModal', true);
+    });
+    closeTermsBtn.addEventListener('click', () => toggleModal('termsOfServiceModal', false));
+    termsModal.addEventListener('click', (e) => {
+        if (e.target === termsModal) toggleModal('termsOfServiceModal', false);
     });
 }
 
