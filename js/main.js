@@ -296,6 +296,78 @@ faqQuestions.forEach((question) => {
 });
 
 // ============================================
+// Use Case Accordions
+// ============================================
+const useCaseToggles = document.querySelectorAll('.use-case-toggle');
+
+useCaseToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+        const useCaseItem = toggle.closest('.use-case-item');
+        const isActive = useCaseItem.classList.contains('active');
+
+        // Toggle current item (independent toggles - multiple can be open)
+        if (isActive) {
+            useCaseItem.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            useCaseItem.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        // Reinitialize Lucide icons for the chevron
+        lucide.createIcons();
+    });
+});
+
+// ============================================
+// Feature Accordions
+// ============================================
+const featureToggles = document.querySelectorAll('.feature-toggle');
+
+featureToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+        const featureItem = toggle.closest('.feature-item');
+        const isActive = featureItem.classList.contains('active');
+
+        // Toggle current item (independent toggles - multiple can be open)
+        if (isActive) {
+            featureItem.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            featureItem.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        // Reinitialize Lucide icons for the chevron
+        lucide.createIcons();
+    });
+});
+
+// ============================================
+// Story Accordions
+// ============================================
+const storyToggles = document.querySelectorAll('.story-toggle');
+
+storyToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+        const storyItem = toggle.closest('.story-item');
+        const isActive = storyItem.classList.contains('active');
+
+        // Toggle current item (independent toggles - multiple can be open)
+        if (isActive) {
+            storyItem.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            storyItem.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        // Reinitialize Lucide icons for the chevron
+        lucide.createIcons();
+    });
+});
+
+// ============================================
 // FAQ Category Filter
 // ============================================
 const faqCategoryBtns = document.querySelectorAll('.faq-category-btn');
