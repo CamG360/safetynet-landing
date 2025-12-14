@@ -435,6 +435,7 @@ button:disabled {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    flex-shrink: 0;
 }
 
 .safetynet-visual-small {
@@ -452,12 +453,31 @@ button:disabled {
     height: 240px;
 }
 
+/* Mobile responsive sizes */
+@media (max-width: 640px) {
+    .safetynet-visual-small {
+        width: 100px;
+        height: 100px;
+    }
+
+    .safetynet-visual-medium {
+        width: 130px;
+        height: 130px;
+    }
+
+    .safetynet-visual-large {
+        width: 180px;
+        height: 180px;
+    }
+}
+
 .safetynet-visual .background-glow {
     position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0.06) 50%, rgba(59, 130, 246, 0) 100%);
+    pointer-events: none;
 }
 
 .safetynet-visual .shield-icon {
@@ -466,12 +486,19 @@ button:disabled {
     left: 25%;
     color: #3b82f6;
     opacity: 0.35;
+    /* Scale icon based on container - 25% of container width */
+    width: 25% !important;
+    height: 25% !important;
 }
 
 .safetynet-visual .person-icon {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-35%, -35%);
     z-index: 10;
     color: #3b82f6;
-    margin-left: 20%;
-    margin-top: 20%;
+    /* Scale icon based on container - 46% of container width */
+    width: 46% !important;
+    height: 46% !important;
 }
