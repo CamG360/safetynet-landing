@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafetyNet Visual Design Mockups - Image 3 Variations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* SVG Icon Styles */
+        .safetynet-icon-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Recreating Image 3 concept with different opacities */
+        .concept-visual {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .background-glow {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, rgba(59, 130, 246, 0) 100%);
+        }
+
+        .background-glow-subtle {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 50%, rgba(59, 130, 246, 0) 100%);
+        }
+
+        .background-glow-minimal {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, rgba(59, 130, 246, 0.01) 50%, rgba(59, 130, 246, 0) 100%);
+        }
+
+        .shield-icon {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+            color: #3b82f6;
+        }
+
+        .person-icon {
+            position: relative;
+            z-index: 10;
+            color: #3b82f6;
+            margin-left: 40px;
+            margin-top: 40px;
+        }
+
+        /* Animation */
+        @keyframes subtle-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .pulse-animation {
+            animation: subtle-pulse 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Header -->
+    <div class="bg-white border-b border-slate-200 py-6">
+        <div class="max-w-7xl mx-auto px-6">
+            <h1 class="text-3xl font-bold text-slate-900">SafetyNet Visual Design Mockups</h1>
+            <p class="text-slate-600 mt-2">Image 3 variations: "Silent safeguard that enables freedom"</p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-12 space-y-16">
+
+        <!-- Design Principle -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+            <h2 class="text-xl font-bold text-blue-900 mb-3">Design Principle</h2>
+            <p class="text-blue-800 leading-relaxed">
+                <strong>Image 3</strong> positions the person (freedom) as the primary focus with the shield (protection) as a subtle background element.
+                This visual hierarchy communicates: <em>"Live your life freely - we're quietly watching your back."</em>
+            </p>
+        </div>
+
+        <!-- Variation 1: Standard (Current Hero Style) -->
+        <section class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full mb-3">VARIATION 1</span>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Standard Protection Emphasis</h2>
+                <p class="text-slate-600">Shield opacity: ~25% | Best for: Hero section, primary messaging</p>
+            </div>
+
+            <div class="concept-visual">
+                <div class="background-glow"></div>
+                <i data-lucide="shield-check" class="shield-icon" style="width: 80px; height: 80px; opacity: 0.25; stroke-width: 1.5;"></i>
+                <i data-lucide="user" class="person-icon" style="width: 140px; height: 140px; stroke-width: 1.5;"></i>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-slate-700 font-medium mb-2">When to use:</p>
+                <ul class="text-slate-600 text-sm space-y-1">
+                    <li>• Hero section alongside headline</li>
+                    <li>• First impression - balance between safety & freedom</li>
+                    <li>• Users need reassurance that protection exists</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Variation 2: Subtle Background (Silent Safeguard) -->
+        <section class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full mb-3">VARIATION 2 - RECOMMENDED</span>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">"Silent Safeguard" Theme</h2>
+                <p class="text-slate-600">Shield opacity: ~15% | Best for: Freedom-focused messaging, "How it Works"</p>
+            </div>
+
+            <div class="concept-visual">
+                <div class="background-glow background-glow-subtle"></div>
+                <i data-lucide="shield-check" class="shield-icon" style="width: 80px; height: 80px; opacity: 0.15; stroke-width: 1.5;"></i>
+                <i data-lucide="user" class="person-icon" style="width: 140px; height: 140px; stroke-width: 1.5;"></i>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-slate-700 font-medium mb-2">When to use:</p>
+                <ul class="text-slate-600 text-sm space-y-1">
+                    <li>• Emphasizing "operates silently in the background"</li>
+                    <li>• "Your Freedom" section messaging</li>
+                    <li>• When showing daily life scenarios (dates, runs, walks)</li>
+                </ul>
+                <div class="mt-4 inline-block bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-lg">
+                    <p class="text-emerald-800 text-sm font-medium">✓ Best matches "silent safeguard for everyday life"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variation 3: Minimal Presence (Maximum Freedom) -->
+        <section class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full mb-3">VARIATION 3</span>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Maximum Freedom Emphasis</h2>
+                <p class="text-slate-600">Shield opacity: ~8% | Best for: Freedom-first messaging, lifestyle contexts</p>
+            </div>
+
+            <div class="concept-visual">
+                <div class="background-glow background-glow-minimal"></div>
+                <i data-lucide="shield-check" class="shield-icon" style="width: 80px; height: 80px; opacity: 0.08; stroke-width: 1.5;"></i>
+                <i data-lucide="user" class="person-icon" style="width: 140px; height: 140px; stroke-width: 1.5;"></i>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-slate-700 font-medium mb-2">When to use:</p>
+                <ul class="text-slate-600 text-sm space-y-1">
+                    <li>• "Your Freedom" section or lifestyle imagery</li>
+                    <li>• When protection should be "invisible until needed"</li>
+                    <li>• Risk: May be too subtle for first-time visitors</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Hero Section Integration Example -->
+        <section class="bg-gradient-to-br from-slate-50 to-white rounded-2xl shadow-lg p-12 border border-slate-200">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">HERO INTEGRATION</span>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">How It Could Look in Context</h2>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Icon -->
+                <div class="mb-8">
+                    <div class="concept-visual mx-auto" style="width: 300px; height: 300px;">
+                        <div class="background-glow background-glow-subtle" style="width: 240px; height: 240px;"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 60px; height: 60px; opacity: 0.15; stroke-width: 1.5; top: 60px; left: 60px;"></i>
+                        <i data-lucide="user" class="person-icon" style="width: 110px; height: 110px; stroke-width: 1.5; margin-left: 30px; margin-top: 30px;"></i>
+                    </div>
+                </div>
+
+                <!-- Headline -->
+                <h1 class="text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                    SafetyNet is your <span class="text-blue-600">silent safeguard</span><br/>
+                    for everyday life.
+                </h1>
+
+                <p class="text-xl text-slate-600 font-medium max-w-2xl mx-auto mb-6">
+                    Automatic safety alerts when you can't reach your phone - so your contacts know when something's wrong.
+                </p>
+
+                <div class="bg-white/50 border border-slate-200 inline-block px-4 py-2 rounded-lg">
+                    <p class="text-slate-500 italic text-sm">
+                        "Text me when you're safe" fails when you can't text. <span class="not-italic font-semibold text-slate-700">SafetyNet speaks for you.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alternative Variations: Person Walking -->
+        <section class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full mb-3">ALTERNATIVE ICONS</span>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Person Walking (Activity Context)</h2>
+                <p class="text-slate-600">Using walking figure to show freedom in motion</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Walking person variation 1 -->
+                <div>
+                    <p class="text-center text-sm font-semibold text-slate-700 mb-4">Jogging/Running</p>
+                    <div class="concept-visual mx-auto" style="width: 250px; height: 250px;">
+                        <div class="background-glow background-glow-subtle" style="width: 200px; height: 200px;"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 50px; height: 50px; opacity: 0.15; stroke-width: 1.5; top: 50px; left: 50px;"></i>
+                        <svg class="person-icon" style="width: 90px; height: 90px; stroke-width: 1.5;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="4" r="2"/>
+                            <path d="M10 8l-1 4 3 2-1 4"/>
+                            <path d="M14 8l1 4-3 2 1 4"/>
+                            <path d="M8 16l-2 4"/>
+                            <path d="M16 16l2 4"/>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-slate-500 text-center mt-3">Active lifestyle context</p>
+                </div>
+
+                <!-- Walking person variation 2 -->
+                <div>
+                    <p class="text-center text-sm font-semibold text-slate-700 mb-4">Walking Forward</p>
+                    <div class="concept-visual mx-auto" style="width: 250px; height: 250px;">
+                        <div class="background-glow background-glow-subtle" style="width: 200px; height: 200px;"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 50px; height: 50px; opacity: 0.15; stroke-width: 1.5; top: 50px; left: 50px;"></i>
+                        <svg class="person-icon" style="width: 90px; height: 90px; stroke-width: 1.5;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="5" r="2"/>
+                            <path d="M10 9h4"/>
+                            <path d="M9 14l-2 5"/>
+                            <path d="M15 14l2 5"/>
+                            <path d="M10 9l-1 5"/>
+                            <path d="M14 9l1 5"/>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-slate-500 text-center mt-3">Daily life movement</p>
+                </div>
+
+                <!-- Simple person -->
+                <div>
+                    <p class="text-center text-sm font-semibold text-slate-700 mb-4">Simple Person</p>
+                    <div class="concept-visual mx-auto" style="width: 250px; height: 250px;">
+                        <div class="background-glow background-glow-subtle" style="width: 200px; height: 200px;"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 50px; height: 50px; opacity: 0.15; stroke-width: 1.5; top: 50px; left: 50px;"></i>
+                        <i data-lucide="user" class="person-icon" style="width: 90px; height: 90px; stroke-width: 1.5;"></i>
+                    </div>
+                    <p class="text-xs text-slate-500 text-center mt-3">Universal representation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animated Version -->
+        <section class="bg-gradient-to-br from-blue-50 to-slate-50 rounded-2xl shadow-lg p-8 border border-blue-200">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">BONUS: ANIMATED</span>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Subtle Animation Concept</h2>
+                <p class="text-slate-600">Gentle pulse on shield to show "active monitoring"</p>
+            </div>
+
+            <div class="concept-visual pulse-animation">
+                <div class="background-glow background-glow-subtle"></div>
+                <i data-lucide="shield-check" class="shield-icon" style="width: 80px; height: 80px; opacity: 0.15; stroke-width: 1.5;"></i>
+                <i data-lucide="user" class="person-icon" style="width: 140px; height: 140px; stroke-width: 1.5;"></i>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-slate-700 text-sm">Very subtle pulse animation (3s cycle) suggests "quietly monitoring in the background"</p>
+            </div>
+        </section>
+
+        <!-- Design Decision Guide -->
+        <section class="bg-slate-900 text-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6">Visual Decision Guide</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-800 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-3 text-emerald-400">✓ Why Image 3 Works</h3>
+                    <ul class="space-y-2 text-slate-300 text-sm">
+                        <li>• Person is the hero, not the technology</li>
+                        <li>• Shield doesn't block, restrict, or cage</li>
+                        <li>• Matches "silent" and "background" messaging</li>
+                        <li>• Viewer identifies with the person first</li>
+                        <li>• Protection feels reassuring, not limiting</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-3 text-blue-400">→ Implementation Tips</h3>
+                    <ul class="space-y-2 text-slate-300 text-sm">
+                        <li>• Use Variation 2 (15% opacity) for most contexts</li>
+                        <li>• Reserve Variation 1 (25%) for hero/primary messaging</li>
+                        <li>• Variation 3 (8%) for lifestyle/freedom-focused content</li>
+                        <li>• Consider subtle animation only on hero section</li>
+                        <li>• Ensure person icon has stronger visual weight</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-white border-2 border-blue-500 rounded-2xl shadow-lg p-8">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Recommendation</h2>
+                <div class="inline-block bg-emerald-100 border border-emerald-300 rounded-xl p-6 text-left max-w-2xl">
+                    <p class="text-emerald-900 font-semibold mb-3">Use <strong>Variation 2</strong> (15% shield opacity) as your primary visual</p>
+                    <p class="text-emerald-800 text-sm leading-relaxed">
+                        This variation perfectly embodies "silent safeguard" while maintaining enough visual presence to communicate safety.
+                        The person remains the clear focus, protection stays in the background, and the message is clear:
+                        <em>"Live freely - we're quietly watching your back."</em>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
