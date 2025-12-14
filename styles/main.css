@@ -142,6 +142,89 @@ button:disabled {
     transform: rotate(180deg);
 }
 
+/* Use Case Accordion Styles */
+.use-case-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.use-case-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.use-case-item.active .use-case-details {
+    max-height: 300px;
+    padding-top: 0.75rem;
+}
+
+.use-case-chevron {
+    transition: transform 0.3s ease;
+}
+
+.use-case-item.active .use-case-chevron {
+    transform: rotate(180deg);
+}
+
+/* Feature Accordion Styles */
+.feature-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.feature-toggle:hover h3 {
+    color: #2563eb;
+}
+
+.feature-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.feature-item.active .feature-details {
+    max-height: 300px;
+    padding-top: 0.5rem;
+}
+
+.feature-chevron {
+    transition: transform 0.3s ease;
+}
+
+.feature-item.active .feature-chevron {
+    transform: rotate(180deg);
+}
+
+/* Story Accordion Styles */
+.story-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.story-toggle:hover h4 {
+    color: #2563eb;
+}
+
+.story-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.story-item.active .story-details {
+    max-height: 400px;
+    padding-top: 0.5rem;
+}
+
+.story-chevron {
+    transition: transform 0.3s ease;
+}
+
+.story-item.active .story-chevron {
+    transform: rotate(180deg);
+}
+
 /* FAQ Category Buttons */
 .faq-category-btn {
     background: #f1f5f9;
