@@ -480,17 +480,60 @@ button:disabled {
     pointer-events: none;
 }
 
+/* Shield icon sizing - pixel based for SVG compatibility */
 .safetynet-visual .shield-icon {
     position: absolute;
     top: 25%;
     left: 25%;
     color: #3b82f6;
     opacity: 0.35;
-    /* Scale icon based on container - 25% of container width */
-    width: 25% !important;
-    height: 25% !important;
 }
 
+/* Default size (200px container) - 25% = 50px */
+.safetynet-visual .shield-icon {
+    width: 50px;
+    height: 50px;
+}
+
+/* Small size (120px container) - 25% = 30px */
+.safetynet-visual-small .shield-icon {
+    width: 30px;
+    height: 30px;
+}
+
+/* Medium size (160px container) - 25% = 40px */
+.safetynet-visual-medium .shield-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* Large size (240px container) - 25% = 60px */
+.safetynet-visual-large .shield-icon {
+    width: 60px;
+    height: 60px;
+}
+
+/* Mobile - Small (100px container) - 25% = 25px */
+@media (max-width: 640px) {
+    .safetynet-visual-small .shield-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    /* Mobile - Medium (130px container) - 25% = 32px */
+    .safetynet-visual-medium .shield-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Mobile - Large (180px container) - 25% = 45px */
+    .safetynet-visual-large .shield-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Person icon sizing - pixel based for SVG compatibility */
 .safetynet-visual .person-icon {
     position: absolute;
     top: 50%;
@@ -498,7 +541,48 @@ button:disabled {
     transform: translate(-35%, -35%);
     z-index: 10;
     color: #3b82f6;
-    /* Scale icon based on container - 46% of container width */
-    width: 46% !important;
-    height: 46% !important;
+}
+
+/* Default size (200px container) - 46% = 92px */
+.safetynet-visual .person-icon {
+    width: 92px;
+    height: 92px;
+}
+
+/* Small size (120px container) - 46% = 55px */
+.safetynet-visual-small .person-icon {
+    width: 55px;
+    height: 55px;
+}
+
+/* Medium size (160px container) - 46% = 74px */
+.safetynet-visual-medium .person-icon {
+    width: 74px;
+    height: 74px;
+}
+
+/* Large size (240px container) - 46% = 110px */
+.safetynet-visual-large .person-icon {
+    width: 110px;
+    height: 110px;
+}
+
+/* Mobile - Small (100px container) - 46% = 46px */
+@media (max-width: 640px) {
+    .safetynet-visual-small .person-icon {
+        width: 46px;
+        height: 46px;
+    }
+
+    /* Mobile - Medium (130px container) - 46% = 60px */
+    .safetynet-visual-medium .person-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Mobile - Large (180px container) - 46% = 83px */
+    .safetynet-visual-large .person-icon {
+        width: 83px;
+        height: 83px;
+    }
 }
