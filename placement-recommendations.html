@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafetyNet Visual Placement Recommendations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Selected visual style - 35% opacity */
+        .safetynet-visual {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .safetynet-visual-small {
+            width: 120px;
+            height: 120px;
+        }
+
+        .safetynet-visual-large {
+            width: 300px;
+            height: 300px;
+        }
+
+        .background-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0.06) 50%, rgba(59, 130, 246, 0) 100%);
+        }
+
+        .shield-icon {
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            color: #3b82f6;
+        }
+
+        .person-icon {
+            position: relative;
+            z-index: 10;
+            color: #3b82f6;
+            margin-left: 20%;
+            margin-top: 20%;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-1 { background: #dc2626; color: white; }
+        .priority-2 { background: #ea580c; color: white; }
+        .priority-3 { background: #d97706; color: white; }
+        .priority-4 { background: #65a30d; color: white; }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <h1 class="text-4xl font-bold mb-2">Visual Placement Strategy</h1>
+            <p class="text-blue-100 text-lg">Strategic placements to enhance user understanding of SafetyNet's value proposition</p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-12 space-y-12">
+
+        <!-- Strategy Overview -->
+        <section class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">Placement Strategy</h2>
+            <p class="text-slate-700 leading-relaxed mb-6">
+                The selected visual (35% shield opacity with dominant person) should be placed strategically to:
+            </p>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-2">✓ Reinforce Freedom</h3>
+                    <p class="text-blue-800 text-sm">Show protection doesn't restrict</p>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-2">✓ Clarify Concept</h3>
+                    <p class="text-blue-800 text-sm">Visual metaphor aids understanding</p>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-2">✓ Build Trust</h3>
+                    <p class="text-blue-800 text-sm">Balanced, non-intrusive protection</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRIORITY 1: Your Freedom Card -->
+        <section class="bg-gradient-to-br from-red-50 to-white rounded-2xl shadow-xl p-8 border-4 border-red-500">
+            <div class="flex items-start justify-between mb-6">
+                <div>
+                    <span class="priority-badge priority-1 mb-3 inline-block">Priority 1 - Highest Impact</span>
+                    <h2 class="text-3xl font-bold text-slate-900">Our Story → "Your Freedom" Card</h2>
+                    <p class="text-slate-600 mt-2">Location: Our Story section (line 886-920)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 border border-slate-200 mb-6">
+                <h3 class="font-bold text-slate-900 mb-3">Why This is #1:</h3>
+                <ul class="space-y-2 text-slate-700">
+                    <li class="flex items-start gap-2">
+                        <span class="text-red-600 font-bold">→</span>
+                        <span><strong>Perfect semantic match:</strong> Card explicitly states "SafetyNet doesn't restrict your freedom—it enables it"</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-red-600 font-bold">→</span>
+                        <span><strong>Visual proof of concept:</strong> Image shows exactly what the text describes</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-red-600 font-bold">→</span>
+                        <span><strong>Lists freedom activities:</strong> "Go on that date", "Take the trip", "Live in a new city"</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-red-600 font-bold">→</span>
+                        <span><strong>Emotional connection:</strong> Users at this point understand the problem and need visual reassurance</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-slate-900 rounded-xl p-8">
+                <h3 class="text-white font-bold mb-6 text-center">MOCKUP: Your Freedom Card with Visual</h3>
+
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 max-w-2xl mx-auto">
+                    <!-- Visual centered at top -->
+                    <div class="text-center mb-6">
+                        <div class="safetynet-visual safetynet-visual-small mx-auto">
+                            <div class="background-glow"></div>
+                            <i data-lucide="shield-check" class="shield-icon" style="width: 30px; height: 30px; opacity: 0.35; stroke-width: 1.5;"></i>
+                            <i data-lucide="user" class="person-icon" style="width: 55px; height: 55px; stroke-width: 1.5;"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="heart" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-blue-600">Your Freedom</h3>
+                    </div>
+                    <p class="text-slate-700 leading-relaxed mb-6">
+                        SafetyNet doesn't restrict your freedom—it enables it.
+                    </p>
+
+                    <!-- Freedom Actions -->
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 bg-white px-4 py-3 rounded-xl border border-slate-200">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="calendar-check" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-slate-800 font-medium">Go on that date</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white px-4 py-3 rounded-xl border border-slate-200">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="plane" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-slate-800 font-medium">Take the trip</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white px-4 py-3 rounded-xl border border-slate-200">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-slate-800 font-medium">Live in a new city</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-slate-400 text-sm text-center mt-6">Visual positioned at top of card, before headline</p>
+            </div>
+
+            <div class="mt-6 bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+                <p class="text-emerald-900 font-semibold">✓ Implementation Impact:</p>
+                <p class="text-emerald-800 text-sm mt-1">Users see visual proof that protection enables freedom rather than restricting it. The person walking freely with shield in background matches the card's exact message.</p>
+            </div>
+        </section>
+
+        <!-- PRIORITY 2: How It Works - Step 2 -->
+        <section class="bg-gradient-to-br from-orange-50 to-white rounded-2xl shadow-xl p-8 border-4 border-orange-500">
+            <div class="flex items-start justify-between mb-6">
+                <div>
+                    <span class="priority-badge priority-2 mb-3 inline-block">Priority 2 - High Impact</span>
+                    <h2 class="text-3xl font-bold text-slate-900">How It Works → Step 2: "SafetyNet stands guard"</h2>
+                    <p class="text-slate-600 mt-2">Location: Concept section (line 246-291)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 border border-slate-200 mb-6">
+                <h3 class="font-bold text-slate-900 mb-3">Why This Works:</h3>
+                <ul class="space-y-2 text-slate-700">
+                    <li class="flex items-start gap-2">
+                        <span class="text-orange-600 font-bold">→</span>
+                        <span><strong>"Stands guard" metaphor:</strong> Visual shows guard (shield) that doesn't interfere with movement</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-orange-600 font-bold">→</span>
+                        <span><strong>Educates during onboarding flow:</strong> Users learning how SafetyNet works</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-orange-600 font-bold">→</span>
+                        <span><strong>Complements phone mockup:</strong> Visual abstract + concrete interface = full understanding</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-slate-900 rounded-xl p-8">
+                <h3 class="text-white font-bold mb-6 text-center">MOCKUP: Step 2 with Visual Header</h3>
+
+                <div class="flex flex-col items-center max-w-md mx-auto">
+                    <!-- Visual above step title -->
+                    <div class="safetynet-visual safetynet-visual-small mb-4">
+                        <div class="background-glow"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 30px; height: 30px; opacity: 0.35; stroke-width: 1.5;"></i>
+                        <i data-lucide="user" class="person-icon" style="width: 55px; height: 55px; stroke-width: 1.5;"></i>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-white mb-6 text-center">
+                        2. SafetyNet stands guard
+                    </h3>
+
+                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden text-left">
+                        <!-- Phone mockup preview -->
+                        <div class="bg-blue-600 p-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="relative flex items-center justify-center w-8 h-8">
+                                    <i data-lucide="shield" class="text-white opacity-20" style="width: 28px; height: 28px;"></i>
+                                    <i data-lucide="check" class="text-white absolute" style="width: 14px; height: 14px; stroke-width: 2.5;"></i>
+                                </div>
+                                <span class="text-white font-bold tracking-wide text-sm">SafetyNet Active</span>
+                            </div>
+                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        </div>
+                        <div class="p-4 text-center">
+                            <p class="text-xs text-slate-400 mb-2">Time remaining:</p>
+                            <span class="text-2xl font-mono text-slate-600 font-bold">1h 28m</span>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-300 text-sm text-center leading-relaxed px-2 mt-6">
+                        If you are okay, just tap the button. You'll receive reminder notifications -
+                        <strong class="text-white">tap any notification to check in instantly</strong>. Nothing else happens.
+                    </p>
+                </div>
+
+                <p class="text-slate-400 text-sm text-center mt-6">Visual positioned above step title to reinforce "stands guard" concept</p>
+            </div>
+
+            <div class="mt-6 bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+                <p class="text-emerald-900 font-semibold">✓ Implementation Impact:</p>
+                <p class="text-emerald-800 text-sm mt-1">Reinforces that SafetyNet is monitoring in the background without being intrusive. Visual metaphor matches the step description perfectly.</p>
+            </div>
+        </section>
+
+        <!-- PRIORITY 3: Hero Section Complement -->
+        <section class="bg-gradient-to-br from-amber-50 to-white rounded-2xl shadow-xl p-8 border-4 border-amber-500">
+            <div class="flex items-start justify-between mb-6">
+                <div>
+                    <span class="priority-badge priority-3 mb-3 inline-block">Priority 3 - Moderate Impact</span>
+                    <h2 class="text-3xl font-bold text-slate-900">Hero Section - Visual Complement</h2>
+                    <p class="text-slate-600 mt-2">Location: Hero section after headline (line 58-176)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 border border-slate-200 mb-6">
+                <h3 class="font-bold text-slate-900 mb-3">Why This Works:</h3>
+                <ul class="space-y-2 text-slate-700">
+                    <li class="flex items-start gap-2">
+                        <span class="text-amber-600 font-bold">→</span>
+                        <span><strong>First impression:</strong> Immediate visual understanding of core value proposition</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-amber-600 font-bold">→</span>
+                        <span><strong>Complements headline:</strong> "silent safeguard for everyday life" paired with visual proof</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-amber-600 font-bold">→</span>
+                        <span><strong>Sets brand tone:</strong> Protection + freedom message from the start</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-slate-900 rounded-xl p-8">
+                <h3 class="text-white font-bold mb-6 text-center">MOCKUP: Hero Section</h3>
+
+                <div class="bg-slate-50 rounded-2xl p-12 max-w-4xl mx-auto text-center">
+                    <!-- Early Access Badge -->
+                    <div class="inline-flex items-center justify-center space-x-2 bg-blue-100/50 px-3 py-1 rounded-full mb-6 border border-blue-100">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i>
+                        <span class="text-blue-800 text-xs font-bold tracking-wide uppercase">Early Access</span>
+                    </div>
+
+                    <!-- Visual -->
+                    <div class="safetynet-visual safetynet-visual-large mx-auto mb-6">
+                        <div class="background-glow"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 75px; height: 75px; opacity: 0.35; stroke-width: 1.5;"></i>
+                        <i data-lucide="user" class="person-icon" style="width: 130px; height: 130px; stroke-width: 1.5;"></i>
+                    </div>
+
+                    <!-- Headline -->
+                    <h1 class="text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                        SafetyNet is your <span class="text-blue-600">silent safeguard</span><br/>
+                        for everyday life.
+                    </h1>
+
+                    <p class="text-xl text-slate-600 font-medium max-w-2xl mx-auto">
+                        Automatic safety alerts when you can't reach your phone - so your contacts know when something's wrong.
+                    </p>
+                </div>
+
+                <p class="text-slate-400 text-sm text-center mt-6">Visual positioned between badge and headline for immediate impact</p>
+            </div>
+
+            <div class="mt-6 bg-amber-50 rounded-lg p-4 border border-amber-200">
+                <p class="text-amber-900 font-semibold">⚠ Consideration:</p>
+                <p class="text-amber-800 text-sm mt-1">Hero section already has strong visual elements (3-step flow). Adding visual here could create clutter. Consider A/B testing to measure impact on conversion.</p>
+            </div>
+        </section>
+
+        <!-- PRIORITY 4: Use Cases Section Header -->
+        <section class="bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-xl p-8 border-4 border-green-500">
+            <div class="flex items-start justify-between mb-6">
+                <div>
+                    <span class="priority-badge priority-4 mb-3 inline-block">Priority 4 - Supporting Element</span>
+                    <h2 class="text-3xl font-bold text-slate-900">Use Cases Section - Header Visual</h2>
+                    <p class="text-slate-600 mt-2">Location: Use Cases intro (line 500-506)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 border border-slate-200 mb-6">
+                <h3 class="font-bold text-slate-900 mb-3">Why This Works:</h3>
+                <ul class="space-y-2 text-slate-700">
+                    <li class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">→</span>
+                        <span><strong>Section transition:</strong> Visual break before use case examples</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">→</span>
+                        <span><strong>Reinforces tagline:</strong> Pairs with "silent safeguard for everyday life"</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">→</span>
+                        <span><strong>Sets context:</strong> Before showing specific activities (dates, runs, etc.)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-slate-900 rounded-xl p-8">
+                <h3 class="text-white font-bold mb-6 text-center">MOCKUP: Use Cases Header</h3>
+
+                <div class="bg-white rounded-xl p-12 max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Everyday Activities</h2>
+
+                    <!-- Visual -->
+                    <div class="safetynet-visual mx-auto mb-4">
+                        <div class="background-glow"></div>
+                        <i data-lucide="shield-check" class="shield-icon" style="width: 50px; height: 50px; opacity: 0.35; stroke-width: 1.5;"></i>
+                        <i data-lucide="user" class="person-icon" style="width: 90px; height: 90px; stroke-width: 1.5;"></i>
+                    </div>
+
+                    <p class="text-slate-500 text-lg">SafetyNet is your silent safeguard for everyday life.</p>
+                </div>
+
+                <p class="text-slate-400 text-sm text-center mt-6">Small visual between headline and tagline</p>
+            </div>
+
+            <div class="mt-6 bg-green-50 rounded-lg p-4 border border-green-200">
+                <p class="text-green-900 font-semibold">✓ Implementation Impact:</p>
+                <p class="text-green-800 text-sm mt-1">Supporting visual that reinforces brand messaging before specific use cases. Low priority but adds visual consistency.</p>
+            </div>
+        </section>
+
+        <!-- Implementation Summary -->
+        <section class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-3xl font-bold mb-6">Recommended Implementation Order</h2>
+
+            <div class="space-y-4">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div class="flex items-start gap-4">
+                        <span class="priority-badge priority-1 shrink-0">Phase 1</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Start with "Your Freedom" Card</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Highest semantic match, clearest value demonstration. Implement first and measure user feedback
+                                on understanding of "protection enables freedom" concept.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div class="flex items-start gap-4">
+                        <span class="priority-badge priority-2 shrink-0">Phase 2</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Add to "SafetyNet stands guard" Step</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Reinforces the "monitoring in background" concept during user education flow.
+                                Complements the phone interface mockup with conceptual understanding.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div class="flex items-start gap-4">
+                        <span class="priority-badge priority-3 shrink-0">Phase 3</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Consider Hero Section (A/B Test)</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Test impact on conversion. Hero already has strong elements, so measure whether visual
+                                improves understanding without adding clutter.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                    <div class="flex items-start gap-4">
+                        <span class="priority-badge priority-4 shrink-0">Optional</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Use Cases Header (Visual Consistency)</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Add only if establishing visual pattern across multiple sections. Not critical for core messaging.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics -->
+        <section class="bg-blue-50 rounded-2xl p-8 border border-blue-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Success Metrics to Track</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold text-blue-900 mb-3">User Understanding</h3>
+                    <ul class="space-y-2 text-slate-700 text-sm">
+                        <li>• Reduced "How does this work?" support questions</li>
+                        <li>• Improved comprehension in user testing</li>
+                        <li>• Positive feedback on "freedom + protection" messaging</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-blue-900 mb-3">Engagement</h3>
+                    <ul class="space-y-2 text-slate-700 text-sm">
+                        <li>• Time spent on "Our Story" section</li>
+                        <li>• Scroll depth to "Your Freedom" card</li>
+                        <li>• Waitlist conversion rate changes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
