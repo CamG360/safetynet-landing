@@ -160,6 +160,93 @@ button:disabled {
     border-color: #2563eb;
 }
 
+/* Use Case Accordion Styles */
+.use-case-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.use-case-toggle:hover {
+    color: #2563eb;
+}
+
+.use-case-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+}
+
+.use-case-item.active .use-case-details {
+    max-height: 300px;
+    margin-top: 1rem;
+}
+
+.use-case-icon {
+    transition: transform 0.3s ease;
+}
+
+.use-case-item.active .use-case-icon {
+    transform: rotate(180deg);
+}
+
+/* Story Accordion Styles */
+.story-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.story-toggle:hover h4 {
+    color: #2563eb;
+}
+
+.story-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+}
+
+.story-item.active .story-details {
+    max-height: 400px;
+    margin-top: 1rem;
+}
+
+.story-icon {
+    transition: transform 0.3s ease;
+}
+
+.story-item.active .story-icon {
+    transform: rotate(180deg);
+}
+
+/* Feature Accordion Styles */
+.feature-toggle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.feature-toggle:hover h3 {
+    color: #2563eb;
+}
+
+.feature-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+}
+
+.feature-item.active .feature-details {
+    max-height: 200px;
+    margin-top: 0.75rem;
+}
+
+.feature-icon {
+    transition: transform 0.3s ease;
+}
+
+.feature-item.active .feature-icon {
+    transform: rotate(180deg);
+}
+
 /* SafetyNet Alert Card Styles */
 .alert-card {
     --alert-red: #E53935;

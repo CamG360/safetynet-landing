@@ -345,3 +345,81 @@ faqCategoryBtns.forEach((btn) => {
         filterFAQs(selectedCategory);
     });
 });
+
+// ============================================
+// Use Case Accordion
+// ============================================
+const useCaseToggles = document.querySelectorAll('.use-case-toggle');
+
+useCaseToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+        const useCaseItem = toggle.closest('.use-case-item');
+        const isActive = useCaseItem.classList.contains('active');
+
+        // Toggle current item
+        if (isActive) {
+            useCaseItem.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            useCaseItem.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        // Reinitialize icons after toggle
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+});
+
+// ============================================
+// Story Accordion
+// ============================================
+const storyToggles = document.querySelectorAll('.story-toggle');
+
+storyToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+        const storyItem = toggle.closest('.story-item');
+        const isActive = storyItem.classList.contains('active');
+
+        // Toggle current item
+        if (isActive) {
+            storyItem.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            storyItem.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        // Reinitialize icons after toggle
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+});
+
+// ============================================
+// Feature Accordion
+// ============================================
+const featureToggles = document.querySelectorAll('.feature-toggle');
+
+featureToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+        const featureItem = toggle.closest('.feature-item');
+        const isActive = featureItem.classList.contains('active');
+
+        // Toggle current item
+        if (isActive) {
+            featureItem.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            featureItem.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        // Reinitialize icons after toggle
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+});

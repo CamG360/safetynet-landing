@@ -392,47 +392,83 @@
 
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Privacy First -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
-                        <i data-lucide="lock" class="w-6 h-6 text-blue-600"></i>
+                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <button class="feature-toggle w-full text-left" aria-expanded="false">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                                    <i data-lucide="lock" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900">Privacy First</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 feature-icon flex-shrink-0"></i>
+                        </div>
+                    </button>
+                    <div class="feature-details">
+                        <p class="text-slate-600 leading-relaxed">
+                            Your plans, location, and activities are kept private until your need for safety over-rides it.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Privacy First</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Your plans, location, and activities are kept private until your need for safety over-rides it.
-                    </p>
                 </div>
 
                 <!-- No False Alarms -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
-                        <i data-lucide="bell-off" class="w-6 h-6 text-green-600"></i>
+                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <button class="feature-toggle w-full text-left" aria-expanded="false">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+                                    <i data-lucide="bell-off" class="w-6 h-6 text-green-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900">No False Alarms</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 feature-icon flex-shrink-0"></i>
+                        </div>
+                    </button>
+                    <div class="feature-details">
+                        <p class="text-slate-600 leading-relaxed">
+                            Flexible grace periods for checking-in safe, and reminders mean no unnecessary worry for contacts.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">No False Alarms</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Flexible grace periods for checking-in safe, and reminders mean no unnecessary worry for contacts.
-                    </p>
                 </div>
 
                 <!-- Automatic & Silent -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
-                        <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
+                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <button class="feature-toggle w-full text-left" aria-expanded="false">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
+                                    <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900">Automatic & silent</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 feature-icon flex-shrink-0"></i>
+                        </div>
+                    </button>
+                    <div class="feature-details">
+                        <p class="text-slate-600 leading-relaxed">
+                            SafetyNet works silently in the background until something goes wrong and you can't reach your phone.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Automatic & silent</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        SafetyNet works silently in the background until something goes wrong and you can't reach your phone.
-                    </p>
                 </div>
 
                 <!-- No spam -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
-                        <i data-lucide="bell-slash" class="w-6 h-6 text-amber-600"></i>
+                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <button class="feature-toggle w-full text-left" aria-expanded="false">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
+                                    <i data-lucide="bell-slash" class="w-6 h-6 text-amber-600"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900">No Spam</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 feature-icon flex-shrink-0"></i>
+                        </div>
+                    </button>
+                    <div class="feature-details">
+                        <p class="text-slate-600 leading-relaxed">
+                            No constant updates for your contacts - their day stays interruption-free.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">No Spam</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        No constant updates for your contacts - their day stays interruption-free. 
-                    </p>
                 </div>
             </div>
         </div>
@@ -448,7 +484,7 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Use Case 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
                     <div class="flex items-center mb-6">
                         <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                             <i data-lucide="plane" class="w-6 h-6 text-blue-600"></i>
@@ -457,7 +493,11 @@
                     </div>
                     <div class="space-y-4 text-sm text-slate-600 flex-grow">
                         <p class="italic bg-blue-50 p-2 rounded border-l-2 border-blue-400 text-blue-800">"Arriving at hostel by 10 PM"</p>
-                        <div>
+                        <button class="use-case-toggle w-full flex justify-between items-center text-left text-slate-900 font-semibold hover:text-blue-600 transition-colors" aria-expanded="false">
+                            <span>See what your contact gets</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 use-case-icon flex-shrink-0"></i>
+                        </button>
+                        <div class="use-case-details">
                             <strong class="text-slate-900 block mb-1">If alerts trigger, friend gets:</strong>
                             <ul class="list-disc pl-4 space-y-1">
                                 <li>Hostel address & booking ref</li>
@@ -469,7 +509,7 @@
                 </div>
 
                 <!-- Use Case 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
                     <div class="flex items-center mb-6">
                         <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mr-4">
                             <i data-lucide="heart" class="w-6 h-6 text-pink-600"></i>
@@ -478,7 +518,11 @@
                     </div>
                     <div class="space-y-4 text-sm text-slate-600 flex-grow">
                         <p class="italic bg-blue-50 p-2 rounded border-l-2 border-blue-400 text-blue-800">"Dinner date safe by 11 PM"</p>
-                        <div>
+                        <button class="use-case-toggle w-full flex justify-between items-center text-left text-slate-900 font-semibold hover:text-blue-600 transition-colors" aria-expanded="false">
+                            <span>See what your contact gets</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 use-case-icon flex-shrink-0"></i>
+                        </button>
+                        <div class="use-case-details">
                             <strong class="text-slate-900 block mb-1">If alerts trigger, friend gets:</strong>
                             <ul class="list-disc pl-4 space-y-1">
                                 <li>Restaurant location</li>
@@ -490,7 +534,7 @@
                 </div>
 
                 <!-- Use Case 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
                     <div class="flex items-center mb-6">
                         <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mr-4">
                             <i data-lucide="activity" class="w-6 h-6 text-amber-600"></i>
@@ -499,7 +543,11 @@
                     </div>
                     <div class="space-y-4 text-sm text-slate-600 flex-grow">
                         <p class="italic bg-blue-50 p-2 rounded border-l-2 border-blue-400 text-blue-800">"Morning run, back by 8 AM"</p>
-                        <div>
+                        <button class="use-case-toggle w-full flex justify-between items-center text-left text-slate-900 font-semibold hover:text-blue-600 transition-colors" aria-expanded="false">
+                            <span>See what your contact gets</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 use-case-icon flex-shrink-0"></i>
+                        </button>
+                        <div class="use-case-details">
                             <strong class="text-slate-900 block mb-1">If alerts trigger, friend gets:</strong>
                             <ul class="list-disc pl-4 space-y-1">
                                 <li>Planned route map</li>
@@ -648,67 +696,87 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Example 1: Working in London (Combined) -->
-                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 group">
-                        <div class="flex items-start gap-4">
+                    <div class="story-item bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 group">
+                        <button class="story-toggle w-full flex items-start gap-4 text-left" aria-expanded="false">
                             <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-100 transition-colors">
                                 <i data-lucide="map-pin" class="w-5 h-5 text-amber-600"></i>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Working in London</h4>
-                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
-                                    <li>First date that wouldn't leave - hours of stress, no one knew there was a problem</li>
-                                    <li>Radio silence from a friend - turns out their phone was stolen</li>
-                                    <li>A friend's drink was spiked at a corporate event two hours from home - no one knew to look for her.</li>
-                                </ul>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-bold text-slate-900">Working in London</h4>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 story-icon flex-shrink-0"></i>
+                                </div>
                             </div>
+                        </button>
+                        <div class="story-details pl-14">
+                            <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                <li>First date that wouldn't leave - hours of stress, no one knew there was a problem</li>
+                                <li>Radio silence from a friend - turns out their phone was stolen</li>
+                                <li>A friend's drink was spiked at a corporate event two hours from home - no one knew to look for her.</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Example 2: Whilst traveling (Edited) -->
-                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300 group">
-                        <div class="flex items-start gap-4">
+                    <div class="story-item bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300 group">
+                        <button class="story-toggle w-full flex items-start gap-4 text-left" aria-expanded="false">
                             <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
                                 <i data-lucide="plane" class="w-5 h-5 text-blue-600"></i>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Whilst traveling</h4>
-                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
-                                    <li>Friends held hostage in an Airbnb for days - everyone assumed they were together, so they were fine</li>
-                                    <li>Adult sons missing on another continent - parents only realized days later</li>
-                                </ul>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-bold text-slate-900">Whilst traveling</h4>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 story-icon flex-shrink-0"></i>
+                                </div>
                             </div>
+                        </button>
+                        <div class="story-details pl-14">
+                            <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                <li>Friends held hostage in an Airbnb for days - everyone assumed they were together, so they were fine</li>
+                                <li>Adult sons missing on another continent - parents only realized days later</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Example 3: Growing up in New Zealand (Edited) -->
-                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-green-300 transition-all duration-300 group">
-                        <div class="flex items-start gap-4">
+                    <div class="story-item bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-green-300 transition-all duration-300 group">
+                        <button class="story-toggle w-full flex items-start gap-4 text-left" aria-expanded="false">
                             <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-green-100 transition-colors">
                                 <i data-lucide="mountain" class="w-5 h-5 text-green-600"></i>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Growing up in New Zealand</h4>
-                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
-                                    <li>A colleague slipped and hit her head whilst tramping - no one knew anything was wrong until it was too late.</li>
-                                    <li>Solo travelers who wondered: would anyone even know if something happened?</li>
-                                </ul>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-bold text-slate-900">Growing up in New Zealand</h4>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 story-icon flex-shrink-0"></i>
+                                </div>
                             </div>
+                        </button>
+                        <div class="story-details pl-14">
+                            <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                <li>A colleague slipped and hit her head whilst tramping - no one knew anything was wrong until it was too late.</li>
+                                <li>Solo travelers who wondered: would anyone even know if something happened?</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Example 4: Placeholder (To be determined) -->
-                    <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-purple-300 transition-all duration-300 group">
-                        <div class="flex items-start gap-4">
+                    <div class="story-item bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-purple-300 transition-all duration-300 group">
+                        <button class="story-toggle w-full flex items-start gap-4 text-left" aria-expanded="false">
                             <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center flex-shrink-0 group-hover:bg-purple-100 transition-colors">
                                 <i data-lucide="circle-help" class="w-5 h-5 text-purple-600"></i>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 mb-2">Placeholder Story</h4>
-                                <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
-                                    <li>Story example here - placeholder content</li>
-                                    <li>Additional context for this situation - placeholder content</li>
-                                </ul>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-bold text-slate-900">Placeholder Story</h4>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 story-icon flex-shrink-0"></i>
+                                </div>
                             </div>
+                        </button>
+                        <div class="story-details pl-14">
+                            <ul class="text-slate-600 text-sm leading-relaxed list-disc pl-4 space-y-1">
+                                <li>Story example here - placeholder content</li>
+                                <li>Additional context for this situation - placeholder content</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
