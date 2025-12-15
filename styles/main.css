@@ -627,3 +627,32 @@ button:disabled {
     width: 18px;
     height: 18px;
 }
+
+/* Section 1 UX Improvements */
+
+/* 1. Un-crowd the Header on Mobile */
+h1.hero-title {
+    font-size: 2.5rem; /* Large but readable */
+    line-height: 1.2; /* Tighter line height prevents vertical sprawl */
+    margin-bottom: 1.5rem; /* Breathing room before subhead */
+    max-width: 90%; /* Prevents text hitting the absolute edge on phones */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 2. Increase Logo Size (The "Bubble") */
+.nav-logo-icon {
+    transform: scale(1.15); /* Increases size by 15% */
+    transform-origin: center; /* Ensures it grows evenly */
+    margin-right: 8px; /* specific spacing between icon and 'SafetyNet' text */
+}
+
+/* 3. Refine the Sub-headline for Scannability */
+.hero-subtitle {
+    font-size: 1.125rem;
+    color: #4B5563; /* slightly softer grey to de-emphasize vs H1 */
+    max-width: 600px; /* Constrains width so lines don't get too long */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
