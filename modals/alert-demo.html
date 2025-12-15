@@ -1,0 +1,60 @@
+<div class="relative max-w-md w-full modal-content">
+    <button id="closeAlertDemoBtn" class="absolute -top-3 -right-3 bg-white rounded-full p-2 shadow-xl hover:bg-gray-100 transition z-10" aria-label="Close alert demo">
+        <i data-lucide="x" class="w-5 h-5 text-gray-600"></i>
+    </button>
+
+    <!-- Safety Alert Widget (Demo) -->
+    <div class="alert-card w-full bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
+        <!-- Alert Header -->
+        <div class="alert-header">
+            <div class="alert-badge">
+                <div class="alert-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <span class="alert-title" id="alertModalTitle">Safety Alert</span>
+            </div>
+            <div class="pulse-dot"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="alert-content">
+            <div class="intro-text">Alex uses SafetyNet to alert you if something might be wrong.</div>
+
+            <div class="missed-label">Check In Safe Time Missed:</div>
+            <div class="time-display">23:00</div>
+            <div class="time-context">+ 30 min grace period passed</div>
+
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+
+            <!-- Essential Context Section -->
+            <div class="instructions-header">Essential Context</div>
+            <div class="context-item">
+                <span class="context-label-inline">Plan:</span>
+                <span class="context-value-inline">Last minute trip to meet James</span>
+            </div>
+            <div class="context-item">
+                <span class="context-label-inline">Location:</span>
+                <span class="context-value-inline">123 Sunset Blvd, West Hollywood</span>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions-header" style="margin-top: 24px;">What to do</div>
+            <div class="instruction-item">
+                <div class="instruction-number">1</div>
+                <div class="instruction-text">Call Alex</div>
+            </div>
+            <div class="instruction-item">
+                <div class="instruction-number">2</div>
+                <div class="instruction-text">Go to the location above</div>
+            </div>
+            <div class="instruction-item">
+                <div class="instruction-number">3</div>
+                <div class="instruction-text">Call emergency services if needed</div>
+            </div>
+        </div>
+    </div>
+</div>
