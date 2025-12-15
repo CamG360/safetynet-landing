@@ -31,6 +31,12 @@ async function loadExtendedStory() {
                 // Reinitialize story toggle accordions
                 initStoryToggles();
 
+                // Attach click handler to bottom "Read Less" button
+                const closeButton = document.getElementById('close-story-btn');
+                if (closeButton) {
+                    closeButton.addEventListener('click', toggleStoryExpansion);
+                }
+
                 storyLoaded = true;
             }
         } catch (error) {
