@@ -3,6 +3,9 @@
  * Handles modals, forms, navigation, and FAQ accordion
  */
 
+// Import modal-loader to create dependency - ensures modals preload before main.js runs
+import './modal-loader.js';
+
 import { SUPABASE_CONFIG } from './config.js';
 import { validateEmail, submitToWaitlist } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
