@@ -1,50 +1,88 @@
 /**
  * Story Content Lazy Loader
- * Loads extended story content on demand
+ * Loads extended story content on demand with toggle support for mobile users
  */
 
 let storyLoaded = false;
+let storyExpanded = false;
 
 /**
  * Load extended story content from external file
  */
 async function loadExtendedStory() {
-    if (storyLoaded) return;
-
-    try {
-        const response = await fetch('/content/our-story-extended.html');
-        if (!response.ok) {
-            throw new Error('Failed to load extended story');
-        }
-
-        const content = await response.text();
-        const container = document.getElementById('story-extended');
-
-        if (container) {
-            container.innerHTML = content;
-            container.classList.remove('hidden');
-
-            // Reinitialize Lucide icons for the new content
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+    if (!storyLoaded) {
+        try {
+            const response = await fetch('/content/our-story-extended.html');
+            if (!response.ok) {
+                throw new Error('Failed to load extended story');
             }
 
-            // Reinitialize story toggle accordions
-            initStoryToggles();
+            const content = await response.text();
+            const container = document.getElementById('story-extended');
 
-            // Hide the "Read More" button
-            const button = document.getElementById('read-full-story-btn');
-            if (button) {
-                button.style.display = 'none';
+            if (container) {
+                container.innerHTML = content;
+
+                // Reinitialize Lucide icons for the new content
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
+                // Reinitialize story toggle accordions
+                initStoryToggles();
+
+                storyLoaded = true;
             }
-
-            // Smooth scroll to the extended content
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            storyLoaded = true;
+        } catch (error) {
+            console.error('Error loading extended story:', error);
+            return;
         }
-    } catch (error) {
-        console.error('Error loading extended story:', error);
+    }
+
+    // Toggle expanded state
+    toggleStoryExpansion();
+}
+
+/**
+ * Toggle story expansion/collapse
+ */
+function toggleStoryExpansion() {
+    const container = document.getElementById('story-extended');
+    const button = document.getElementById('read-full-story-btn');
+    const buttonText = button?.querySelector('span');
+    const buttonIcon = button?.querySelector('i');
+
+    if (!container || !button) return;
+
+    if (storyExpanded) {
+        // Collapse
+        container.classList.add('hidden');
+        if (buttonText) buttonText.textContent = 'Read Full Story';
+        if (buttonIcon) {
+            buttonIcon.setAttribute('data-lucide', 'arrow-down');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // Scroll back to the story section header
+        const storySection = document.getElementById('our-story');
+        if (storySection) {
+            storySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        storyExpanded = false;
+    } else {
+        // Expand
+        container.classList.remove('hidden');
+        if (buttonText) buttonText.textContent = 'Read Less';
+        if (buttonIcon) {
+            buttonIcon.setAttribute('data-lucide', 'arrow-up');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // Smooth scroll to the extended content
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        storyExpanded = true;
     }
 }
 
