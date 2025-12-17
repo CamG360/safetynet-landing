@@ -792,6 +792,19 @@
                 <p class="text-slate-500 text-lg">Everything you need to know about SafetyNet</p>
             </div>
 
+            <!-- FAQ Search Box -->
+            <div class="mb-8 max-w-2xl mx-auto">
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                    <input
+                        type="text"
+                        id="faq-search"
+                        placeholder="Search questions..."
+                        class="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900"
+                    />
+                </div>
+            </div>
+
             <!-- FAQ Category Tabs (Dynamic) -->
             <div id="faq-category-tabs" class="flex flex-wrap justify-center gap-2 mb-8">
                 <!-- Tabs loaded dynamically -->
@@ -800,6 +813,14 @@
             <!-- FAQ Container (Dynamic) -->
             <div id="faq-container" class="space-y-4">
                 <!-- FAQs loaded dynamically -->
+            </div>
+
+            <!-- Contact Callout -->
+            <div class="mt-12 p-6 bg-blue-50 border border-blue-100 rounded-xl text-center">
+                <p class="text-slate-700 text-lg mb-2">Can't find your answer?</p>
+                <p class="text-slate-900 font-semibold">
+                    Contact us at <a href="mailto:hello@safetynetbeta.com" class="text-blue-600 hover:text-blue-700 underline">hello@safetynetbeta.com</a>
+                </p>
             </div>
         </div>
     </section>
@@ -835,8 +856,11 @@
                         <ul class="space-y-3">
                             <li><a href="#our-story" class="hover:text-white transition text-sm">Our Story</a></li>
                             <li><a href="#faq" class="hover:text-white transition text-sm">FAQ</a></li>
-                            <li><a href="mailto:hello@safetynetbeta.com" class="hover:text-white transition text-sm">Contact Support</a></li>
                         </ul>
+                        <div class="mt-6">
+                            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Contact Us</p>
+                            <a href="mailto:hello@safetynetbeta.com" class="text-white hover:text-blue-400 transition font-medium">hello@safetynetbeta.com</a>
+                        </div>
                     </div>
 
                     <!-- LEGAL Column -->
@@ -904,13 +928,18 @@
 
                 <div class="border-t border-slate-200 pt-4 mt-4">
                     <p class="text-sm text-slate-500 mb-3">While you wait:</p>
-                    <div class="flex justify-center gap-4 text-sm">
+                    <div class="flex justify-center gap-4 text-sm flex-wrap">
                         <a href="#our-story" class="text-blue-600 hover:text-blue-700 font-medium transition-colors" onclick="document.getElementById('registrationModal').classList.add('hidden'); document.body.style.overflow = '';">
                             Read our story →
                         </a>
                         <a href="#faq" class="text-blue-600 hover:text-blue-700 font-medium transition-colors" onclick="document.getElementById('registrationModal').classList.add('hidden'); document.body.style.overflow = '';">
                             Browse FAQs →
                         </a>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <p class="text-sm text-slate-600">
+                            Questions? <a href="mailto:hello@safetynetbeta.com" class="text-blue-600 hover:text-blue-700 font-medium underline">hello@safetynetbeta.com</a>
+                        </p>
                     </div>
                 </div>
             </div>

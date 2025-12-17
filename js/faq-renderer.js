@@ -135,12 +135,72 @@ function initFAQAccordions() {
 }
 
 /**
+ * Initialize FAQ search functionality
+ */
+function initFAQSearch() {
+    const searchInput = document.getElementById('faq-search');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+
+        if (searchTerm === '') {
+            // If search is empty, show current category
+            renderFAQs(currentCategory);
+            return;
+        }
+
+        // Filter FAQs by search term
+        const filteredFAQs = faqData.faqs.filter(faq =>
+            faq.question.toLowerCase().includes(searchTerm) ||
+            faq.answer.toLowerCase().includes(searchTerm)
+        );
+
+        // Render filtered FAQs
+        const container = document.getElementById('faq-container');
+        if (!container) return;
+
+        if (filteredFAQs.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-12 text-slate-500">
+                    <i data-lucide="search-x" class="w-12 h-12 mx-auto mb-4 text-slate-300"></i>
+                    <p class="text-lg">No questions found matching "${searchTerm}"</p>
+                    <p class="text-sm mt-2">Try different keywords or browse by category</p>
+                </div>
+            `;
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            return;
+        }
+
+        container.innerHTML = filteredFAQs.map((faq, index) => `
+            <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="${faq.category}" data-faq-id="${faq.id}">
+                <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                    <h3 class="text-lg font-bold text-slate-900 pr-8">${faq.question}</h3>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                </button>
+                <div class="faq-answer text-slate-600 leading-relaxed">
+                    ${faq.answer}
+                </div>
+            </div>
+        `).join('');
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        initFAQAccordions();
+    });
+}
+
+/**
  * Initialize FAQ section on page load
  */
 async function initializeFAQSection() {
     await loadFAQData();
     renderCategoryTabs();
     renderFAQs(currentCategory);
+    initFAQSearch();
 }
 
 // Initialize when DOM is ready
