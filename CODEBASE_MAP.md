@@ -9,7 +9,7 @@
 ## High-Level Overview
 
 - **What this repo does**:
-  - Landing page for SafetyNet — a safety alert service for foreign workers in the UK
+  - Landing page for SafetyNet — a safety alert service for everday activities. 
   - Collects waitlist emails via Supabase backend
   - Educates users on safety features through interactive content (FAQs, story, use cases)
 
