@@ -298,11 +298,6 @@ if (form && submitBtn) {
                 lucide.createIcons();
             }
 
-            // Auto-close after configured time
-            autoCloseTimer = setTimeout(() => {
-                resetRegistrationForm();
-            }, TIMING.AUTO_CLOSE_MODAL);
-
         } catch (error) {
             console.error("Error:", error);
             emailError.textContent = MESSAGES.SUBMISSION_ERROR;
