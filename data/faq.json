@@ -18,7 +18,7 @@
       "id": "faq-2",
       "category": "privacy",
       "question": "What security and reliability measures will SafetyNet have?",
-      "answer": "<p class=\"mb-3\">SafetyNet is currently in beta testing with 50 users. We're building on enterprise-grade infrastructure:</p><ul class=\"list-disc pl-5 space-y-2 mb-3\"><li>Hosted on Amazon Web Services (AWS) with multi-region redundancy</li><li>Bank-level encryption in transit (TLS 1.3) and at rest (AES-256)</li><li>Multi-channel alert delivery (SMS, email, push notifications)</li><li>99.9% uptime target with continuous monitoring</li></ul><p class=\"text-sm text-slate-700\"><strong>Our commitment:</strong> We will not launch publicly until we achieve 99.9% alert delivery success rate in testing. Security audit scheduled for Q1 2025.</p>"
+      "answer": "<p class=\"mb-3\">SafetyNet is built with enterprise-grade security and reliability as our foundation:</p><ul class=\"list-disc pl-5 space-y-2 mb-3\"><li>Industry-standard encryption to protect your data</li><li>Reliable cloud infrastructure with backup systems</li><li>Multi-channel alert delivery to ensure your contacts are notified</li><li>99.9% uptime commitment with continuous monitoring</li></ul><p class=\"text-slate-700\"><strong>Our promise:</strong> We will not launch publicly until we achieve 99.9% alert delivery success in testing. Your safety is our priority.</p>"
     },
     {
       "id": "faq-3",
@@ -85,6 +85,18 @@
       "category": "getting-started",
       "question": "What devices does SafetyNet work on?",
       "answer": "SafetyNet will be available on iOS (latest version), Android (latest version), and web browsers. Most modern smartphones and tablets from the last 3-4 years are supported. You'll also be able to manage your SafetyNet settings from any web browser on desktop or mobile."
+    },
+    {
+      "id": "faq-14",
+      "category": "getting-started",
+      "question": "Does my emergency contact need the app?",
+      "answer": "<p class=\"mb-2\"><strong>No.</strong> Your emergency contacts don't need to download or install anything.</p><p>They'll receive alerts via SMS and email if a safety alert is triggered. If they choose to download the app, they can receive push notifications too, but it's completely optional.</p>"
+    },
+    {
+      "id": "faq-15",
+      "category": "getting-started",
+      "question": "Who else needs the app?",
+      "answer": "<p class=\"mb-2\"><strong>Just you.</strong> Only the person setting up SafetyNet needs the app.</p><p>Your emergency contacts will receive alerts through standard channels (SMS, email) without needing to download anything. SafetyNet is designed to work seamlessly without requiring your contacts to install additional software.</p>"
     }
   ]
 }
