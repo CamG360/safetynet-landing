@@ -731,7 +731,7 @@
             #our-story .founder-photo {
                 width: 140px;
                 height: 140px;
-                border-radius: 16px;
+                border-radius: 12px;
                 object-fit: cover;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             }
@@ -792,9 +792,10 @@
             <div class="founder-header grid grid-cols-1 md:grid-cols-[160px_1fr] gap-8 md:gap-12 items-center mb-16 text-center md:text-left">
                 <div class="relative mx-auto md:mx-0">
                     <img
-                        src="images/campbell-mccord.png"
+                        src="images/campbell-mccord.png?v=2"
                         alt="Campbell McCord"
                         class="founder-photo"
+                        onerror="console.error('Image failed to load:', this.src)"
                     >
                 </div>
                 <div>
