@@ -726,50 +726,47 @@
 
     <!-- [SECTION: OUR STORY] -->
     <section id="our-story" class="py-24 bg-white border-t border-slate-100 font-sans">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6">
 
-            <!-- PART 1: The Founder & The Hook -->
-            <!-- UX Note: Using a grid here connects the face to the story immediately, rather than forcing the user to scroll past the bio to get to the 'Why'. -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+            <!-- Founder Header -->
+            <div class="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-12 md:gap-12 items-center mb-16 text-center md:text-left">
+                <div class="relative mx-auto md:mx-0">
+                    <img
+                        src="images/campbell-mccord.png"
+                        alt="Campbell McCord"
+                        class="w-44 h-44 rounded-3xl object-cover shadow-[0_12px_24px_-8px_rgba(99,102,241,0.25)]"
+                    >
+                </div>
+                <div>
+                    <span class="inline-block bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold mb-3">Founder Story</span>
+                    <h3 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-3">Campbell McCord</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
+                        "I spent 20 years building automated safeguards for industrial systems. Now, I'm applying those same rigid principles to the most important system of all: your personal safety."
+                    </p>
+                </div>
+            </div>
 
-                <!-- Left Column: Founder Profile (Trust Signal) -->
-                <div class="lg:col-span-4">
-                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 sticky top-8 text-center lg:text-left">
-                        <img
-                            src="images/campbell-mccord.png"
-                            alt="Campbell McCord, Founder of SafetyNet"
-                            class="w-32 h-32 rounded-full mx-auto lg:mx-0 mb-6 shadow-xl border-4 border-white ring-1 ring-slate-200"
-                        >
-
-                        <h3 class="text-2xl font-bold text-slate-900 mb-1">Campbell McCord</h3>
-                        <p class="text-blue-600 font-bold text-sm uppercase tracking-wide mb-6">Founder</p>
-
-                        <div class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                            <i data-lucide="briefcase" class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5"></i>
-                            <span class="text-slate-600 text-sm font-medium leading-relaxed">20 years building safeguards for business and financial institutions</span>
-                        </div>
-                    </div>
+            <!-- Narrative Text -->
+            <div class="max-w-3xl mx-auto mb-20">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-4">Why I Built SafetyNet</h2>
+                    <div class="w-16 h-1 bg-blue-600 rounded-full"></div>
                 </div>
 
-                <!-- Right Column: The Narrative -->
-                <div class="lg:col-span-8 flex flex-col justify-center">
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Why I Built SafetyNet</h2>
+                <div class="space-y-6 text-lg text-slate-600 leading-relaxed">
+                    <p>
+                        In the industrial world, silence triggers an alarm. If a critical system stops reporting, we know immediately that something is wrong. We don't wait for the machine to call for help.
+                    </p>
 
-                    <div class="prose prose-lg max-w-none text-slate-600">
-                        <p class="leading-relaxed mb-6">
-                            For 20 years, I built automated safeguards for banks and businesses. In that world, <strong>silence triggers an alarm</strong>. If a system stops reporting, we know immediately that something is wrong.
-                        </p>
-
-                        <div class="border-l-4 border-blue-600 bg-blue-50/30 pl-6 pr-4 py-4 my-8 rounded-r">
-                            <p class="font-medium text-slate-900 text-xl leading-relaxed italic mb-0">
-                                "But in everyday life, silence is dangerous. If you can't reach your phone to say 'I'm in trouble', no one knows."
-                            </p>
-                        </div>
-
-                        <p class="leading-relaxed mb-0">
-                            I built SafetyNet to close that gap—bringing enterprise-grade "silent safeguards" to personal safety. It protects you exactly when you can't protect yourself.
+                    <div class="border-l-4 border-blue-600 bg-gradient-to-r from-blue-50 to-transparent pl-6 pr-6 py-6 my-8 rounded-r-xl">
+                        <p class="font-medium text-slate-900 text-xl leading-relaxed italic">
+                            "In everyday life, silence is just... silence. If you can't reach your phone to say 'I'm in trouble,' no one knows."
                         </p>
                     </div>
+
+                    <p>
+                        <strong class="text-slate-900">I built SafetyNet to close that gap.</strong> It brings the "silent safeguard" principle to personal safety. It protects you exactly when you can't protect yourself—triggered not by your action, but by your inaction.
+                    </p>
                 </div>
             </div>
 
