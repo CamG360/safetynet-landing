@@ -457,3 +457,42 @@ faqCategoryBtns.forEach((btn) => {
         filterFAQs(selectedCategory);
     });
 });
+
+// ============================================
+// Our Story Read More Toggle
+// ============================================
+const readMoreStoryBtn = document.getElementById('readMoreStoryBtn');
+const storyDetails = document.getElementById('storyDetails');
+const readMoreStoryText = document.getElementById('readMoreStoryText');
+const readMoreStoryIcon = document.getElementById('readMoreStoryIcon');
+
+if (readMoreStoryBtn && storyDetails) {
+    readMoreStoryBtn.addEventListener('click', () => {
+        const isHidden = storyDetails.classList.contains('hidden');
+
+        if (isHidden) {
+            // Show the content
+            storyDetails.classList.remove('hidden');
+            readMoreStoryText.textContent = 'Show Less';
+            readMoreStoryIcon.style.transform = 'rotate(180deg)';
+
+            // Smooth scroll to the expanded content
+            setTimeout(() => {
+                storyDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        } else {
+            // Hide the content
+            storyDetails.classList.add('hidden');
+            readMoreStoryText.textContent = 'Read Our Story';
+            readMoreStoryIcon.style.transform = 'rotate(0deg)';
+
+            // Scroll back to the button
+            readMoreStoryBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Reinitialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+}
