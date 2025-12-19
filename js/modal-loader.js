@@ -19,7 +19,9 @@ const modalConfig = {
  */
 async function loadModalContent(modalFileName) {
     try {
-        const response = await fetch(`/modals/${modalFileName}.html`);
+        // Use a path relative to the current page so it works when the site is hosted in a subdirectory
+        const modalUrl = new URL(`modals/${modalFileName}.html`, window.location.href);
+        const response = await fetch(modalUrl);
         if (!response.ok) {
             throw new Error(`Failed to load modal: ${modalFileName}`);
         }
