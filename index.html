@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Updated Lucide CDN to a more reliable source -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
 </head>
@@ -1122,6 +1124,12 @@
 
             <!-- Form Body -->
             <form id="registrationForm" class="p-8">
+                <!-- Honeypot Field (hidden from users, but bots will fill it) -->
+                <div class="honeypot-field" aria-hidden="true">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
                 <!-- Email Input -->
                 <div class="mb-6">
                     <label for="email" class="block text-sm font-bold text-slate-900 mb-2">Email</label>
