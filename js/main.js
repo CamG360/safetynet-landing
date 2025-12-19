@@ -496,3 +496,52 @@ if (readMoreStoryBtn && storyDetails) {
         }
     });
 }
+
+// ============================================
+// Copy Email to Clipboard
+// ============================================
+const copyEmailBtns = document.querySelectorAll('.copy-email-btn');
+
+copyEmailBtns.forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const email = btn.getAttribute('data-email');
+        const tooltip = btn.querySelector('.copy-tooltip');
+
+        try {
+            // Use the Clipboard API to copy the email
+            await navigator.clipboard.writeText(email);
+
+            // Show the tooltip
+            if (tooltip) {
+                tooltip.classList.remove('hidden');
+
+                // Hide the tooltip after 2 seconds
+                setTimeout(() => {
+                    tooltip.classList.add('hidden');
+                }, 2000);
+            }
+        } catch (err) {
+            console.error('Failed to copy email:', err);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = email;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                // Show the tooltip
+                if (tooltip) {
+                    tooltip.classList.remove('hidden');
+                    setTimeout(() => {
+                        tooltip.classList.add('hidden');
+                    }, 2000);
+                }
+            } catch (err2) {
+                console.error('Fallback copy failed:', err2);
+            }
+            document.body.removeChild(textArea);
+        }
+    });
+});
