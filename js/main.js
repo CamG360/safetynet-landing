@@ -6,8 +6,8 @@
 // Import modal-loader to create dependency - ensures modals preload before main.js runs
 import './modal-loader.js';
 
-import { SUPABASE_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist } from './utils.js';
+import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
+import { validateEmail, submitToWaitlist, executeRecaptcha, isBot } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
 
 // ============================================
@@ -267,6 +267,14 @@ if (form && submitBtn) {
         const span = submitBtn.querySelector('span');
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('email-error');
+        const honeypotInput = document.getElementById('website');
+
+        // Check honeypot field first (bot detection)
+        if (honeypotInput && isBot(honeypotInput.value)) {
+            console.warn('Bot detected via honeypot');
+            // Silently reject - don't show error to bot
+            return;
+        }
 
         // Validate email
         const email = emailInput.value.trim();
@@ -287,7 +295,11 @@ if (form && submitBtn) {
         spinner.style.display = 'block';
 
         try {
-            await submitToWaitlist(email, SUPABASE_CONFIG);
+            // Execute reCAPTCHA v3
+            const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+
+            // Submit to waitlist with reCAPTCHA token
+            await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
 
             // Success State - Hide form, show success message
             form.style.display = 'none';

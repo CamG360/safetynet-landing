@@ -3,8 +3,8 @@
  * Handles form validation and submission for the standalone form page
  */
 
-import { SUPABASE_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist } from './utils.js';
+import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
+import { validateEmail, submitToWaitlist, executeRecaptcha, isBot } from './utils.js';
 import { MESSAGES, BUTTON_TEXT } from './constants.js';
 
 // ============================================
@@ -51,6 +51,14 @@ form.addEventListener('submit', async (e) => {
     emailError.classList.remove('show');
     emailInput.classList.remove('error');
 
+    // Check honeypot field (if it exists on this form)
+    const honeypotInput = document.getElementById('website');
+    if (honeypotInput && isBot(honeypotInput.value)) {
+        console.warn('Bot detected via honeypot');
+        // Silently reject - don't show error to bot
+        return;
+    }
+
     // Get and validate email
     const email = emailInput.value.trim();
 
@@ -76,7 +84,11 @@ form.addEventListener('submit', async (e) => {
     submitSpinner.style.display = 'inline-block';
 
     try {
-        await submitToWaitlist(email, SUPABASE_CONFIG);
+        // Execute reCAPTCHA v3
+        const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+
+        // Submit to waitlist with reCAPTCHA token
+        await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
 
         // Success - show success message
         form.style.display = 'none';
