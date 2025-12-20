@@ -4,8 +4,8 @@
  */
 
 import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot } from './utils.js';
-import { MESSAGES, BUTTON_TEXT } from './constants.js';
+import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission } from './utils.js';
+import { MESSAGES, BUTTON_TEXT, TIMING } from './constants.js';
 
 // ============================================
 // DOM Elements
@@ -78,6 +78,14 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
+    if (isRateLimited(email, TIMING.WAITLIST_RATE_LIMIT)) {
+        emailError.textContent = MESSAGES.RATE_LIMIT;
+        emailError.classList.add('show');
+        emailInput.classList.add('error');
+        emailInput.focus();
+        return;
+    }
+
     // Show loading state
     submitBtn.disabled = true;
     submitBtnText.textContent = BUTTON_TEXT.SUBMITTING;
@@ -89,6 +97,7 @@ form.addEventListener('submit', async (e) => {
 
         // Submit to waitlist with reCAPTCHA token
         await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+        trackSubmission(email);
 
         // Success - show success message
         form.style.display = 'none';

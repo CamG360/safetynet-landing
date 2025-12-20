@@ -7,7 +7,7 @@
 import './modal-loader.js';
 
 import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot } from './utils.js';
+import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
 
 // ============================================
@@ -285,6 +285,13 @@ if (form && submitBtn) {
             return;
         }
 
+        if (isRateLimited(email, TIMING.WAITLIST_RATE_LIMIT)) {
+            emailError.textContent = MESSAGES.RATE_LIMIT;
+            emailError.classList.remove('hidden');
+            emailInput.focus();
+            return;
+        }
+
         // Hide any previous errors
         emailError.classList.add('hidden');
 
@@ -300,6 +307,7 @@ if (form && submitBtn) {
 
             // Submit to waitlist with reCAPTCHA token
             await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+            trackSubmission(email);
 
             // Success State - Hide form, show success message
             form.style.display = 'none';

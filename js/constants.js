@@ -18,7 +18,10 @@ export const TIMING = {
     FAQ_TRANSITION: 300,
 
     // Mobile menu transition (milliseconds)
-    MOBILE_MENU_TRANSITION: 300
+    MOBILE_MENU_TRANSITION: 300,
+
+    // Time window to throttle repeat waitlist submissions (milliseconds)
+    WAITLIST_RATE_LIMIT: 30000
 };
 
 export const MESSAGES = {
@@ -26,6 +29,7 @@ export const MESSAGES = {
     EMAIL_INVALID: 'Please enter a valid email address',
     SUBMISSION_ERROR: 'Something went wrong. Please try again.',
     NETWORK_ERROR: 'Unable to submit. Please check your connection and try again.',
+    RATE_LIMIT: 'Please wait before submitting again.',
     SUCCESS_TITLE: "You're on the waitlist!",
     SUCCESS_MESSAGE: "We'll be in touch soon with updates on SafetyNet."
 };
