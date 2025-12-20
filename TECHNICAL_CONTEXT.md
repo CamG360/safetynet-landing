@@ -15,12 +15,12 @@
 
 ### Styling & UI
 - **CSS Framework**: Tailwind CSS (CDN)
-  - URL: `https://cdn.tailwindcss.com`
+  - URL: `https://cdn.tailwindcss.com/3.4.10` (SRI-protected)
   - Zero-config, no build step required
 - **Custom CSS**: Inline `<style>` blocks in HTML
 - **Typography**: Google Fonts - Inter (300, 400, 500, 600, 700 weights)
 - **Icons**: Lucide Icons via unpkg CDN
-  - URL: `https://unpkg.com/lucide@latest`
+  - URL: `https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js` (SRI-protected)
 
 ### JavaScript
 - **Framework**: None
@@ -101,8 +101,8 @@ safetynet-landing/
 
 | Dependency | Version | Source | Purpose |
 |------------|---------|--------|---------|
-| Tailwind CSS | Latest | cdn.tailwindcss.com | Utility-first CSS framework |
-| Lucide Icons | Latest | unpkg.com | Icon library |
+| Tailwind CSS | 3.4.10 | cdn.tailwindcss.com/3.4.10 | Utility-first CSS framework |
+| Lucide Icons | 0.294.0 | unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js | Icon library |
 | Google Fonts | - | fonts.googleapis.com | Inter typeface |
 | Supabase | REST API | igzyfbzayuimdnjhapog.supabase.co | Backend database (PostgreSQL) |
 
