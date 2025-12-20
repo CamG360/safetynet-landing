@@ -15,12 +15,13 @@
 
 ### Styling & UI
 - **CSS Framework**: Tailwind CSS (CDN)
-  - URL: `https://cdn.tailwindcss.com/3.4.10` (SRI-protected)
+  - URL: `https://cdn.tailwindcss.com/3.4.10`
   - Zero-config, no build step required
+  - **Note**: Play CDN not compatible with SRI (see SRI-LIMITATIONS.md)
 - **Custom CSS**: Inline `<style>` blocks in HTML
 - **Typography**: Google Fonts - Inter (300, 400, 500, 600, 700 weights)
 - **Icons**: Lucide Icons via unpkg CDN
-  - URL: `https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js` (SRI-protected)
+  - URL: `https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js`
 
 ### JavaScript
 - **Framework**: None
@@ -101,14 +102,14 @@ safetynet-landing/
 
 | Dependency | Version | Source | Purpose | SRI Protected |
 |------------|---------|--------|---------|---------------|
-| Tailwind CSS | 3.4.10 | cdn.tailwindcss.com/3.4.10 | Utility-first CSS framework | ✅ Yes (SHA-384) |
-| Lucide Icons | 0.294.0 | unpkg.com/lucide@0.294.0 | Icon library | ✅ Yes (SHA-384) |
+| Tailwind CSS | 3.4.10 | cdn.tailwindcss.com/3.4.10 | Utility-first CSS framework | ❌ No (incompatible) |
+| Lucide Icons | 0.294.0 | unpkg.com/lucide@0.294.0 | Icon library | ❌ No |
 | Google Fonts | - | fonts.googleapis.com | Inter typeface | N/A (CSS only) |
 | Supabase | REST API | igzyfbzayuimdnjhapog.supabase.co | Backend database (PostgreSQL) | N/A (API) |
 
 **Note**: All frontend dependencies are loaded via CDN at runtime. No local node_modules or package management. Supabase is accessed via direct REST API calls (no JS SDK).
 
-**Security**: External scripts are protected with Subresource Integrity (SRI) to prevent CDN tampering. See `SRI-IMPLEMENTATION.md` for details.
+**Security**: SRI implementation attempted but removed due to Tailwind Play CDN incompatibility (dynamic JIT compilation). See `SRI-LIMITATIONS.md` for details and production recommendations.
 
 ---
 
