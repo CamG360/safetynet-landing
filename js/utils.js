@@ -52,6 +52,46 @@ export function isBot(honeypotValue) {
     return honeypotValue && honeypotValue.trim() !== '';
 }
 
+const RATE_LIMIT_STORAGE_KEY = 'waitlistRateLimit';
+
+/**
+ * Checks if the given email has been submitted within the rate limit window.
+ * Uses localStorage to persist timestamps between sessions.
+ * @param {string} email - The email address to check
+ * @param {number} windowMs - Rate limit window in milliseconds
+ * @returns {boolean} True if submission is blocked, false otherwise
+ */
+export function isRateLimited(email, windowMs) {
+    if (!email || typeof window === 'undefined' || !window.localStorage) return false;
+
+    try {
+        const record = JSON.parse(localStorage.getItem(RATE_LIMIT_STORAGE_KEY)) || {};
+        const lastSubmittedAt = record[email];
+        if (!lastSubmittedAt) return false;
+
+        return Date.now() - lastSubmittedAt < windowMs;
+    } catch (error) {
+        console.warn('Rate limit check failed, allowing submission:', error);
+        return false;
+    }
+}
+
+/**
+ * Records the current time as the latest submission timestamp for the email.
+ * @param {string} email - The submitted email address
+ */
+export function trackSubmission(email) {
+    if (!email || typeof window === 'undefined' || !window.localStorage) return;
+
+    try {
+        const record = JSON.parse(localStorage.getItem(RATE_LIMIT_STORAGE_KEY)) || {};
+        record[email] = Date.now();
+        localStorage.setItem(RATE_LIMIT_STORAGE_KEY, JSON.stringify(record));
+    } catch (error) {
+        console.warn('Failed to persist submission timestamp:', error);
+    }
+}
+
 /**
  * Submits an email to the waitlist via Supabase.
  * @param {string} email - The email address to submit
