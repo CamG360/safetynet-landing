@@ -17,6 +17,7 @@
 - **CSS Framework**: Tailwind CSS (CDN)
   - URL: `https://cdn.tailwindcss.com/3.4.10` (SRI-protected)
   - Zero-config, no build step required
+  - **Note**: Play CDN not compatible with SRI (see SRI-LIMITATIONS.md)
 - **Custom CSS**: Inline `<style>` blocks in HTML
 - **Typography**: Google Fonts - Inter (300, 400, 500, 600, 700 weights)
 - **Icons**: Lucide Icons via unpkg CDN
@@ -107,6 +108,8 @@ safetynet-landing/
 | Supabase | REST API | igzyfbzayuimdnjhapog.supabase.co | Backend database (PostgreSQL) |
 
 **Note**: All frontend dependencies are loaded via CDN at runtime. No local node_modules or package management. Supabase is accessed via direct REST API calls (no JS SDK).
+
+**Security**: SRI implementation attempted but removed due to Tailwind Play CDN incompatibility (dynamic JIT compilation). See `SRI-LIMITATIONS.md` for details and production recommendations.
 
 ---
 

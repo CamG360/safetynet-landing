@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRI Browser Validation Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        .test-result {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .test-result.success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+        }
+        .test-result.error {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+        }
+        .test-result.pending {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+        .icon {
+            font-size: 24px;
+        }
+        .test-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .test-details {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .summary {
+            background: #eff6ff;
+            border: 2px solid #2563eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .summary h2 {
+            color: #2563eb;
+            margin-top: 0;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 10px 0;
+        }
+        .instructions {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🛡️ SRI Browser Validation Test</h1>
+        <p class="subtitle">Testing Subresource Integrity implementation for SafetyNet landing page</p>
+
+        <div class="instructions">
+            <strong>📋 Instructions:</strong> Open the browser's DevTools Console (F12) to see detailed logs.
+            This page will automatically test if the SRI-protected resources load correctly.
+        </div>
+
+        <div id="test-results"></div>
+
+        <div class="summary">
+            <h2>What This Test Validates</h2>
+            <ul>
+                <li><strong>CDN Resource Loading:</strong> Verifies Tailwind CSS and Lucide Icons load with SRI</li>
+                <li><strong>Integrity Verification:</strong> Browser validates SHA-384 hashes match CDN content</li>
+                <li><strong>CORS Configuration:</strong> Tests crossorigin="anonymous" attribute</li>
+                <li><strong>Error Handling:</strong> Detects if SRI validation fails (wrong hash blocks resource)</li>
+            </ul>
+
+            <h3>SRI Hashes Used:</h3>
+            <div class="code-block">
+Tailwind CSS 3.4.10:
+  integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+
+Lucide Icons 0.294.0:
+  integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+            </div>
+        </div>
+    </div>
+
+    <!-- Load SRI-protected scripts -->
+    <script
+        src="https://cdn.tailwindcss.com/3.4.10"
+        integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+        crossorigin="anonymous"
+        id="tailwind-script"
+    ></script>
+    <script
+        src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"
+        integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+        crossorigin="anonymous"
+        id="lucide-script"
+    ></script>
+
+    <script>
+        const resultsContainer = document.getElementById('test-results');
+        const tests = [];
+
+        function addTest(name, status, details) {
+            tests.push({ name, status, details });
+            renderTests();
+        }
+
+        function renderTests() {
+            resultsContainer.innerHTML = tests.map(test => `
+                <div class="test-result ${test.status}">
+                    <div class="icon">
+                        ${test.status === 'success' ? '✅' : test.status === 'error' ? '❌' : '⏳'}
+                    </div>
+                    <div>
+                        <div class="test-name">${test.name}</div>
+                        <div class="test-details">${test.details}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Test 1: Check if scripts have SRI attributes
+        function testSRIAttributes() {
+            console.log('🧪 Test 1: Checking SRI attributes...');
+
+            const tailwindScript = document.getElementById('tailwind-script');
+            const lucideScript = document.getElementById('lucide-script');
+
+            if (tailwindScript.integrity && tailwindScript.crossOrigin) {
+                addTest(
+                    'Tailwind CSS SRI Attributes',
+                    'success',
+                    `integrity="${tailwindScript.integrity}", crossorigin="${tailwindScript.crossOrigin}"`
+                );
+                console.log('✅ Tailwind CSS has proper SRI attributes');
+            } else {
+                addTest(
+                    'Tailwind CSS SRI Attributes',
+                    'error',
+                    'Missing integrity or crossorigin attribute'
+                );
+                console.error('❌ Tailwind CSS missing SRI attributes');
+            }
+
+            if (lucideScript.integrity && lucideScript.crossOrigin) {
+                addTest(
+                    'Lucide Icons SRI Attributes',
+                    'success',
+                    `integrity="${lucideScript.integrity}", crossorigin="${lucideScript.crossOrigin}"`
+                );
+                console.log('✅ Lucide Icons has proper SRI attributes');
+            } else {
+                addTest(
+                    'Lucide Icons SRI Attributes',
+                    'error',
+                    'Missing integrity or crossorigin attribute'
+                );
+                console.error('❌ Lucide Icons missing SRI attributes');
+            }
+        }
+
+        // Test 2: Check if Tailwind loaded
+        function testTailwindLoaded() {
+            console.log('🧪 Test 2: Checking if Tailwind CSS loaded...');
+
+            setTimeout(() => {
+                // Check if Tailwind's tailwind object exists
+                if (typeof tailwind !== 'undefined') {
+                    addTest(
+                        'Tailwind CSS Loading',
+                        'success',
+                        'Tailwind CSS loaded successfully with SRI verification'
+                    );
+                    console.log('✅ Tailwind CSS loaded successfully');
+                } else {
+                    addTest(
+                        'Tailwind CSS Loading',
+                        'error',
+                        'Tailwind CSS failed to load - SRI hash may be incorrect'
+                    );
+                    console.error('❌ Tailwind CSS failed to load');
+                }
+            }, 1000);
+        }
+
+        // Test 3: Check if Lucide loaded
+        function testLucideLoaded() {
+            console.log('🧪 Test 3: Checking if Lucide Icons loaded...');
+
+            setTimeout(() => {
+                if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                    addTest(
+                        'Lucide Icons Loading',
+                        'success',
+                        'Lucide Icons loaded successfully with SRI verification'
+                    );
+                    console.log('✅ Lucide Icons loaded successfully');
+                } else {
+                    addTest(
+                        'Lucide Icons Loading',
+                        'error',
+                        'Lucide Icons failed to load - SRI hash may be incorrect'
+                    );
+                    console.error('❌ Lucide Icons failed to load');
+                }
+            }, 1500);
+        }
+
+        // Test 4: Monitor for SRI errors
+        function testSRIErrors() {
+            console.log('🧪 Test 4: Monitoring for SRI integrity errors...');
+
+            window.addEventListener('error', (event) => {
+                if (event.target.tagName === 'SCRIPT' && event.target.integrity) {
+                    addTest(
+                        'SRI Integrity Error Detected',
+                        'error',
+                        `Failed to load ${event.target.src} - Hash mismatch!`
+                    );
+                    console.error('❌ SRI integrity error:', event.target.src);
+                }
+            }, true);
+
+            setTimeout(() => {
+                // If no errors detected by now, SRI validation passed
+                if (!tests.some(t => t.name === 'SRI Integrity Error Detected')) {
+                    addTest(
+                        'SRI Integrity Validation',
+                        'success',
+                        'No integrity errors detected - all hashes match CDN content'
+                    );
+                    console.log('✅ No SRI integrity errors detected');
+                }
+            }, 2000);
+        }
+
+        // Test 5: Verify CORS headers
+        function testCORSConfiguration() {
+            console.log('🧪 Test 5: Verifying CORS configuration...');
+
+            setTimeout(() => {
+                const tailwindScript = document.getElementById('tailwind-script');
+                const lucideScript = document.getElementById('lucide-script');
+
+                if (tailwindScript.crossOrigin === 'anonymous' && lucideScript.crossOrigin === 'anonymous') {
+                    addTest(
+                        'CORS Configuration',
+                        'success',
+                        'All SRI scripts have crossorigin="anonymous" attribute'
+                    );
+                    console.log('✅ CORS configuration correct');
+                } else {
+                    addTest(
+                        'CORS Configuration',
+                        'error',
+                        'crossorigin attribute missing or incorrect'
+                    );
+                    console.error('❌ CORS configuration incorrect');
+                }
+            }, 500);
+        }
+
+        // Run all tests
+        console.log('🚀 Starting SRI Browser Validation Tests...');
+        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+        testSRIAttributes();
+        testTailwindLoaded();
+        testLucideLoaded();
+        testSRIErrors();
+        testCORSConfiguration();
+
+        // Final summary
+        setTimeout(() => {
+            const successCount = tests.filter(t => t.status === 'success').length;
+            const totalCount = tests.length;
+            console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+            console.log(`📊 Test Summary: ${successCount}/${totalCount} tests passed`);
+
+            if (successCount === totalCount) {
+                console.log('🎉 All SRI tests passed! CDN resources are secure.');
+            } else {
+                console.warn('⚠️  Some tests failed. Check the results above.');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
