@@ -36,6 +36,8 @@
             </div>
 
             <!-- Desktop CTA -->
+            <button class="hidden md:block open-registration-modal px-5 py-2.5 min-h-[44px] text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                Join the Waitlist
             <button class="hidden md:block open-registration-modal px-5 py-2.5 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200">
                 Join Waitlist
             </button>
@@ -55,12 +57,19 @@
                 <a href="#concept" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">How it Works</a>
                 <a href="#examples" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">Examples</a>
                 <a href="#comparison" class="mobile-menu-link text-slate-700 hover:text-blue-600 transition font-medium py-2">Why Us?</a>
+                <button class="open-registration-modal w-full px-5 py-3 min-h-[44px] text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg">
+                    Join the Waitlist
                 <button class="open-registration-modal w-full px-5 py-3 text-sm font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition shadow-lg">
                     Join Waitlist
                 </button>
             </div>
         </div>
     </nav>
+
+    <!-- Scroll Progress Indicator (mobile-first) -->
+    <div class="fixed top-20 left-0 right-0 h-1 bg-slate-200/70 z-30 md:top-[76px]" aria-hidden="true">
+        <div id="scrollProgressBar" class="h-full w-0 bg-blue-600 transition-[width] duration-150"></div>
+    </div>
 
     <!-- [SECTION 1: HERO - WAITLIST] -->
     <header class="bg-slate-50 pt-16 pb-20 lg:pt-24 lg:pb-28 min-h-[600px] flex flex-col items-center justify-center">
@@ -146,7 +155,7 @@
                         class="flex-1 px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-slate-800 placeholder:text-slate-400"
                     />
                     <!-- Reverted to Blue-600 for Maximum Authority -->
-                    <button id="heroJoinWaitlistBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 md:px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg whitespace-nowrap">
+                    <button id="heroJoinWaitlistBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 md:px-6 py-3 min-h-[44px] rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg whitespace-nowrap">
                         Join Waitlist <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
                 </div>
@@ -674,7 +683,7 @@
                 <p class="text-slate-500 text-lg">"Location Sharing" and "panic buttons" aren't enough <span class="text-blue-600 font-semibold">when you can't reach your phone</span>.</p>
             </div>
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white hidden md:block">
                 <table class="w-full text-left border-collapse">
                     <thead class="bg-slate-50 border-b border-slate-200">
                         <tr>
@@ -745,6 +754,66 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Mobile-friendly comparison cards -->
+            <div class="md:hidden space-y-4">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
+                        <span class="text-[11px] font-semibold text-slate-400">Automatic Safety Alerts</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
+                            <p class="text-sm text-slate-700 font-semibold">Alert Sent</p>
+                            <p class="text-xs text-slate-500">Works even when you can't reach your phone</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
+                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
+                            <p class="text-sm text-slate-700 font-semibold">Silent Failure</p>
+                            <p class="text-xs text-slate-500">Mobile dependent</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
+                        <span class="text-[11px] font-semibold text-slate-400">Essential Context</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
+                            <p class="text-sm text-slate-700 font-semibold">Included</p>
+                            <p class="text-xs text-slate-500">Your plans, itinerary, names</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
+                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
+                            <p class="text-sm text-slate-700 font-semibold">Not included</p>
+                            <p class="text-xs text-slate-500">Last location only</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
+                        <span class="text-[11px] font-semibold text-slate-400">Works Offline</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
+                            <p class="text-sm text-slate-700 font-semibold">Yes</p>
+                            <p class="text-xs text-slate-500">Monitored from secure servers</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
+                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
+                            <p class="text-sm text-slate-700 font-semibold">No</p>
+                            <p class="text-xs text-slate-500">Online dependent</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1042,6 +1111,8 @@
             <!-- Join Waitlist Section -->
             <div class="mb-12 text-center">
                 <h2 class="text-3xl font-bold text-white mb-6">Secure Your Spot</h2>
+                <button class="open-registration-modal bg-blue-600 text-white px-8 py-4 min-h-[44px] rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-900/50">
+                    Join the Waitlist
                 <button class="open-registration-modal bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-900/50">
                     Join Waitlist
                 </button>
@@ -1098,6 +1169,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- Sticky Join Waitlist CTA (mobile) -->
+    <button
+        id="stickyJoinButton"
+        class="open-registration-modal fixed bottom-4 left-4 right-4 md:hidden z-40 bg-blue-600 text-white font-bold rounded-full px-6 py-3 min-h-[44px] shadow-xl shadow-blue-200 flex items-center justify-center gap-2 transition-all duration-300 opacity-0 translate-y-3 pointer-events-none"
+        aria-label="Join the SafetyNet waitlist quickly"
+    >
+        Join Waitlist
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+    </button>
 
     <!-- [MODAL 1: DEMO ALERT] -->
     <div id="alertDemoModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="alertModalTitle">

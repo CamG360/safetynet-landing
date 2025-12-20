@@ -356,6 +356,44 @@ faqQuestions.forEach((question) => {
 });
 
 // ============================================
+// Scroll Progress + Sticky CTA (mobile)
+// ============================================
+const scrollProgressBar = document.getElementById('scrollProgressBar');
+const stickyJoinButton = document.getElementById('stickyJoinButton');
+let isTicking = false;
+
+function setStickyVisibility(shouldShow) {
+    if (!stickyJoinButton) return;
+
+    stickyJoinButton.classList.toggle('opacity-0', !shouldShow);
+    stickyJoinButton.classList.toggle('translate-y-3', !shouldShow);
+    stickyJoinButton.classList.toggle('pointer-events-none', !shouldShow);
+}
+
+function updateScrollUI() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+
+    if (scrollProgressBar) {
+        scrollProgressBar.style.width = `${progress}%`;
+    }
+
+    setStickyVisibility(scrollTop > 320);
+    isTicking = false;
+}
+
+function requestScrollTick() {
+    if (!isTicking) {
+        window.requestAnimationFrame(updateScrollUI);
+        isTicking = true;
+    }
+}
+
+window.addEventListener('scroll', requestScrollTick);
+window.addEventListener('resize', requestScrollTick);
+window.addEventListener('load', updateScrollUI);
+// ============================================
 // Use Case Accordions
 // ============================================
 const useCaseToggles = document.querySelectorAll('.use-case-toggle');
