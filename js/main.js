@@ -17,7 +17,7 @@ window.addEventListener('load', function() {
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     } else {
-        console.error("Lucide icons failed to load.");
+        console.error('Lucide icons failed to load.');
     }
 });
 
@@ -319,7 +319,7 @@ if (form && submitBtn) {
             }
 
         } catch (error) {
-            console.error("Error:", error);
+            console.error('Error:', error);
             emailError.textContent = MESSAGES.SUBMISSION_ERROR;
             emailError.classList.remove('hidden');
 

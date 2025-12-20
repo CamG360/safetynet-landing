@@ -30,8 +30,8 @@ export const MESSAGES = {
     SUBMISSION_ERROR: 'Something went wrong. Please try again.',
     NETWORK_ERROR: 'Unable to submit. Please check your connection and try again.',
     RATE_LIMIT: 'Please wait before submitting again.',
-    SUCCESS_TITLE: "You're on the waitlist!",
-    SUCCESS_MESSAGE: "We'll be in touch soon with updates on SafetyNet."
+    SUCCESS_TITLE: 'You\'re on the waitlist!',
+    SUCCESS_MESSAGE: 'We\'ll be in touch soon with updates on SafetyNet.'
 };
 
 export const BUTTON_TEXT = {
