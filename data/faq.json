@@ -24,7 +24,7 @@
       "id": "faq-3",
       "category": "how-it-works",
       "question": "How does it work offline or with a dead battery?",
-      "answer": "SafetyNet operates from the cloud, not your phone. When you set a safe time, our servers monitor it independently. If you don't check in (whether due to no signal, dead battery, or any other reason), the alert goes out automatically. Your phone doesn't need to be working for the system to function."
+      "answer": "<p class=\"mb-3\">SafetyNet doesn't rely on your phone to send the Safety Alert — our servers do.</p><p class=\"mb-3\">Here's the difference: other apps wait for your phone to send an SOS. SafetyNet waits for you to not check in — that's the signal something is wrong.</p><p class=\"mb-3\">You set your Safe Time based on your plans. We remind you before it expires. And there's extra time built in — so alerts only send when something's genuinely wrong.</p><p class=\"mb-3\">When you set a Safe Time, our servers start a countdown. If you check in, the countdown stops. If you don't — for any reason (dead battery, no signal, you can't reach your phone) — the Safety Alert sends automatically.</p><p>Your phone only needs to work when you set the Safe Time and when you check in. Everything else runs independently.</p>"
     },
     {
       "id": "faq-4",
