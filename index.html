@@ -677,23 +677,23 @@
                             </td>
                         </tr>
 
-                        <!-- Row 3: Works Offline -->
+                        <!-- Row 3: Guidance for Contacts -->
                         <tr class="hover:bg-slate-50/50">
                             <td class="px-6 py-5 text-sm font-bold text-slate-900">
-                                Works Offline
-                                <div class="text-xs text-slate-400 font-normal mt-1">No signal / dead battery</div>
+                                Guidance for Contacts
+                                <div class="text-xs text-slate-400 font-normal mt-1">Actionable instructions when you can't respond</div>
                             </td>
                             <td class="px-6 py-5 align-top">
                                 <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
-                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Yes
+                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Specific instructions
                                 </span>
-                                <p class="text-xs text-slate-500 font-medium">Monitored from secure servers</p>
+                                <p class="text-xs text-slate-500 font-medium">Examples: "Key is under mat," "Hiking Blue Trail"</p>
                             </td>
                             <td class="px-6 py-5 align-top">
                                 <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
-                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> No
+                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> None
                                 </span>
-                                <p class="text-xs text-slate-400">Online dependent</p>
+                                <p class="text-xs text-slate-400">Contacts must guess what to do</p>
                             </td>
                         </tr>
 
@@ -714,6 +714,26 @@
                                     <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> No Safety Alert
                                 </span>
                                 <p class="text-xs text-slate-400">Significant delay before alarm raised.</p>
+                            </td>
+                        </tr>
+
+                        <!-- Row 5: Works Offline -->
+                        <tr class="hover:bg-slate-50/50">
+                            <td class="px-6 py-5 text-sm font-bold text-slate-900">
+                                Works Offline
+                                <div class="text-xs text-slate-400 font-normal mt-1">No signal / dead battery</div>
+                            </td>
+                            <td class="px-6 py-5 align-top">
+                                <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
+                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Yes
+                                </span>
+                                <p class="text-xs text-slate-500 font-medium">Monitored from secure servers</p>
+                            </td>
+                            <td class="px-6 py-5 align-top">
+                                <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
+                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> No
+                                </span>
+                                <p class="text-xs text-slate-400">Online dependent</p>
                             </td>
                         </tr>
                     </tbody>
@@ -763,18 +783,18 @@
                 <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
                     <div class="flex items-center justify-between">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
-                        <span class="text-[11px] font-semibold text-slate-400">Works Offline</span>
+                        <span class="text-[11px] font-semibold text-slate-400">Guidance for Contacts</span>
                     </div>
                     <div class="grid grid-cols-1 gap-3">
                         <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
                             <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
-                            <p class="text-sm text-slate-700 font-semibold">Yes</p>
-                            <p class="text-xs text-slate-500">Monitored from secure servers</p>
+                            <p class="text-sm text-slate-700 font-semibold">Specific instructions</p>
+                            <p class="text-xs text-slate-500">Examples: "Key is under mat," "Hiking Blue Trail"</p>
                         </div>
                         <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
                             <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
-                            <p class="text-sm text-slate-700 font-semibold">No</p>
-                            <p class="text-xs text-slate-500">Online dependent</p>
+                            <p class="text-sm text-slate-700 font-semibold">None</p>
+                            <p class="text-xs text-slate-500">Contacts must guess what to do</p>
                         </div>
                     </div>
                 </div>
@@ -794,6 +814,25 @@
                             <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
                             <p class="text-sm text-slate-700 font-semibold">No Safety Alert</p>
                             <p class="text-xs text-slate-500">Significant delays before anyone realizes something is wrong.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
+                        <span class="text-[11px] font-semibold text-slate-400">Works Offline</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
+                            <p class="text-sm text-slate-700 font-semibold">Yes</p>
+                            <p class="text-xs text-slate-500">Monitored from secure servers</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
+                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
+                            <p class="text-sm text-slate-700 font-semibold">No</p>
+                            <p class="text-xs text-slate-500">Online dependent</p>
                         </div>
                     </div>
                 </div>
