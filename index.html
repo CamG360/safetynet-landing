@@ -96,49 +96,15 @@
                     </p>
                 </div>
 
-                <!-- 4. THE 3-STEP FLOW (Replaces "The Concept" Block) -->
-                <div class="mt-8 relative">
-                    <!-- Connecting Line (Desktop Only - Subtle) -->
-                    <div class="hidden md:block absolute top-12 left-10 right-10 h-0.5 bg-slate-200 -z-10"></div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left md:text-center">
-
-                        <!-- Step 1 -->
-                        <div class="step-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
-                            <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100">
-                                <i data-lucide="clock" class="w-5 h-5 md:w-6 md:h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-slate-900 text-sm md:text-base">1. Set your Safe Time</h3>
-                                <p class="text-slate-500 text-xs md:text-sm mt-1 leading-snug">Just pick a time and tap activate.</p>
-                            </div>
-                        </div>
-
-                        <!-- Step 2 -->
-                        <div class="step-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
-                            <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100">
-                                <i data-lucide="shield-check" class="w-5 h-5 md:w-6 md:h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-slate-900 text-sm md:text-base">2. SafetyNet stands guard</h3>
-                                <p class="text-slate-500 text-xs md:text-sm mt-1 leading-snug">We monitor your status in the background.</p>
-                            </div>
-                        </div>
-
-                        <!-- Step 3 -->
-                        <div class="step-card bg-white p-5 rounded-xl border-b-4 border-b-blue-500 md:border-b-slate-200 md:border-t-4 md:border-t-blue-500 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3 relative">
-                             <!-- Badge -->
-                             <span class="absolute top-2 right-2 md:-top-3 md:right-auto md:left-1/2 md:-translate-x-1/2 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Automatic</span>
-
-                            <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md">
-                                <i data-lucide="send" class="w-5 h-5 md:w-6 md:h-6 ml-0.5"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-slate-900 text-sm md:text-base">3. If you <span class="text-red-600 italic">can't</span> check in</h3>
-                                <p class="text-slate-500 text-xs md:text-sm mt-1 leading-snug">We automatically send your customised Safety Alert.</p>
-                            </div>
-                        </div>
-
+                <!-- 4. INFOGRAPHIC IMAGE (Moved from Section 2) -->
+                <div class="mt-8">
+                    <div class="infographic-wrapper max-w-4xl mx-auto">
+                        <img
+                            src="images/safetynet-comparison.png"
+                            alt="Comparison showing that without SafetyNet, no one knows something's wrong, your plan, or what to do. With SafetyNet, contacts are alerted automatically, know your plan, and know exactly what to do."
+                            class="infographic-image w-full h-auto rounded-lg shadow-lg"
+                            loading="lazy"
+                        />
                     </div>
                 </div>
             </div>
@@ -179,16 +145,53 @@
 
         <p class="mental-model-subtitle">When something goes wrong and you can't reach your phone</p>
 
-        <div class="infographic-wrapper">
-          <img
-            src="images/safetynet-comparison.png"
-            alt="Comparison showing that without SafetyNet, no one knows something's wrong, your plan, or what to do. With SafetyNet, contacts are alerted automatically, know your plan, and know exactly what to do."
-            class="infographic-image"
-            loading="lazy"
-          />
+        <!-- 3-STEP FLOW (Moved from Hero Section) -->
+        <div class="mt-8 relative max-w-5xl mx-auto px-6">
+            <!-- Connecting Line (Desktop Only - Subtle) -->
+            <div class="hidden md:block absolute top-12 left-10 right-10 h-0.5 bg-slate-200 -z-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left md:text-center">
+
+                <!-- Step 1 -->
+                <div class="step-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
+                    <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100">
+                        <i data-lucide="clock" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm md:text-base">1. Set your Safe Time</h3>
+                        <p class="text-slate-500 text-xs md:text-sm mt-1 leading-snug">Just pick a time and tap activate.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
+                    <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100">
+                        <i data-lucide="shield-check" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm md:text-base">2. SafetyNet stands guard</h3>
+                        <p class="text-slate-500 text-xs md:text-sm mt-1 leading-snug">We monitor your status in the background.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card bg-white p-5 rounded-xl border-b-4 border-b-blue-500 md:border-b-slate-200 md:border-t-4 md:border-t-blue-500 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3 relative">
+                     <!-- Badge -->
+                     <span class="absolute top-2 right-2 md:-top-3 md:right-auto md:left-1/2 md:-translate-x-1/2 bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Automatic</span>
+
+                    <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-md">
+                        <i data-lucide="send" class="w-5 h-5 md:w-6 md:h-6 ml-0.5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm md:text-base">3. If you <span class="text-red-600 italic">can't</span> check in</h3>
+                        <p class="text-slate-500 text-xs md:text-sm mt-1 leading-snug">We automatically send your customised Safety Alert.</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <p class="mental-model-caption"> SafetyNet automatically sends a safety alert to your chosen contacts.</p>
+        <p class="mental-model-caption mt-8"> SafetyNet automatically sends a safety alert to your chosen contacts.</p>
 
       </div>
     </section>
