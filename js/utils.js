@@ -121,8 +121,17 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
         body: JSON.stringify(feedbackData)
     });
 
-    if (!response.ok) {
+    if (!response.ok && response.status !== 409) {
         throw new Error(`Waitlist submission failed with status ${response.status}`);
+    }
+
+    // If Supabase returns a conflict, treat it as already on the waitlist
+    if (response.status === 409) {
+        return {
+            status: response.status,
+            record: null,
+            alreadyExists: true
+        };
     }
 
     let payload;

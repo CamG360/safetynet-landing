@@ -91,6 +91,18 @@ describe('submitToWaitlist', () => {
         expect(result).toEqual({ status: 201, record });
     });
 
+    it('treats conflict responses as already on the waitlist (success path)', async () => {
+        fetchMock.mockResolvedValue({
+            ok: false,
+            status: 409,
+            json: jest.fn(),
+            headers: mockHeaders('application/json')
+        });
+
+        const result = await submitToWaitlist(email, SUPABASE_CONFIG);
+        expect(result).toEqual({ status: 409, record: null, alreadyExists: true });
+    });
+
     it('treats 2xx with no JSON body as success (e.g., RLS prevents return)', async () => {
         fetchMock.mockResolvedValue({
             ok: true,
