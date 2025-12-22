@@ -105,8 +105,7 @@ form.addEventListener('submit', async (e) => {
 
     } catch (error) {
         console.error('Submission error:', error);
-
-        formErrorMessage.textContent = MESSAGES.NETWORK_ERROR;
+        formErrorMessage.textContent = MESSAGES.SUBMISSION_ERROR;
         formError.classList.add('show');
 
         // Reset button state

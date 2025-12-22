@@ -116,14 +116,31 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
             'apikey': config.anonKey,
             'Authorization': `Bearer ${config.anonKey}`,
             'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
+            'Prefer': 'return=representation'
         },
         body: JSON.stringify(feedbackData)
     });
 
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`Waitlist submission failed with status ${response.status}`);
     }
 
-    return response;
+    let payload;
+
+    try {
+        payload = await response.json();
+    } catch (error) {
+        throw new Error('Waitlist response was not valid JSON');
+    }
+
+    const record = Array.isArray(payload) ? payload[0] : payload;
+
+    if (!record || record.email !== email) {
+        throw new Error('Waitlist acknowledgement missing or mismatched');
+    }
+
+    return {
+        status: response.status,
+        record
+    };
 }

@@ -27,7 +27,7 @@ export const TIMING = {
 export const MESSAGES = {
     EMAIL_REQUIRED: 'Email is required',
     EMAIL_INVALID: 'Please enter a valid email address',
-    SUBMISSION_ERROR: 'Something went wrong. Please try again.',
+    SUBMISSION_ERROR: 'We could not add you to the waitlist. Please try again.',
     NETWORK_ERROR: 'Unable to submit. Please check your connection and try again.',
     RATE_LIMIT: 'Please wait before submitting again.',
     SUCCESS_TITLE: 'You\'re on the waitlist!',

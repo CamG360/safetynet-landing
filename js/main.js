@@ -259,15 +259,44 @@ if (closeSuccessBtn) {
     });
 }
 
+function setSubmitState(isSubmitting, originalText) {
+    const spinner = document.getElementById('submitSpinner');
+    const span = submitBtn.querySelector('span');
+
+    submitBtn.disabled = isSubmitting;
+    span.textContent = isSubmitting ? BUTTON_TEXT.SUBMITTING : originalText;
+    spinner.style.display = isSubmitting ? 'block' : 'none';
+}
+
+function handleWaitlistSuccess(email) {
+    trackSubmission(email);
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+function handleWaitlistFailure(errorMessage) {
+    const emailError = document.getElementById('email-error');
+    emailError.textContent = errorMessage;
+    emailError.classList.remove('hidden');
+}
+
+async function submitWaitlistRequest(email) {
+    const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+    return submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+}
+
 if (form && submitBtn) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const spinner = document.getElementById('submitSpinner');
-        const span = submitBtn.querySelector('span');
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('email-error');
         const honeypotInput = document.getElementById('website');
+        const originalText = submitBtn.querySelector('span').textContent;
 
         // Check honeypot field first (bot detection)
         if (honeypotInput && isBot(honeypotInput.value)) {
@@ -294,39 +323,15 @@ if (form && submitBtn) {
 
         // Hide any previous errors
         emailError.classList.add('hidden');
-
-        // Disable button and show loading state
-        submitBtn.disabled = true;
-        const originalText = span.textContent;
-        span.textContent = BUTTON_TEXT.SUBMITTING;
-        spinner.style.display = 'block';
+        setSubmitState(true, originalText);
 
         try {
-            // Execute reCAPTCHA v3
-            const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
-
-            // Submit to waitlist with reCAPTCHA token
-            await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
-            trackSubmission(email);
-
-            // Success State - Hide form, show success message
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
-
-            // Reinitialize icons in success message
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-
+            await submitWaitlistRequest(email);
+            handleWaitlistSuccess(email);
         } catch (error) {
-            console.error('Error:', error);
-            emailError.textContent = MESSAGES.SUBMISSION_ERROR;
-            emailError.classList.remove('hidden');
-
-            // Reset Button
-            submitBtn.disabled = false;
-            span.textContent = originalText;
-            spinner.style.display = 'none';
+            console.error('Waitlist submission error:', error);
+            handleWaitlistFailure(MESSAGES.SUBMISSION_ERROR);
+            setSubmitState(false, originalText);
         }
     });
 }
