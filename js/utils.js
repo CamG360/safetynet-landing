@@ -98,6 +98,7 @@ export function trackSubmission(email) {
  * @param {object} config - Supabase configuration object
  * @param {string} recaptchaToken - Optional reCAPTCHA token
  * @returns {Promise<Response>} The fetch response
+ * @throws {Error} If the submission fails (network error or non-2xx response)
  */
 export async function submitToWaitlist(email, config, recaptchaToken = null) {
     const feedbackData = {
@@ -121,9 +122,15 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
         body: JSON.stringify(feedbackData)
     });
 
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    // Defensive: explicit status validation before claiming success
+    if (!response.ok || response.status < 200 || response.status >= 300) {
+        const errorMsg = `Waitlist submission failed! HTTP ${response.status}`;
+        console.error(errorMsg);
+        throw new Error(errorMsg);
     }
+
+    // Log successful submission for debugging
+    console.log(`Waitlist submission successful: ${response.status}`);
 
     return response;
 }
