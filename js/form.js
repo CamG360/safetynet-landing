@@ -96,15 +96,25 @@ form.addEventListener('submit', async (e) => {
         const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
 
         // Submit to waitlist with reCAPTCHA token
-        await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
-        trackSubmission(email);
+        // This will throw an error if the backend returns non-2xx status
+        const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
 
-        // Success - show success message
-        form.style.display = 'none';
-        successMessage.classList.add('show');
+        // CRITICAL: Only track submission AFTER verified success
+        // This prevents rate-limiting users whose submissions actually failed
+        if (response && response.ok) {
+            trackSubmission(email);
+
+            // Success - show success message
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+        } else {
+            // This should never happen (submitToWaitlist should throw),
+            // but defensive programming requires handling it
+            throw new Error('Invalid response from server');
+        }
 
     } catch (error) {
-        console.error('Submission error:', error);
+        console.error('Waitlist submission error:', error);
 
         formErrorMessage.textContent = MESSAGES.NETWORK_ERROR;
         formError.classList.add('show');

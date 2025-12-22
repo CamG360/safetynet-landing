@@ -306,20 +306,30 @@ if (form && submitBtn) {
             const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
 
             // Submit to waitlist with reCAPTCHA token
-            await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
-            trackSubmission(email);
+            // This will throw an error if the backend returns non-2xx status
+            const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
 
-            // Success State - Hide form, show success message
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
+            // CRITICAL: Only track submission AFTER verified success
+            // This prevents rate-limiting users whose submissions actually failed
+            if (response && response.ok) {
+                trackSubmission(email);
 
-            // Reinitialize icons in success message
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+                // Success State - Hide form, show success message
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+
+                // Reinitialize icons in success message
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            } else {
+                // This should never happen (submitToWaitlist should throw),
+                // but defensive programming requires handling it
+                throw new Error('Invalid response from server');
             }
 
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Waitlist submission error:', error);
             emailError.textContent = MESSAGES.SUBMISSION_ERROR;
             emailError.classList.remove('hidden');
 
