@@ -134,8 +134,10 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
     }
 
     const record = Array.isArray(payload) ? payload[0] : payload;
+    const normalizedRequestEmail = email.trim().toLowerCase();
+    const normalizedResponseEmail = typeof record?.email === 'string' ? record.email.trim().toLowerCase() : null;
 
-    if (!record || record.email !== email) {
+    if (!record || normalizedResponseEmail !== normalizedRequestEmail) {
         throw new Error('Waitlist acknowledgement missing or mismatched');
     }
 

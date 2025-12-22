@@ -64,4 +64,16 @@ describe('submitToWaitlist', () => {
         const [, options] = fetchMock.mock.calls[0];
         expect(options.headers.Prefer).toBe('return=representation');
     });
+
+    it('accepts acknowledgement that matches case-insensitively', async () => {
+        const record = { email: 'Campbell.McCord@GMAIL.com' };
+        fetchMock.mockResolvedValue({
+            ok: true,
+            status: 201,
+            json: jest.fn(() => Promise.resolve([record]))
+        });
+
+        const result = await submitToWaitlist('campbell.mccord@gmail.com', SUPABASE_CONFIG);
+        expect(result).toEqual({ status: 201, record });
+    });
 });
