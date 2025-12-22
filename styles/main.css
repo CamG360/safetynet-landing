@@ -777,3 +777,17 @@ h1.hero-title {
 }
 
 /* ========== END MENTAL MODEL STYLES ========== */
+
+/* Flag Icon Styles for Beta Pilot Testimonials */
+.fi {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    vertical-align: -0.125em;
+}
+
+/* Testimonial location text flag sizing */
+.text-xs .fi {
+    font-size: 1.1em;
+}
