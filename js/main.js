@@ -302,11 +302,10 @@ if (form && submitBtn) {
         spinner.style.display = 'block';
 
         try {
-            // Execute reCAPTCHA v3 for client-side bot detection
-            // Note: Token is NOT sent to server (see utils.js for details)
+            // Execute reCAPTCHA v3
             const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
 
-            // Submit to waitlist
+            // Submit to waitlist with reCAPTCHA token
             // This will throw an error if the backend returns non-2xx status
             const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
 
@@ -335,11 +334,6 @@ if (form && submitBtn) {
             // CRITICAL: Clear rate limit on failure to allow immediate retry
             // This prevents users from being locked out after failed submissions
             clearRateLimit(email);
-
-            // CRITICAL: Reset UI state to show error properly
-            // If success state was shown before error, we need to reverse it
-            form.style.display = 'block';
-            successMessage.style.display = 'none';
 
             emailError.textContent = MESSAGES.SUBMISSION_ERROR;
             emailError.classList.remove('hidden');
