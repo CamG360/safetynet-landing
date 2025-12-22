@@ -145,9 +145,33 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
 
     // Defensive: explicit status validation before claiming success
     if (!response.ok || response.status < 200 || response.status >= 300) {
-        const errorMsg = `Waitlist submission failed! HTTP ${response.status}`;
+        // Try to parse error response body for better error messages
+        let errorDetail = '';
+        try {
+            const errorBody = await response.text();
+            if (errorBody) {
+                try {
+                    const errorJson = JSON.parse(errorBody);
+                    errorDetail = errorJson.message || errorJson.error || errorBody;
+                } catch {
+                    errorDetail = errorBody;
+                }
+            }
+        } catch (e) {
+            // Ignore parsing errors, use basic message
+        }
+
+        const errorMsg = errorDetail
+            ? `Waitlist submission failed (HTTP ${response.status}): ${errorDetail}`
+            : `Waitlist submission failed! HTTP ${response.status}`;
+
         console.error(errorMsg);
-        throw new Error(errorMsg);
+
+        // Create error with additional metadata for retry logic
+        const error = new Error(errorMsg);
+        error.status = response.status;
+        error.isRetryable = response.status === 400; // 400 errors might succeed on retry with new reCAPTCHA token
+        throw error;
     }
 
     // Log successful submission for debugging

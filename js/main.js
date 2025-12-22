@@ -303,11 +303,29 @@ if (form && submitBtn) {
 
         try {
             // Execute reCAPTCHA v3
-            const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+            let recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
 
-            // Submit to waitlist with reCAPTCHA token
-            // This will throw an error if the backend returns non-2xx status
-            const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+            let response;
+            try {
+                // Submit to waitlist with reCAPTCHA token
+                // This will throw an error if the backend returns non-2xx status
+                response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+            } catch (firstAttemptError) {
+                // RETRY LOGIC: If we get a 400 error (likely reCAPTCHA validation failure),
+                // automatically retry once with a fresh reCAPTCHA token
+                if (firstAttemptError.status === 400 && firstAttemptError.isRetryable) {
+                    console.log('Retrying submission with fresh reCAPTCHA token...');
+
+                    // Generate a new reCAPTCHA token
+                    recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+
+                    // Retry the submission with the new token
+                    response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+                } else {
+                    // Not retryable, re-throw the error
+                    throw firstAttemptError;
+                }
+            }
 
             // CRITICAL: Only track submission AFTER verified success
             // This prevents rate-limiting users whose submissions actually failed
