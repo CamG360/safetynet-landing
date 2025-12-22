@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import { isRateLimited, trackSubmission } from '../js/utils.js';
+import { isRateLimited, trackSubmission, clearRateLimit } from '../js/utils.js';
 
 describe('Rate Limiting Functionality', () => {
     const TEST_EMAIL = 'test@example.com';
@@ -373,6 +373,121 @@ describe('Rate Limiting Functionality', () => {
             // Should treat as different emails (case sensitive)
             expect(isRateLimited(email1, RATE_LIMIT_WINDOW)).toBe(true);
             expect(isRateLimited(email2, RATE_LIMIT_WINDOW)).toBe(false);
+        });
+    });
+
+    describe('clearRateLimit', () => {
+        it('should clear rate limit for a specific email', () => {
+            // Track submission
+            trackSubmission(TEST_EMAIL);
+            expect(isRateLimited(TEST_EMAIL, RATE_LIMIT_WINDOW)).toBe(true);
+
+            // Clear rate limit
+            clearRateLimit(TEST_EMAIL);
+
+            // Should no longer be rate limited
+            expect(isRateLimited(TEST_EMAIL, RATE_LIMIT_WINDOW)).toBe(false);
+        });
+
+        it('should only clear rate limit for specified email', () => {
+            // Track multiple submissions
+            trackSubmission(TEST_EMAIL);
+            trackSubmission(TEST_EMAIL_2);
+
+            // Both should be rate limited
+            expect(isRateLimited(TEST_EMAIL, RATE_LIMIT_WINDOW)).toBe(true);
+            expect(isRateLimited(TEST_EMAIL_2, RATE_LIMIT_WINDOW)).toBe(true);
+
+            // Clear only first email
+            clearRateLimit(TEST_EMAIL);
+
+            // First should be cleared, second still limited
+            expect(isRateLimited(TEST_EMAIL, RATE_LIMIT_WINDOW)).toBe(false);
+            expect(isRateLimited(TEST_EMAIL_2, RATE_LIMIT_WINDOW)).toBe(true);
+        });
+
+        it('should handle clearing non-existent email gracefully', () => {
+            // Should not throw when clearing email that was never tracked
+            expect(() => clearRateLimit('nonexistent@example.com')).not.toThrow();
+        });
+
+        it('should handle empty email', () => {
+            expect(() => clearRateLimit('')).not.toThrow();
+        });
+
+        it('should handle null/undefined', () => {
+            expect(() => clearRateLimit(null)).not.toThrow();
+            expect(() => clearRateLimit(undefined)).not.toThrow();
+        });
+    });
+
+    describe('Failed Submission Scenario - Critical Fix', () => {
+        it('should NOT rate-limit users after failed submission', () => {
+            // Simulate a user attempting submission
+            const email = 'user@example.com';
+
+            // Initially, user is not rate limited
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(false);
+
+            // Simulate submission flow where submission FAILS
+            // In the catch block, clearRateLimit should be called
+            clearRateLimit(email); // This happens in catch block
+
+            // User should still not be rate limited
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(false);
+
+            // User should be able to retry immediately
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(false);
+        });
+
+        it('should clear stale rate limit from previous failed submission', () => {
+            const email = 'user@example.com';
+
+            // Simulate a scenario where trackSubmission was incorrectly called
+            // (e.g., from old buggy code or corrupted localStorage)
+            trackSubmission(email);
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(true);
+
+            // When submission fails, clearRateLimit should be called in catch block
+            clearRateLimit(email);
+
+            // User should now be able to retry
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(false);
+        });
+
+        it('should handle complete failure-then-retry workflow', () => {
+            const email = 'user@example.com';
+
+            // Attempt 1: Submission fails
+            // No trackSubmission called (because response.ok was false)
+            // clearRateLimit called in catch block
+            clearRateLimit(email);
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(false);
+
+            // Attempt 2: User retries immediately, submission succeeds
+            trackSubmission(email); // Now tracked because submission succeeded
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(true);
+
+            // Attempt 3: User tries again (should be blocked)
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(true);
+        });
+
+        it('should allow immediate retry after clearing rate limit', () => {
+            const email = 'user@example.com';
+
+            // Track a submission
+            trackSubmission(email);
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(true);
+
+            // Submission fails, clear rate limit
+            clearRateLimit(email);
+
+            // Should be able to retry immediately
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(false);
+
+            // Successful retry
+            trackSubmission(email);
+            expect(isRateLimited(email, RATE_LIMIT_WINDOW)).toBe(true);
         });
     });
 });

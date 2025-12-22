@@ -7,7 +7,7 @@
 import './modal-loader.js';
 
 import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission } from './utils.js';
+import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
 
 // ============================================
@@ -330,6 +330,11 @@ if (form && submitBtn) {
 
         } catch (error) {
             console.error('Waitlist submission error:', error);
+
+            // CRITICAL: Clear rate limit on failure to allow immediate retry
+            // This prevents users from being locked out after failed submissions
+            clearRateLimit(email);
+
             emailError.textContent = MESSAGES.SUBMISSION_ERROR;
             emailError.classList.remove('hidden');
 
