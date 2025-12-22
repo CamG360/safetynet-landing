@@ -127,10 +127,10 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
         created_at: new Date().toISOString()
     };
 
-    // Add reCAPTCHA token if available
-    if (recaptchaToken) {
-        feedbackData.recaptcha_token = recaptchaToken;
-    }
+    // NOTE: recaptcha_token NOT sent to server to avoid PGRST204 errors
+    // reCAPTCHA is still executed client-side for bot detection
+    // Server-side validation should be configured separately via Edge Functions
+    // See supabase-fix.sql for server-side configuration
 
     const response = await fetch(`${config.url}/rest/v1/${config.tableName}`, {
         method: 'POST',
@@ -145,9 +145,32 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
 
     // Defensive: explicit status validation before claiming success
     if (!response.ok || response.status < 200 || response.status >= 300) {
-        const errorMsg = `Waitlist submission failed! HTTP ${response.status}`;
+        // Try to parse error response body for better error messages
+        let errorDetail = '';
+        try {
+            const errorBody = await response.text();
+            if (errorBody) {
+                try {
+                    const errorJson = JSON.parse(errorBody);
+                    errorDetail = errorJson.message || errorJson.error || errorBody;
+                } catch {
+                    errorDetail = errorBody;
+                }
+            }
+        } catch (e) {
+            // Ignore parsing errors, use basic message
+        }
+
+        const errorMsg = errorDetail
+            ? `Waitlist submission failed (HTTP ${response.status}): ${errorDetail}`
+            : `Waitlist submission failed! HTTP ${response.status}`;
+
         console.error(errorMsg);
-        throw new Error(errorMsg);
+
+        // Create error with status code for better error handling
+        const error = new Error(errorMsg);
+        error.status = response.status;
+        throw error;
     }
 
     // Log successful submission for debugging
