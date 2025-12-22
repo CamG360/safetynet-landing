@@ -7,6 +7,15 @@ describe('submitToWaitlist', () => {
     const mockUrl = `${SUPABASE_CONFIG.url}/rest/v1/${SUPABASE_CONFIG.tableName}`;
     let fetchMock;
 
+    const mockHeaders = (contentType = null) => ({
+        get: (name) => {
+            if (name.toLowerCase() === 'content-type') {
+                return contentType;
+            }
+            return null;
+        }
+    });
+
     beforeEach(() => {
         fetchMock = jest.fn();
         global.fetch = fetchMock;
@@ -21,7 +30,8 @@ describe('submitToWaitlist', () => {
         fetchMock.mockResolvedValue({
             ok: false,
             status: 500,
-            json: jest.fn()
+            json: jest.fn(),
+            headers: mockHeaders('application/json')
         });
 
         await expect(submitToWaitlist(email, SUPABASE_CONFIG)).rejects.toThrow('Waitlist submission failed with status 500');
@@ -34,17 +44,19 @@ describe('submitToWaitlist', () => {
             status: 201,
             json: jest.fn(() => {
                 throw new Error('bad json');
-            })
+            }),
+            headers: mockHeaders('application/json')
         });
 
-        await expect(submitToWaitlist(email, SUPABASE_CONFIG)).rejects.toThrow('Waitlist response was not valid JSON');
+        await expect(submitToWaitlist(email, SUPABASE_CONFIG)).resolves.toEqual({ status: 201, record: null });
     });
 
     it('throws when acknowledgement record is missing or mismatched', async () => {
         fetchMock.mockResolvedValue({
             ok: true,
             status: 201,
-            json: jest.fn(() => Promise.resolve([{ email: 'different@example.com' }]))
+            json: jest.fn(() => Promise.resolve([{ email: 'different@example.com' }])),
+            headers: mockHeaders('application/json')
         });
 
         await expect(submitToWaitlist(email, SUPABASE_CONFIG)).rejects.toThrow('Waitlist acknowledgement missing or mismatched');
@@ -55,7 +67,8 @@ describe('submitToWaitlist', () => {
         fetchMock.mockResolvedValue({
             ok: true,
             status: 201,
-            json: jest.fn(() => Promise.resolve([record]))
+            json: jest.fn(() => Promise.resolve([record])),
+            headers: mockHeaders('application/json')
         });
 
         const result = await submitToWaitlist(email, SUPABASE_CONFIG);
@@ -70,10 +83,23 @@ describe('submitToWaitlist', () => {
         fetchMock.mockResolvedValue({
             ok: true,
             status: 201,
-            json: jest.fn(() => Promise.resolve([record]))
+            json: jest.fn(() => Promise.resolve([record])),
+            headers: mockHeaders('application/json')
         });
 
         const result = await submitToWaitlist('campbell.mccord@gmail.com', SUPABASE_CONFIG);
         expect(result).toEqual({ status: 201, record });
+    });
+
+    it('treats 2xx with no JSON body as success (e.g., RLS prevents return)', async () => {
+        fetchMock.mockResolvedValue({
+            ok: true,
+            status: 201,
+            json: jest.fn(() => Promise.resolve()),
+            headers: mockHeaders(null)
+        });
+
+        const result = await submitToWaitlist(email, SUPABASE_CONFIG);
+        expect(result).toEqual({ status: 201, record: null });
     });
 });

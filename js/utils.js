@@ -126,19 +126,30 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
     }
 
     let payload;
+    let record = null;
+    const contentType = response.headers?.get && response.headers.get('content-type');
 
-    try {
-        payload = await response.json();
-    } catch (error) {
-        throw new Error('Waitlist response was not valid JSON');
-    }
+    if (contentType && contentType.includes('application/json')) {
+        try {
+            payload = await response.json();
+        } catch (error) {
+            // If the server returned 2xx but no JSON body (e.g., RLS blocks select), treat as success
+            return {
+                status: response.status,
+                record: null
+            };
+        }
 
-    const record = Array.isArray(payload) ? payload[0] : payload;
-    const normalizedRequestEmail = email.trim().toLowerCase();
-    const normalizedResponseEmail = typeof record?.email === 'string' ? record.email.trim().toLowerCase() : null;
+        record = Array.isArray(payload) ? payload[0] : payload;
 
-    if (!record || normalizedResponseEmail !== normalizedRequestEmail) {
-        throw new Error('Waitlist acknowledgement missing or mismatched');
+        if (record && typeof record.email === 'string') {
+            const normalizedRequestEmail = email.trim().toLowerCase();
+            const normalizedResponseEmail = record.email.trim().toLowerCase();
+
+            if (normalizedResponseEmail !== normalizedRequestEmail) {
+                throw new Error('Waitlist acknowledgement missing or mismatched');
+            }
+        }
     }
 
     return {
