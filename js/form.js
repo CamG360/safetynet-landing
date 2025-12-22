@@ -120,6 +120,11 @@ form.addEventListener('submit', async (e) => {
         // This prevents users from being locked out after failed submissions
         clearRateLimit(email);
 
+        // CRITICAL: Reset UI state to show error properly
+        // If success state was shown before error, we need to reverse it
+        form.style.display = 'block';
+        successMessage.classList.remove('show');
+
         formErrorMessage.textContent = MESSAGES.NETWORK_ERROR;
         formError.classList.add('show');
 
