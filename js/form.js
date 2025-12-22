@@ -4,7 +4,7 @@
  */
 
 import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission } from './utils.js';
+import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { MESSAGES, BUTTON_TEXT, TIMING } from './constants.js';
 
 // ============================================
@@ -115,6 +115,10 @@ form.addEventListener('submit', async (e) => {
 
     } catch (error) {
         console.error('Waitlist submission error:', error);
+
+        // CRITICAL: Clear rate limit on failure to allow immediate retry
+        // This prevents users from being locked out after failed submissions
+        clearRateLimit(email);
 
         formErrorMessage.textContent = MESSAGES.NETWORK_ERROR;
         formError.classList.add('show');

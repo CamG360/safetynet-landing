@@ -87,8 +87,29 @@ export function trackSubmission(email) {
         const record = JSON.parse(localStorage.getItem(RATE_LIMIT_STORAGE_KEY)) || {};
         record[email] = Date.now();
         localStorage.setItem(RATE_LIMIT_STORAGE_KEY, JSON.stringify(record));
+        console.log(`Rate limit applied for ${email}`);
     } catch (error) {
         console.warn('Failed to persist submission timestamp:', error);
+    }
+}
+
+/**
+ * Clears the rate limit timestamp for a specific email.
+ * Used when a submission fails to ensure the user can retry immediately.
+ * @param {string} email - The email address to clear
+ */
+export function clearRateLimit(email) {
+    if (!email || typeof window === 'undefined' || !window.localStorage) return;
+
+    try {
+        const record = JSON.parse(localStorage.getItem(RATE_LIMIT_STORAGE_KEY)) || {};
+        if (record[email]) {
+            delete record[email];
+            localStorage.setItem(RATE_LIMIT_STORAGE_KEY, JSON.stringify(record));
+            console.log(`Rate limit cleared for ${email}`);
+        }
+    } catch (error) {
+        console.warn('Failed to clear rate limit:', error);
     }
 }
 
