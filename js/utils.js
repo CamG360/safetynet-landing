@@ -127,10 +127,10 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
         created_at: new Date().toISOString()
     };
 
-    // Add reCAPTCHA token if available
-    if (recaptchaToken) {
-        feedbackData.recaptcha_token = recaptchaToken;
-    }
+    // NOTE: recaptcha_token NOT sent to server to avoid PGRST204 errors
+    // reCAPTCHA is still executed client-side for bot detection
+    // Server-side validation should be configured separately via Edge Functions
+    // See supabase-fix.sql for server-side configuration
 
     const response = await fetch(`${config.url}/rest/v1/${config.tableName}`, {
         method: 'POST',
@@ -167,10 +167,9 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
 
         console.error(errorMsg);
 
-        // Create error with additional metadata for retry logic
+        // Create error with status code for better error handling
         const error = new Error(errorMsg);
         error.status = response.status;
-        error.isRetryable = response.status === 400; // 400 errors might succeed on retry with new reCAPTCHA token
         throw error;
     }
 
