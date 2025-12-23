@@ -15,6 +15,62 @@ export function validateEmail(email) {
 }
 
 /**
+ * Executes Cloudflare Turnstile and returns a token.
+ * @param {string} siteKey - The Turnstile site key
+ * @returns {Promise<string>} The Turnstile token
+ */
+export async function executeTurnstile(siteKey) {
+    try {
+        // Check if turnstile is loaded
+        if (typeof turnstile === 'undefined') {
+            console.warn('Turnstile not loaded, proceeding without token');
+            return null;
+        }
+
+        // Create a temporary container for the invisible widget
+        const containerId = 'turnstile-widget-' + Date.now();
+        const container = document.createElement('div');
+        container.id = containerId;
+        container.style.position = 'fixed';
+        container.style.top = '-9999px';
+        container.style.left = '-9999px';
+        document.body.appendChild(container);
+
+        // Render and execute Turnstile
+        return new Promise((resolve, reject) => {
+            try {
+                turnstile.render(`#${containerId}`, {
+                    sitekey: siteKey,
+                    callback: (token) => {
+                        // Clean up container
+                        document.body.removeChild(container);
+                        resolve(token);
+                    },
+                    'error-callback': (error) => {
+                        // Clean up container
+                        document.body.removeChild(container);
+                        console.error('Turnstile error:', error);
+                        reject(error);
+                    },
+                    theme: 'light',
+                    size: 'invisible'
+                });
+            } catch (error) {
+                // Clean up container
+                if (document.body.contains(container)) {
+                    document.body.removeChild(container);
+                }
+                reject(error);
+            }
+        });
+    } catch (error) {
+        console.error('Turnstile execution failed:', error);
+        return null;
+    }
+}
+
+/**
+ * @deprecated Use executeTurnstile instead
  * Executes reCAPTCHA v3 and returns a token.
  * @param {string} siteKey - The reCAPTCHA site key
  * @param {string} action - The action name for this reCAPTCHA execution
@@ -114,20 +170,65 @@ export function clearRateLimit(email) {
 }
 
 /**
- * Submits an email to the waitlist via Supabase.
+ * Submits an email to the waitlist via Edge Function.
+ * This function calls the Supabase Edge Function which handles:
+ * - Turnstile token verification
+ * - Rate limiting
+ * - Disposable email detection
+ * - Database insertion
+ * - Email verification sending
+ *
  * @param {string} email - The email address to submit
- * @param {object} config - Supabase configuration object
- * @param {string} recaptchaToken - Optional reCAPTCHA token
+ * @param {object} edgeFunctionConfig - Edge Function configuration object
+ * @param {string} turnstileToken - Turnstile verification token
  * @returns {Promise<Response>} The fetch response
  * @throws {Error} If the submission fails (network error or non-2xx response)
  */
-export async function submitToWaitlist(email, config, recaptchaToken = null) {
+export async function submitToWaitlist(email, edgeFunctionConfig, turnstileToken = null) {
+    const submissionData = {
+        email: email,
+        turnstile_token: turnstileToken
+    };
+
+    const response = await fetch(edgeFunctionConfig.verifySubmissionUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(submissionData)
+    });
+
+    // Parse response to get detailed error messages
+    let responseData;
+    try {
+        responseData = await response.json();
+    } catch (e) {
+        responseData = null;
+    }
+
+    // Defensive: explicit status validation before claiming success
+    if (!response.ok || response.status < 200 || response.status >= 300) {
+        const errorMsg = responseData?.error || `Waitlist submission failed! HTTP ${response.status}`;
+        console.error('Submission error:', errorMsg);
+        throw new Error(errorMsg);
+    }
+
+    // Log successful submission for debugging
+    console.log('Waitlist submission successful:', responseData?.message || 'Added to waitlist');
+
+    return response;
+}
+
+/**
+ * @deprecated Use submitToWaitlist with Edge Function instead
+ * Legacy function for direct Supabase submission (bypasses security checks)
+ */
+export async function submitToWaitlistLegacy(email, config, recaptchaToken = null) {
     const feedbackData = {
         email: email,
         created_at: new Date().toISOString()
     };
 
-    // Add reCAPTCHA token if available
     if (recaptchaToken) {
         feedbackData.recaptcha_token = recaptchaToken;
     }
@@ -143,15 +244,12 @@ export async function submitToWaitlist(email, config, recaptchaToken = null) {
         body: JSON.stringify(feedbackData)
     });
 
-    // Defensive: explicit status validation before claiming success
     if (!response.ok || response.status < 200 || response.status >= 300) {
         const errorMsg = `Waitlist submission failed! HTTP ${response.status}`;
         console.error(errorMsg);
         throw new Error(errorMsg);
     }
 
-    // Log successful submission for debugging
     console.log(`Waitlist submission successful: ${response.status}`);
-
     return response;
 }

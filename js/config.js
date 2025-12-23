@@ -13,13 +13,32 @@ export const SUPABASE_CONFIG = {
 };
 
 /**
- * reCAPTCHA v3 Configuration
+ * Cloudflare Turnstile Configuration
  *
- * Get your site key from: https://www.google.com/recaptcha/admin/create
- * Choose reCAPTCHA v3 when creating your key.
+ * Get your site key from: https://dash.cloudflare.com/ (Turnstile section)
+ * Turnstile is GDPR-compliant, free, and provides invisible bot protection.
  * Note: This is the public site key and is safe to expose in client-side code.
  */
+export const TURNSTILE_CONFIG = {
+    siteKey: '1x00000000000000000000AA', // TEST key - replace with your actual Turnstile site key (always passes)
+    action: 'submit_waitlist'
+};
+
+/**
+ * Edge Function Configuration
+ *
+ * URL for the Supabase Edge Function that handles verification
+ */
+export const EDGE_FUNCTION_CONFIG = {
+    verifySubmissionUrl: 'https://igzyfbzayuimdnjhapog.supabase.co/functions/v1/verify-waitlist-submission',
+    verifyEmailUrl: 'https://igzyfbzayuimdnjhapog.supabase.co/functions/v1/verify-email'
+};
+
+/**
+ * @deprecated Use TURNSTILE_CONFIG instead
+ * Keeping for backward compatibility during migration
+ */
 export const RECAPTCHA_CONFIG = {
-    siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', // TEST key - replace with your actual reCAPTCHA v3 site key
+    siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
     action: 'submit_waitlist'
 };

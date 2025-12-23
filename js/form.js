@@ -3,8 +3,8 @@
  * Handles form validation and submission for the standalone form page
  */
 
-import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
+import { EDGE_FUNCTION_CONFIG, TURNSTILE_CONFIG } from './config.js';
+import { validateEmail, submitToWaitlist, executeTurnstile, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { MESSAGES, BUTTON_TEXT, TIMING } from './constants.js';
 
 // ============================================
@@ -92,12 +92,13 @@ form.addEventListener('submit', async (e) => {
     submitSpinner.style.display = 'inline-block';
 
     try {
-        // Execute reCAPTCHA v3
-        const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+        // Execute Cloudflare Turnstile
+        const turnstileToken = await executeTurnstile(TURNSTILE_CONFIG.siteKey);
 
-        // Submit to waitlist with reCAPTCHA token
+        // Submit to waitlist via Edge Function with Turnstile token
+        // Edge Function handles: verification, rate limiting, disposable email detection
         // This will throw an error if the backend returns non-2xx status
-        const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+        const response = await submitToWaitlist(email, EDGE_FUNCTION_CONFIG, turnstileToken);
 
         // CRITICAL: Only track submission AFTER verified success
         // This prevents rate-limiting users whose submissions actually failed
