@@ -9,6 +9,7 @@ import './modal-loader.js';
 import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
 import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
+import { hydrateContactEmailPlaceholders } from './contact-email.js';
 
 // ============================================
 // Icon Initialization
@@ -20,6 +21,11 @@ window.addEventListener('load', function() {
         console.error('Lucide icons failed to load.');
     }
 });
+
+// ============================================
+// Shared Contact Email Snippet
+// ============================================
+hydrateContactEmailPlaceholders();
 
 // ============================================
 // Modal Management
