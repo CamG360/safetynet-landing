@@ -39,6 +39,12 @@
       "answer": "We include customizable extra time and reminder notifications before any alert is sent. If an alert does go out, you can immediately cancel it with one tap to let your contacts know it was a false alarm. We're designed to minimize false alarms while keeping you safe."
     },
     {
+      "id": "faq-16",
+      "category": "how-it-works",
+      "question": "How do I add my contact?",
+      "answer": "You can add your contact when you create your SafetyNet and/or select a previously saved contact."
+    },
+    {
       "id": "faq-6",
       "category": "how-it-works",
       "question": "What are SafetyNet's limitations?",
