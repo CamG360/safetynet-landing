@@ -9,10 +9,19 @@
     <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
     <!-- Google reCAPTCHA v3 -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Flag Icons CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
     <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Editorial Typography - Playfair Display for headings */
+        h1, h2, h3, .hero-title {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
 </head>
 <body class="text-slate-800 bg-white">
 
@@ -72,7 +81,7 @@
     </div>
 
     <!-- [SECTION 1: HERO - WAITLIST] -->
-    <header class="bg-slate-50 pt-16 pb-20 lg:pt-24 lg:pb-28 min-h-[600px] flex flex-col items-center justify-center">
+    <header class="bg-gradient-to-b from-slate-50 to-blue-50 pt-16 pb-20 lg:pt-24 lg:pb-28 min-h-[600px] flex flex-col items-center justify-center">
         <div class="max-w-5xl w-full px-6 text-center space-y-10">
 
             <!-- HEADER BLOCK -->
@@ -90,7 +99,7 @@
                 </p>
 
                 <!-- 3. The CONTEXT (Bridge) -->
-                <div class="bg-white/50 border border-slate-200 inline-block px-4 py-2 rounded-lg">
+                <div class="bg-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] inline-block px-4 py-2 rounded-lg">
                     <p class="text-slate-500 italic text-sm">
                         "Text me when you're safe" fails when you can't text. <span class="not-italic font-semibold text-slate-700">SafetyNet speaks for you.</span>
                     </p>
@@ -104,7 +113,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left md:text-center">
 
                         <!-- Step 1 -->
-                        <div class="step-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
+                        <div class="step-card bg-white p-5 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
                             <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100">
                                 <i data-lucide="clock" class="w-5 h-5 md:w-6 md:h-6"></i>
                             </div>
@@ -115,7 +124,7 @@
                         </div>
 
                         <!-- Step 2 -->
-                        <div class="step-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
+                        <div class="step-card bg-white p-5 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm flex flex-row md:flex-col items-center gap-4 md:gap-3">
                             <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center border border-blue-100">
                                 <i data-lucide="shield-check" class="w-5 h-5 md:w-6 md:h-6"></i>
                             </div>
@@ -194,7 +203,7 @@
     </section>
 
     <!-- [SECTION 3: HOW IT WORKS - DETAILED] -->
-    <section id="concept" class="w-full bg-slate-50/50 py-16 px-4 border-b border-slate-100">
+    <section id="concept" class="w-full bg-gradient-to-b from-slate-50 to-blue-50 py-16 px-4 border-b border-slate-100">
         <div class="max-w-5xl mx-auto">
 
             <!-- Section Header -->
@@ -228,7 +237,7 @@
                         1. Set your Safe Time and activate
                     </h3>
 
-                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden h-[310px]">
+                    <div class="w-64 bg-white rounded-2xl shadow-lg shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-6 relative flex flex-col overflow-hidden h-[310px]">
                         <!-- Banner Header -->
                         <div class="bg-blue-600 p-3 flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -276,7 +285,7 @@
                         2. SafetyNet stands guard
                     </h3>
 
-                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden h-[310px]">
+                    <div class="w-64 bg-white rounded-2xl shadow-lg shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-6 relative flex flex-col overflow-hidden h-[310px]">
                         <!-- Banner Header -->
                         <div class="bg-blue-600 p-3 flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -412,7 +421,7 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Use Case 1: Running -->
-                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col">
                     <div class="flex items-center mb-6">
                         <div class="use-case-icon w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mr-4">
                             <i data-lucide="activity" class="w-6 h-6 text-amber-600"></i>
@@ -456,7 +465,7 @@
                 </div>
 
                 <!-- Use Case 2: First Date -->
-                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col">
                     <div class="flex items-center mb-6">
                         <div class="use-case-icon w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mr-4">
                             <i data-lucide="heart" class="w-6 h-6 text-pink-600"></i>
@@ -500,7 +509,7 @@
                 </div>
 
                 <!-- Use Case 3: Solo Travel -->
-                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+                <div class="use-case-item bg-white p-8 rounded-2xl shadow-sm shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col">
                     <div class="flex items-center mb-6">
                         <div class="use-case-icon w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                             <i data-lucide="globe" class="w-6 h-6 text-blue-600"></i>
@@ -557,7 +566,7 @@
 
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Privacy First -->
-                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="feature-item bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md transition">
                     <div class="feature-icon w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-4">
                         <i data-lucide="lock" class="w-6 h-6 text-blue-600"></i>
                     </div>
@@ -573,7 +582,7 @@
                 </div>
 
                 <!-- No False Alarms -->
-                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="feature-item bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md transition">
                     <div class="feature-icon w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
                         <i data-lucide="bell-off" class="w-6 h-6 text-green-600"></i>
                     </div>
@@ -589,7 +598,7 @@
                 </div>
 
                 <!-- Automatic & Silent -->
-                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="feature-item bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md transition">
                     <div class="feature-icon w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
                         <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
                     </div>
@@ -605,7 +614,7 @@
                 </div>
 
                 <!-- No spam -->
-                <div class="feature-item bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="feature-item bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md transition">
                     <div class="feature-icon w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
                         <i data-lucide="bell-slash" class="w-6 h-6 text-amber-600"></i>
                     </div>
@@ -624,14 +633,14 @@
     </section>
 
     <!-- [SECTION 6: COMPARISON] -->
-    <section id="comparison" class="py-24 bg-slate-50 border-t border-slate-200">
+    <section id="comparison" class="py-24 bg-gradient-to-b from-slate-50 to-blue-50 border-t border-slate-200">
         <div class="max-w-5xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Why SafetyNet?</h2>
                 <p class="text-slate-500 text-lg">"Location sharing" and "panic buttons" aren't enough <span class="text-blue-600 font-semibold">when you can't reach your phone</span>.</p>
             </div>
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white hidden md:block">
+            <div class="overflow-hidden rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm bg-white hidden md:block">
                 <table class="w-full text-left border-collapse">
                     <thead class="bg-slate-50 border-b border-slate-200">
                         <tr>
@@ -746,7 +755,7 @@
 
             <!-- Mobile-friendly comparison cards -->
             <div class="md:hidden space-y-4">
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                <div class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl shadow-sm p-5 space-y-3">
                     <div class="flex items-center justify-between">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
                         <span class="text-[11px] font-semibold text-slate-400">Automatic Safety Alerts</span>
@@ -765,7 +774,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                <div class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl shadow-sm p-5 space-y-3">
                     <div class="flex items-center justify-between">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
                         <span class="text-[11px] font-semibold text-slate-400">Essential Context</span>
@@ -784,7 +793,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                <div class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl shadow-sm p-5 space-y-3">
                     <div class="flex items-center justify-between">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
                         <span class="text-[11px] font-semibold text-slate-400">Guidance for Contacts</span>
@@ -803,7 +812,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                <div class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl shadow-sm p-5 space-y-3">
                     <div class="flex items-center justify-between">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
                         <span class="text-[11px] font-semibold text-slate-400">Critical Response Time</span>
@@ -822,7 +831,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
+                <div class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl shadow-sm p-5 space-y-3">
                     <div class="flex items-center justify-between">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
                         <span class="text-[11px] font-semibold text-slate-400">Works Offline</span>
@@ -971,7 +980,7 @@
 
                 <div class="moments-grid">
                     <!-- Card 1: The bad date -->
-                    <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
+                    <div class="bg-white rounded-2xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i data-lucide="heart" class="w-5 h-5"></i>
                         </div>
@@ -982,7 +991,7 @@
                     </div>
 
                     <!-- Card 2: The compromised state -->
-                    <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
+                    <div class="bg-white rounded-2xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i data-lucide="alert-triangle" class="w-5 h-5"></i>
                         </div>
@@ -993,7 +1002,7 @@
                     </div>
 
                     <!-- Card 3: The solo accident -->
-                    <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
+                    <div class="bg-white rounded-2xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i data-lucide="mountain" class="w-5 h-5"></i>
                         </div>
@@ -1004,7 +1013,7 @@
                     </div>
 
                     <!-- Card 4: The false assumption -->
-                    <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
+                    <div class="bg-white rounded-2xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i data-lucide="users" class="w-5 h-5"></i>
                         </div>
@@ -1015,7 +1024,7 @@
                     </div>
 
                     <!-- Card 5: The traveller's fear -->
-                    <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
+                    <div class="bg-white rounded-2xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i data-lucide="globe" class="w-5 h-5"></i>
                         </div>
@@ -1026,7 +1035,7 @@
                     </div>
 
                     <!-- Card 6: The missing context -->
-                    <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
+                    <div class="bg-white rounded-2xl p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-blue-600 transition-all duration-200 flex flex-col gap-4">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i data-lucide="search" class="w-5 h-5"></i>
                         </div>
