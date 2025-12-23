@@ -1345,13 +1345,14 @@
                 <p class="text-slate-700 text-lg mb-2">Can't find your answer?</p>
                 <p class="text-slate-900 font-semibold">
                     Contact us at
-                    <span class="inline-flex items-center gap-2">
-                        <span class="text-blue-600">hello@safetynetbeta.com</span>
-                        <button class="copy-email-btn inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-all relative group" data-email="hello@safetynetbeta.com" aria-label="Copy email address">
-                            <i data-lucide="copy" class="w-4 h-4"></i>
-                            <span class="copy-tooltip hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap">Copied!</span>
-                        </button>
-                    </span>
+                    <span
+                        data-contact-email
+                        data-container-class="inline-flex items-center gap-2"
+                        data-email-class="text-blue-600"
+                        data-button-class="group"
+                        data-icon-class="w-4 h-4"
+                        data-tooltip-class="bg-slate-900 text-white"
+                    ></span>
                 </p>
             </div>
         </div>
@@ -1391,13 +1392,14 @@
                         </ul>
                         <div class="mt-6">
                             <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Contact Us</p>
-                            <div class="inline-flex items-center gap-2">
-                                <span class="text-white font-medium">hello@safetynetbeta.com</span>
-                                <button class="copy-email-btn inline-flex items-center justify-center w-7 h-7 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-all relative" data-email="hello@safetynetbeta.com" aria-label="Copy email address">
-                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                    <span class="copy-tooltip hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-slate-900 text-xs py-1 px-3 rounded whitespace-nowrap shadow-lg">Copied!</span>
-                                </button>
-                            </div>
+                            <div
+                                data-contact-email
+                                data-container-class="inline-flex items-center gap-2"
+                                data-email-class="text-white font-medium no-underline"
+                                data-button-class="w-7 h-7"
+                                data-icon-class="w-3.5 h-3.5"
+                                data-tooltip-class="bg-white text-slate-900"
+                            ></div>
                         </div>
                     </div>
 
@@ -1488,8 +1490,16 @@
                 <div class="border-t border-slate-200 pt-4 mt-4">
                     <p class="text-sm text-slate-500 mb-3">While you wait:</p>
                     <div class="mt-4 pt-4 border-t border-slate-200">
-                        <p class="text-sm text-slate-600">
-                            Questions? <a href="mailto:hello@safetynetbeta.com" class="text-blue-600 hover:text-blue-700 font-medium underline">hello@safetynetbeta.com</a>
+                        <p class="text-sm text-slate-600 flex items-center gap-2 justify-center sm:justify-start">
+                            Questions?
+                            <span
+                                data-contact-email
+                                data-container-class="inline-flex items-center gap-2"
+                                data-email-class="text-blue-600 hover:text-blue-700 font-medium underline"
+                                data-button-class="w-8 h-8"
+                                data-icon-class="w-4 h-4"
+                                data-tooltip-class="bg-slate-900 text-white"
+                            ></span>
                         </p>
                     </div>
                 </div>
