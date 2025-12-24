@@ -1,11 +1,11 @@
 {
   "categories": [
+    { "id": "all", "label": "All" },
     { "id": "getting-started", "label": "Getting Started" },
     { "id": "how-it-works", "label": "How It Works" },
     { "id": "privacy", "label": "Privacy & Security" },
     { "id": "why-safetynet", "label": "Why SafetyNet" },
-    { "id": "launch-pricing", "label": "Launch & Pricing" },
-    { "id": "all", "label": "All" }
+    { "id": "launch-pricing", "label": "Launch & Pricing" }
   ],
   "faqs": [
     {

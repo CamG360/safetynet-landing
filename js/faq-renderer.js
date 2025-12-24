@@ -4,7 +4,7 @@
  */
 
 let faqData = null;
-let currentCategory = 'getting-started';
+let currentCategory = 'all';
 
 /**
  * Load FAQ data from JSON file
@@ -29,7 +29,7 @@ async function loadFAQData() {
  * Render FAQ items based on selected category
  * @param {string} category - The category to filter by ('all' shows all)
  */
-function renderFAQs(category = 'getting-started') {
+function renderFAQs(category = 'all') {
     const container = document.getElementById('faq-container');
     if (!container || !faqData) return;
 
