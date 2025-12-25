@@ -274,7 +274,7 @@
                     </p>
                 </div>
 
-             <!-- --- STEP 3 --- -->
+<!-- --- STEP 3 --- -->
                 <div class="flex flex-col items-center group">
                     <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
                         3. SafetyNet sends an alert for you
@@ -293,25 +293,23 @@
                         </div>
                         <!-- Body -->
                         <div class="p-5 space-y-3 flex-1 flex flex-col">
-                            <div class="text-center">
-                                <div class="text-[11px] font-semibold text-slate-400 tracking-widest uppercase">Status:</div>
-                                <div class="text-3xl font-bold text-slate-600 mt-1">Contacts Notified</div>
-                            </div>
-                            <!-- Progress bar -->
-                            <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
+                            <!-- L2: Status button -->
+                            <button type="button" class="w-full py-3 px-4 rounded-xl bg-red-600 text-white font-bold text-sm shadow-sm">
+                                Safety Alert Sent
+                            </button>
+                            <!-- L3: Progress bar -->
+                            <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
                                 <div class="h-full w-full bg-red-600 rounded-full"></div>
                             </div>
+                            <!-- L4: Explanation text -->
                             <p class="text-sm text-slate-500 leading-snug text-center">
-                                Alert sent as you couldn't check-in and might not be safe.
+                                Alert sent to your contacts as you couldn't check-in and might not be safe.
                             </p>
-                            <div class="absolute left-5 right-5 bottom-[72px] h-px bg-slate-100"></div>
+                            <!-- L5: Cancel action -->
                             <div class="mt-auto pt-4">
-                                <button type="button" class="w-full py-3 px-4 rounded-xl bg-red-600 text-white font-bold text-sm shadow-sm hover:bg-red-700 transition-colors">
-                                    Safety Alert Sent
-                                </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-2">
+                                <button type="button" class="w-full py-3 px-4 rounded-xl border-2 border-red-600 text-red-600 font-bold text-sm hover:bg-red-50 transition-colors">
                                     Tap to cancel safety alert
-                                </p>
+                                </button>
                             </div>
                         </div>
                     </div>
