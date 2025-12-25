@@ -98,11 +98,7 @@ if (closeAlertBtn && alertModal) {
     }
     // "How it works" section button
     if (openAlertBtn) {
-        openAlertBtn.addEventListener('click', (e) => {
-            // Don't open modal if clicking the cancel button
-            if (e.target.closest('button')) return;
-            toggleModal('alertDemoModal', true);
-        });
+        openAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
     }
     closeAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', false));
     alertModal.addEventListener('click', (e) => {
