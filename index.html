@@ -209,7 +209,7 @@
                 </div>
 
                 <p class="text-blue-600 font-bold tracking-wide uppercase text-xs mb-2">
-                    How it Works
+                    HOW IT WORKS
                 </p>
                 <h2 class="text-3xl font-bold text-slate-900">
                     Create your SafetyNet in under a minute
@@ -225,7 +225,7 @@
                 <!-- --- STEP 1 --- -->
                 <div class="flex flex-col items-center group">
                     <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-                        1. Set your Safe Time and activate
+                        1. Set your Check-in Time
                     </h3>
 
                     <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden h-[310px]">
@@ -243,7 +243,7 @@
 
                         <div class="p-4 flex-1 flex flex-col relative">
                             <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Safe Time:</p>
+                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">CHECK-IN TIME:</p>
                                 <div class="text-3xl font-mono font-bold text-slate-800 tracking-tight">22:00</div>
                                 <!-- 0% Full Bar -->
                                 <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
@@ -255,25 +255,21 @@
 
                             <div class="pt-4 w-full mt-auto z-10 bg-white">
                                 <button class="w-full bg-blue-100 text-blue-700 font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 cursor-default text-sm">
-                                    SafetyNet Active
+                                    Create SafetyNet
                                 </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-2">
-                                    Extra Time: 30 mins
-                                    <span class="block text-[9px] text-slate-400 mt-0.5">Extra time to check in after Safe Time</span>
-                                </p>
                             </div>
                         </div>
                     </div>
 
                     <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
-                        Going for a run or a date? <b>Simply set the time you expect to be safe by</b>.
+                        The time by which you expect your activity to finish or you get where you need to be.
                     </p>
                 </div>
 
                 <!-- --- STEP 2 --- -->
                 <div class="flex flex-col items-center group">
                     <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-                        2. SafetyNet stands guard
+                        2. SafetyNet is active
                     </h3>
 
                     <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden h-[310px]">
@@ -291,7 +287,7 @@
 
                         <div class="p-4 flex-1 flex flex-col relative">
                             <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Time remaining:</p>
+                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">TIME REMAINING:</p>
                                 <span class="text-3xl font-mono text-slate-600 font-bold">1h 28m</span>
                                 <!-- 65% Full Bar -->
                                 <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
@@ -303,7 +299,7 @@
 
                             <div class="mt-auto pt-4 z-10 bg-white">
                                 <button class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition-colors text-sm">
-                                    <i data-lucide="check" style="width: 18px; height: 18px; stroke-width: 3;"></i>
+                                    <span class="text-lg leading-none">✓</span>
                                     I'm Safe
                                 </button>
                                 <p class="text-[10px] text-center text-slate-400 mt-2">Tap to confirm you're safe</p>
@@ -312,23 +308,22 @@
                     </div>
 
                     <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
-                        If you are okay, just tap the button. You'll receive reminder notifications -
-                        <strong class="text-slate-700">tap any notification to check in instantly</strong>. Nothing else happens.
+                        If you are okay, just tap the button. Nothing else happens. Your SafetyNet is no longer active.
                     </p>
                 </div>
 
                 <!-- --- STEP 3 --- -->
                 <div class="flex flex-col items-center group">
                     <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-                        3. SafetyNet speaks for you
+                        3. SafetyNet sends an alert for you
                     </h3>
 
-                    <div id="openAlertDemoBtn" class="w-64 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left hover:shadow-xl transition-all cursor-pointer group mb-6 h-[310px] flex flex-col">
+                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden text-left group mb-6 h-[310px] flex flex-col">
                         <!-- Red Header -->
                         <div class="bg-red-600 px-5 py-3 flex justify-between items-center text-white">
                             <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase">
                                 <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                                Safety Alert Sent
+                                SAFETY ALERT SENT
                             </div>
                             <!-- Red/White Pulse -->
                             <span class="relative flex h-2 w-2">
@@ -342,50 +337,33 @@
                             <!-- Alert Status -->
                             <div class="flex items-start gap-4">
                                 <div class="bg-red-50 p-3 rounded-xl text-red-600">
-                                     <i data-lucide="send" class="w-6 h-6"></i>
+                                     <i data-lucide="check" class="w-6 h-6"></i>
                                 </div>
                                 <div>
                                     <div class="font-bold text-slate-900 text-lg">Contacts Notified</div>
                                     <p class="text-sm text-slate-500 leading-snug mt-1">
-                                        Your <span class="font-semibold text-slate-700">custom message</span> and <span class="font-semibold text-slate-700">instructions</span> have been sent.
+                                        Your custom message and instructions have been sent.
                                     </p>
                                 </div>
                             </div>
 
-                            <!-- Click to view details hint -->
-                            <div class="flex items-center justify-center gap-2 text-slate-400 text-xs group-hover:text-blue-600 transition-colors">
-                                <span>Click to view demo</span>
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </div>
-
-                            <!-- NEW CTA: Cancel safety alert  -->
-                            <button class="w-full py-2 px-4 rounded-xl border-2 border-red-500 text-red-500 text-xs font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2 group" disabled onclick="event.stopPropagation()">
-                                <i data-lucide="x" class="w-4 h-4"></i>
-                                Cancel safety alert <span class="text-xs font-normal text-red-400 ml-1"></span>
+                            <button type="button" class="w-full py-2 px-3 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition-colors flex items-center justify-center gap-2">
+                                Tap to cancel safety alert
                             </button>
                         </div>
                     </div>
 
                     <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
-                        If you miss your Safe Time, and can't tap "I'm Safe", <b>SafetyNet speaks for you by sending a Safety alert</b> to your emergency contact.
+                        When you can't tap the "I'm Safe" button, an alert is sent to your contacts for you.
                     </p>
                 </div>
 
             </div>
- <!-- SOCIAL PROOF / TRUST (Updated Footer) -->
-            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 pt-4 text-slate-400 text-xs md:text-sm font-medium">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500"></i>
-                    <span>Works Offline</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500"></i>
-                    <span>Custom Messages</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500"></i>
-                    <span>Smart Check-ins</span>
-                </div>
+            <div class="flex justify-center pt-6">
+                <button id="openAlertDemoBtn" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-sm transition-colors text-sm flex items-center gap-2">
+                    <i data-lucide="play" class="w-4 h-4"></i>
+                    Demo customisable Safety Alert
+                </button>
             </div>
 
         </div>
