@@ -81,6 +81,12 @@
       "answer": "No. Contacts only hear from SafetyNet when an alert is triggered. Their day stays interruption-free."
     },
     {
+      "id": "faq-21",
+      "category": "why-safetynet",
+      "question": "Why did you start SafetyNet?",
+      "answer": "<p class=\"mb-3\">I came across many scenarios where people didn't realise the problem with \"text me when you're safe.\" The pattern was always the same: everyone assumed they were fine — until they weren't. No signal. No essential context. No instructions. This conflicted with the safeguards I used every day in business.</p><p class=\"mb-3 font-semibold text-slate-900\">A selection of moments that helped define the mission:</p><ul class=\"list-disc pl-5 space-y-2 mb-3\"><li><strong>The bad date</strong> — Stuck in an unsafe situation for hours. No one knew there was a problem because she couldn't text.</li><li><strong>The compromised state</strong> — A friend's drink was spiked on a business trip. He became unconscious, so he couldn't ask for help.</li><li><strong>The solo accident</strong> — A colleague slipped while hiking alone. No one knew she was in trouble until it was too late.</li><li><strong>The false assumption</strong> — Friends held hostage in an Airbnb. Everyone assumed they were safe because they were \"together.\"</li><li><strong>The traveller's fear</strong> — \"If I stopped posting on social media, how long would it take for anyone to actually notice?\"</li><li><strong>The missing context</strong> — Even when someone was reported missing, search teams had no starting point.</li></ul>"
+    },
+    {
       "id": "faq-8",
       "category": "launch-pricing",
       "question": "When will SafetyNet be available?",
