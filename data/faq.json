@@ -21,6 +21,18 @@
       "answer": "<p class=\"mb-3\">SafetyNet is built with enterprise-grade security and reliability as our foundation:</p><ul class=\"list-disc pl-5 space-y-2 mb-3\"><li>Industry-standard encryption to protect your data</li><li>Reliable cloud infrastructure with backup systems</li><li>Multi-channel alert delivery to ensure your contacts are notified</li><li>99.9% uptime commitment with continuous monitoring</li></ul><p class=\"text-slate-700\"><strong>Our promise:</strong> We will not launch publicly until we achieve 99.9% alert delivery success in testing. Your safety is our priority.</p>"
     },
     {
+      "id": "faq-18",
+      "category": "privacy",
+      "question": "Who can see my safety information?",
+      "answer": "No one sees your safety information when you set up a SafetyNet. Only when an alert is triggered do your chosen contacts get access. Your plans, location, and activities stay private until your need for safety overrides it."
+    },
+    {
+      "id": "faq-19",
+      "category": "privacy",
+      "question": "What do you do with my data?",
+      "answer": "Nothing. We don't sell your data. Ever. Your safety information is exactly that — yours."
+    },
+    {
       "id": "faq-3",
       "category": "how-it-works",
       "question": "How does it work offline or with a dead battery?",
@@ -45,6 +57,12 @@
       "answer": "You can add your contact when you create your SafetyNet and/or select a previously saved contact."
     },
     {
+      "id": "faq-17",
+      "category": "how-it-works",
+      "question": "What if I forget to check in?",
+      "answer": "You'll get a reminder first. Plenty of time to check in before any alert is sent."
+    },
+    {
       "id": "faq-6",
       "category": "how-it-works",
       "question": "What are SafetyNet's limitations?",
@@ -55,6 +73,12 @@
       "category": "why-safetynet",
       "question": "How is this different from Find My Friends or Life360?",
       "answer": "Location sharing apps require your phone to be working. If you can't reach your phone (dead battery, no signal, emergency situation), they fail silently - your contacts just see your last location and don't know if you're okay or in trouble. SafetyNet sends a clear alert with your context and instructions, so there's no ambiguity. We're built specifically for the scenario where \"text me when you're safe\" doesn't work."
+    },
+    {
+      "id": "faq-20",
+      "category": "why-safetynet",
+      "question": "Will my contacts get constant notifications?",
+      "answer": "No. Contacts only hear from SafetyNet when an alert is triggered. Their day stays interruption-free."
     },
     {
       "id": "faq-8",
