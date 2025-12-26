@@ -152,31 +152,6 @@ button:disabled {
     transform: rotate(180deg);
 }
 
-/* Use Case Accordion Styles */
-.use-case-toggle {
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.use-case-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-}
-
-.use-case-item.active .use-case-details {
-    max-height: 300px;
-    padding-top: 0.75rem;
-}
-
-.use-case-chevron {
-    transition: transform 0.3s ease;
-}
-
-.use-case-item.active .use-case-chevron {
-    transform: rotate(180deg);
-}
-
 /* Feature Accordion Styles */
 .feature-toggle {
     cursor: pointer;

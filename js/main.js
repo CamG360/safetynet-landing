@@ -410,29 +410,6 @@ function requestScrollTick() {
 window.addEventListener('scroll', requestScrollTick);
 window.addEventListener('resize', requestScrollTick);
 window.addEventListener('load', updateScrollUI);
-// ============================================
-// Use Case Accordions
-// ============================================
-const useCaseToggles = document.querySelectorAll('.use-case-toggle');
-
-useCaseToggles.forEach((toggle) => {
-    toggle.addEventListener('click', () => {
-        const useCaseItem = toggle.closest('.use-case-item');
-        const isActive = useCaseItem.classList.contains('active');
-
-        // Toggle current item (independent toggles - multiple can be open)
-        if (isActive) {
-            useCaseItem.classList.remove('active');
-            toggle.setAttribute('aria-expanded', 'false');
-        } else {
-            useCaseItem.classList.add('active');
-            toggle.setAttribute('aria-expanded', 'true');
-        }
-
-        // Reinitialize Lucide icons for the chevron
-        lucide.createIcons();
-    });
-});
 
 // ============================================
 // Feature Accordions
