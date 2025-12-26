@@ -528,223 +528,125 @@
     </section>
 
     <!-- [SECTION 6: COMPARISON] -->
-    <section id="comparison" class="py-24 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-5xl mx-auto px-6">
+    <!-- Hero Section (Context) -->
+    <div class="bg-slate-900 text-white py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">More than just a dot on a map.</h1>
+            <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-10">Real safety requires actionable information, not just coordinates. See why SafetyNet is the choice for proactive protection.</p>
+        </div>
+    </div>
+
+    <!-- --- COMPARISON SECTION --- -->
+    <section id="comparison" class="py-20 px-6 bg-white relative">
+        <!-- decorative background blob -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+             <div class="absolute -top-[10%] -right-[5%] w-[500px] h-[500px] bg-blue-50 rounded-full blur-3xl opacity-50"></div>
+             <div class="absolute top-[20%] -left-[5%] w-[300px] h-[300px] bg-slate-100 rounded-full blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+
+            <!-- Header -->
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Why SafetyNet?</h2>
-                <p class="text-slate-500 text-lg">"Location sharing" and "panic buttons" aren't enough <span class="text-blue-600 font-semibold">when you can't reach your phone</span>.</p>
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-bold tracking-widest uppercase mb-4">Why SafetyNet</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Location sharing apps aren't safety apps</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Most apps tell people where you are. We tell them what to do if you don't come back.</p>
             </div>
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white hidden md:block">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-slate-50 border-b border-slate-200">
-                        <tr>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-1/3">Safety Feature</th>
-                            <th class="px-6 py-4 text-xs font-bold text-blue-600 uppercase tracking-wider w-1/3">SafetyNet</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider w-1/3">Location sharing apps like Find My or Life360</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <!-- Row 1: Automatic Safety Alerts -->
-                        <tr class="hover:bg-slate-50/50">
-                            <td class="px-6 py-5 text-sm font-bold text-slate-900">
-                                Automatic Safety Alerts
-                                <div class="text-xs text-slate-400 font-normal mt-1">Clear signal that something is wrong</div>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
-                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Alert Sent
-                                </span>
-                                <p class="text-xs text-slate-500 font-medium">Works even when your phone doesn't or you can't access it</p>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
-                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> Silent Failure
-                                </span>
-                                <p class="text-xs text-slate-400">Mobile dependent</p>
-                            </td>
-                        </tr>
+            <!-- Comparison Table Container with Shadow and Radius -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse min-w-[600px]">
 
-                        <!-- Row 2: Essential Info Shared -->
-                        <tr class="hover:bg-slate-50/50">
-                            <td class="px-6 py-5 text-sm font-bold text-slate-900">
-                                Essential Info Shared
-                                <div class="text-xs text-slate-400 font-normal mt-1">Custom messages & instructions</div>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
-                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Included
-                                </span>
-                                <p class="text-xs text-slate-500 font-medium">Your plans, itinerary, names</p>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
-                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> Not included
-                                </span>
-                                <p class="text-xs text-slate-400">Last location only</p>
-                            </td>
-                        </tr>
+                        <!-- Table Header -->
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="py-5 px-6 text-left text-xs font-bold text-slate-500 uppercase tracking-wider w-1/3">Safety Feature</th>
+                                <th class="py-5 px-6 text-left w-1/3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="bg-blue-600 text-white p-1 rounded-md">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.956 11.956 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                        </div>
+                                        <span class="text-sm font-bold text-blue-700 uppercase tracking-wider">SafetyNet</span>
+                                    </div>
+                                </th>
+                                <th class="py-5 px-6 text-left text-xs font-bold text-slate-400 uppercase tracking-wider w-1/3">Standard Location Apps</th>
+                            </tr>
+                        </thead>
 
-                        <!-- Row 3: Action Plan -->
-                        <tr class="hover:bg-slate-50/50">
-                            <td class="px-6 py-5 text-sm font-bold text-slate-900">
-                                Action Plan
-                                <div class="text-xs text-slate-400 font-normal mt-1">Actionable instructions when you can't respond</div>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
-                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Specific instructions
-                                </span>
-                                <p class="text-xs text-slate-500 font-medium">Examples: "Key is under mat," "Hiking Blue Trail"</p>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
-                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> None
-                                </span>
-                                <p class="text-xs text-slate-400">Contacts must guess what to do</p>
-                            </td>
-                        </tr>
+                        <tbody class="divide-y divide-slate-100">
 
-                        <!-- Row 4: Response Speed -->
-                        <tr class="hover:bg-slate-50/50">
-                            <td class="px-6 py-5 text-sm font-bold text-slate-900">
-                                Response Speed
-                                <div class="text-xs text-slate-400 font-normal mt-1">How fast your contacts know you need help</div>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
-                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Immediate Safety Alert
-                                </span>
-                                <p class="text-xs text-slate-500 font-medium">No delay. Customisable for extra time</p>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
-                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> No Safety Alert
-                                </span>
-                                <p class="text-xs text-slate-400">Significant delay before alarm raised</p>
-                            </td>
-                        </tr>
+                            <!-- Row 1: Automatic Safety Alerts -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-6 px-6 align-top">
+                                    <div class="font-bold text-slate-900 text-lg">Automatic Safety Alerts</div>
+                                    <div class="text-sm text-slate-500 mt-1 leading-relaxed">System detects if you don't check in and acts automatically.</div>
+                                </td>
+                                <td class="py-6 px-6 align-top bg-blue-50/30">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs border border-emerald-200">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        Alert Sent
+                                    </span>
+                                    <div class="text-sm text-slate-700 mt-3 font-medium">Works even when your phone breaks or battery dies.</div>
+                                </td>
+                                <td class="py-6 px-6 align-top">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600 font-bold text-xs border border-red-100">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        Silent Failure
+                                    </span>
+                                    <div class="text-sm text-slate-500 mt-3">If your phone dies, the dot just stops moving. No one is notified.</div>
+                                </td>
+                            </tr>
 
-                        <!-- Row 5: Works Offline -->
-                        <tr class="hover:bg-slate-50/50">
-                            <td class="px-6 py-5 text-sm font-bold text-slate-900">
-                                Works Offline
-                                <div class="text-xs text-slate-400 font-normal mt-1">No signal / dead battery</div>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-emerald-600/20 mb-1">
-                                    <i data-lucide="check" class="w-4 h-4 mr-1.5"></i> Yes
-                                </span>
-                                <p class="text-xs text-slate-500 font-medium">Monitored from secure servers</p>
-                            </td>
-                            <td class="px-6 py-5 align-top">
-                                <span class="inline-flex items-center text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md text-sm font-bold ring-1 ring-amber-600/20 mb-1">
-                                    <i data-lucide="x" class="w-4 h-4 mr-1.5"></i> No
-                                </span>
-                                <p class="text-xs text-slate-400">Online dependent</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            <!-- Row 2: Essential Info Shared -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-6 px-6 align-top">
+                                    <div class="font-bold text-slate-900 text-lg">Essential Info Shared</div>
+                                    <div class="text-sm text-slate-500 mt-1 leading-relaxed">Contextual details about your specific activity.</div>
+                                </td>
+                                <td class="py-6 px-6 align-top bg-blue-50/30">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs border border-emerald-200">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        Included
+                                    </span>
+                                    <div class="text-sm text-slate-700 mt-3 font-medium">Includes itinerary, gear color, vehicle details, and companion names.</div>
+                                </td>
+                                <td class="py-6 px-6 align-top">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600 font-bold text-xs border border-red-100">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        Not included
+                                    </span>
+                                    <div class="text-sm text-slate-500 mt-3">Shows GPS coordinates only.</div>
+                                </td>
+                            </tr>
 
-            <!-- Mobile-friendly comparison cards -->
-            <div class="md:hidden space-y-4">
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
-                        <span class="text-[11px] font-semibold text-slate-400">Automatic Safety Alerts</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
-                            <p class="text-sm text-slate-700 font-semibold">Alert Sent</p>
-                            <p class="text-xs text-slate-500">Works even when you can't reach your phone</p>
-                        </div>
-                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
-                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
-                            <p class="text-sm text-slate-700 font-semibold">Silent Failure</p>
-                            <p class="text-xs text-slate-500">Mobile dependent</p>
-                        </div>
-                    </div>
-                </div>
+                            <!-- Row 3: Action Plan -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-6 px-6 align-top">
+                                    <div class="font-bold text-slate-900 text-lg">Action Plan</div>
+                                    <div class="text-sm text-slate-500 mt-1 leading-relaxed">Instructions for your contacts on how to help.</div>
+                                </td>
+                                <td class="py-6 px-6 align-top bg-blue-50/30">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs border border-emerald-200">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        Specific instructions
+                                    </span>
+                                    <div class="text-sm text-slate-700 mt-3 font-medium">"Call Ranger Station at 555-0199," "Spare key is under the mat."</div>
+                                </td>
+                                <td class="py-6 px-6 align-top">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600 font-bold text-xs border border-red-100">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        None
+                                    </span>
+                                    <div class="text-sm text-slate-500 mt-3">Contacts must guess if you are safe or just out of service.</div>
+                                </td>
+                            </tr>
 
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
-                        <span class="text-[11px] font-semibold text-slate-400">Essential Context</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
-                            <p class="text-sm text-slate-700 font-semibold">Included</p>
-                            <p class="text-xs text-slate-500">Your plans, itinerary, names</p>
-                        </div>
-                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
-                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
-                            <p class="text-sm text-slate-700 font-semibold">Not included</p>
-                            <p class="text-xs text-slate-500">Last location only</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
-                        <span class="text-[11px] font-semibold text-slate-400">Guidance for Contacts</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
-                            <p class="text-sm text-slate-700 font-semibold">Specific instructions</p>
-                            <p class="text-xs text-slate-500">Examples: "Key is under mat," "Hiking Blue Trail"</p>
-                        </div>
-                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
-                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
-                            <p class="text-sm text-slate-700 font-semibold">None</p>
-                            <p class="text-xs text-slate-500">Contacts must guess what to do</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
-                        <span class="text-[11px] font-semibold text-slate-400">Critical Response Time</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
-                            <p class="text-sm text-slate-700 font-semibold">Immediate Safefty Alert</p>
-                            <p class="text-xs text-slate-500">No delay.  Customisable for extra time</p>
-                        </div>
-                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
-                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
-                            <p class="text-sm text-slate-700 font-semibold">No Safety Alert</p>
-                            <p class="text-xs text-slate-500">Significant delays before anyone realizes something is wrong</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Safety Feature</p>
-                        <span class="text-[11px] font-semibold text-slate-400">Works Offline</span>
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                            <p class="text-xs font-semibold text-emerald-700 mb-1">SafetyNet</p>
-                            <p class="text-sm text-slate-700 font-semibold">Yes</p>
-                            <p class="text-xs text-slate-500">Monitored from secure servers</p>
-                        </div>
-                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-100">
-                            <p class="text-xs font-semibold text-amber-700 mb-1">Other apps</p>
-                            <p class="text-sm text-slate-700 font-semibold">No</p>
-                            <p class="text-xs text-slate-500">Online dependent</p>
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
         </div>
     </section>
 
