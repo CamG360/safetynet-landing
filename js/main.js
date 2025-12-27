@@ -28,6 +28,72 @@ window.addEventListener('load', function() {
 hydrateContactEmailPlaceholders();
 
 // ============================================
+// Button State Management Helpers
+// ============================================
+
+/**
+ * Create inline SVG icons for button states
+ * @param {string} iconType - 'spinner' or 'checkmark'
+ * @returns {string} SVG HTML string
+ */
+function createInlineSVG(iconType) {
+    if (iconType === 'spinner') {
+        return `<svg class="inline-block w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>`;
+    } else if (iconType === 'checkmark') {
+        return `<svg class="inline-block w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+        </svg>`;
+    }
+    return '';
+}
+
+/**
+ * Set button state for waitlist buttons
+ * @param {HTMLElement} button - The button element
+ * @param {string} state - 'default', 'loading', 'success', or 'error'
+ * @param {string} defaultText - The default button text
+ * @param {boolean} showArrow - Whether to show arrow icon in default state
+ */
+function setButtonState(button, state, defaultText = BUTTON_TEXT.GET_EARLY_ACCESS, showArrow = false) {
+    if (!button) return;
+
+    // Remove existing Tailwind background classes
+    button.classList.remove('bg-blue-600', 'bg-emerald-500', 'hover:bg-blue-700', 'hover:bg-emerald-600');
+
+    switch (state) {
+        case 'loading':
+            button.disabled = true;
+            button.innerHTML = `${BUTTON_TEXT.JOINING} ${createInlineSVG('spinner')}`;
+            button.classList.add('bg-blue-600');
+            break;
+
+        case 'success':
+            button.disabled = true;
+            button.innerHTML = `${BUTTON_TEXT.SUCCESS} ${createInlineSVG('checkmark')}`;
+            button.classList.add('bg-emerald-500');
+            break;
+
+        case 'error':
+        case 'default':
+            button.disabled = false;
+            if (showArrow) {
+                button.innerHTML = `${defaultText} <i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+            } else {
+                button.innerHTML = defaultText;
+            }
+            button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            // Reinitialize Lucide icons for the arrow
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            break;
+    }
+}
+
+// ============================================
 // Modal Management
 // ============================================
 
@@ -122,7 +188,6 @@ function resetRegistrationForm() {
     const form = document.getElementById('registrationForm');
     const successMessage = document.getElementById('successMessage');
     const submitBtn = document.getElementById('submitBtn');
-    const spinner = document.getElementById('submitSpinner');
     const emailError = document.getElementById('email-error');
 
     if (form && successMessage && submitBtn) {
@@ -134,10 +199,7 @@ function resetRegistrationForm() {
         form.reset();
 
         // Reset button state
-        submitBtn.disabled = false;
-        const span = submitBtn.querySelector('span');
-        if (span) span.textContent = BUTTON_TEXT.JOIN_THE_WAITLIST;
-        if (spinner) spinner.style.display = 'none';
+        setButtonState(submitBtn, 'default', BUTTON_TEXT.GET_EARLY_ACCESS);
 
         // Clear any error messages
         if (emailError) emailError.classList.add('hidden');
@@ -162,24 +224,90 @@ if (regModal && closeRegBtn) {
     });
 }
 
-// Hero Join Waitlist Button
+// Hero Join Waitlist Button - Direct Submission
 const heroJoinBtn = document.getElementById('heroJoinWaitlistBtn');
 const heroEmailInput = document.getElementById('heroEmailInput');
-const modalEmailInput = document.getElementById('email');
 
-if (heroJoinBtn && heroEmailInput && modalEmailInput) {
-    heroJoinBtn.addEventListener('click', () => {
-        // Reset form first
-        resetRegistrationForm();
+if (heroJoinBtn && heroEmailInput) {
+    // Create error display element if it doesn't exist
+    let heroEmailError = document.getElementById('heroEmailError');
+    if (!heroEmailError) {
+        heroEmailError = document.createElement('p');
+        heroEmailError.id = 'heroEmailError';
+        heroEmailError.className = 'text-red-500 text-sm mt-2 hidden text-center';
+        heroEmailInput.parentElement.insertAdjacentElement('afterend', heroEmailError);
+    }
 
-        // Pre-fill modal email if hero email has a value
-        const heroEmail = heroEmailInput.value.trim();
-        if (heroEmail) {
-            modalEmailInput.value = heroEmail;
+    // Handle form submission (click or Enter key)
+    const handleHeroSubmit = async () => {
+        const email = heroEmailInput.value.trim();
+
+        // Validate email
+        if (!validateEmail(email)) {
+            heroEmailError.textContent = MESSAGES.EMAIL_INVALID;
+            heroEmailError.classList.remove('hidden');
+            heroEmailInput.focus();
+            return;
         }
 
-        // Open the registration modal
-        toggleModal('registrationModal', true);
+        // Check rate limiting
+        if (isRateLimited(email, TIMING.WAITLIST_RATE_LIMIT)) {
+            heroEmailError.textContent = MESSAGES.RATE_LIMIT;
+            heroEmailError.classList.remove('hidden');
+            heroEmailInput.focus();
+            return;
+        }
+
+        // Hide any previous errors
+        heroEmailError.classList.add('hidden');
+
+        // Show loading state
+        setButtonState(heroJoinBtn, 'loading', BUTTON_TEXT.GET_EARLY_ACCESS, true);
+
+        try {
+            // Execute reCAPTCHA v3
+            const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+
+            // Submit to waitlist
+            const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+
+            if (response && response.ok) {
+                trackSubmission(email);
+
+                // Show success state
+                setButtonState(heroJoinBtn, 'success', BUTTON_TEXT.GET_EARLY_ACCESS, true);
+
+                // Wait 2 seconds, then reset
+                setTimeout(() => {
+                    heroEmailInput.value = '';
+                    setButtonState(heroJoinBtn, 'default', BUTTON_TEXT.GET_EARLY_ACCESS, true);
+                }, 2000);
+            } else {
+                throw new Error('Invalid response from server');
+            }
+
+        } catch (error) {
+            console.error('Hero waitlist submission error:', error);
+
+            clearRateLimit(email);
+
+            heroEmailError.textContent = MESSAGES.SUBMISSION_ERROR;
+            heroEmailError.classList.remove('hidden');
+
+            // Reset button to default state
+            setButtonState(heroJoinBtn, 'default', BUTTON_TEXT.GET_EARLY_ACCESS, true);
+        }
+    };
+
+    // Handle button click
+    heroJoinBtn.addEventListener('click', handleHeroSubmit);
+
+    // Handle Enter key in email input
+    heroEmailInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleHeroSubmit();
+        }
     });
 }
 
@@ -270,8 +398,6 @@ if (form && submitBtn) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const spinner = document.getElementById('submitSpinner');
-        const span = submitBtn.querySelector('span');
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('email-error');
         const honeypotInput = document.getElementById('website');
@@ -302,11 +428,8 @@ if (form && submitBtn) {
         // Hide any previous errors
         emailError.classList.add('hidden');
 
-        // Disable button and show loading state
-        submitBtn.disabled = true;
-        const originalText = span.textContent;
-        span.textContent = BUTTON_TEXT.SUBMITTING;
-        spinner.style.display = 'block';
+        // Show loading state
+        setButtonState(submitBtn, 'loading');
 
         try {
             // Execute reCAPTCHA v3
@@ -321,14 +444,19 @@ if (form && submitBtn) {
             if (response && response.ok) {
                 trackSubmission(email);
 
-                // Success State - Hide form, show success message
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
+                // Show success state for 2 seconds
+                setButtonState(submitBtn, 'success');
 
-                // Reinitialize icons in success message
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
+                // Wait 2 seconds, then hide form and show success message
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Reinitialize icons in success message
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }, 2000);
             } else {
                 // This should never happen (submitToWaitlist should throw),
                 // but defensive programming requires handling it
@@ -345,10 +473,8 @@ if (form && submitBtn) {
             emailError.textContent = MESSAGES.SUBMISSION_ERROR;
             emailError.classList.remove('hidden');
 
-            // Reset Button
-            submitBtn.disabled = false;
-            span.textContent = originalText;
-            spinner.style.display = 'none';
+            // Reset button to default state
+            setButtonState(submitBtn, 'default');
         }
     });
 }

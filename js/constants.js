@@ -37,5 +37,8 @@ export const MESSAGES = {
 export const BUTTON_TEXT = {
     SUBMIT: 'Join Waitlist',
     SUBMITTING: 'Submitting...',
-    JOIN_THE_WAITLIST: 'Join the Waitlist'
+    JOIN_THE_WAITLIST: 'Join the Waitlist',
+    GET_EARLY_ACCESS: 'Get Early Access',
+    JOINING: 'Joining...',
+    SUCCESS: 'You\'re in!'
 };
