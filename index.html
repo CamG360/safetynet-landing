@@ -788,12 +788,223 @@
 
             <!-- FAQ Category Tabs (Dynamic) -->
             <div id="faq-category-tabs" class="flex flex-wrap justify-center gap-2 mb-8">
-                <!-- Tabs loaded dynamically -->
+                <button class="faq-category-btn active px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                        data-category="all">
+                    All
+                </button>
+                <button class="faq-category-btn  px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                        data-category="getting-started">
+                    Getting Started
+                </button>
+                <button class="faq-category-btn  px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                        data-category="how-it-works">
+                    How It Works
+                </button>
+                <button class="faq-category-btn  px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                        data-category="privacy">
+                    Privacy & Security
+                </button>
+                <button class="faq-category-btn  px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                        data-category="why-safetynet">
+                    Why SafetyNet
+                </button>
+                <button class="faq-category-btn  px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                        data-category="launch-pricing">
+                    Launch & Pricing
+                </button>
             </div>
 
             <!-- FAQ Container (Dynamic) -->
             <div id="faq-container" class="space-y-4">
-                <!-- FAQs loaded dynamically -->
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="privacy" data-faq-id="faq-1">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How does SafetyNet protect my privacy?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        Your information stays private until you need help. We only store what you explicitly set up (safe times, emergency contacts, custom messages). No continuous location tracking, no background data collection. Your safety information is only shared with your chosen contacts if an alert is triggered.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="privacy" data-faq-id="faq-2">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What security and reliability measures will SafetyNet have?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-3">SafetyNet is built with enterprise-grade security and reliability as our foundation:</p><ul class="list-disc pl-5 space-y-2 mb-3"><li>Industry-standard encryption to protect your data</li><li>Reliable cloud infrastructure with backup systems</li><li>Multi-channel alert delivery to ensure your contacts are notified</li><li>99.9% uptime commitment with continuous monitoring</li></ul><p class="text-slate-700"><strong>Our promise:</strong> We will not launch publicly until we achieve 99.9% alert delivery success in testing. Your safety is our priority.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="privacy" data-faq-id="faq-18">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Who can see my safety information?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        No one sees your safety information when you set up a SafetyNet. Only when an alert is triggered do your chosen contacts get access. Your plans, location, and activities stay private until your need for safety overrides it.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="privacy" data-faq-id="faq-19">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What do you do with my data?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        Nothing. We don't sell your data. Ever. Your safety information is exactly that — yours.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works" data-faq-id="faq-3">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How does it work offline or with a dead battery?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-3">SafetyNet doesn't rely on your phone to send the Safety Alert — our servers do.</p><p class="mb-3">Here's the difference: other apps wait for your phone to send an SOS. SafetyNet waits for you to not check in — that's the signal something is wrong.</p><p class="mb-3">You set your Safe Time based on your plans. We remind you before it expires. And there's extra time built in — so alerts only send when something's genuinely wrong.</p><p class="mb-3">When you set a Safe Time, our servers start a countdown. If you check in, the countdown stops. If you don't — for any reason (dead battery, no signal, you can't reach your phone) — the Safety Alert sends automatically.</p><p>Your phone only needs to work when you set the Safe Time and when you check in. Everything else runs independently.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works" data-faq-id="faq-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Will this drain my battery?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        No significant battery drain. SafetyNet uses minimal resources because the monitoring happens in the cloud, not on your device. You only interact with the app when setting up a safe time or checking in, which takes seconds.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works" data-faq-id="faq-5">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What if I forget to check in but I'm safe?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        We include customizable extra time and reminder notifications before any alert is sent. If an alert does go out, you can immediately cancel it with one tap to let your contacts know it was a false alarm. We're designed to minimize false alarms while keeping you safe.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works" data-faq-id="faq-16">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How do I add my contact?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        You can add your contact when you create your SafetyNet and/or select a previously saved contact.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works" data-faq-id="faq-17">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What if I forget to check in?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        You'll get a reminder first. Plenty of time to check in before any alert is sent.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="how-it-works" data-faq-id="faq-6">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What are SafetyNet's limitations?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-3">SafetyNet is a powerful safety tool, but it's important to understand its limitations:</p><ul class="list-disc pl-5 space-y-2"><li>Requires initial internet connection to set your Safe Time</li><li>Relies on your emergency contact's ability to receive SMS, email, or push notifications</li><li>Cannot prevent emergencies—only facilitates faster response if something goes wrong</li><li>While we maintain 99.9% uptime, no system is 100% foolproof. Always have backup safety plans</li></ul><p class="mt-3 text-slate-800 font-medium">SafetyNet is designed as an additional layer of protection, not a replacement for common sense safety practices.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="why-safetynet" data-faq-id="faq-7">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How is this different from Find My Friends or Life360?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        Location sharing apps require your phone to be working. If you can't reach your phone (dead battery, no signal, emergency situation), they fail silently - your contacts just see your last location and don't know if you're okay or in trouble. SafetyNet sends a clear alert with your context and instructions, so there's no ambiguity. We're built specifically for the scenario where "text me when you're safe" doesn't work.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="why-safetynet" data-faq-id="faq-20">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Will my contacts get constant notifications?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        No. Contacts only hear from SafetyNet when an alert is triggered. Their day stays interruption-free.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="why-safetynet" data-faq-id="faq-21">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Why did you start SafetyNet?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-3">I came across many scenarios where people didn't realise the problem with "text me when you're safe." The pattern was always the same: everyone assumed they were fine — until they weren't. No signal. No essential context. No instructions. This conflicted with the safeguards I used every day in business.</p><p class="mb-3 font-semibold text-slate-900">A selection of moments that helped define the mission:</p><ul class="list-disc pl-5 space-y-2 mb-3"><li><strong>The bad date</strong> — Stuck in an unsafe situation for hours. No one knew there was a problem because she couldn't text.</li><li><strong>The compromised state</strong> — A friend's drink was spiked on a business trip. He became unconscious, so he couldn't ask for help.</li><li><strong>The solo accident</strong> — A colleague slipped while hiking alone. No one knew she was in trouble until it was too late.</li><li><strong>The false assumption</strong> — Friends held hostage in an Airbnb. Everyone assumed they were safe because they were "together."</li><li><strong>The traveller's fear</strong> — "If I stopped posting on social media, how long would it take for anyone to actually notice?"</li><li><strong>The missing context</strong> — Even when someone was reported missing, search teams had no starting point.</li></ul><p class="mb-3 font-semibold text-slate-900">Now with SafetyNet, your freedom is protected.</p><p class="mb-2">SafetyNet doesn't restrict your life — it enables it. Go on that date. Take the solo trip. Run the new route. Move to the new city.</p><p>Because now, someone will know if something goes wrong.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="launch-pricing" data-faq-id="faq-8">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">When will SafetyNet be available?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        We're currently in development and building our early access waitlist. Join the waitlist to be among the first to use SafetyNet when we launch. Early access members will get priority access and the opportunity to shape the product with their feedback.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="launch-pricing" data-faq-id="faq-9">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Will SafetyNet be free?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-3">We're evaluating pricing options to make SafetyNet accessible while sustaining reliable 24/7 monitoring. We expect to offer both free and paid tiers.</p><p class="font-semibold text-slate-900">Early access waitlist members will receive special benefits and discounted pricing, regardless of final structure.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started" data-faq-id="faq-10">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What does my emergency contact need to do?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-3">When you add an emergency contact, they receive a one-time confirmation message explaining SafetyNet and asking them to accept. Takes 10 seconds, no app required.</p><p class="mb-3"><strong>After that:</strong> They hear nothing unless an alert triggers. No spam, no updates, no interruptions - SafetyNet operates silently unless you need help.</p><p class="text-sm text-slate-700"><strong>If an alert triggers:</strong> They receive your custom message and instructions via SMS, email, and push notification (if they have the app). They'll know exactly what's happening and what to do.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started" data-faq-id="faq-11">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">How do I set up a customized message and instructions for Safety Alerts?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        You can create your customized message and instructions when you create a SafetyNet.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started" data-faq-id="faq-12">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Will my emergency contact get spammed with notifications?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-2"><strong>No.</strong> Your emergency contact only receives notifications if a safety alert triggers. 99% of the time, they never hear from SafetyNet.</p><p class="text-sm text-slate-600">When you check in safely (which is the normal case), nothing is sent to your contact. SafetyNet is designed for peace of mind without interrupting anyone's day.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started" data-faq-id="faq-13">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">What devices does SafetyNet work on?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        SafetyNet will be available on iOS (latest version), Android (latest version), and web browsers. Most modern smartphones and tablets from the last 3-4 years are supported. You'll also be able to manage your SafetyNet settings from any web browser on desktop or mobile.
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started" data-faq-id="faq-14">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Does my emergency contact need the app?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-2"><strong>No.</strong> Your emergency contacts don't need to download or install anything.</p><p>They'll receive alerts via SMS and email if a safety alert is triggered. If they choose to download the app, they can receive push notifications too, but it's completely optional.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="getting-started" data-faq-id="faq-15">
+                    <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
+                        <h3 class="text-lg font-bold text-slate-900 pr-8">Who else needs the app?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
+                    </button>
+                    <div class="faq-answer text-slate-600 leading-relaxed">
+                        <p class="mb-2"><strong>Just you.</strong> Only the person setting up SafetyNet needs the app.</p><p>Your emergency contacts will receive alerts through standard channels (SMS, email) without needing to download anything. SafetyNet is designed to work seamlessly without requiring your contacts to install additional software.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Contact Callout -->
