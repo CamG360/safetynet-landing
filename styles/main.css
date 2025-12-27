@@ -802,3 +802,8 @@ h1.hero-title {
     flex-shrink: 0;
     object-fit: cover;
 }
+
+/* Hide the Google reCAPTCHA v3 badge while keeping the script functional */
+.grecaptcha-badge {
+    display: none !important;
+}
