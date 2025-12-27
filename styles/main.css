@@ -81,10 +81,16 @@ body {
 }
 
 .hamburger {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
+}
+
+@media (min-width: 768px) {
+    .hamburger {
+        display: none;
+    }
 }
 
 .hamburger span {
