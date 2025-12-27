@@ -136,12 +136,21 @@ function initFAQSearch() {
     const container = document.getElementById('faq-container');
     if (!searchInput || !container) return;
 
+    const removeNoResultsMessage = () => {
+        const existingMessage = container.querySelector('#faq-no-results');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+    };
+
     searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase().trim();
+        const rawSearch = e.target.value.trim();
+        const searchTerm = rawSearch.toLowerCase();
         const faqItems = container.querySelectorAll('.faq-item');
 
         if (searchTerm === '') {
             // If search is empty, restore category filter
+            removeNoResultsMessage();
             filterFAQsByCategory(currentCategory);
             return;
         }
@@ -164,27 +173,25 @@ function initFAQSearch() {
         });
 
         // Show "no results" message if needed
-        let noResultsEl = container.querySelector('.faq-no-results');
+        let noResultsEl = container.querySelector('#faq-no-results');
         
         if (matchCount === 0) {
             if (!noResultsEl) {
                 noResultsEl = document.createElement('div');
-                noResultsEl.className = 'faq-no-results text-center py-12 text-slate-500';
+                noResultsEl.id = 'faq-no-results';
+                noResultsEl.className = 'text-center py-8 text-slate-500';
                 noResultsEl.innerHTML = `
-                    <i data-lucide="search-x" class="w-12 h-12 mx-auto mb-4 text-slate-300"></i>
-                    <p class="text-lg">No questions found</p>
-                    <p class="text-sm mt-2">Try different keywords or browse by category</p>
+                    No questions found for "<span class="font-medium text-slate-700"></span>". Try a different keyword, or reach out to us at <a href="mailto:hello@safetynetbeta.com" class="text-blue-600 hover:underline">hello@safetynetbeta.com</a>.
                 `;
                 container.appendChild(noResultsEl);
-                
-                // Initialize the icon
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
             }
-            noResultsEl.style.display = '';
-        } else if (noResultsEl) {
-            noResultsEl.style.display = 'none';
+
+            const querySpan = noResultsEl.querySelector('span');
+            if (querySpan) {
+                querySpan.textContent = rawSearch;
+            }
+        } else {
+            removeNoResultsMessage();
         }
     });
 }
