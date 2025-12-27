@@ -4,10 +4,10 @@
  * This ensures compatibility with existing modal management in main.js
  */
 
-// Only preload simple content-only modals
-// Registration modal is kept inline due to complex form logic in main.js
+// Preload all modals for consistency and separation of concerns
 const modalConfig = {
     'alertDemoModal': 'alert-demo',
+    'registrationModal': 'registration',
     'privacyPolicyModal': 'privacy-policy',
     'termsOfServiceModal': 'terms-of-service'
 };
