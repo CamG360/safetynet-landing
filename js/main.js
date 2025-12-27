@@ -38,6 +38,11 @@ hydrateContactEmailPlaceholders();
  */
 function toggleModal(modalId, show) {
     const modal = document.getElementById(modalId);
+    if (!modal) {
+        console.error(`Modal not found: ${modalId}`);
+        return;
+    }
+
     if (show) {
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
