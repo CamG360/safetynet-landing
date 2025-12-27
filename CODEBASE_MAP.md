@@ -1,23 +1,25 @@
 # Codebase Map
 
 **Project**: SafetyNet Landing Page
-**Type**: Static HTML/CSS/JS (Zero-build)
-**Last Updated**: 2025-12-17
+**Type**: Static HTML/CSS/JS with Build Step
+**Last Updated**: 2025-12-27
 
 ---
 
 ## High-Level Overview
 
 - **What this repo does**:
-  - Landing page for SafetyNet — a safety alert service for everday activities. 
+  - Landing page for SafetyNet — a safety alert service for everyday activities.
   - Collects waitlist emails via Supabase backend
   - Educates users on safety features through interactive content (FAQs, story, use cases)
 
 - **Architectural Style**:
-  - Vanilla JavaScript with ES6 modules (no framework, no build tools)
-  - CDN-based dependencies (Tailwind CSS, Lucide icons)
+  - Vanilla JavaScript with ES6 modules (no framework)
+  - Build system: npm scripts, Tailwind CSS compilation, FAQ baking
+  - CDN-based runtime dependencies (Lucide icons)
   - Progressive enhancement (lazy loading, modal pre-loading)
   - Direct Supabase REST API integration (no SDK)
+  - Security-hardened: reCAPTCHA v3, SRI, CSP headers, honeypot protection
 
 ---
 
@@ -28,69 +30,78 @@
 #### Waitlist Registration Flow
 - **Purpose**: Collect emails from interested users
 - **Entry Points**:
-  - Hero section email input → [`index.html#L142-L162`](./index.html#L142-L162)
+  - Hero section email input → inline form
   - Nav/footer "Join Waitlist" buttons → `.open-registration-modal` class
 - **Implementation**:
-  - Modal version: [`index.html#L866-L918`](./index.html#L866-L918) + [`js/main.js#L246-L317`](./js/main.js#L246-L317)
-  - Standalone page: [`form.html`](./form.html) + [`js/form.js`](./js/form.js)
-  - Validation: [`js/utils.js#L12-L15`](./js/utils.js#L12-L15) (`validateEmail()`)
-  - Submission: [`js/utils.js#L23-L45`](./js/utils.js#L23-L45) (`submitToWaitlist()`)
-- **Backend**: Supabase `feedback` table (email + timestamp)
-- **Config**: [`js/config.js`](./js/config.js) (API credentials)
+  - Modal version in [`index.html`](./index.html) + [`js/main.js`](./js/main.js)
+  - Validation: [`js/utils.js`](./js/utils.js) (`validateEmail()`, honeypot check)
+  - Submission: [`js/utils.js`](./js/utils.js) (`submitToWaitlist()`)
+- **Security**:
+  - reCAPTCHA v3 integration (invisible bot protection)
+  - Honeypot field (hidden "website" field)
+  - Rate limiting (client-side)
+- **Backend**: Supabase `feedback` table (email + timestamp + recaptcha_token)
+- **Config**: [`js/config.js`](./js/config.js) (Supabase + reCAPTCHA credentials)
 
 #### FAQ System
 - **Purpose**: Answer common questions with category filtering
-- **Source of Truth**: [`data/faq.json`](./data/faq.json) (13 FAQs, 6 categories)
-- **Renderer**: [`js/faq-renderer.js`](./js/faq-renderer.js) (dynamic rendering + accordions)
-- **Container**: [`index.html#L787-L805`](./index.html#L787-L805)
-- **Styling**: [`styles/main.css#L106-L244`](./styles/main.css#L106-L244)
+- **Source of Truth**: [`data/faq.json`](./data/faq.json) (FAQ content)
+- **Build Process**: [`build-faqs.js`](./build-faqs.js) — Bakes FAQ HTML into `index.html` at build time
+- **Client-Side**: [`js/faq-renderer.js`](./js/faq-renderer.js) — Handles category filtering + accordions
+- **Container**: `#faq-container` in [`index.html`](./index.html) (pre-rendered FAQs)
+- **Styling**: [`styles/main.css`](./styles/main.css)
+- **Build Command**: `node build-faqs.js` (runs before deployment)
 
 #### Story Lazy Loading
 - **Purpose**: Load extended founder story on demand
-- **Truncated Version**: [`index.html#L750-L768`](./index.html#L750-L768)
-- **Extended Content**: [`content/our-story-extended.html`](./content/our-story-extended.html) (4 story cards)
+- **Truncated Version**: in [`index.html`](./index.html)
+- **Extended Content**: [`content/our-story-extended.html`](./content/our-story-extended.html) (story cards)
 - **Loader**: [`js/story-loader.js`](./js/story-loader.js) (`loadExtendedStory()`)
 - **Trigger**: "Read Full Story" button (`#read-full-story-btn`)
 
 #### Modal System
 - **Purpose**: Display overlays for registration, demos, legal docs
 - **4 Modals**:
-  1. Registration Modal (inline in [`index.html#L866-L918`](./index.html#L866-L918))
+  1. Registration Modal (inline in [`index.html`](./index.html))
   2. Alert Demo ([`modals/alert-demo.html`](./modals/alert-demo.html))
   3. Privacy Policy ([`modals/privacy-policy.html`](./modals/privacy-policy.html))
   4. Terms of Service ([`modals/terms-of-service.html`](./modals/terms-of-service.html))
 - **Pre-loader**: [`js/modal-loader.js`](./js/modal-loader.js) (fetches external modal HTML)
-- **Manager**: [`js/main.js#L33-L51`](./js/main.js#L33-L51) (`toggleModal()`)
-- **Styling**: [`styles/main.css#L15-L57`](./styles/main.css#L15-L57)
+- **Manager**: [`js/main.js`](./js/main.js) (`toggleModal()`)
+- **Styling**: [`styles/main.css`](./styles/main.css)
 
 ---
 
 ### Pages / Routes
 
 #### Main Landing Page
-- **File**: [`index.html`](./index.html) (936 lines)
+- **File**: [`index.html`](./index.html) (1193 lines)
 - **Sections** (in order):
-  1. Navigation ([lines 16-61](./index.html#L16-L61)) — Fixed nav + mobile menu
-  2. Hero/Waitlist ([lines 64-181](./index.html#L64-L181)) — Email input + 3-step preview
-  3. How It Works ([lines 184-355](./index.html#L184-L355)) — Detailed 3-step flow
-  4. The Problem ([lines 358-426](./index.html#L358-L426)) — "Text me when safe" scenario
-  5. Built for Privacy ([lines 429-502](./index.html#L429-L502)) — 4 feature cards
-  6. Use Cases ([lines 505-638](./index.html#L505-L638)) — Running, First Date, Solo Travel
-  7. Comparison Table ([lines 641-721](./index.html#L641-L721)) — SafetyNet vs Others
-  8. Our Story ([lines 724-785](./index.html#L724-L785)) — Founder story + lazy-load button
-  9. FAQ ([lines 788-805](./index.html#L788-L805)) — Dynamic container
-  10. Footer ([lines 808-859](./index.html#L808-L859)) — Links + CTA
-  11. Modals ([lines 862-928](./index.html#L862-L928)) — 4 modal containers
+  1. Navigation — Fixed nav + mobile menu
+  2. Hero/Waitlist — Email input + 3-step preview
+  3. How It Works — Detailed 3-step flow
+  4. The Problem — "Text me when safe" scenario
+  5. Built for Privacy — 4 feature cards
+  6. Use Cases — Running, First Date, Solo Travel
+  7. Comparison Table — SafetyNet vs Others
+  8. Our Story — Founder story + lazy-load button
+  9. FAQ — Pre-rendered FAQ container
+  10. Footer — Links + CTA
+  11. Modals — 4 modal containers
 
-#### Standalone Form Page
-- **File**: [`form.html`](./form.html) (80 lines)
-- **Purpose**: Dedicated email collection (alternative to modal)
-- **Script**: [`js/form.js`](./js/form.js)
-- **Styling**: [`styles/form.css`](./styles/form.css) (500 lines, custom CSS variables)
+#### Legal Pages
+- **Privacy Policy**: [`privacy.html`](./privacy.html) (89 lines) — Standalone privacy policy page
+- **Terms of Service**: [`terms.html`](./terms.html) (108 lines) — Standalone terms page
+- **Source Files**: [`privacy.md`](./privacy.md), [`terms.md`](./terms.md) (Markdown sources)
+- **Also Available**: As modals in [`modals/privacy-policy.html`](./modals/privacy-policy.html) and [`modals/terms-of-service.html`](./modals/terms-of-service.html)
+
+#### Security Testing
+- **SRI Browser Test**: [`sri-browser-test.html`](./sri-browser-test.html) (326 lines) — Browser-based SRI verification tool
+- **Purpose**: Validate Subresource Integrity implementation in browser
 
 #### Design Documentation (Internal)
-- **Visual Mockups**: [`visual-mockups.html`](./visual-mockups.html) (shield opacity variations)
-- **Placement Recommendations**: [`placement-recommendations.html`](./placement-recommendations.html) (logo placement strategy)
+- **Visual Mockups**: [`visual-mockups.html`](./visual-mockups.html) (380 lines) — Shield opacity variations
+- **Placement Recommendations**: [`placement-recommendations.html`](./placement-recommendations.html) (478 lines) — Logo placement strategy
 - **Note**: Not user-facing, development reference only
 
 ---
@@ -100,22 +111,18 @@
 #### JavaScript Modules (Dependency Order)
 
 ```
-main.js (entry point, 465 lines)
+main.js (entry point, 604 lines)
  ├── modal-loader.js → Pre-loads modals BEFORE main.js executes
- ├── config.js → Supabase credentials
- ├── utils.js → Validation + submission
- └── constants.js → Timing + messages + button text
+ ├── config.js → Supabase + reCAPTCHA credentials
+ ├── utils.js → Validation + submission + security
+ ├── constants.js → Timing + messages + button text
+ └── contact-email.js → Contact email component with copy functionality
 
-form.js (standalone, 99 lines)
- ├── config.js
- ├── utils.js
- └── constants.js
-
-faq-renderer.js (independent, 155 lines) → Auto-init on DOMContentLoaded
-story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
+faq-renderer.js (independent, 222 lines) → Auto-init on DOMContentLoaded, handles filtering/accordions
+story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 ```
 
-**Links**: [`js/main.js`](./js/main.js) | [`js/modal-loader.js`](./js/modal-loader.js) | [`js/config.js`](./js/config.js) | [`js/utils.js`](./js/utils.js) | [`js/constants.js`](./js/constants.js) | [`js/form.js`](./js/form.js) | [`js/faq-renderer.js`](./js/faq-renderer.js) | [`js/story-loader.js`](./js/story-loader.js)
+**Links**: [`js/main.js`](./js/main.js) | [`js/modal-loader.js`](./js/modal-loader.js) | [`js/config.js`](./js/config.js) | [`js/utils.js`](./js/utils.js) | [`js/constants.js`](./js/constants.js) | [`js/contact-email.js`](./js/contact-email.js) | [`js/faq-renderer.js`](./js/faq-renderer.js) | [`js/story-loader.js`](./js/story-loader.js)
 
 #### Module Responsibilities
 
@@ -123,11 +130,11 @@ story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
 |------|---------|----------------------|
 | [`js/main.js`](./js/main.js) | Primary orchestrator: modals, forms, accordions, mobile menu | `toggleModal()`, `resetRegistrationForm()` |
 | [`js/modal-loader.js`](./js/modal-loader.js) | Pre-load external modal HTML before main.js runs | `loadModalContent()`, `preloadAllModals()` |
-| [`js/form.js`](./js/form.js) | Standalone form page logic (mirrors modal form) | Auto-init form submission |
-| [`js/faq-renderer.js`](./js/faq-renderer.js) | Dynamic FAQ rendering + category filtering | `loadFAQData()`, `renderFAQs()` |
+| [`js/faq-renderer.js`](./js/faq-renderer.js) | Client-side FAQ filtering + accordions (FAQs pre-rendered) | Category filtering, accordion interactions |
 | [`js/story-loader.js`](./js/story-loader.js) | Lazy-load extended story content | `loadExtendedStory()` |
-| [`js/utils.js`](./js/utils.js) | Shared utilities (validation, Supabase API) | `validateEmail()`, `submitToWaitlist()` |
-| [`js/config.js`](./js/config.js) | Supabase configuration | `SUPABASE_CONFIG` object |
+| [`js/contact-email.js`](./js/contact-email.js) | Contact email component with copy-to-clipboard | `createContactEmail()`, `hydrateContactEmailPlaceholders()` |
+| [`js/utils.js`](./js/utils.js) | Shared utilities (validation, Supabase API, security) | `validateEmail()`, `submitToWaitlist()`, honeypot checks, reCAPTCHA |
+| [`js/config.js`](./js/config.js) | Supabase + reCAPTCHA configuration | `SUPABASE_CONFIG`, `RECAPTCHA_CONFIG` |
 | [`js/constants.js`](./js/constants.js) | UI constants (timing, messages, labels) | `TIMING`, `MESSAGES`, `BUTTON_TEXT` |
 
 ---
@@ -139,19 +146,25 @@ story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
 - **Columns**:
   - `email` (text)
   - `created_at` (timestamp)
+  - `recaptcha_token` (text) — reCAPTCHA v3 token for backend verification
+  - `recaptcha_score` (float) — Optional: store reCAPTCHA score
 - **Access**: Public insert-only via anon key (RLS-protected)
 
 #### Data Files
-- **FAQ Content**: [`data/faq.json`](./data/faq.json) (13 questions, 6 categories)
+- **FAQ Content**: [`data/faq.json`](./data/faq.json)
   - Structure: `{ categories: [...], faqs: [...] }`
   - Supports HTML in answers
-  - Dynamically rendered by [`faq-renderer.js`](./js/faq-renderer.js)
+  - Baked into HTML by [`build-faqs.js`](./build-faqs.js)
+  - Client-side filtering by [`faq-renderer.js`](./js/faq-renderer.js)
 
 #### Configuration
 - **Supabase Credentials**: [`js/config.js`](./js/config.js)
   - URL: `https://igzyfbzayuimdnjhapog.supabase.co`
-  - Anon Key: `eyJhbGci...` (public, protected by Row Level Security)
+  - Anon Key: (public, protected by Row Level Security)
   - Table: `feedback`
+- **reCAPTCHA v3**: [`js/config.js`](./js/config.js)
+  - Site Key: `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI` (test key)
+  - Action: `submit_waitlist`
 - **UI Constants**: [`js/constants.js`](./js/constants.js)
   - Auto-close timing: 4000ms
   - Modal transition: 200ms
@@ -163,49 +176,53 @@ story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
 ### Content Files
 
 #### Extended Content (Lazy-Loaded)
-- **Founder Story**: [`content/our-story-extended.html`](./content/our-story-extended.html) (183 lines)
-  - Part 2: The Evidence (4 story cards)
-  - Part 3: The Insight (2 philosophy cards)
+- **Founder Story**: [`content/our-story-extended.html`](./content/our-story-extended.html)
+  - Extended story sections
   - Loaded on-demand by [`story-loader.js`](./js/story-loader.js)
 
 #### Modal Content (Pre-Loaded)
-- **Alert Demo**: [`modals/alert-demo.html`](./modals/alert-demo.html) (safety alert UI mockup)
-- **Privacy Policy**: [`modals/privacy-policy.html`](./modals/privacy-policy.html) (GDPR-compliant legal)
-- **Terms of Service**: [`modals/terms-of-service.html`](./modals/terms-of-service.html) (waitlist terms)
+- **Alert Demo**: [`modals/alert-demo.html`](./modals/alert-demo.html) — Safety alert UI mockup
+- **Privacy Policy**: [`modals/privacy-policy.html`](./modals/privacy-policy.html) — GDPR-compliant legal
+- **Terms of Service**: [`modals/terms-of-service.html`](./modals/terms-of-service.html) — Waitlist terms
 - **Note**: Pre-loaded by [`modal-loader.js`](./js/modal-loader.js) before main.js executes
 
 #### Assets
-- **Images**: [`images/campbell-mccord.png`](./images/campbell-mccord.png) (founder headshot, 400x400px)
-- **Icons**: Lucide icons via CDN (no local assets)
+- **Images**: [`images/campbell-mccord.png`](./images/campbell-mccord.png) — Founder headshot
+- **Icons**: Lucide icons v0.294.0 via CDN (SRI-protected, no local assets)
 
 ---
 
 ### Styling
 
 #### CSS Architecture
-- **Main Stylesheet**: [`styles/main.css`](./styles/main.css) (659 lines)
-  - Modal styles ([15-57](./styles/main.css#L15-L57))
-  - Mobile menu ([59-98](./styles/main.css#L59-L98))
-  - FAQ accordions ([106-244](./styles/main.css#L106-L244))
-  - Alert card styling ([246-417](./styles/main.css#L246-L417))
-  - SafetyNet visual branding ([429-648](./styles/main.css#L429-L648))
-  - Hero section refinements ([631-659](./styles/main.css#L631-L659))
+- **Main Stylesheet**: [`styles/main.css`](./styles/main.css) (778 lines)
+  - Modal styles
+  - Mobile menu
+  - FAQ accordions
+  - Alert card styling
+  - SafetyNet visual branding
+  - Hero section refinements
+  - Honeypot field styling (security)
 
-- **Form Stylesheet**: [`styles/form.css`](./styles/form.css) (500 lines)
+- **Form Stylesheet**: [`styles/form.css`](./styles/form.css) (499 lines)
   - CSS variables (`:root`) for colors, shadows, radii
   - Form-specific components
   - Error/success states
   - Responsive (mobile breakpoint: 600px)
 
-- **Tailwind CSS**: CDN-loaded (no config file)
+- **Tailwind CSS**: Build process (not CDN)
+  - **Source**: [`styles/input.css`](./styles/input.css) (94 lines)
+  - **Output**: [`styles/tailwind.css`](./styles/tailwind.css) (compiled)
+  - **Config**: [`tailwind.config.js`](./tailwind.config.js)
+  - **Build**: `npm run build:css` (compiles Tailwind)
   - Utility classes used extensively in HTML
-  - No build step, no purging
 
 #### Design Patterns
 - **Accordions**: `max-height` transitions (FAQ, use cases, features, story)
 - **Modals**: Transform + opacity transitions
 - **Mobile Menu**: Hamburger icon rotation animation
 - **Hover Effects**: Transform-based (scale, translate)
+- **Security**: Hidden honeypot field (visually hidden via CSS)
 
 ---
 
@@ -213,14 +230,22 @@ story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
 
 #### Environment Variables
 - **None** — All config hardcoded in [`js/config.js`](./js/config.js)
-- **Security**: Supabase anon key exposed in client code (normal for public forms)
-- **Protection**: Row Level Security (RLS) policies in Supabase backend
+- **Security**: Supabase anon key & reCAPTCHA site key exposed in client code (normal for public forms)
+- **Protection**: Row Level Security (RLS) in Supabase + reCAPTCHA backend verification required
 
 #### Feature Flags
 - **None** — No feature flagging system
 
 #### Build Configuration
-- **None** — Zero-build static site (no package.json, no bundler)
+- **Package Manager**: npm via [`package.json`](./package.json)
+- **Build Scripts**:
+  - `npm run build:css` — Compile Tailwind CSS
+  - `npm run build:css:watch` — Watch mode for Tailwind
+  - `npm test` — Run Jest tests
+  - `npm run lint` — ESLint checks
+  - `node build-faqs.js` — Bake FAQs into HTML (run before deploy)
+- **Dev Dependencies**: Tailwind CSS, Jest, ESLint
+- **No Bundler**: ES6 modules loaded directly by browser
 
 ---
 
@@ -228,14 +253,59 @@ story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
 
 | File | Purpose | Key Sections |
 |------|---------|--------------|
-| [`TECHNICAL_CONTEXT.md`](./TECHNICAL_CONTEXT.md) | Tech stack, deployment, architecture | Supabase integration, data flow, zero-build rationale |
+| [`CODEBASE_MAP.md`](./CODEBASE_MAP.md) | This file — comprehensive codebase documentation | Architecture, file structure, navigation |
+| [`TECHNICAL_CONTEXT.md`](./TECHNICAL_CONTEXT.md) | Tech stack, deployment, architecture | Supabase integration, data flow |
+| [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md) | reCAPTCHA v3 implementation guide | Setup, configuration, backend verification |
+| [`SRI-IMPLEMENTATION.md`](./SRI-IMPLEMENTATION.md) | Subresource Integrity implementation | CDN protection, hash generation, testing |
+| [`SRI-LIMITATIONS.md`](./SRI-LIMITATIONS.md) | SRI limitations and trade-offs | When not to use SRI, exemptions |
 | [`UX_REVIEW.md`](./UX_REVIEW.md) | Initial UX analysis | Design decisions, user testing insights |
 | [`UX_Review2.md`](./UX_Review2.md) | Second iteration recommendations | Content strategy improvements |
 | [`UX_Review2_Content_Drafts.md`](./UX_Review2_Content_Drafts.md) | Content writing iterations | FAQ expansions, copy refinements |
 | [`UX_Review2_Minimal_FAQ_Additions.md`](./UX_Review2_Minimal_FAQ_Additions.md) | FAQ improvements | New question suggestions |
 | [`PULL_REQUEST.md`](./PULL_REQUEST.md) | PR template | — |
-| [`privacy.md`](./privacy.md) | Privacy policy source | Markdown version of modal content |
-| [`terms.md`](./terms.md) | Terms of service source | Markdown version of modal content |
+| [`privacy.md`](./privacy.md) | Privacy policy source | Markdown version of HTML pages |
+| [`terms.md`](./terms.md) | Terms of service source | Markdown version of HTML pages |
+
+---
+
+## Security Infrastructure
+
+### Bot Protection
+- **reCAPTCHA v3**: [`js/config.js`](./js/config.js), [`js/utils.js`](./js/utils.js)
+  - Invisible bot detection
+  - Token sent to backend for verification
+  - Documentation: [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md)
+- **Honeypot Field**: [`js/utils.js`](./js/utils.js), [`styles/main.css`](./styles/main.css)
+  - Hidden "website" field
+  - Silently rejects submissions if filled
+- **Client-Side Rate Limiting**: [`js/utils.js`](./js/utils.js)
+  - Prevents rapid-fire submissions
+
+### CDN Security
+- **Subresource Integrity (SRI)**: [`index.html`](./index.html), all HTML files
+  - SHA-384 hashes for CDN resources
+  - Protects against CDN tampering
+  - Documentation: [`SRI-IMPLEMENTATION.md`](./SRI-IMPLEMENTATION.md)
+  - Protected Resources:
+    - Tailwind CSS 3.4.10
+    - Lucide Icons 0.294.0
+  - Testing: [`tests/sri.test.js`](./tests/sri.test.js), [`sri-browser-test.html`](./sri-browser-test.html)
+  - Tools: [`generate-sri-hashes.js`](./generate-sri-hashes.js), [`verify-sri.sh`](./verify-sri.sh)
+
+### HTTP Security Headers
+- **CSP (Content Security Policy)**: [`vercel.json`](./vercel.json)
+- **X-Frame-Options**: DENY
+- **X-Content-Type-Options**: nosniff
+- **HSTS**: Strict-Transport-Security
+- **Referrer-Policy**: strict-origin-when-cross-origin
+
+### Testing
+- **Jest Test Suite**: [`tests/`](./tests/) directory
+  - `sri.test.js` — SRI implementation tests (39 tests)
+  - `rateLimiting.test.js` — Rate limiting tests
+  - `formRateLimiting.test.js` — Form-specific rate limiting
+- **Run Tests**: `npm test`
+- **Linting**: `npm run lint` (ESLint)
 
 ---
 
@@ -245,18 +315,21 @@ story-loader.js (independent, 113 lines) → Auto-init on DOMContentLoaded
 
 | Task | Primary Files | Supporting Files |
 |------|---------------|------------------|
-| **Waitlist form** | [`index.html#L866-L918`](./index.html#L866-L918), [`form.html`](./form.html) | [`js/main.js#L246-L317`](./js/main.js#L246-L317), [`js/form.js`](./js/form.js), [`js/utils.js`](./js/utils.js) |
-| **FAQ content** | [`data/faq.json`](./data/faq.json) | [`js/faq-renderer.js`](./js/faq-renderer.js) (auto-renders) |
+| **Waitlist form** | [`index.html`](./index.html) (registration modal) | [`js/main.js`](./js/main.js), [`js/utils.js`](./js/utils.js) |
+| **FAQ content** | [`data/faq.json`](./data/faq.json) | [`build-faqs.js`](./build-faqs.js) (run to bake into HTML), [`js/faq-renderer.js`](./js/faq-renderer.js) (filtering) |
 | **Supabase config** | [`js/config.js`](./js/config.js) | — |
+| **reCAPTCHA config** | [`js/config.js`](./js/config.js), [`index.html`](./index.html) (script tag) | [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md) |
 | **Error messages** | [`js/constants.js`](./js/constants.js) (MESSAGES) | — |
 | **Add new modal** | Create `modals/your-modal.html` | [`js/modal-loader.js`](./js/modal-loader.js) (add to config), [`index.html`](./index.html) (add container) |
-| **Hero section** | [`index.html#L64-L181`](./index.html#L64-L181) | [`styles/main.css#L631-L659`](./styles/main.css#L631-L659) |
-| **3-step flow** | [`index.html#L94-L137`](./index.html#L94-L137) (preview), [`#L184-L352`](./index.html#L184-L352) (detailed) | — |
-| **Use cases** | [`index.html#L523-L636`](./index.html#L523-L636) | Consider extracting to JSON |
-| **Mobile menu** | [`index.html#L42-L60`](./index.html#L42-L60) | [`js/main.js#L217-L243`](./js/main.js#L217-L243), [`styles/main.css#L59-L98`](./styles/main.css#L59-L98) |
-| **Founder story** | [`index.html#L750-L768`](./index.html#L750-L768), [`content/our-story-extended.html`](./content/our-story-extended.html) | [`js/story-loader.js`](./js/story-loader.js) |
-| **SafetyNet logo** | [`styles/main.css#L429-L648`](./styles/main.css#L429-L648) | Search `.safetynet-visual` |
-| **Legal docs** | [`modals/privacy-policy.html`](./modals/privacy-policy.html), [`modals/terms-of-service.html`](./modals/terms-of-service.html) | [`privacy.md`](./privacy.md), [`terms.md`](./terms.md) (source) |
+| **Hero section** | [`index.html`](./index.html) (hero section) | [`styles/main.css`](./styles/main.css) |
+| **3-step flow** | [`index.html`](./index.html) (preview + detailed sections) | — |
+| **Use cases** | [`index.html`](./index.html) (use cases section) | Consider extracting to JSON |
+| **Mobile menu** | [`index.html`](./index.html) (mobile menu) | [`js/main.js`](./js/main.js), [`styles/main.css`](./styles/main.css) |
+| **Founder story** | [`index.html`](./index.html), [`content/our-story-extended.html`](./content/our-story-extended.html) | [`js/story-loader.js`](./js/story-loader.js) |
+| **SafetyNet logo** | [`styles/main.css`](./styles/main.css) | Search `.safetynet-logo` or `.safetynet-visual` |
+| **Legal docs** | [`privacy.html`](./privacy.html), [`terms.html`](./terms.html), [`modals/`](./modals/) | [`privacy.md`](./privacy.md), [`terms.md`](./terms.md) (sources) |
+| **Security (SRI)** | [`index.html`](./index.html), all HTML files | [`generate-sri-hashes.js`](./generate-sri-hashes.js), [`SRI-IMPLEMENTATION.md`](./SRI-IMPLEMENTATION.md) |
+| **Build process** | [`package.json`](./package.json), [`build-faqs.js`](./build-faqs.js), [`tailwind.config.js`](./tailwind.config.js) | [`styles/input.css`](./styles/input.css) |
 
 ---
 
@@ -266,18 +339,21 @@ This table identifies the authoritative file/folder for each major concept. When
 
 | Concept | Canonical Source | Notes |
 |---------|------------------|-------|
-| **FAQ Content** | [`data/faq.json`](./data/faq.json) | All FAQ questions, answers, and categories. Dynamically rendered by [`js/faq-renderer.js`](./js/faq-renderer.js) |
-| **Use Cases** | [`index.html#L505-L638`](./index.html#L505-L638) | Hardcoded in HTML. Consider extracting to JSON for consistency |
-| **Modal Definitions** | [`modals/`](./modals/) directory + [`index.html#L866-L918`](./index.html#L866-L918) (registration) | 3 external files + 1 inline. See [Fog Report #6](#6-unclear-content-ownership) for inconsistency |
-| **Modal Management** | [`js/modal-loader.js`](./js/modal-loader.js) (pre-loading) + [`js/main.js#L33-L51`](./js/main.js#L33-L51) (handlers) | Scattered across 2 files. No centralized registry |
+| **FAQ Content** | [`data/faq.json`](./data/faq.json) | All FAQ questions, answers, and categories. Baked into HTML by [`build-faqs.js`](./build-faqs.js), filtered by [`js/faq-renderer.js`](./js/faq-renderer.js) |
+| **Use Cases** | [`index.html`](./index.html) | Hardcoded in HTML. Consider extracting to JSON for consistency |
+| **Modal Definitions** | [`modals/`](./modals/) directory + [`index.html`](./index.html) (registration) | 3 external files + 1 inline. See [Fog Report #6](#6-unclear-content-ownership) |
+| **Modal Management** | [`js/modal-loader.js`](./js/modal-loader.js) (pre-loading) + [`js/main.js`](./js/main.js) (handlers) | Scattered across 2 files. No centralized registry |
 | **Supabase Configuration** | [`js/config.js`](./js/config.js) | API URL, anon key, table name |
+| **reCAPTCHA Configuration** | [`js/config.js`](./js/config.js) | Site key, action name |
 | **UI Copy / Messages** | [`js/constants.js`](./js/constants.js) | Error messages, success messages, button text, timing values |
-| **Founder Story (Extended)** | [`content/our-story-extended.html`](./content/our-story-extended.html) | Lazy-loaded content. Truncated version in [`index.html#L750-L768`](./index.html#L750-L768) |
-| **Legal Documents** | [`modals/privacy-policy.html`](./modals/privacy-policy.html), [`modals/terms-of-service.html`](./modals/terms-of-service.html) | Rendered versions. Markdown sources: [`privacy.md`](./privacy.md), [`terms.md`](./terms.md) |
-| **Form Validation Logic** | [`js/utils.js#L12-L15`](./js/utils.js#L12-L15) | `validateEmail()` function |
-| **Waitlist Submission Logic** | [`js/utils.js#L23-L45`](./js/utils.js#L23-L45) | `submitToWaitlist()` function (shared by modal + standalone form) |
+| **Founder Story (Extended)** | [`content/our-story-extended.html`](./content/our-story-extended.html) | Lazy-loaded content. Truncated version in [`index.html`](./index.html) |
+| **Legal Documents** | [`privacy.html`](./privacy.html), [`terms.html`](./terms.html) | Standalone pages. Also available as modals. Markdown sources: [`privacy.md`](./privacy.md), [`terms.md`](./terms.md) |
+| **Form Validation Logic** | [`js/utils.js`](./js/utils.js) | `validateEmail()`, honeypot check, rate limiting |
+| **Waitlist Submission Logic** | [`js/utils.js`](./js/utils.js) | `submitToWaitlist()` function with reCAPTCHA integration |
+| **Security Configuration** | [`js/utils.js`](./js/utils.js), [`vercel.json`](./vercel.json) | Honeypot, rate limiting, CSP headers |
 | **CSS Variables** | [`styles/form.css`](./styles/form.css) `:root` | Colors, shadows, radii for form page. Main page uses hardcoded values (see [Fog Report #5](#5-configuration-split)) |
 | **Design Rationale** | [`visual-mockups.html`](./visual-mockups.html), [`placement-recommendations.html`](./placement-recommendations.html) | Internal design docs (not user-facing) |
+| **Build Process** | [`package.json`](./package.json), [`build-faqs.js`](./build-faqs.js), [`tailwind.config.js`](./tailwind.config.js) | npm scripts, FAQ baking, Tailwind compilation |
 
 ---
 
@@ -285,16 +361,16 @@ This table identifies the authoritative file/folder for each major concept. When
 
 | # | Issue | Severity | Impact | Files Involved | Recommendation |
 |---|-------|----------|--------|----------------|----------------|
-| **1** | Accordion Logic Duplication | **Medium** | Maintenance burden, inconsistent behavior risk | [`js/main.js#L322-L413`](./js/main.js#L322-L413) | Create unified `initAccordion(selector, config)` utility |
+| **1** | Accordion Logic Duplication | **Medium** | Maintenance burden, inconsistent behavior risk | [`js/main.js`](./js/main.js) | Create unified `initAccordion(selector, config)` utility |
 | **2** | Modal Management Scattered | **Medium** | Hard to track all modals, no single source of truth | [`js/modal-loader.js`](./js/modal-loader.js), [`js/main.js`](./js/main.js), inline HTML triggers | Create `modalConfig` object listing all modals + metadata |
-| **3** | Form Submission Logic Duplicated | **Medium** | Duplicate email validation, error handling, success states | [`js/main.js`](./js/main.js), [`js/form.js`](./js/form.js) | Extract all form logic into reusable module. **Partial fix**: [`utils.js`](./js/utils.js) shares submission logic ✓ |
-| **4** | No Icon Registry | **Low** | `lucide.createIcons()` called 6x, icon names hardcoded, no manifest | [`index.html`](./index.html), [`js/main.js`](./js/main.js) | Create icon manifest + single initialization point |
+| **3** | Form Submission Logic | **Resolved** | Form logic centralized | [`js/utils.js`](./js/utils.js) | **Fixed**: All form validation and submission logic in [`utils.js`](./js/utils.js) ✓ |
+| **4** | No Icon Registry | **Low** | `lucide.createIcons()` called multiple times, icon names hardcoded | [`index.html`](./index.html), [`js/main.js`](./js/main.js) | Create icon manifest + single initialization point |
 | **5** | Configuration Split | **Medium** | Config values scattered: Supabase centralized ✓, UI constants centralized ✓, colors/spacing hardcoded ✗ | [`js/config.js`](./js/config.js), [`js/constants.js`](./js/constants.js), [`styles/main.css`](./styles/main.css) | Consolidate colors/spacing into CSS variables (`:root`) like [`styles/form.css`](./styles/form.css) |
 | **6** | Unclear Content Ownership | **High** | Inconsistent patterns: FAQ external ✓, 3 modals external + 1 inline ✗, story split ✗, use cases inline ✗ | [`data/faq.json`](./data/faq.json), [`modals/`](./modals/), [`index.html`](./index.html), [`content/`](./content/) | Move registration modal to [`modals/`](./modals/) for consistency. Create content manifest |
 | **7** | No Error Boundary for Modal Loading | **Low** | If [`modal-loader.js`](./js/modal-loader.js) fails: generic error, no retry, no user notification | [`js/modal-loader.js`](./js/modal-loader.js) | Add error handling UI + retry logic with exponential backoff |
 | **8** | Missing Registry Files | **Medium** | No manifest for modals, icons, content, components | N/A | Create `REGISTRY.md` documenting: modal registry, icon registry, content manifest, component registry |
 | **9** | Naming Inconsistencies | **Low** | Mix of kebab-case, camelCase, BEM, underscores | All files | Document naming conventions in style guide |
-| **10** | Hardcoded Magic Numbers | **Low** | `max-height: 500px`, `setTimeout(4000)`, color hex codes scattered | [`styles/main.css#L132`](./styles/main.css#L132), [`styles/main.css#L158`](./styles/main.css#L158), [`js/main.js#L302`](./js/main.js#L302) | Extract to [`js/constants.js`](./js/constants.js) or CSS variables |
+| **10** | Hardcoded Magic Numbers | **Low** | `max-height`, `setTimeout`, color hex codes scattered | [`styles/main.css`](./styles/main.css), [`js/main.js`](./js/main.js) | Extract to [`js/constants.js`](./js/constants.js) or CSS variables |
 
 ---
 
@@ -343,27 +419,30 @@ This section documents **current conventions as they exist** in the codebase. Th
 
 | Metric | Count | Notes |
 |--------|-------|-------|
-| **HTML Pages** | 4 | 2 user-facing, 2 design docs |
-| **JavaScript Modules** | 8 | 1 entry point, 7 supporting |
-| **CSS Files** | 2 | Main (659 lines), Form (500 lines) |
+| **HTML Pages** | 6 | 3 user-facing (index, privacy, terms), 3 internal (design docs, SRI test) |
+| **JavaScript Modules** | 9 | 1 entry point (main.js), 8 supporting |
+| **Build Scripts** | 3 | FAQ baking, SRI generation, SRI verification |
+| **CSS Files** | 4 | Main (778 lines), Form (499 lines), Input (94 lines), Tailwind (compiled) |
 | **Data Files** | 1 | [`faq.json`](./data/faq.json) |
 | **Content Files** | 4 | 1 extended story, 3 modals |
-| **Documentation** | 8 | 1 technical, 4 UX, 2 legal, 1 PR template |
-| **Total Lines (JS)** | ~1,000 | Across 8 modules |
-| **Total Lines (CSS)** | ~1,200 | Across 2 stylesheets |
-| **Main HTML File** | 936 lines | [`index.html`](./index.html) |
+| **Documentation** | 12 | 1 codebase map, 1 technical, 3 security, 4 UX, 2 legal, 1 PR template |
+| **Test Files** | 3 | SRI tests (39), rate limiting tests |
+| **Total Lines (JS)** | ~1,433 | Across 9 modules |
+| **Total Lines (CSS)** | ~1,374 | Main + Form + Input (excluding compiled Tailwind) |
+| **Main HTML File** | 1,193 lines | [`index.html`](./index.html) |
 
 ---
 
 ## Key Architectural Decisions
 
-1. **Zero-Build Philosophy**: Intentional simplicity for easy deployment/modification
-2. **ES6 Modules**: Modern JavaScript without bundler complexity
-3. **Progressive Enhancement**: Lazy loading (story), pre-loading (modals)
-4. **Direct REST API**: Supabase without SDK for minimal dependencies
-5. **CDN Dependencies**: No npm, all dependencies loaded at runtime
-6. **Hybrid CSS**: Tailwind utilities + custom CSS (not Tailwind config)
-7. **Dual Form Strategy**: Modal + standalone page for flexibility
+1. **Minimal Build System**: npm for Tailwind CSS compilation and FAQ baking, but no bundler
+2. **ES6 Modules**: Modern JavaScript loaded directly by browser (no bundler)
+3. **Build-Time Content Baking**: FAQs baked into HTML at build time for performance
+4. **Progressive Enhancement**: Lazy loading (story), pre-loading (modals)
+5. **Direct REST API**: Supabase without SDK for minimal dependencies
+6. **Security-First**: reCAPTCHA v3, SRI, CSP headers, honeypot, rate limiting
+7. **Hybrid CSS**: Compiled Tailwind + custom CSS for flexibility
+8. **Comprehensive Testing**: Jest unit tests for critical security features
 
 ---
 
@@ -371,27 +450,50 @@ This section documents **current conventions as they exist** in the codebase. Th
 
 ### Local Development
 ```bash
-# Option 1: Python
+# Install dependencies
+npm install
+
+# Option 1: Python (for viewing only)
 python3 -m http.server 8000
 
-# Option 2: Node.js
+# Option 2: Node.js (for viewing only)
 npx http-server -p 8000
 
 # Option 3: VS Code Live Server extension
 # Right-click index.html → "Open with Live Server"
 ```
 
+### Build Process
+```bash
+# Compile Tailwind CSS (required before first run)
+npm run build:css
+
+# Bake FAQs into HTML (required after editing data/faq.json)
+node build-faqs.js
+
+# Watch mode for Tailwind during development
+npm run build:css:watch
+
+# Run tests
+npm test
+
+# Lint code
+npm run lint
+```
+
 ### Deployment
-- **Automatic**: Push to `main` branch → Vercel auto-deploys
-- **No build step**: Static files served as-is
+- **Automatic**: Push to branch → Vercel auto-deploys
+- **Build steps**: FAQ baking should be done before commit
 - **Deploy time**: ~10-30 seconds
 
 ### Common Tasks
-1. **Add FAQ**: Edit [`data/faq.json`](./data/faq.json)
+1. **Add FAQ**: Edit [`data/faq.json`](./data/faq.json), then run `node build-faqs.js`
 2. **Change copy**: Edit [`index.html`](./index.html) (search for text)
 3. **Update Supabase**: Edit [`js/config.js`](./js/config.js)
-4. **Add modal**: Create `modals/your-modal.html`, wire up in [`modal-loader.js`](./js/modal-loader.js)
-5. **Modify styling**: Edit [`styles/main.css`](./styles/main.css) or [`styles/form.css`](./styles/form.css)
+4. **Update reCAPTCHA**: Edit [`js/config.js`](./js/config.js) and script tag in [`index.html`](./index.html)
+5. **Add modal**: Create `modals/your-modal.html`, wire up in [`modal-loader.js`](./js/modal-loader.js)
+6. **Modify styling**: Edit [`styles/main.css`](./styles/main.css) or [`styles/input.css`](./styles/input.css) (Tailwind source)
+7. **Update CDN resources**: Update URL, regenerate SRI hash with [`generate-sri-hashes.js`](./generate-sri-hashes.js)
 
 ---
 
