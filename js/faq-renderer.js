@@ -1,13 +1,16 @@
 /**
  * FAQ Dynamic Renderer
- * Loads FAQ data from JSON and renders with category filtering
+ * Enhances pre-rendered FAQ HTML with interactivity (accordions, filtering, search)
+ * 
+ * IMPORTANT: FAQs are baked into index.html at build time via build-faqs.js
+ * This script ENHANCES existing HTML — it does not create it.
  */
 
 let faqData = null;
 let currentCategory = 'all';
 
 /**
- * Load FAQ data from JSON file
+ * Load FAQ data from JSON file (for search/filter functionality)
  */
 async function loadFAQData() {
     if (faqData) return faqData;
@@ -21,78 +24,66 @@ async function loadFAQData() {
         return faqData;
     } catch (error) {
         console.error('Error loading FAQ data:', error);
-        return { categories: [], faqs: [] };
+        // Return null — FAQ HTML is already in page, so basic accordions still work
+        return null;
     }
 }
 
 /**
- * Render FAQ items based on selected category
+ * Filter visible FAQs by category (operates on existing DOM)
  * @param {string} category - The category to filter by ('all' shows all)
  */
-function renderFAQs(category = 'all') {
+function filterFAQsByCategory(category = 'all') {
     const container = document.getElementById('faq-container');
-    if (!container || !faqData) return;
+    if (!container) return;
 
     currentCategory = category;
 
-    // Filter FAQs by category
-    const filteredFAQs = category === 'all'
-        ? faqData.faqs
-        : faqData.faqs.filter(faq => faq.category === category);
-
-    // Render FAQ items
-    container.innerHTML = filteredFAQs.map((faq, index) => `
-        <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="${faq.category}" data-faq-id="${faq.id}">
-            <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
-                <h3 class="text-lg font-bold text-slate-900 pr-8">${faq.question}</h3>
-                <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
-            </button>
-            <div class="faq-answer text-slate-600 leading-relaxed">
-                ${faq.answer}
-            </div>
-        </div>
-    `).join('');
-
-    // Reinitialize Lucide icons
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
-
-    // Initialize accordion functionality
-    initFAQAccordions();
+    const faqItems = container.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const itemCategory = item.dataset.category;
+        
+        if (category === 'all' || itemCategory === category) {
+            item.style.display = '';
+            item.removeAttribute('hidden');
+        } else {
+            item.style.display = 'none';
+            item.setAttribute('hidden', '');
+        }
+    });
 }
 
 /**
- * Render category tabs
+ * Initialize category tab click handlers
  */
-function renderCategoryTabs() {
+function initCategoryTabs() {
     const tabContainer = document.getElementById('faq-category-tabs');
-    if (!tabContainer || !faqData) return;
+    if (!tabContainer) return;
 
-    tabContainer.innerHTML = faqData.categories.map(cat => `
-        <button class="faq-category-btn ${cat.id === currentCategory ? 'active' : ''} px-4 py-2 rounded-full text-sm font-semibold transition-all"
-                data-category="${cat.id}">
-            ${cat.label}
-        </button>
-    `).join('');
-
-    // Add event listeners to category buttons
     const categoryButtons = tabContainer.querySelectorAll('.faq-category-btn');
+    
     categoryButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             // Remove active class from all buttons
             categoryButtons.forEach(b => b.classList.remove('active'));
             // Add active class to clicked button
             btn.classList.add('active');
-            // Render FAQs for selected category
+            // Filter FAQs for selected category
             const category = btn.dataset.category;
-            renderFAQs(category);
+            filterFAQsByCategory(category);
+            
+            // Clear search input when changing category
+            const searchInput = document.getElementById('faq-search');
+            if (searchInput) {
+                searchInput.value = '';
+            }
         });
     });
 }
 
 /**
- * Initialize FAQ accordion functionality
+ * Initialize FAQ accordion functionality on existing HTML
  */
 function initFAQAccordions() {
     const faqItems = document.querySelectorAll('.faq-item');
@@ -104,12 +95,13 @@ function initFAQAccordions() {
 
         if (!question || !answer) return;
 
-        // Set initial state
+        // Set initial collapsed state
         answer.style.maxHeight = '0';
         answer.style.overflow = 'hidden';
         answer.style.transition = 'max-height 0.3s ease, margin-top 0.3s ease';
         answer.style.marginTop = '0';
 
+        // Add click handler
         question.addEventListener('click', () => {
             const isExpanded = question.getAttribute('aria-expanded') === 'true';
 
@@ -119,6 +111,7 @@ function initFAQAccordions() {
                 answer.style.marginTop = '0';
                 question.setAttribute('aria-expanded', 'false');
                 if (icon) {
+                    icon.style.transition = 'transform 0.3s ease';
                     icon.style.transform = 'rotate(0deg)';
                 }
             } else {
@@ -127,6 +120,7 @@ function initFAQAccordions() {
                 answer.style.marginTop = '1rem';
                 question.setAttribute('aria-expanded', 'true');
                 if (icon) {
+                    icon.style.transition = 'transform 0.3s ease';
                     icon.style.transform = 'rotate(180deg)';
                 }
             }
@@ -139,67 +133,81 @@ function initFAQAccordions() {
  */
 function initFAQSearch() {
     const searchInput = document.getElementById('faq-search');
-    if (!searchInput) return;
+    const container = document.getElementById('faq-container');
+    if (!searchInput || !container) return;
 
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
+        const faqItems = container.querySelectorAll('.faq-item');
 
         if (searchTerm === '') {
-            // If search is empty, show current category
-            renderFAQs(currentCategory);
+            // If search is empty, restore category filter
+            filterFAQsByCategory(currentCategory);
             return;
         }
 
-        // Filter FAQs by search term
-        const filteredFAQs = faqData.faqs.filter(faq =>
-            faq.question.toLowerCase().includes(searchTerm) ||
-            faq.answer.toLowerCase().includes(searchTerm)
-        );
-
-        // Render filtered FAQs
-        const container = document.getElementById('faq-container');
-        if (!container) return;
-
-        if (filteredFAQs.length === 0) {
-            container.innerHTML = `
-                <div class="text-center py-12 text-slate-500">
-                    <i data-lucide="search-x" class="w-12 h-12 mx-auto mb-4 text-slate-300"></i>
-                    <p class="text-lg">No questions found matching "${searchTerm}"</p>
-                    <p class="text-sm mt-2">Try different keywords or browse by category</p>
-                </div>
-            `;
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+        // Filter by search term (searches question and answer text)
+        let matchCount = 0;
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question h3')?.textContent.toLowerCase() || '';
+            const answer = item.querySelector('.faq-answer')?.textContent.toLowerCase() || '';
+            
+            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                item.style.display = '';
+                item.removeAttribute('hidden');
+                matchCount++;
+            } else {
+                item.style.display = 'none';
+                item.setAttribute('hidden', '');
             }
-            return;
-        }
+        });
 
-        container.innerHTML = filteredFAQs.map((faq, index) => `
-            <div class="faq-item bg-white rounded-xl border border-slate-200 p-6" data-category="${faq.category}" data-faq-id="${faq.id}">
-                <button class="faq-question w-full flex justify-between items-center text-left" aria-expanded="false">
-                    <h3 class="text-lg font-bold text-slate-900 pr-8">${faq.question}</h3>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 faq-icon flex-shrink-0"></i>
-                </button>
-                <div class="faq-answer text-slate-600 leading-relaxed">
-                    ${faq.answer}
-                </div>
-            </div>
-        `).join('');
-
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
+        // Show "no results" message if needed
+        let noResultsEl = container.querySelector('.faq-no-results');
+        
+        if (matchCount === 0) {
+            if (!noResultsEl) {
+                noResultsEl = document.createElement('div');
+                noResultsEl.className = 'faq-no-results text-center py-12 text-slate-500';
+                noResultsEl.innerHTML = `
+                    <i data-lucide="search-x" class="w-12 h-12 mx-auto mb-4 text-slate-300"></i>
+                    <p class="text-lg">No questions found</p>
+                    <p class="text-sm mt-2">Try different keywords or browse by category</p>
+                `;
+                container.appendChild(noResultsEl);
+                
+                // Initialize the icon
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }
+            noResultsEl.style.display = '';
+        } else if (noResultsEl) {
+            noResultsEl.style.display = 'none';
         }
-        initFAQAccordions();
     });
 }
 
 /**
- * Initialize FAQ section on page load
+ * Initialize FAQ section — enhances existing HTML
  */
 async function initializeFAQSection() {
+    // Initialize accordions immediately (works without JSON)
+    initFAQAccordions();
+    
+    // Initialize category tabs (works without JSON)
+    initCategoryTabs();
+    
+    // Initialize Lucide icons for FAQ section
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Load FAQ data for search functionality (non-blocking)
     await loadFAQData();
-    renderCategoryTabs();
-    renderFAQs(currentCategory);
+    
+    // Initialize search (enhanced with JSON data)
     initFAQSearch();
 }
 
@@ -211,4 +219,4 @@ if (document.readyState === 'loading') {
 }
 
 // Export for use in other modules
-export { loadFAQData, renderFAQs, initializeFAQSection };
+export { loadFAQData, filterFAQsByCategory, initializeFAQSection };
