@@ -23,7 +23,7 @@ All external CDN scripts now have SRI protection:
 ```html
 <script
     src="https://cdn.tailwindcss.com/3.4.10"
-    integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+    integrity="sha384-VK3iZSOy03XNa6Ba48af6ubHywenceWJjdXhhrvfhdaDgDGHRCt47O6A6d8fjdVu"
     crossorigin="anonymous"
 ></script>
 ```
@@ -32,7 +32,7 @@ All external CDN scripts now have SRI protection:
 ```html
 <script
     src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"
-    integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+    integrity="sha384-43WP8IQ+5H0ncT+LNM4dZnu+hPINYmeOuNMhTvHfszzXdFjBEji77gkq7TyjQl/U"
     crossorigin="anonymous"
 ></script>
 ```

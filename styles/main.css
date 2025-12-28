@@ -429,11 +429,6 @@ button:disabled {
     flex-shrink: 0;
 }
 
-.safetynet-visual-tiny {
-    width: 70px;
-    height: 70px;
-}
-
 .safetynet-visual-small {
     width: 120px;
     height: 120px;
@@ -451,11 +446,6 @@ button:disabled {
 
 /* Mobile responsive sizes */
 @media (max-width: 640px) {
-    .safetynet-visual-tiny {
-        width: 60px;
-        height: 60px;
-    }
-
     .safetynet-visual-small {
         width: 100px;
         height: 100px;
@@ -496,12 +486,6 @@ button:disabled {
     height: 50px;
 }
 
-/* Tiny size (70px container) - 25% = 18px */
-.safetynet-visual-tiny .shield-icon {
-    width: 18px;
-    height: 18px;
-}
-
 /* Small size (120px container) - 25% = 30px */
 .safetynet-visual-small .shield-icon {
     width: 30px;
@@ -522,12 +506,6 @@ button:disabled {
 
 /* Mobile shield icon sizes */
 @media (max-width: 640px) {
-    /* Mobile - Tiny (60px container) - 25% = 15px */
-    .safetynet-visual-tiny .shield-icon {
-        width: 15px;
-        height: 15px;
-    }
-
     /* Mobile - Small (100px container) - 25% = 25px */
     .safetynet-visual-small .shield-icon {
         width: 25px;
@@ -563,12 +541,6 @@ button:disabled {
     height: 92px;
 }
 
-/* Tiny size (70px container) - 46% = 32px */
-.safetynet-visual-tiny .person-icon {
-    width: 32px;
-    height: 32px;
-}
-
 /* Small size (120px container) - 46% = 55px */
 .safetynet-visual-small .person-icon {
     width: 55px;
@@ -589,12 +561,6 @@ button:disabled {
 
 /* Mobile person icon sizes */
 @media (max-width: 640px) {
-    /* Mobile - Tiny (60px container) - 46% = 28px */
-    .safetynet-visual-tiny .person-icon {
-        width: 28px;
-        height: 28px;
-    }
-
     /* Mobile - Small (100px container) - 46% = 46px */
     .safetynet-visual-small .person-icon {
         width: 46px;
@@ -689,7 +655,7 @@ h1.hero-title {
 
 /* 2. Increase Logo Size (The "Bubble") */
 .nav-logo-icon {
-    transform: scale(1.15); /* Increases size by 15% */
+    transform: scale(0.45); /* Scales medium logo to fit nav height while preserving proportions */
     transform-origin: center; /* Ensures it grows evenly */
     margin-right: 8px; /* specific spacing between icon and 'SafetyNet' text */
 }
