@@ -436,7 +436,9 @@ featureToggles.forEach((toggle) => {
         }
 
         // Reinitialize Lucide icons for the chevron
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     });
 });
 
@@ -460,7 +462,9 @@ storyToggles.forEach((toggle) => {
         }
 
         // Reinitialize Lucide icons for the chevron
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     });
 });
 
