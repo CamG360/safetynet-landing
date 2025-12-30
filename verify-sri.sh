@@ -21,21 +21,5 @@ else
 fi
 echo ""
 
-# Lucide Icons 0.294.0
-echo "2. Verifying Lucide Icons 0.294.0..."
-LUCIDE_URL="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"
-EXPECTED_LUCIDE="sha384-43WP8IQ+5H0ncT+LNM4dZnu+hPINYmeOuNMhTvHfszzXdFjBEji77gkq7TyjQl/U"
-
-curl -sL "$LUCIDE_URL" | openssl dgst -sha384 -binary | openssl base64 -A > /tmp/lucide_hash.txt
-ACTUAL_LUCIDE="sha384-$(cat /tmp/lucide_hash.txt)"
-
-echo "   Expected: $EXPECTED_LUCIDE"
-echo "   Actual:   $ACTUAL_LUCIDE"
-if [ "$EXPECTED_LUCIDE" = "$ACTUAL_LUCIDE" ]; then
-    echo "   ✓ MATCH"
-else
-    echo "   ✗ MISMATCH"
-fi
-echo ""
-
+echo "Lucide Icons are self-hosted from js/vendor/lucide.min.js (no SRI required for same-origin assets)."
 echo "=== Verification Complete ==="

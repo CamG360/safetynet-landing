@@ -9,10 +9,6 @@ const resources = [
     {
         name: 'Tailwind CSS 3.4.10',
         url: 'https://cdn.tailwindcss.com/3.4.10'
-    },
-    {
-        name: 'Lucide Icons 0.294.0',
-        url: 'https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js'
     }
 ];
 
