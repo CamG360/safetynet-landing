@@ -24,11 +24,8 @@
             <p id="email-error" class="text-red-500 text-sm mt-2 hidden">Please enter a valid email address</p>
         </div>
 
-        <!-- Cloudflare Turnstile (invisible) -->
-       <div class="cf-turnstile" 
-     data-sitekey="0x4AAAAAACJbesQT6JFzSu6u"
-     data-callback="onTurnstileSuccess">
-</div>
+<!-- Cloudflare Turnstile (invisible) -->
+<div id="turnstile-widget"></div>
 
         <!-- Submit Button -->
         <button type="submit" id="submitBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
