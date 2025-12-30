@@ -20,8 +20,8 @@
   - **Note**: Play CDN not compatible with SRI (see SRI-LIMITATIONS.md)
 - **Custom CSS**: Inline `<style>` blocks in HTML
 - **Typography**: Google Fonts - Inter (300, 400, 500, 600, 700 weights)
-- **Icons**: Lucide Icons via unpkg CDN
-  - URL: `https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js` (SRI-protected)
+- **Icons**: Lucide Icons self-hosted bundle
+  - Path: `/js/vendor/lucide.min.js` (local, no SRI needed)
 
 ### JavaScript
 - **Framework**: None
@@ -98,16 +98,16 @@ safetynet-landing/
 
 ---
 
-## Dependencies (All CDN-based)
+## Dependencies
 
 | Dependency | Version | Source | Purpose |
 |------------|---------|--------|---------|
 | Tailwind CSS | 3.4.10 | cdn.tailwindcss.com/3.4.10 | Utility-first CSS framework |
-| Lucide Icons | 0.294.0 | unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js | Icon library |
+| Lucide Icons | Custom bundle | /js/vendor/lucide.min.js (self-hosted) | Icon library (same-origin) |
 | Google Fonts | - | fonts.googleapis.com | Inter typeface |
 | Supabase | REST API | igzyfbzayuimdnjhapog.supabase.co | Backend database (PostgreSQL) |
 
-**Note**: All frontend dependencies are loaded via CDN at runtime. No local node_modules or package management. Supabase is accessed via direct REST API calls (no JS SDK).
+**Note**: Tailwind and Google Fonts are CDN-loaded; Lucide is self-hosted. Supabase is accessed via direct REST API calls (no JS SDK).
 
 **Security**: SRI implementation attempted but removed due to Tailwind Play CDN incompatibility (dynamic JIT compilation). See `SRI-LIMITATIONS.md` for details and production recommendations.
 

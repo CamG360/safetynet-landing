@@ -103,19 +103,20 @@
         <div class="summary">
             <h2>What This Test Validates</h2>
             <ul>
-                <li><strong>CDN Resource Loading:</strong> Verifies Tailwind CSS and Lucide Icons load with SRI</li>
+                <li><strong>CDN Resource Loading:</strong> Verifies Tailwind CSS loads with SRI</li>
+                <li><strong>Local Resource Loading:</strong> Confirms Lucide icons are served from the same origin without SRI</li>
                 <li><strong>Integrity Verification:</strong> Browser validates SHA-384 hashes match CDN content</li>
-                <li><strong>CORS Configuration:</strong> Tests crossorigin="anonymous" attribute</li>
+                <li><strong>CORS Configuration:</strong> Tests crossorigin="anonymous" attribute on CDN assets</li>
                 <li><strong>Error Handling:</strong> Detects if SRI validation fails (wrong hash blocks resource)</li>
             </ul>
 
             <h3>SRI Hashes Used:</h3>
             <div class="code-block">
 Tailwind CSS 3.4.10:
-  integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+  integrity="sha384-VK3iZSOy03XNa6Ba48af6ubHywenceWJjdXhhrvfhdaDgDGHRCt47O6A6d8fjdVu"
 
-Lucide Icons 0.294.0:
-  integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
+Lucide Icons:
+  Served locally from js/vendor/lucide.min.js (no SRI required for same-origin assets)
             </div>
         </div>
     </div>
@@ -127,16 +128,12 @@ Lucide Icons 0.294.0:
         crossorigin="anonymous"
         id="tailwind-script"
     ></script>
-    <script
-        src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"
-        integrity="sha384-43WP8IQ+5H0ncT+LNM4dZnu+hPINYmeOuNMhTvHfszzXdFjBEji77gkq7TyjQl/U"
-        crossorigin="anonymous"
-        id="lucide-script"
-    ></script>
+    <script src="js/vendor/lucide.min.js" id="lucide-script"></script>
 
     <script>
         const resultsContainer = document.getElementById('test-results');
         const tests = [];
+        const LOCAL_LUCIDE_SRC = 'js/vendor/lucide.min.js';
 
         function addTest(name, status, details) {
             tests.push({ name, status, details });
@@ -164,7 +161,7 @@ Lucide Icons 0.294.0:
             const tailwindScript = document.getElementById('tailwind-script');
             const lucideScript = document.getElementById('lucide-script');
 
-            if (tailwindScript.integrity && tailwindScript.crossOrigin) {
+            if (tailwindScript && tailwindScript.integrity && tailwindScript.crossOrigin) {
                 addTest(
                     'Tailwind CSS SRI Attributes',
                     'success',
@@ -180,20 +177,28 @@ Lucide Icons 0.294.0:
                 console.error('❌ Tailwind CSS missing SRI attributes');
             }
 
-            if (lucideScript.integrity && lucideScript.crossOrigin) {
+            const lucideSrc = lucideScript ? lucideScript.getAttribute('src') : '';
+
+            if (
+                lucideScript &&
+                lucideSrc &&
+                lucideSrc.includes(LOCAL_LUCIDE_SRC) &&
+                !lucideScript.integrity &&
+                !lucideScript.crossOrigin
+            ) {
                 addTest(
-                    'Lucide Icons SRI Attributes',
+                    'Lucide Local Delivery',
                     'success',
-                    `integrity="${lucideScript.integrity}", crossorigin="${lucideScript.crossOrigin}"`
+                    'Lucide Icons served locally without SRI (same-origin asset)'
                 );
-                console.log('✅ Lucide Icons has proper SRI attributes');
+                console.log('✅ Lucide Icons served locally without SRI');
             } else {
                 addTest(
-                    'Lucide Icons SRI Attributes',
+                    'Lucide Local Delivery',
                     'error',
-                    'Missing integrity or crossorigin attribute'
+                    'Lucide Icons not served from local bundle or unexpected attributes present'
                 );
-                console.error('❌ Lucide Icons missing SRI attributes');
+                console.error('❌ Lucide Icons not served locally as expected');
             }
         }
 
@@ -230,14 +235,14 @@ Lucide Icons 0.294.0:
                     addTest(
                         'Lucide Icons Loading',
                         'success',
-                        'Lucide Icons loaded successfully with SRI verification'
+                        'Lucide Icons loaded successfully from local bundle'
                     );
                     console.log('✅ Lucide Icons loaded successfully');
                 } else {
                     addTest(
                         'Lucide Icons Loading',
                         'error',
-                        'Lucide Icons failed to load - SRI hash may be incorrect'
+                        'Lucide Icons failed to load - verify local bundle is available'
                     );
                     console.error('❌ Lucide Icons failed to load');
                 }

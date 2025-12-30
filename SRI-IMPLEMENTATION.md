@@ -28,27 +28,24 @@ All external CDN scripts now have SRI protection:
 ></script>
 ```
 
-#### Lucide Icons 0.294.0
-```html
-<script
-    src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"
-    integrity="sha384-43WP8IQ+5H0ncT+LNM4dZnu+hPINYmeOuNMhTvHfszzXdFjBEji77gkq7TyjQl/U"
-    crossorigin="anonymous"
-></script>
-```
+#### Lucide Icons (self-hosted)
+- Served from `/js/vendor/lucide.min.js`
+- Local bundle has the source map reference removed to avoid CSP `connect-src` violations
+- SRI is **not** required for same-origin assets
 
 ### Files Updated
 
 - ✅ `index.html` - Main landing page
 - ✅ `visual-mockups.html` - Visual design mockups
 - ✅ `placement-recommendations.html` - Placement recommendations
+- ✅ `terms.html` and `privacy.html` - Legal pages
 
 ### Key Changes
 
 1. **Pinned CDN Versions**
    - Changed from `@latest` to specific version numbers
    - Tailwind: `cdn.tailwindcss.com` → `cdn.tailwindcss.com/3.4.10`
-   - Lucide: `unpkg.com/lucide@latest` → `unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js`
+   - Lucide: moved from CDN to a self-hosted bundle to keep CSP `connect-src` tight
 
 2. **Added Integrity Attributes**
    - SHA-384 hashes for strong cryptographic verification
@@ -126,11 +123,6 @@ If CDN versions need to be updated:
 ```bash
 # For Tailwind CSS
 curl -sL "https://cdn.tailwindcss.com/3.4.10" | \
-  openssl dgst -sha384 -binary | \
-  openssl base64 -A
-
-# For Lucide Icons
-curl -sL "https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js" | \
   openssl dgst -sha384 -binary | \
   openssl base64 -A
 ```

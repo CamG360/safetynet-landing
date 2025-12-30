@@ -16,7 +16,7 @@
 - **Architectural Style**:
   - Vanilla JavaScript with ES6 modules (no framework)
   - Build system: npm scripts, Tailwind CSS compilation, FAQ baking
-  - CDN-based runtime dependencies (Lucide icons)
+  - Self-hosted Lucide icons + limited CDN dependencies (Tailwind, Fonts, Turnstile)
   - Progressive enhancement (lazy loading, modal pre-loading)
   - Cloudflare Turnstile + Worker integration (client only calls Worker)
   - Security-hardened: Turnstile, SRI, CSP headers, honeypot protection
@@ -185,7 +185,7 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 
 #### Assets
 - **Images**: [`images/campbell-mccord.png`](./images/campbell-mccord.png) — Founder headshot
-- **Icons**: Lucide icons v0.294.0 via CDN (SRI-protected, no local assets)
+- **Icons**: Lucide-style icons served from [`js/vendor/lucide.min.js`](./js/vendor/lucide.min.js) (self-hosted)
 
 ---
 
@@ -284,8 +284,8 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
   - Protects against CDN tampering
   - Documentation: [`SRI-IMPLEMENTATION.md`](./SRI-IMPLEMENTATION.md)
   - Protected Resources:
-    - Tailwind CSS 3.4.10
-    - Lucide Icons 0.294.0
+    - Tailwind CSS 3.4.10 (CDN)
+    - Lucide Icons served locally (no SRI required)
   - Testing: [`tests/sri.test.js`](./tests/sri.test.js), [`sri-browser-test.html`](./sri-browser-test.html)
   - Tools: [`generate-sri-hashes.js`](./generate-sri-hashes.js), [`verify-sri.sh`](./verify-sri.sh)
 

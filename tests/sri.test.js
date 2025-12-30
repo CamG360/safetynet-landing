@@ -17,22 +17,33 @@ const __dirname = dirname(__filename);
 const HTML_FILES = [
     'index.html',
     'visual-mockups.html',
-    'placement-recommendations.html'
+    'placement-recommendations.html',
+    'privacy.html',
+    'terms.html'
 ];
 
 // Expected CDN scripts with SRI
-const EXPECTED_SRI_SCRIPTS = [
-    {
-        name: 'Tailwind CSS',
-        src: 'https://cdn.tailwindcss.com/3.4.10',
-        shouldHaveSRI: true
-    },
-    {
-        name: 'Lucide Icons',
-        src: 'https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js',
-        shouldHaveSRI: true
-    }
-];
+const EXPECTED_SRI_SCRIPTS = {
+    'index.html': [],
+    'visual-mockups.html': [
+        {
+            name: 'Tailwind CSS',
+            src: 'https://cdn.tailwindcss.com/3.4.10',
+            shouldHaveSRI: true
+        }
+    ],
+    'placement-recommendations.html': [
+        {
+            name: 'Tailwind CSS',
+            src: 'https://cdn.tailwindcss.com/3.4.10',
+            shouldHaveSRI: true
+        }
+    ],
+    'privacy.html': [],
+    'terms.html': []
+};
+
+const LOCAL_LUCIDE_SRC = 'js/vendor/lucide.min.js';
 
 describe('SRI Implementation Tests', () => {
     HTML_FILES.forEach(filename => {
@@ -50,7 +61,9 @@ describe('SRI Implementation Tests', () => {
                 expect(htmlContent).not.toMatch(/cdn\.tailwindcss\.com(?!\/\d)/);
             });
 
-            EXPECTED_SRI_SCRIPTS.forEach(script => {
+            const expectedScripts = EXPECTED_SRI_SCRIPTS[filename] || [];
+
+            expectedScripts.forEach(script => {
                 test(`should have SRI integrity attribute for ${script.name}`, () => {
                     // Create regex to find script tag with this src
                     const scriptRegex = new RegExp(
@@ -126,6 +139,25 @@ describe('SRI Implementation Tests', () => {
                     // Base64 length should be reasonable (not too short)
                     expect(base64Hash.length).toBeGreaterThan(40);
                 });
+            });
+
+            test('should load Lucide locally without SRI', () => {
+                expect(htmlContent).not.toMatch(/https?:\/\/[^"']*lucide/i);
+
+                const escapedSrc = LOCAL_LUCIDE_SRC.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const lucideRegex = new RegExp(
+                    `<script[^>]*src=["']${escapedSrc}["'][^>]*>`,
+                    'i'
+                );
+
+                const match = htmlContent.match(lucideRegex);
+                expect(match).not.toBeNull();
+
+                if (match) {
+                    const scriptTag = match[0];
+                    expect(scriptTag).not.toMatch(/integrity=/i);
+                    expect(scriptTag).not.toMatch(/crossorigin=/i);
+                }
             });
         });
     });

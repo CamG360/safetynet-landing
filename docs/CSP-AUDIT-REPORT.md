@@ -43,12 +43,12 @@ STATUS: Fixed
 **Original CSP Content:**
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline' https://unpkg.com https://www.google.com https://www.gstatic.com;
+script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://vercel.live;
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com;
-frame-src https://www.google.com https://www.gstatic.com;
+connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://safetynet-signup.campbell-mccord.workers.dev https://vercel.live;
+frame-src https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://vercel.live;
 frame-ancestors 'none';
 ```
 
@@ -76,7 +76,7 @@ However, the CSP did not whitelist `challenges.cloudflare.com`, causing violatio
 ```
 Refused to load the script 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 because it violates the following Content Security Policy directive: "script-src 'self'
-'unsafe-inline' https://unpkg.com https://www.google.com https://www.gstatic.com"
+'unsafe-inline' https://cdn.tailwindcss.com https://www.google.com https://www.gstatic.com"
 ```
 
 ---
@@ -91,19 +91,19 @@ because it violates the following Content Security Policy directive: "script-src
 **Updated CSP Content:**
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline' https://unpkg.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com;
+script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com;
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com;
+connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://safetynet-signup.campbell-mccord.workers.dev;
 frame-src https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com;
 frame-ancestors 'none';
 ```
 
 **Specific Changes:**
-1. **script-src:** Added `https://challenges.cloudflare.com` (allows Turnstile script)
-2. **connect-src:** Added `https://challenges.cloudflare.com` (allows Turnstile API calls)
-3. **frame-src:** Added `https://challenges.cloudflare.com` (allows Turnstile iframe if needed)
+1. **script-src:** Added `https://cdn.tailwindcss.com`, `https://static.cloudflareinsights.com`, and `https://vercel.live`; removed `https://unpkg.com`
+2. **connect-src:** Added `https://challenges.cloudflare.com`, `https://static.cloudflareinsights.com`, `https://safetynet-signup.campbell-mccord.workers.dev`, and `https://vercel.live`
+3. **frame-src:** Added `https://challenges.cloudflare.com` and `https://vercel.live` (allows Turnstile iframe and Vercel Live widget)
 
 ---
 
@@ -146,10 +146,13 @@ After the fix, the CSP allows the following external domains:
 
 | Domain | Directives | Purpose |
 |--------|-----------|---------|
-| `unpkg.com` | script-src | CDN for Lucide icons |
+| `cdn.tailwindcss.com` | script-src | Tailwind CDN for static mockups |
+| `vercel.live` | script-src, connect-src | Vercel Live Feedback widget |
 | `www.google.com` | script-src, connect-src, frame-src | Google reCAPTCHA (if used) |
 | `www.gstatic.com` | script-src, connect-src, frame-src, font-src | Google static resources |
 | `challenges.cloudflare.com` | script-src, connect-src, frame-src | **Cloudflare Turnstile** |
+| `vercel.live` | script-src, connect-src, frame-src | Vercel Live Feedback widget |
+| `static.cloudflareinsights.com` | script-src, connect-src | Cloudflare Insights beacon |
 | `fonts.googleapis.com` | style-src | Google Fonts CSS |
 | `fonts.gstatic.com` | font-src | Google Fonts files |
 | `*.supabase.co` | connect-src | Supabase backend |
@@ -203,7 +206,7 @@ curl -I https://safetynetbeta.com | grep -i content-security-policy
 
 **Expected output:**
 ```
-content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com; ...
+content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com; ...
 ```
 
 ### 3. Browser DevTools Security Tab
