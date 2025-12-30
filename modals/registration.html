@@ -24,6 +24,9 @@
             <p id="email-error" class="text-red-500 text-sm mt-2 hidden">Please enter a valid email address</p>
         </div>
 
+        <!-- Cloudflare Turnstile (invisible) -->
+        <div id="turnstile-widget" class="hidden" aria-hidden="true"></div>
+
         <!-- Submit Button -->
         <button type="submit" id="submitBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
             <span>Get Early Access</span>
@@ -34,17 +37,9 @@
             No spam, ever. We'll only email you about SafetyNet.
         </p>
 
-        <!-- reCAPTCHA Attribution (required when badge is hidden) -->
+        <!-- Turnstile Attribution -->
         <p class="text-[11px] text-slate-400 text-center mt-2 leading-snug">
-            This site is protected by reCAPTCHA and the
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-500">
-                Google Privacy Policy
-            </a>
-            and
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-500">
-                Terms of Service
-            </a>
-            apply.
+            Protected by Cloudflare Turnstile.
         </p>
     </form>
 

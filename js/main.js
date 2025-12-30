@@ -6,8 +6,8 @@
 // Import modal-loader to create dependency - ensures modals preload before main.js runs
 import './modal-loader.js';
 
-import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
+import { WORKER_CONFIG, TURNSTILE_CONFIG } from './config.js';
+import { validateEmail, submitToWaitlist, executeTurnstile, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
 import { hydrateContactEmailPlaceholders } from './contact-email.js';
 
@@ -283,8 +283,8 @@ if (form && submitBtn) {
             return;
         }
 
-        // Validate email
-        const email = emailInput.value.trim();
+        // Normalize and validate email
+        const email = emailInput.value.toLowerCase().trim();
         if (!validateEmail(email)) {
             emailError.textContent = MESSAGES.EMAIL_INVALID;
             emailError.classList.remove('hidden');
@@ -309,12 +309,12 @@ if (form && submitBtn) {
         spinner.style.display = 'block';
 
         try {
-            // Execute reCAPTCHA v3
-            const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+            // Execute Cloudflare Turnstile
+            const turnstileToken = await executeTurnstile(TURNSTILE_CONFIG);
 
-            // Submit to waitlist with reCAPTCHA token
+            // Submit to Worker with Turnstile token
             // This will throw an error if the backend returns non-2xx status
-            const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+            const response = await submitToWaitlist(email, WORKER_CONFIG, turnstileToken);
 
             // CRITICAL: Only track submission AFTER verified success
             // This prevents rate-limiting users whose submissions actually failed
@@ -342,7 +342,13 @@ if (form && submitBtn) {
             // This prevents users from being locked out after failed submissions
             clearRateLimit(email);
 
-            emailError.textContent = MESSAGES.SUBMISSION_ERROR;
+            if (error.status === 403) {
+                emailError.textContent = MESSAGES.VERIFICATION_FAILED;
+            } else if (error.status === 400) {
+                emailError.textContent = MESSAGES.EMAIL_REQUIRED;
+            } else {
+                emailError.textContent = MESSAGES.SUBMISSION_ERROR;
+            }
             emailError.classList.remove('hidden');
 
             // Reset Button

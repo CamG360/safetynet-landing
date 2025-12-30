@@ -3,8 +3,8 @@
  * Handles form validation and submission for the standalone form page
  */
 
-import { SUPABASE_CONFIG, RECAPTCHA_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeRecaptcha, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
+import { WORKER_CONFIG, TURNSTILE_CONFIG } from './config.js';
+import { validateEmail, submitToWaitlist, executeTurnstile, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { MESSAGES, BUTTON_TEXT, TIMING } from './constants.js';
 
 // ============================================
@@ -59,8 +59,8 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    // Get and validate email
-    const email = emailInput.value.trim();
+    // Get and normalize email
+    const email = emailInput.value.toLowerCase().trim();
 
     if (!email) {
         emailError.textContent = MESSAGES.EMAIL_REQUIRED;
@@ -92,12 +92,12 @@ form.addEventListener('submit', async (e) => {
     submitSpinner.style.display = 'inline-block';
 
     try {
-        // Execute reCAPTCHA v3
-        const recaptchaToken = await executeRecaptcha(RECAPTCHA_CONFIG.siteKey, RECAPTCHA_CONFIG.action);
+        // Execute Cloudflare Turnstile
+        const turnstileToken = await executeTurnstile(TURNSTILE_CONFIG);
 
-        // Submit to waitlist with reCAPTCHA token
+        // Submit to Worker with Turnstile token
         // This will throw an error if the backend returns non-2xx status
-        const response = await submitToWaitlist(email, SUPABASE_CONFIG, recaptchaToken);
+        const response = await submitToWaitlist(email, WORKER_CONFIG, turnstileToken);
 
         // CRITICAL: Only track submission AFTER verified success
         // This prevents rate-limiting users whose submissions actually failed
@@ -120,7 +120,13 @@ form.addEventListener('submit', async (e) => {
         // This prevents users from being locked out after failed submissions
         clearRateLimit(email);
 
-        formErrorMessage.textContent = MESSAGES.NETWORK_ERROR;
+        if (error.status === 403) {
+            formErrorMessage.textContent = MESSAGES.VERIFICATION_FAILED;
+        } else if (error.status === 400) {
+            formErrorMessage.textContent = MESSAGES.EMAIL_REQUIRED;
+        } else {
+            formErrorMessage.textContent = MESSAGES.NETWORK_ERROR;
+        }
         formError.classList.add('show');
 
         // Reset button state

@@ -10,7 +10,7 @@
 
 - **What this repo does**:
   - Landing page for SafetyNet — a safety alert service for everyday activities.
-  - Collects waitlist emails via Supabase backend
+  - Collects waitlist emails via a Cloudflare Worker (writes to Supabase waitlist table)
   - Educates users on safety features through interactive content (FAQs, story, use cases)
 
 - **Architectural Style**:
@@ -18,8 +18,8 @@
   - Build system: npm scripts, Tailwind CSS compilation, FAQ baking
   - CDN-based runtime dependencies (Lucide icons)
   - Progressive enhancement (lazy loading, modal pre-loading)
-  - Direct Supabase REST API integration (no SDK)
-  - Security-hardened: reCAPTCHA v3, SRI, CSP headers, honeypot protection
+  - Cloudflare Turnstile + Worker integration (client only calls Worker)
+  - Security-hardened: Turnstile, SRI, CSP headers, honeypot protection
 
 ---
 
@@ -37,11 +37,11 @@
   - Validation: [`js/utils.js`](./js/utils.js) (`validateEmail()`, honeypot check)
   - Submission: [`js/utils.js`](./js/utils.js) (`submitToWaitlist()`)
 - **Security**:
-  - reCAPTCHA v3 integration (invisible bot protection)
+  - Cloudflare Turnstile integration (invisible bot protection)
   - Honeypot field (hidden "website" field)
   - Rate limiting (client-side)
-- **Backend**: Supabase `feedback` table (email + timestamp + recaptcha_token)
-- **Config**: [`js/config.js`](./js/config.js) (Supabase + reCAPTCHA credentials)
+- **Backend**: Cloudflare Worker verifies Turnstile token, normalizes email, and writes to Supabase `waitlist` table
+- **Config**: [`js/config.js`](./js/config.js) (Worker endpoint + Turnstile site key)
 
 #### FAQ System
 - **Purpose**: Answer common questions with category filtering
@@ -113,7 +113,7 @@
 ```
 main.js (entry point, 604 lines)
  ├── modal-loader.js → Pre-loads modals BEFORE main.js executes
- ├── config.js → Supabase + reCAPTCHA credentials
+ ├── config.js → Worker endpoint + Turnstile credentials
  ├── utils.js → Validation + submission + security
  ├── constants.js → Timing + messages + button text
  └── contact-email.js → Contact email component with copy functionality
@@ -133,22 +133,21 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 | [`js/faq-renderer.js`](./js/faq-renderer.js) | Client-side FAQ filtering + accordions (FAQs pre-rendered) | Category filtering, accordion interactions |
 | [`js/story-loader.js`](./js/story-loader.js) | Lazy-load extended story content | `loadExtendedStory()` |
 | [`js/contact-email.js`](./js/contact-email.js) | Contact email component with copy-to-clipboard | `createContactEmail()`, `hydrateContactEmailPlaceholders()` |
-| [`js/utils.js`](./js/utils.js) | Shared utilities (validation, Supabase API, security) | `validateEmail()`, `submitToWaitlist()`, honeypot checks, reCAPTCHA |
-| [`js/config.js`](./js/config.js) | Supabase + reCAPTCHA configuration | `SUPABASE_CONFIG`, `RECAPTCHA_CONFIG` |
+| [`js/utils.js`](./js/utils.js) | Shared utilities (validation, Worker API, security) | `validateEmail()`, `submitToWaitlist()`, Turnstile execution, honeypot checks |
+| [`js/config.js`](./js/config.js) | Worker + Turnstile configuration | `WORKER_CONFIG`, `TURNSTILE_CONFIG` |
 | [`js/constants.js`](./js/constants.js) | UI constants (timing, messages, labels) | `TIMING`, `MESSAGES`, `BUTTON_TEXT` |
 
 ---
 
 ### Data / Database
 
-#### Schema (Supabase)
-- **Table**: `feedback`
+#### Schema (Supabase, behind Cloudflare Worker)
+- **Table**: `waitlist`
 - **Columns**:
-  - `email` (text)
-  - `created_at` (timestamp)
-  - `recaptcha_token` (text) — reCAPTCHA v3 token for backend verification
-  - `recaptcha_score` (float) — Optional: store reCAPTCHA score
-- **Access**: Public insert-only via anon key (RLS-protected)
+  - `id` (bigserial primary key)
+  - `email` (text, normalized, unique)
+  - `created_at` (timestamp, default now)
+- **Access**: Service role key via Worker only (RLS deny-by-default for anon)
 
 #### Data Files
 - **FAQ Content**: [`data/faq.json`](./data/faq.json)
@@ -158,13 +157,11 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
   - Client-side filtering by [`faq-renderer.js`](./js/faq-renderer.js)
 
 #### Configuration
-- **Supabase Credentials**: [`js/config.js`](./js/config.js)
-  - URL: `https://igzyfbzayuimdnjhapog.supabase.co`
-  - Anon Key: (public, protected by Row Level Security)
-  - Table: `feedback`
-- **reCAPTCHA v3**: [`js/config.js`](./js/config.js)
-  - Site Key: `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI` (test key)
-  - Action: `submit_waitlist`
+- **Cloudflare Worker**: [`js/config.js`](./js/config.js)
+  - Endpoint: `https://YOUR-WORKER.workers.dev/signup` (POST-only)
+- **Cloudflare Turnstile**: [`js/config.js`](./js/config.js)
+  - Site Key: `1x00000000000000000000AA` (test key)
+  - Action: `waitlist_signup`
 - **UI Constants**: [`js/constants.js`](./js/constants.js)
   - Auto-close timing: 4000ms
   - Modal transition: 200ms
@@ -230,8 +227,8 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 
 #### Environment Variables
 - **None** — All config hardcoded in [`js/config.js`](./js/config.js)
-- **Security**: Supabase anon key & reCAPTCHA site key exposed in client code (normal for public forms)
-- **Protection**: Row Level Security (RLS) in Supabase + reCAPTCHA backend verification required
+- **Security**: Turnstile site key exposed in client code (public by design)
+- **Protection**: Cloudflare Worker enforces POST-only + Turnstile verification; Supabase sits behind Worker with service role key
 
 #### Feature Flags
 - **None** — No feature flagging system
@@ -254,8 +251,8 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 | File | Purpose | Key Sections |
 |------|---------|--------------|
 | [`CODEBASE_MAP.md`](./CODEBASE_MAP.md) | This file — comprehensive codebase documentation | Architecture, file structure, navigation |
-| [`TECHNICAL_CONTEXT.md`](./TECHNICAL_CONTEXT.md) | Tech stack, deployment, architecture | Supabase integration, data flow |
-| [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md) | reCAPTCHA v3 implementation guide | Setup, configuration, backend verification |
+| [`TECHNICAL_CONTEXT.md`](./TECHNICAL_CONTEXT.md) | Tech stack, deployment, architecture | Worker + Supabase data flow |
+| [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md) | Legacy reCAPTCHA v3 guide (superseded by Turnstile) | Setup, configuration, backend verification |
 | [`SRI-IMPLEMENTATION.md`](./SRI-IMPLEMENTATION.md) | Subresource Integrity implementation | CDN protection, hash generation, testing |
 | [`SRI-LIMITATIONS.md`](./SRI-LIMITATIONS.md) | SRI limitations and trade-offs | When not to use SRI, exemptions |
 | [`UX_REVIEW.md`](./UX_REVIEW.md) | Initial UX analysis | Design decisions, user testing insights |
@@ -271,10 +268,10 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 ## Security Infrastructure
 
 ### Bot Protection
-- **reCAPTCHA v3**: [`js/config.js`](./js/config.js), [`js/utils.js`](./js/utils.js)
+- **Cloudflare Turnstile**: [`js/config.js`](./js/config.js), [`js/utils.js`](./js/utils.js)
   - Invisible bot detection
-  - Token sent to backend for verification
-  - Documentation: [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md)
+  - Token sent to Worker for verification
+  - Documentation: [`systeminv.md`](./systeminv.md) (inventory checklist)
 - **Honeypot Field**: [`js/utils.js`](./js/utils.js), [`styles/main.css`](./styles/main.css)
   - Hidden "website" field
   - Silently rejects submissions if filled
@@ -317,8 +314,7 @@ story-loader.js (independent, 112 lines) → Auto-init on DOMContentLoaded
 |------|---------------|------------------|
 | **Waitlist form** | [`index.html`](./index.html) (registration modal) | [`js/main.js`](./js/main.js), [`js/utils.js`](./js/utils.js) |
 | **FAQ content** | [`data/faq.json`](./data/faq.json) | [`build-faqs.js`](./build-faqs.js) (run to bake into HTML), [`js/faq-renderer.js`](./js/faq-renderer.js) (filtering) |
-| **Supabase config** | [`js/config.js`](./js/config.js) | — |
-| **reCAPTCHA config** | [`js/config.js`](./js/config.js), [`index.html`](./index.html) (script tag) | [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md) |
+| **Worker/Turnstile config** | [`js/config.js`](./js/config.js), [`index.html`](./index.html) (Turnstile script) | [`systeminv.md`](./systeminv.md) |
 | **Error messages** | [`js/constants.js`](./js/constants.js) (MESSAGES) | — |
 | **Add new modal** | Create `modals/your-modal.html` | [`js/modal-loader.js`](./js/modal-loader.js) (add to config), [`index.html`](./index.html) (add container) |
 | **Hero section** | [`index.html`](./index.html) (hero section) | [`styles/main.css`](./styles/main.css) |
@@ -343,13 +339,12 @@ This table identifies the authoritative file/folder for each major concept. When
 | **Use Cases** | [`index.html`](./index.html) | Hardcoded in HTML. Consider extracting to JSON for consistency |
 | **Modal Definitions** | [`modals/`](./modals/) directory + [`index.html`](./index.html) (registration) | 3 external files + 1 inline. See [Fog Report #6](#6-unclear-content-ownership) |
 | **Modal Management** | [`js/modal-loader.js`](./js/modal-loader.js) (pre-loading) + [`js/main.js`](./js/main.js) (handlers) | Scattered across 2 files. No centralized registry |
-| **Supabase Configuration** | [`js/config.js`](./js/config.js) | API URL, anon key, table name |
-| **reCAPTCHA Configuration** | [`js/config.js`](./js/config.js) | Site key, action name |
+| **Worker/Turnstile Configuration** | [`js/config.js`](./js/config.js) | Worker endpoint, Turnstile site key/action |
 | **UI Copy / Messages** | [`js/constants.js`](./js/constants.js) | Error messages, success messages, button text, timing values |
 | **Founder Story (Extended)** | [`content/our-story-extended.html`](./content/our-story-extended.html) | Lazy-loaded content. Truncated version in [`index.html`](./index.html) |
 | **Legal Documents** | [`privacy.html`](./privacy.html), [`terms.html`](./terms.html) | Standalone pages. Also available as modals. Markdown sources: [`privacy.md`](./privacy.md), [`terms.md`](./terms.md) |
 | **Form Validation Logic** | [`js/utils.js`](./js/utils.js) | `validateEmail()`, honeypot check, rate limiting |
-| **Waitlist Submission Logic** | [`js/utils.js`](./js/utils.js) | `submitToWaitlist()` function with reCAPTCHA integration |
+| **Waitlist Submission Logic** | [`js/utils.js`](./js/utils.js) | `submitToWaitlist()` function with Turnstile integration |
 | **Security Configuration** | [`js/utils.js`](./js/utils.js), [`vercel.json`](./vercel.json) | Honeypot, rate limiting, CSP headers |
 | **CSS Variables** | [`styles/form.css`](./styles/form.css) `:root` | Colors, shadows, radii for form page. Main page uses hardcoded values (see [Fog Report #5](#5-configuration-split)) |
 | **Design Rationale** | [`visual-mockups.html`](./visual-mockups.html), [`placement-recommendations.html`](./placement-recommendations.html) | Internal design docs (not user-facing) |
@@ -365,7 +360,7 @@ This table identifies the authoritative file/folder for each major concept. When
 | **2** | Modal Management Scattered | **Medium** | Hard to track all modals, no single source of truth | [`js/modal-loader.js`](./js/modal-loader.js), [`js/main.js`](./js/main.js), inline HTML triggers | Create `modalConfig` object listing all modals + metadata |
 | **3** | Form Submission Logic | **Resolved** | Form logic centralized | [`js/utils.js`](./js/utils.js) | **Fixed**: All form validation and submission logic in [`utils.js`](./js/utils.js) ✓ |
 | **4** | No Icon Registry | **Low** | `lucide.createIcons()` called multiple times, icon names hardcoded | [`index.html`](./index.html), [`js/main.js`](./js/main.js) | Create icon manifest + single initialization point |
-| **5** | Configuration Split | **Medium** | Config values scattered: Supabase centralized ✓, UI constants centralized ✓, colors/spacing hardcoded ✗ | [`js/config.js`](./js/config.js), [`js/constants.js`](./js/constants.js), [`styles/main.css`](./styles/main.css) | Consolidate colors/spacing into CSS variables (`:root`) like [`styles/form.css`](./styles/form.css) |
+| **5** | Configuration Split | **Medium** | Config values scattered: Worker/Turnstile centralized ✓, UI constants centralized ✓, colors/spacing hardcoded ✗ | [`js/config.js`](./js/config.js), [`js/constants.js`](./js/constants.js), [`styles/main.css`](./styles/main.css) | Consolidate colors/spacing into CSS variables (`:root`) like [`styles/form.css`](./styles/form.css) |
 | **6** | Unclear Content Ownership | **High** | Inconsistent patterns: FAQ external ✓, 3 modals external + 1 inline ✗, story split ✗, use cases inline ✗ | [`data/faq.json`](./data/faq.json), [`modals/`](./modals/), [`index.html`](./index.html), [`content/`](./content/) | Move registration modal to [`modals/`](./modals/) for consistency. Create content manifest |
 | **7** | No Error Boundary for Modal Loading | **Low** | If [`modal-loader.js`](./js/modal-loader.js) fails: generic error, no retry, no user notification | [`js/modal-loader.js`](./js/modal-loader.js) | Add error handling UI + retry logic with exponential backoff |
 | **8** | Missing Registry Files | **Medium** | No manifest for modals, icons, content, components | N/A | Create `REGISTRY.md` documenting: modal registry, icon registry, content manifest, component registry |
@@ -439,8 +434,8 @@ This section documents **current conventions as they exist** in the codebase. Th
 2. **ES6 Modules**: Modern JavaScript loaded directly by browser (no bundler)
 3. **Build-Time Content Baking**: FAQs baked into HTML at build time for performance
 4. **Progressive Enhancement**: Lazy loading (story), pre-loading (modals)
-5. **Direct REST API**: Supabase without SDK for minimal dependencies
-6. **Security-First**: reCAPTCHA v3, SRI, CSP headers, honeypot, rate limiting
+5. **Worker Gateway**: Cloudflare Worker fronting Supabase (no client-side Supabase SDK)
+6. **Security-First**: Turnstile, SRI, CSP headers, honeypot, rate limiting
 7. **Hybrid CSS**: Compiled Tailwind + custom CSS for flexibility
 8. **Comprehensive Testing**: Jest unit tests for critical security features
 
@@ -489,8 +484,8 @@ npm run lint
 ### Common Tasks
 1. **Add FAQ**: Edit [`data/faq.json`](./data/faq.json), then run `node build-faqs.js`
 2. **Change copy**: Edit [`index.html`](./index.html) (search for text)
-3. **Update Supabase**: Edit [`js/config.js`](./js/config.js)
-4. **Update reCAPTCHA**: Edit [`js/config.js`](./js/config.js) and script tag in [`index.html`](./index.html)
+3. **Update Worker endpoint**: Edit [`js/config.js`](./js/config.js)
+4. **Update Turnstile keys**: Edit [`js/config.js`](./js/config.js) and Turnstile script tag in [`index.html`](./index.html)
 5. **Add modal**: Create `modals/your-modal.html`, wire up in [`modal-loader.js`](./js/modal-loader.js)
 6. **Modify styling**: Edit [`styles/main.css`](./styles/main.css) or [`styles/input.css`](./styles/input.css) (Tailwind source)
 7. **Update CDN resources**: Update URL, regenerate SRI hash with [`generate-sri-hashes.js`](./generate-sri-hashes.js)

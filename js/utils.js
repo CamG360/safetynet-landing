@@ -15,31 +15,104 @@ export function validateEmail(email) {
 }
 
 /**
- * Executes reCAPTCHA v3 and returns a token.
- * @param {string} siteKey - The reCAPTCHA site key
- * @param {string} action - The action name for this reCAPTCHA execution
- * @returns {Promise<string>} The reCAPTCHA token
+ * Cloudflare Turnstile integration utilities
  */
-export async function executeRecaptcha(siteKey, action) {
-    try {
-        // Check if grecaptcha is loaded
-        if (typeof grecaptcha === 'undefined') {
-            console.warn('reCAPTCHA not loaded, proceeding without token');
-            return null;
-        }
+const TURNSTILE_SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+let turnstileScriptPromise = null;
+let turnstileWidgetId = null;
+let pendingResolve = null;
+let pendingReject = null;
 
-        // Wait for grecaptcha to be ready
-        await new Promise((resolve) => {
-            grecaptcha.ready(resolve);
-        });
-
-        // Execute reCAPTCHA and get token
-        const token = await grecaptcha.execute(siteKey, { action: action });
-        return token;
-    } catch (error) {
-        console.error('reCAPTCHA execution failed:', error);
-        return null;
+function loadTurnstileScript(timeoutMs = 5000) {
+    if (typeof window === 'undefined') {
+        return Promise.reject(new Error('Turnstile is not available in this environment'));
     }
+
+    if (window.turnstile) {
+        return Promise.resolve();
+    }
+
+    if (!turnstileScriptPromise) {
+        turnstileScriptPromise = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = TURNSTILE_SCRIPT_URL;
+            script.async = true;
+            script.defer = true;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error('Failed to load Turnstile script'));
+            document.head.appendChild(script);
+
+            // Safety timeout
+            setTimeout(() => reject(new Error('Loading Turnstile timed out')), timeoutMs);
+        });
+    }
+
+    return turnstileScriptPromise;
+}
+
+/**
+ * Executes Turnstile and returns a token.
+ * Renders a single invisible widget and reuses it for subsequent submissions.
+ * @param {object} config - Turnstile configuration ({ siteKey, action, widgetId, loadTimeoutMs })
+ * @returns {Promise<string>} The Turnstile token
+ */
+export async function executeTurnstile(config) {
+    const { siteKey, action, widgetId, loadTimeoutMs = 5000 } = config;
+
+    await loadTurnstileScript(loadTimeoutMs);
+
+    const turnstileInstance = window.turnstile;
+    if (typeof turnstileInstance === 'undefined') {
+        throw new Error('Turnstile failed to initialize');
+    }
+
+    const container = document.getElementById(widgetId);
+    if (!container) {
+        throw new Error('Turnstile container not found');
+    }
+
+    if (turnstileWidgetId === null) {
+        turnstileWidgetId = turnstileInstance.render(`#${widgetId}`, {
+            sitekey: siteKey,
+            action,
+            size: 'invisible',
+            callback: (token) => {
+                if (pendingResolve) {
+                    pendingResolve(token);
+                    pendingResolve = null;
+                    pendingReject = null;
+                }
+            },
+            'error-callback': () => {
+                if (pendingReject) {
+                    pendingReject(new Error('Turnstile error occurred'));
+                    pendingResolve = null;
+                    pendingReject = null;
+                }
+            },
+            'timeout-callback': () => {
+                if (pendingReject) {
+                    pendingReject(new Error('Turnstile verification timed out'));
+                    pendingResolve = null;
+                    pendingReject = null;
+                }
+            }
+        });
+    }
+
+    return new Promise((resolve, reject) => {
+        pendingResolve = resolve;
+        pendingReject = reject;
+        turnstileInstance.execute(turnstileWidgetId);
+
+        setTimeout(() => {
+            if (pendingReject) {
+                pendingReject(new Error('Turnstile verification timed out'));
+                pendingResolve = null;
+                pendingReject = null;
+            }
+        }, loadTimeoutMs);
+    });
 }
 
 /**
@@ -114,40 +187,38 @@ export function clearRateLimit(email) {
 }
 
 /**
- * Submits an email to the waitlist via Supabase.
+ * Submits an email to the waitlist via the Cloudflare Worker.
  * @param {string} email - The email address to submit
- * @param {object} config - Supabase configuration object
- * @param {string} recaptchaToken - Optional reCAPTCHA token
+ * @param {object} workerConfig - Worker configuration object
+ * @param {string} turnstileToken - Optional Turnstile token
  * @returns {Promise<Response>} The fetch response
  * @throws {Error} If the submission fails (network error or non-2xx response)
  */
-export async function submitToWaitlist(email, config, recaptchaToken = null) {
-    const feedbackData = {
-        email: email,
-        created_at: new Date().toISOString()
+export async function submitToWaitlist(email, workerConfig, turnstileToken = null) {
+    const payload = {
+        email
     };
 
-    // Add reCAPTCHA token if available
-    if (recaptchaToken) {
-        feedbackData.recaptcha_token = recaptchaToken;
+    if (turnstileToken) {
+        payload.turnstileToken = turnstileToken;
     }
 
-    const response = await fetch(`${config.url}/rest/v1/${config.tableName}`, {
+    const response = await fetch(workerConfig.endpoint, {
         method: 'POST',
         headers: {
-            'apikey': config.anonKey,
-            'Authorization': `Bearer ${config.anonKey}`,
             'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
+            'Accept': 'application/json'
         },
-        body: JSON.stringify(feedbackData)
+        body: JSON.stringify(payload)
     });
 
     // Defensive: explicit status validation before claiming success
     if (!response.ok || response.status < 200 || response.status >= 300) {
         const errorMsg = `Waitlist submission failed! HTTP ${response.status}`;
         console.error(errorMsg);
-        throw new Error(errorMsg);
+        const error = new Error(errorMsg);
+        error.status = response.status;
+        throw error;
     }
 
     // Log successful submission for debugging

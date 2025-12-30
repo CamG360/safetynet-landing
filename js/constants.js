@@ -30,6 +30,7 @@ export const MESSAGES = {
     SUBMISSION_ERROR: 'Something went wrong. Please try again.',
     NETWORK_ERROR: 'Unable to submit. Please check your connection and try again.',
     RATE_LIMIT: 'Please wait before submitting again.',
+    VERIFICATION_FAILED: 'Verification failed. Please try again.',
     SUCCESS_TITLE: 'You\'re on the waitlist!',
     SUCCESS_MESSAGE: 'We\'ll be in touch soon with updates on SafetyNet.'
 };

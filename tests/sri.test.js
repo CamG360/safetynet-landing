@@ -162,6 +162,7 @@ describe('SRI Security Best Practices', () => {
                 // Exempt list for scripts that may not support SRI
                 const sriExempt = [
                     'www.google.com/recaptcha', // reCAPTCHA dynamically loads additional scripts
+                    'challenges.cloudflare.com/turnstile', // Turnstile does not provide SRI hashes
                     'fonts.googleapis.com'       // Font loading doesn't require SRI
                 ];
 
