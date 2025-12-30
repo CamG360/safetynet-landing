@@ -14,7 +14,7 @@ export const WORKER_CONFIG = {
  * The site key is public. Use the test key below for local development.
  */
 export const TURNSTILE_CONFIG = {
-    siteKey: '1x00000000000000000000AA', // Cloudflare Turnstile test key; replace for production
+    siteKey: '0x4AAAAAACJbesQT6JFzSu6u',
     action: 'waitlist_signup',
     widgetId: 'turnstile-widget',
     loadTimeoutMs: 5000
