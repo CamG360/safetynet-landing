@@ -75,7 +75,9 @@ export async function executeTurnstile(config) {
         turnstileWidgetId = turnstileInstance.render(`#${widgetId}`, {
             sitekey: siteKey,
             action,
-            size: 'invisible',
+            // Use a supported size value; appearance 'execute' keeps it programmatic
+            size: 'flexible',
+            appearance: 'execute',
             callback: (token) => {
                 if (pendingResolve) {
                     pendingResolve(token);
