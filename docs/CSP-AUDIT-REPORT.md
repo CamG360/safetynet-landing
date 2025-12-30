@@ -48,7 +48,7 @@ style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
 connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://safetynet-signup.campbell-mccord.workers.dev https://vercel.live;
-frame-src https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com;
+frame-src https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://vercel.live;
 frame-ancestors 'none';
 ```
 
@@ -103,7 +103,7 @@ frame-ancestors 'none';
 **Specific Changes:**
 1. **script-src:** Added `https://cdn.tailwindcss.com`, `https://static.cloudflareinsights.com`, and `https://vercel.live`; removed `https://unpkg.com`
 2. **connect-src:** Added `https://challenges.cloudflare.com`, `https://static.cloudflareinsights.com`, `https://safetynet-signup.campbell-mccord.workers.dev`, and `https://vercel.live`
-3. **frame-src:** Added `https://challenges.cloudflare.com` (allows Turnstile iframe if needed)
+3. **frame-src:** Added `https://challenges.cloudflare.com` and `https://vercel.live` (allows Turnstile iframe and Vercel Live widget)
 
 ---
 
@@ -151,6 +151,7 @@ After the fix, the CSP allows the following external domains:
 | `www.google.com` | script-src, connect-src, frame-src | Google reCAPTCHA (if used) |
 | `www.gstatic.com` | script-src, connect-src, frame-src, font-src | Google static resources |
 | `challenges.cloudflare.com` | script-src, connect-src, frame-src | **Cloudflare Turnstile** |
+| `vercel.live` | script-src, connect-src, frame-src | Vercel Live Feedback widget |
 | `static.cloudflareinsights.com` | script-src, connect-src | Cloudflare Insights beacon |
 | `fonts.googleapis.com` | style-src | Google Fonts CSS |
 | `fonts.gstatic.com` | font-src | Google Fonts files |
