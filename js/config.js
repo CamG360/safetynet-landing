@@ -5,7 +5,7 @@
  * The Worker endpoint is the only backend surface the client should call.
  */
 export const WORKER_CONFIG = {
-    endpoint: 'https://YOUR-WORKER.workers.dev/signup'
+    endpoint: 'https://safetynet-signup.campbell-mccord.workers.dev/signup'
 };
 
 /**
