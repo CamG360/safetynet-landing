@@ -43,11 +43,11 @@ STATUS: Fixed
 **Original CSP Content:**
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com;
+script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://vercel.live;
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com;
 img-src 'self' data: https:;
-connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://safetynet-signup.campbell-mccord.workers.dev;
+connect-src 'self' https://*.supabase.co https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://safetynet-signup.campbell-mccord.workers.dev https://vercel.live;
 frame-src https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com;
 frame-ancestors 'none';
 ```
@@ -101,8 +101,8 @@ frame-ancestors 'none';
 ```
 
 **Specific Changes:**
-1. **script-src:** Added `https://cdn.tailwindcss.com` and `https://static.cloudflareinsights.com`; removed `https://unpkg.com`
-2. **connect-src:** Added `https://challenges.cloudflare.com`, `https://static.cloudflareinsights.com`, and `https://safetynet-signup.campbell-mccord.workers.dev`
+1. **script-src:** Added `https://cdn.tailwindcss.com`, `https://static.cloudflareinsights.com`, and `https://vercel.live`; removed `https://unpkg.com`
+2. **connect-src:** Added `https://challenges.cloudflare.com`, `https://static.cloudflareinsights.com`, `https://safetynet-signup.campbell-mccord.workers.dev`, and `https://vercel.live`
 3. **frame-src:** Added `https://challenges.cloudflare.com` (allows Turnstile iframe if needed)
 
 ---
@@ -147,6 +147,7 @@ After the fix, the CSP allows the following external domains:
 | Domain | Directives | Purpose |
 |--------|-----------|---------|
 | `cdn.tailwindcss.com` | script-src | Tailwind CDN for static mockups |
+| `vercel.live` | script-src, connect-src | Vercel Live Feedback widget |
 | `www.google.com` | script-src, connect-src, frame-src | Google reCAPTCHA (if used) |
 | `www.gstatic.com` | script-src, connect-src, frame-src, font-src | Google static resources |
 | `challenges.cloudflare.com` | script-src, connect-src, frame-src | **Cloudflare Turnstile** |
