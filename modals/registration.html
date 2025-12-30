@@ -25,7 +25,10 @@
         </div>
 
         <!-- Cloudflare Turnstile (invisible) -->
-        <div id="turnstile-widget" class="hidden" aria-hidden="true" data-sitekey="0x4AAAAAACJbesQT6JFzSu6u"></div>
+       <div class="cf-turnstile" 
+     data-sitekey="0x4AAAAAACJbesQT6JFzSu6u"
+     data-callback="onTurnstileSuccess">
+</div>
 
         <!-- Submit Button -->
         <button type="submit" id="submitBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2">
