@@ -1,0 +1,14 @@
+# Cloudflare Worker Configuration for SafetyNet Waitlist
+# https://developers.cloudflare.com/workers/wrangler/configuration/
+
+name = "safetynet-signup"
+main = "worker.js"
+compatibility_date = "2025-12-30"
+
+# Public environment variables
+[vars]
+SUPABASE_URL = "https://YOUR-PROJECT.supabase.co"
+
+# Secret environment variables (set via: wrangler secret put VARIABLE_NAME)
+# - TURNSTILE_SECRET_KEY
+# - SUPABASE_SERVICE_KEY
