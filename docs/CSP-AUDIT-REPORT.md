@@ -11,7 +11,7 @@
 
 A comprehensive audit of the entire codebase was conducted to identify all Content Security Policy (CSP) configurations. **One CSP configuration was found** in `vercel.json`. A critical issue was identified: **Cloudflare Turnstile domains were not whitelisted**, causing CSP violations that would block the Turnstile widget from loading.
 
-**Status:** ✅ **FIXED** - CSP updated to allow Cloudflare Turnstile.
+**Status:** ✅ **FIXED** - CSP updated to allow Cloudflare Turnstile. 
 
 ---
 
