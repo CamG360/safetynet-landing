@@ -9,7 +9,7 @@
 ## High-Level Overview
 
 - **What this repo does**:
-  - Landing page for SafetyNet — a safety alert service for everyday activities.
+  - Landing page for SafetyNet — a safety alert service for everyday activities
   - Collects waitlist emails via a Cloudflare Worker (writes to Supabase waitlist table)
   - Educates users on safety features through interactive content (FAQs, story, use cases)
 
