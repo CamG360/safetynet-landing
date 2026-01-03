@@ -36,7 +36,6 @@ export const MESSAGES = {
 };
 
 export const BUTTON_TEXT = {
-    SUBMIT: 'Join Waitlist',
-    SUBMITTING: 'Submitting...',
-    JOIN_THE_WAITLIST: 'Join the Waitlist'
+    SUBMIT: 'Get Early Access',
+    SUBMITTING: 'Submitting...'
 };

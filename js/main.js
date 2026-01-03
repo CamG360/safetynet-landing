@@ -136,7 +136,7 @@ function resetRegistrationForm() {
         // Reset button state
         submitBtn.disabled = false;
         const span = submitBtn.querySelector('span');
-        if (span) span.textContent = BUTTON_TEXT.JOIN_THE_WAITLIST;
+        if (span) span.textContent = BUTTON_TEXT.SUBMIT;
         if (spinner) spinner.style.display = 'none';
 
         // Clear any error messages
