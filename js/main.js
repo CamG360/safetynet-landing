@@ -360,30 +360,6 @@ if (form && submitBtn) {
 }
 
 // ============================================
-// FAQ Accordion
-// ============================================
-const faqQuestions = document.querySelectorAll('.faq-question');
-
-faqQuestions.forEach((question) => {
-    question.addEventListener('click', () => {
-        const faqItem = question.parentElement;
-        const isActive = faqItem.classList.contains('active');
-
-        // Close all other FAQ items
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-            item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-        });
-
-        // Toggle current item
-        if (!isActive) {
-            faqItem.classList.add('active');
-            question.setAttribute('aria-expanded', 'true');
-        }
-    });
-});
-
-// ============================================
 // Scroll Progress + Sticky CTA (mobile)
 // ============================================
 const scrollProgressBar = document.getElementById('scrollProgressBar');
