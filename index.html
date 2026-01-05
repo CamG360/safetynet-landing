@@ -70,73 +70,62 @@
     </div>
 
     <!-- [SECTION 1: HERO - WAITLIST] -->
-    <header class="hero-section bg-slate-50 pt-16 pb-20 lg:pt-24 lg:pb-28 min-h-[600px] flex flex-col items-center justify-center">
-        <div class="max-w-5xl w-full px-6 text-center space-y-10">
+    <header class="hero-section bg-slate-50 pt-24 pb-12 lg:pt-28 lg:pb-16 min-h-svh flex flex-col items-center justify-center">
+    
+    <div class="max-w-5xl w-full px-6 text-center space-y-6">
 
-            <!-- HEADER BLOCK -->
-            <div class="space-y-6">
-                <!-- 1. The PROMISE (Headline) -->
+        <div class="space-y-4"> <h1 class="hero-title text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
+                Your <span class="text-blue-600">silent safeguard</span><br class="hidden md:block"/>
+                for everyday life
+            </h1>
 
-                <h1 class="hero-title text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
-                    Your <span class="text-blue-600">silent safeguard</span><br class="hidden md:block"/>
-                    for everyday life
-                </h1>
-
-                <!-- 3. The CONTEXT (Bridge) -->
-<!-- 3. The CONTEXT (Bridge) -->
-<p class="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto">
-    <span class="text-slate-500">"Text me when you're safe" fails when you can't text.</span><br class="hidden md:block"/>
-    <span class="font-semibold text-slate-800">SafetyNet sends an alert for you.</span>
-</p>
-
-            </div>
-
-            <!-- Logo Symbol -->
-            <div class="safetynet-visual safetynet-visual-medium mx-auto my-4 scale-90 sm:scale-100">
-                <div class="background-glow"></div>
-                <i data-lucide="shield-check" class="shield-icon" style="width: 40px; height: 40px;"></i>
-                <i data-lucide="user" class="person-icon" style="width: 74px; height: 74px;"></i>
-            </div>
-
-            <!-- ACTIONS BLOCK (Primary & Secondary) -->
-            <div class="flex flex-col items-center justify-center gap-3 w-full max-w-lg mx-auto pt-4">
-
-                <!-- Hero CTA Button -->
-                <button id="heroJoinWaitlistBtn" class="open-registration-modal bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 min-h-[44px] rounded-full transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl whitespace-nowrap text-lg">
-                    Get Early Access <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                </button>
-
-
-                <!-- Key Features -->
-                <div class="flex flex-col md:flex-row items-center justify-center gap-y-3 gap-x-8 mt-6 w-full max-w-3xl mx-auto px-4">
-                    
-                    <div class="flex items-center gap-2.5 text-left w-full md:w-auto justify-center md:justify-start">
-                        <div class="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-blue-600">
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                        </div>
-                        <span class="text-slate-700 font-medium text-sm md:text-base">Automatic alerts to contacts</span>
-                    </div>
-
-                    <div class="flex items-center gap-2.5 text-left w-full md:w-auto justify-center md:justify-start">
-                        <div class="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-blue-600">
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                        </div>
-                        <span class="text-slate-700 font-medium text-sm md:text-base">No phone/internet needed</span>
-                    </div>
-
-                    <div class="flex items-center gap-2.5 text-left w-full md:w-auto justify-center md:justify-start">
-                        <div class="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-blue-600">
-                            <i data-lucide="check" class="w-4 h-4"></i>
-                        </div>
-                        <span class="text-slate-700 font-medium text-sm md:text-base">Customizable timing</span>
-                    </div>
-
-                </div>
-            </div>
-
+            <p class="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto">
+                <span class="text-slate-500">"Text me when you're safe" fails when you can't text.</span><br class="hidden md:block"/>
+                <span class="font-semibold text-slate-800">SafetyNet sends an alert for you.</span>
+            </p>
 
         </div>
-    </header>
+
+        <div class="safetynet-visual safetynet-visual-medium mx-auto my-2 scale-90 sm:scale-100">
+            <div class="background-glow"></div>
+            <i data-lucide="shield-check" class="shield-icon" style="width: 40px; height: 40px;"></i>
+            <i data-lucide="user" class="person-icon" style="width: 74px; height: 74px;"></i>
+        </div>
+
+        <div class="flex flex-col items-center justify-center gap-3 w-full max-w-lg mx-auto pt-2">
+
+            <button id="heroJoinWaitlistBtn" class="open-registration-modal bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 min-h-[44px] rounded-full transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl whitespace-nowrap text-lg">
+                Get Early Access <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-y-2 gap-x-6 mt-4 w-full max-w-3xl mx-auto px-4">
+                
+                <div class="flex items-center gap-2 text-left w-full md:w-auto justify-center md:justify-start">
+                    <div class="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-blue-600">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <span class="text-slate-700 font-medium text-sm">Automatic alerts</span>
+                </div>
+
+                <div class="flex items-center gap-2 text-left w-full md:w-auto justify-center md:justify-start">
+                    <div class="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-blue-600">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <span class="text-slate-700 font-medium text-sm">No phone needed</span>
+                </div>
+
+                <div class="flex items-center gap-2 text-left w-full md:w-auto justify-center md:justify-start">
+                    <div class="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-blue-600">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <span class="text-slate-700 font-medium text-sm">Customizable</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</header>
 
     <!-- [SECTION 2: MENTAL MODEL] -->
     <section id="problem" class="mental-model-section">
