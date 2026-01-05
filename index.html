@@ -389,54 +389,41 @@
                     </p>
                 </div>
 
-                <!-- --- STEP 3 --- -->
-                <div class="flex flex-col items-center group">
-                    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-                        3. SafetyNet sends an alert for you
-                    </h3>
-                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group mb-6 h-[310px] flex flex-col relative">
-                        
-                        <div class="bg-blue-600 p-3 flex items-center justify-between text-white shrink-0">
-                            <div class="flex items-center gap-2 font-bold text-sm tracking-wide">
-                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                                SafetyNet Alert
-                            </div>
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                            </span>
-                        </div>
+<!-- --- STEP 3 (FIXED) --- -->
+<div class="p-4 flex-1 flex flex-col relative">
+    
+    <!-- Metric Zone: fixed height to match Cards 1-2 -->
+    <div class="flex-1 flex flex-col justify-center items-center text-center pb-8">
+        
+        <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">STATUS:</p>
 
-                        <div class="p-4 flex-1 flex flex-col relative">
-                            
-                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                                
-                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1 shrink-0">STATUS:</p>
+        <!-- Badge wrapper: min-h-[44px] matches text-3xl line-height from Cards 1-2 -->
+        <div class="min-h-[44px] flex items-center justify-center">
+            <span class="flex items-center justify-center h-9 px-6 rounded-lg bg-red-400 text-white font-bold text-sm shadow-sm cursor-default whitespace-nowrap">
+                Safety Alert Sent
+            </span>
+        </div>
 
-                                <div class="w-full flex justify-center shrink-0">
-                                    <span class="flex items-center justify-center h-9 px-6 rounded-lg bg-red-400 text-white font-bold text-sm shadow-sm cursor-default whitespace-nowrap">
-                                        Safety Alert Sent
-                                    </span>
-                                </div>
+        <!-- Progress bar: same position as other cards -->
+        <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
+            <div class="h-full w-full bg-red-400 rounded-full"></div>
+        </div>
 
-                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2 shrink-0">
-                                    <div class="h-full w-full bg-red-400 rounded-full"></div>
-                                </div>
+        <!-- Explanatory text: lives INSIDE metric zone but after progress bar -->
+        <p class="text-xs text-slate-500 leading-snug text-center px-1 mt-3">
+            You couldn't check-in so something might be wrong.
+        </p>
+    </div>
 
-                                <p class="text-xs text-slate-500 leading-snug text-center px-1">
-                                    You couldn't check-in so something might be wrong.
-                                </p>
-                            </div>
+    <div class="absolute left-4 right-4 bottom-[70px] h-px bg-slate-100"></div>
 
-                            <div class="absolute left-4 right-4 bottom-[70px] h-px bg-slate-100"></div>
-
-                            <div class="mt-auto pt-4 z-10 bg-white shrink-0">
-                                <button type="button" class="w-full py-3 px-4 rounded-xl border-2 border-red-300 text-red-300 font-bold text-sm hover:bg-red-50 transition-colors">
-                                    Cancel Safety Alert
-                                </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-2">Tap to cancel Safety Alert</p>
-                            </div>
-                        </div>
+    <div class="mt-auto pt-4 z-10 bg-white shrink-0">
+        <button type="button" class="w-full py-3 px-4 rounded-xl border-2 border-red-300 text-red-300 font-bold text-sm hover:bg-red-50 transition-colors">
+            Cancel Safety Alert
+        </button>
+        <p class="text-[10px] text-center text-slate-400 mt-2">Tap to cancel Safety Alert</p>
+    </div>
+</div>
                     </div>
                     <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
                         <b>Can't check in? Your contacts are alerted automatically.</b>    
