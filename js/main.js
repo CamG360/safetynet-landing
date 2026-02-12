@@ -401,25 +401,34 @@ window.addEventListener('load', updateScrollUI);
 // ============================================
 // Feature Accordions
 // ============================================
-const featureToggles = document.querySelectorAll('.feature-toggle');
+const featureItems = document.querySelectorAll('.feature-item');
 
-featureToggles.forEach((toggle) => {
+featureItems.forEach((item) => {
+    const toggle = item.querySelector('.feature-toggle');
+    const details = item.querySelector('.feature-details');
+    const chevron = item.querySelector('.feature-chevron');
+
+    if (!toggle || !details) return;
+
+    // Set initial collapsed state
+    details.style.maxHeight = '0';
+    details.style.overflow = 'hidden';
+    details.style.transition = 'max-height 0.3s ease, margin-top 0.3s ease';
+    details.style.marginTop = '0';
+
     toggle.addEventListener('click', () => {
-        const featureItem = toggle.closest('.feature-item');
-        const isActive = featureItem.classList.contains('active');
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
-        // Toggle current item (independent toggles - multiple can be open)
-        if (isActive) {
-            featureItem.classList.remove('active');
+        if (isExpanded) {
+            details.style.maxHeight = '0';
+            details.style.marginTop = '0';
             toggle.setAttribute('aria-expanded', 'false');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
         } else {
-            featureItem.classList.add('active');
+            details.style.maxHeight = details.scrollHeight + 'px';
+            details.style.marginTop = '0.5rem';
             toggle.setAttribute('aria-expanded', 'true');
-        }
-
-        // Reinitialize Lucide icons for the chevron
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
+            if (chevron) chevron.style.transform = 'rotate(180deg)';
         }
     });
 });
@@ -427,25 +436,34 @@ featureToggles.forEach((toggle) => {
 // ============================================
 // Story Accordions
 // ============================================
-const storyToggles = document.querySelectorAll('.story-toggle');
+const storyItems = document.querySelectorAll('.story-item');
 
-storyToggles.forEach((toggle) => {
+storyItems.forEach((item) => {
+    const toggle = item.querySelector('.story-toggle');
+    const details = item.querySelector('.story-details');
+    const chevron = item.querySelector('.story-chevron');
+
+    if (!toggle || !details) return;
+
+    // Set initial collapsed state
+    details.style.maxHeight = '0';
+    details.style.overflow = 'hidden';
+    details.style.transition = 'max-height 0.3s ease, margin-top 0.3s ease';
+    details.style.marginTop = '0';
+
     toggle.addEventListener('click', () => {
-        const storyItem = toggle.closest('.story-item');
-        const isActive = storyItem.classList.contains('active');
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
-        // Toggle current item (independent toggles - multiple can be open)
-        if (isActive) {
-            storyItem.classList.remove('active');
+        if (isExpanded) {
+            details.style.maxHeight = '0';
+            details.style.marginTop = '0';
             toggle.setAttribute('aria-expanded', 'false');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
         } else {
-            storyItem.classList.add('active');
+            details.style.maxHeight = details.scrollHeight + 'px';
+            details.style.marginTop = '0.5rem';
             toggle.setAttribute('aria-expanded', 'true');
-        }
-
-        // Reinitialize Lucide icons for the chevron
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
+            if (chevron) chevron.style.transform = 'rotate(180deg)';
         }
     });
 });

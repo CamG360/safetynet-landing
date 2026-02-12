@@ -225,7 +225,7 @@ select.form-input {
     flex-shrink: 0;
 }
 
-/* Spinner */
+/* Spinner — shared with main.css (keep in sync or extract to shared.css) */
 .spinner {
     display: none;
     width: 18px;
