@@ -1,7 +1,7 @@
 :root {
   --sn-warm-bg: #FAF7F2;
-  --sn-primary: #2F5D62;
-  --sn-primary-hover: #24484C;
+  --sn-primary: #0D9488;
+  --sn-primary-hover: #0B5351;
 }
 
 body {
@@ -26,7 +26,7 @@ body {
 }
 
 .bg-blue-50 {
-  background-color: #F3EDE4 !important;
+  background-color: #F0FDFA !important;
 }
 
 .text-blue-700 {
@@ -34,14 +34,14 @@ body {
 }
 
 .shadow-blue-200 {
-  --tw-shadow-color: rgba(47, 93, 98, 0.18) !important;
+  --tw-shadow-color: rgba(13, 148, 136, 0.18) !important;
   --tw-shadow: var(--tw-shadow-colored) !important;
 }
 
 .hero-gradient,
 .safetynet-visual .background-glow,
 .safetynet-logo .background-glow {
-  background: radial-gradient(circle, rgba(47, 93, 98, 0.14) 0%, rgba(47, 93, 98, 0.04) 50%, rgba(47, 93, 98, 0) 100%) !important;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.14) 0%, rgba(13, 148, 136, 0.04) 50%, rgba(13, 148, 136, 0) 100%) !important;
 }
 
 .safetynet-visual .shield-icon,
