@@ -1,0 +1,52 @@
+:root {
+  --sn-warm-bg: #FAF7F2;
+  --sn-primary: #0D9488;
+  --sn-primary-hover: #0B5351;
+}
+
+body {
+  background: var(--sn-warm-bg);
+}
+
+.bg-white,
+.bg-slate-50,
+.bg-slate-50\/50 {
+  background-color: var(--sn-warm-bg) !important;
+}
+
+.bg-blue-600,
+.hover\:bg-blue-700:hover,
+#scrollProgressBar {
+  background-color: var(--sn-primary) !important;
+}
+
+.text-blue-600,
+.hover\:text-blue-600:hover {
+  color: var(--sn-primary) !important;
+}
+
+.bg-blue-50 {
+  background-color: #F0FDFA !important;
+}
+
+.text-blue-700 {
+  color: var(--sn-primary-hover) !important;
+}
+
+.shadow-blue-200 {
+  --tw-shadow-color: rgba(13, 148, 136, 0.18) !important;
+  --tw-shadow: var(--tw-shadow-colored) !important;
+}
+
+.hero-gradient,
+.safetynet-visual .background-glow,
+.safetynet-logo .background-glow {
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.14) 0%, rgba(13, 148, 136, 0.04) 50%, rgba(13, 148, 136, 0) 100%) !important;
+}
+
+.safetynet-visual .shield-icon,
+.safetynet-visual .person-icon,
+.safetynet-logo .shield-icon,
+.safetynet-logo .person-icon {
+  color: var(--sn-primary) !important;
+}
