@@ -20,7 +20,7 @@ body {
 
 .form-input:focus {
     outline: none;
-    border-color: var(--color-blue-600);
+    border-color: var(--color-teal-600, #0d9488);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
@@ -151,7 +151,7 @@ button:disabled {
 .faq-question:hover,
 .feature-toggle:hover h3,
 .story-toggle:hover h4 {
-    color: var(--color-blue-600);
+    color: var(--color-teal-600, #0d9488);
 }
 
 /* FAQ Category Buttons */
@@ -167,9 +167,9 @@ button:disabled {
 }
 
 .faq-category-btn.active {
-    background: var(--color-teal-600);
+    background: var(--color-teal-600, #0d9488);
     color: white;
-    border-color: var(--color-teal-600);
+    border-color: var(--color-teal-600, #0d9488);
 }
 
 /* SafetyNet Alert Card Styles */
