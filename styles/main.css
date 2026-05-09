@@ -167,9 +167,9 @@ button:disabled {
 }
 
 .faq-category-btn.active {
-    background: var(--color-blue-600);
+    background: var(--color-teal-600);
     color: white;
-    border-color: var(--color-blue-600);
+    border-color: var(--color-teal-600);
 }
 
 /* SafetyNet Alert Card Styles */
