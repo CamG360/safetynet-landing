@@ -2,6 +2,11 @@
   --sn-warm-bg: #FAF7F2;
   --sn-primary: #0D9488;
   --sn-primary-hover: #0B5351;
+  --sn-ink: #111827;
+  --sn-muted: #6B7280;
+  --sn-border: #111827;
+  --sn-soft-border: #E6DED2;
+  --sn-neutral-fill: #FFFFFF;
 }
 
 body {
@@ -49,4 +54,94 @@ body {
 .safetynet-logo .shield-icon,
 .safetynet-logo .person-icon {
   color: var(--sn-primary) !important;
+}
+
+/* Palette neutralisation pass: avoid traffic-light signalling in explanatory UI. */
+#problem .bg-red-500,
+#problem .bg-green-500,
+#problem .bg-gray-500 {
+  background-color: var(--sn-neutral-fill) !important;
+  border: 1.5px solid var(--sn-border) !important;
+  color: var(--sn-ink) !important;
+  box-shadow: none !important;
+}
+
+#problem .bg-red-500 svg,
+#problem .bg-green-500 svg,
+#problem .bg-gray-500 svg,
+#problem .text-white {
+  color: var(--sn-ink) !important;
+  stroke: currentColor !important;
+}
+
+#concept .bg-blue-100,
+#concept .bg-emerald-500,
+#concept .hover\:bg-emerald-600:hover,
+#concept .hover\:bg-red-50:hover {
+  background-color: var(--sn-neutral-fill) !important;
+}
+
+#concept .bg-green-400,
+#concept .bg-red-400 {
+  background-color: var(--sn-neutral-fill) !important;
+  border: 1.5px solid var(--sn-border) !important;
+}
+
+#concept .animate-ping {
+  display: none !important;
+}
+
+#concept .text-blue-700,
+#concept .text-red-500,
+#concept .text-white {
+  color: var(--sn-ink) !important;
+}
+
+#concept button.bg-blue-100,
+#concept button.bg-emerald-500,
+#concept button.border-red-400 {
+  border: 2px solid var(--sn-border) !important;
+  color: var(--sn-ink) !important;
+  background-color: var(--sn-neutral-fill) !important;
+  box-shadow: none !important;
+}
+
+#concept .border-red-400 {
+  border-color: var(--sn-border) !important;
+}
+
+#concept .bg-blue-500,
+#concept .bg-emerald-500 {
+  background-color: var(--sn-muted) !important;
+}
+
+#concept .text-red-500 {
+  color: var(--sn-ink) !important;
+}
+
+/* FAQ controls: remove default blue-button feel. */
+.faq-category-btn,
+.faq-category-btn:hover,
+.faq-category-btn.active {
+  background: var(--sn-neutral-fill) !important;
+  color: var(--sn-ink) !important;
+  border-color: var(--sn-soft-border) !important;
+}
+
+.faq-category-btn.active {
+  border-color: var(--sn-border) !important;
+  box-shadow: inset 0 -2px 0 var(--sn-primary) !important;
+}
+
+/* Keep actual alert component readable but less visually shouty where inherited utilities appear. */
+.text-red-500:not(.missed-label),
+.text-green-500,
+.text-emerald-500 {
+  color: var(--sn-ink) !important;
+}
+
+.bg-red-50,
+.bg-green-50,
+.bg-emerald-50 {
+  background-color: var(--sn-warm-bg) !important;
 }
