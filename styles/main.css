@@ -21,7 +21,7 @@ body {
 .form-input:focus {
     outline: none;
     border-color: var(--color-teal-600, #0d9488);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.16);
 }
 
 .spinner {
@@ -174,9 +174,9 @@ button:disabled {
 
 /* SafetyNet Alert Card Styles */
 .alert-card {
-    --alert-red: #E53935;
-    --alert-red-light: #FFEBEE;
-    --alert-red-dark: #C62828;
+    --alert-red: #0D9488;
+    --alert-red-light: #EAF8F6;
+    --alert-red-dark: #0B5351;
     --text-primary: var(--color-navy-900);
     --text-secondary: var(--color-slate-500);
     --bg-card: var(--color-white);
