@@ -20,6 +20,10 @@ body {
   background-color: var(--sn-primary) !important;
 }
 
+.border-blue-600 {
+  border-color: var(--sn-primary) !important;
+}
+
 .text-blue-600,
 .hover\:text-blue-600:hover {
   color: var(--sn-primary) !important;
@@ -49,4 +53,54 @@ body {
 .safetynet-logo .shield-icon,
 .safetynet-logo .person-icon {
   color: var(--sn-primary) !important;
+}
+
+/* Teal replacements for blue tints not covered above */
+.bg-blue-100 {
+  background-color: #CCFBF1 !important; /* teal-100 */
+}
+
+.text-blue-100 {
+  color: #CCFBF1 !important;
+}
+
+.border-blue-100 {
+  border-color: #CCFBF1 !important;
+}
+
+.border-blue-200 {
+  border-color: #99F6E4 !important; /* teal-200 */
+}
+
+.ring-blue-200 {
+  --tw-ring-color: rgba(153, 246, 228, 0.5) !important;
+}
+
+.bg-blue-500 {
+  background-color: var(--sn-primary) !important;
+}
+
+/* bg-blue-50/40 — comparison table SafetyNet column tint */
+.bg-blue-50\/40 {
+  background-color: rgba(240, 253, 250, 0.4) !important;
+}
+
+/* Gradient used in registration modal header */
+.from-blue-600 {
+  --tw-gradient-from: #0D9488 !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(13,148,136,0)) !important;
+}
+
+.to-blue-700 {
+  --tw-gradient-to: #0B5351 !important;
+}
+
+/* Focus ring on form inputs */
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: rgba(13, 148, 136, 0.5) !important;
+}
+
+/* Hover text link in modal */
+.hover\:text-blue-700:hover {
+  color: var(--sn-primary-hover) !important;
 }
