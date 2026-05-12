@@ -172,6 +172,16 @@ button:disabled {
     border-color: var(--color-teal-600, #0d9488);
 }
 
+.faq-show-more-btn {
+    background: var(--color-teal-600, #0d9488);
+    color: white;
+}
+
+.faq-show-more-btn:hover {
+    background: var(--sn-primary-hover, #0b5351);
+    color: white;
+}
+
 /* SafetyNet Alert Card Styles */
 .alert-card {
     --alert-red: #0D9488;
