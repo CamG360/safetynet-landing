@@ -479,8 +479,33 @@ h1.hero-title {
     line-height: 1.2; /* Tighter line height prevents vertical sprawl */
     margin-bottom: 1.5rem; /* Breathing room before subhead */
     max-width: 90%; /* Prevents text hitting the absolute edge on phones */
+}
+
+/* Hero two-column image layout */
+.hero-image-wrapper {
+    background: linear-gradient(145deg, #CCFBF1 0%, #0D9488 65%, #0B5351 100%);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(13, 148, 136, 0.3);
+    width: 100%;
+    max-width: 420px;
     margin-left: auto;
     margin-right: auto;
+    aspect-ratio: 3 / 2;
+}
+
+@media (min-width: 1024px) {
+    .hero-image-wrapper {
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+    }
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 /* 2. Increase Logo Size (The "Bubble") */
