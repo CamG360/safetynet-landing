@@ -469,57 +469,6 @@ storyItems.forEach((item) => {
 });
 
 // ============================================
-// FAQ Category Filter
-// ============================================
-const faqCategoryBtns = document.querySelectorAll('.faq-category-btn');
-const faqItems = document.querySelectorAll('.faq-item');
-
-/**
- * Filter FAQs by category
- * @param {string} selectedCategory - The category to filter by ('all' or specific category)
- */
-function filterFAQs(selectedCategory) {
-    faqItems.forEach((item) => {
-        const itemCategory = item.getAttribute('data-category');
-
-        if (selectedCategory === 'all') {
-            // Show all items
-            item.classList.remove('hidden-faq');
-        } else if (itemCategory === selectedCategory) {
-            // Show items matching the selected category
-            item.classList.remove('hidden-faq');
-        } else {
-            // Hide items that don't match
-            item.classList.add('hidden-faq');
-            // Also close any open FAQ items when hiding
-            item.classList.remove('active');
-            item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-        }
-    });
-}
-
-// Initialize on page load - filter based on active button
-const activeBtn = document.querySelector('.faq-category-btn.active');
-if (activeBtn) {
-    const initialCategory = activeBtn.getAttribute('data-category');
-    filterFAQs(initialCategory);
-}
-
-// Add click event listeners
-faqCategoryBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-        const selectedCategory = btn.getAttribute('data-category');
-
-        // Update active button state
-        faqCategoryBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // Filter FAQ items
-        filterFAQs(selectedCategory);
-    });
-});
-
-// ============================================
 // Our Story Read More Toggle
 // ============================================
 const readMoreStoryBtn = document.getElementById('readMoreStoryBtn');

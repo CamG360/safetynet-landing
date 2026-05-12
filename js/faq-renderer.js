@@ -8,6 +8,71 @@
 
 let faqData = null;
 let currentCategory = 'all';
+let allFAQsExpanded = false;
+
+const FAQ_ALL_INITIAL_LIMIT = 6;
+
+/**
+ * Toggle the Show more control visibility.
+ * @param {boolean} isVisible - Whether the control should be visible
+ */
+function setShowMoreVisibility(isVisible) {
+    const wrapper = document.getElementById('faq-show-more-wrapper');
+    if (!wrapper) return;
+
+    wrapper.classList.toggle('hidden', !isVisible);
+    wrapper.hidden = !isVisible;
+}
+
+/**
+ * Hide the no-results message outside active search states.
+ */
+function hideNoResultsMessage() {
+    const noResultsEl = document.querySelector('#faq-container .faq-no-results');
+    if (noResultsEl) {
+        noResultsEl.style.display = 'none';
+    }
+}
+
+/**
+ * Collapse an FAQ item when it is hidden by filter/search state.
+ * @param {Element} item - FAQ item element
+ */
+function collapseFAQItem(item) {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+
+    if (question) {
+        question.setAttribute('aria-expanded', 'false');
+    }
+
+    if (answer) {
+        answer.style.maxHeight = '0';
+        answer.style.marginTop = '0';
+    }
+
+    if (icon) {
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+
+/**
+ * Set an FAQ item visibility consistently for display and accessibility.
+ * @param {Element} item - FAQ item element
+ * @param {boolean} isVisible - Whether the item should be visible
+ */
+function setFAQItemVisibility(item, isVisible) {
+    if (isVisible) {
+        item.style.display = '';
+        item.removeAttribute('hidden');
+        return;
+    }
+
+    item.style.display = 'none';
+    item.setAttribute('hidden', '');
+    collapseFAQItem(item);
+}
 
 /**
  * Load FAQ data from JSON file (for search/filter functionality)
@@ -38,20 +103,26 @@ function filterFAQsByCategory(category = 'all') {
     if (!container) return;
 
     currentCategory = category;
+    hideNoResultsMessage();
 
     const faqItems = container.querySelectorAll('.faq-item');
-    
+
+    const shouldLimitAll = category === 'all' && !allFAQsExpanded;
+    let visibleCount = 0;
+
     faqItems.forEach(item => {
         const itemCategory = item.dataset.category;
-        
-        if (category === 'all' || itemCategory === category) {
-            item.style.display = '';
-            item.removeAttribute('hidden');
-        } else {
-            item.style.display = 'none';
-            item.setAttribute('hidden', '');
+        const categoryMatches = category === 'all' || itemCategory === category;
+        const isVisible = categoryMatches && (!shouldLimitAll || visibleCount < FAQ_ALL_INITIAL_LIMIT);
+
+        if (categoryMatches) {
+            visibleCount++;
         }
+
+        setFAQItemVisibility(item, isVisible);
     });
+
+    setShowMoreVisibility(category === 'all' && !allFAQsExpanded && visibleCount > FAQ_ALL_INITIAL_LIMIT);
 }
 
 /**
@@ -71,14 +142,29 @@ function initCategoryTabs() {
             btn.classList.add('active');
             // Filter FAQs for selected category
             const category = btn.dataset.category;
-            filterFAQsByCategory(category);
-            
+            allFAQsExpanded = false;
+
             // Clear search input when changing category
             const searchInput = document.getElementById('faq-search');
             if (searchInput) {
                 searchInput.value = '';
             }
+
+            filterFAQsByCategory(category);
         });
+    });
+}
+
+/**
+ * Initialize progressive disclosure for the default All FAQ view.
+ */
+function initFAQShowMore() {
+    const showMoreButton = document.getElementById('faq-show-more');
+    if (!showMoreButton) return;
+
+    showMoreButton.addEventListener('click', () => {
+        allFAQsExpanded = true;
+        filterFAQsByCategory(currentCategory);
     });
 }
 
@@ -142,9 +228,12 @@ function initFAQSearch() {
 
         if (searchTerm === '') {
             // If search is empty, restore category filter
+            allFAQsExpanded = false;
             filterFAQsByCategory(currentCategory);
             return;
         }
+
+        setShowMoreVisibility(false);
 
         // Filter by search term (searches question and answer text)
         let matchCount = 0;
@@ -154,12 +243,10 @@ function initFAQSearch() {
             const answer = item.querySelector('.faq-answer')?.textContent.toLowerCase() || '';
             
             if (question.includes(searchTerm) || answer.includes(searchTerm)) {
-                item.style.display = '';
-                item.removeAttribute('hidden');
+                setFAQItemVisibility(item, true);
                 matchCount++;
             } else {
-                item.style.display = 'none';
-                item.setAttribute('hidden', '');
+                setFAQItemVisibility(item, false);
             }
         });
 
@@ -198,6 +285,12 @@ async function initializeFAQSection() {
     
     // Initialize category tabs (works without JSON)
     initCategoryTabs();
+
+    // Initialize progressive disclosure for the All tab
+    initFAQShowMore();
+
+    // Apply default All tab limit on first render
+    filterFAQsByCategory(currentCategory);
     
     // Initialize Lucide icons for FAQ section
     if (typeof lucide !== 'undefined') {
