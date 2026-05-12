@@ -90,9 +90,8 @@ document.addEventListener('keydown', (e) => {
 const alertModal = document.getElementById('alertDemoModal');
 const openAlertBtn = document.getElementById('openAlertDemoBtn');
 const heroSafetyAlertBtn = document.getElementById('heroSafetyAlertBtn');
-const closeAlertBtn = document.getElementById('closeAlertDemoBtn');
 
-if (closeAlertBtn && alertModal) {
+if (alertModal) {
     // Hero section button
     if (heroSafetyAlertBtn) {
         heroSafetyAlertBtn.addEventListener('click', (e) => {
@@ -105,11 +104,16 @@ if (closeAlertBtn && alertModal) {
     if (openAlertBtn) {
         openAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', true));
     }
-    closeAlertBtn.addEventListener('click', () => toggleModal('alertDemoModal', false));
     alertModal.addEventListener('click', (e) => {
         if (e.target === alertModal) toggleModal('alertDemoModal', false);
     });
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#closeAlertDemoBtn')) {
+        toggleModal('alertDemoModal', false);
+    }
+});
 
 // ============================================
 // Registration Form Management
@@ -147,20 +151,24 @@ function resetRegistrationForm() {
 // Registration Modal
 const regModal = document.getElementById('registrationModal');
 const openRegBtns = document.querySelectorAll('.open-registration-modal');
-const closeRegBtn = document.getElementById('closeRegistrationBtn');
 
-if (regModal && closeRegBtn) {
+if (regModal) {
     openRegBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             resetRegistrationForm(); // Reset form state before opening
             toggleModal('registrationModal', true);
         });
     });
-    closeRegBtn.addEventListener('click', () => toggleModal('registrationModal', false));
     regModal.addEventListener('click', (e) => {
         if (e.target === regModal) toggleModal('registrationModal', false);
     });
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#closeRegistrationBtn')) {
+        toggleModal('registrationModal', false);
+    }
+});
 
 // Hero Join Waitlist Button
 const heroJoinBtn = document.getElementById('heroJoinWaitlistBtn');
@@ -188,36 +196,44 @@ if (heroJoinBtn && heroEmailInput && modalEmailInput) {
 // ============================================
 const privacyModal = document.getElementById('privacyPolicyModal');
 const openPrivacyBtn = document.getElementById('openPrivacyPolicyBtn');
-const closePrivacyBtn = document.getElementById('closePrivacyPolicyBtn');
 
-if (privacyModal && openPrivacyBtn && closePrivacyBtn) {
+if (privacyModal && openPrivacyBtn) {
     openPrivacyBtn.addEventListener('click', (e) => {
         e.preventDefault();
         toggleModal('privacyPolicyModal', true);
     });
-    closePrivacyBtn.addEventListener('click', () => toggleModal('privacyPolicyModal', false));
     privacyModal.addEventListener('click', (e) => {
         if (e.target === privacyModal) toggleModal('privacyPolicyModal', false);
     });
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#closePrivacyPolicyBtn')) {
+        toggleModal('privacyPolicyModal', false);
+    }
+});
 
 // ============================================
 // Terms of Service Modal
 // ============================================
 const termsModal = document.getElementById('termsOfServiceModal');
 const openTermsBtn = document.getElementById('openTermsOfServiceBtn');
-const closeTermsBtn = document.getElementById('closeTermsOfServiceBtn');
 
-if (termsModal && openTermsBtn && closeTermsBtn) {
+if (termsModal && openTermsBtn) {
     openTermsBtn.addEventListener('click', (e) => {
         e.preventDefault();
         toggleModal('termsOfServiceModal', true);
     });
-    closeTermsBtn.addEventListener('click', () => toggleModal('termsOfServiceModal', false));
     termsModal.addEventListener('click', (e) => {
         if (e.target === termsModal) toggleModal('termsOfServiceModal', false);
     });
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#closeTermsOfServiceBtn')) {
+        toggleModal('termsOfServiceModal', false);
+    }
+});
 
 // ============================================
 // Mobile Menu
