@@ -46,3 +46,40 @@ git worktree add -b agent/preparer ..\safetynet-landing-preparer
 git worktree add -b agent/reviewer ..\safetynet-landing-reviewer
 
 > Handoff workflow standard (HANDOFF.md / REVIEW.md structure, decision log, known risks): `docs/safetynet-agent-handoff-workflow_1430.170526.md`
+
+---
+
+## Handoff Workflow
+
+### Role
+This is the **preparer** worktree. After completing each task you must produce `HANDOFF.md` before committing. No exceptions.
+
+### HANDOFF.md — required structure
+
+```
+TASK
+[What was asked]
+
+DONE
+[What was executed — specific, not summary]
+
+SKIPPED / REJECTED
+[Anything not done and why — none if not applicable]
+
+QUALITY GATES
+[Gate name]: PASS / FAIL
+
+OPEN FOR REVIEWER
+[Anything requiring reviewer judgment — none if not applicable]
+
+BRANCH
+[Branch name and commit reference]
+```
+
+### Rules
+
+- Produce `HANDOFF.md` at the end of every task, before committing.
+- Commit `HANDOFF.md` in the same commit as the task work.
+- List every skipped or rejected item explicitly — omitting omissions is a failure mode.
+- Include the specific commit reference in the BRANCH section.
+- Do not proceed to the next task until `HANDOFF.md` is committed.
