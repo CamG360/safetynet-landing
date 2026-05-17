@@ -44,3 +44,5 @@ safetynet-landing-reviewer\     ← reviewer worktree
 
 git worktree add -b agent/preparer ..\safetynet-landing-preparer
 git worktree add -b agent/reviewer ..\safetynet-landing-reviewer
+
+> Handoff workflow standard (HANDOFF.md / REVIEW.md structure, decision log, known risks): `docs/safetynet-agent-handoff-workflow_1430.170526.md`
