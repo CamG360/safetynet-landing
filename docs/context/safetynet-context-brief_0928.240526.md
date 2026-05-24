@@ -146,6 +146,7 @@ Core claims and proof points as stated on the page:
 | Vercel | Deployment |
 | GitHub | Version control |
 | Cowork | File indexing / repo location |
+| Claude Design | UI/UX design (claude.ai/design) |
 | Windows / PowerShell | Dev environment |
 
 ---
