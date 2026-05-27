@@ -50,6 +50,24 @@ User sets a check-in time and emergency contacts. If they don't check in, Safety
 
 ---
 
+## UX Problem Frame
+
+SafetyNet is a modernised personal-safety dead man's switch adapted for everyday situations. The category has three structural UX problems:
+
+1. Most users do not understand the concept immediately
+2. Explaining the mechanics upfront creates cognitive friction
+3. Most users do not realise the safety gap exists until it is pointed out
+
+The current priority challenge is therefore **not** feature explanation, workflow education, or technical understanding.
+
+The current priority challenge is: **helping users recognise a safety gap they already have, but have never consciously identified.**
+
+Users must first realise: *"My current safety tools fail if I cannot use my phone."*
+
+Only after that realization do the mechanics become intuitive. All copy, structure, and sequencing decisions flow from this.
+
+---
+
 ## Landing Page: User Flow
 
 Visitor journey through safetynetbeta.com (section order as built):
