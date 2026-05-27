@@ -90,6 +90,30 @@ Core claims and proof points as stated on the page:
 
 ---
 
+## User Voice
+
+*First reactions from user interviews. Pre-launch — not product reviews.*
+
+**Core problem**
+> "I never thought about what would happen if I couldn't reach my phone. Now I can't stop thinking about it. I'm in."
+> — Michael, Solo Traveller • Leon, France
+
+**Why existing tools don't cover this**
+> "I have five tracking apps. I just realised none of them help if I can't reach my phone."
+> — Zolania, Student • London, UK
+
+**The contact's side**
+> "I just want to know if something's wrong — without the back-and-forth of 'text me when you're home.' I'm too busy for that."
+> — Catherine, Mother & Business Owner • Houston, USA
+
+**Privacy (Vault anchor)**
+> "My private plans stay private until I get in trouble — that's the balance I need."
+> — Julie, Student • San Diego, USA
+
+*Full testimonial universe: `04_Validation/Feedback/testimonial-universe_270526.md`*
+
+---
+
 ## Locked Design & Copy Decisions
 
 | Element | Decision |
