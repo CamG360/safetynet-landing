@@ -60,4 +60,4 @@ OPEN FOR REVIEWER
   assertion. Not a regression from this task.
 
 BRANCH
-agent/preparer @ [fill from: git log --oneline -1 in safetynet-landing-preparer]
+agent/preparer @ f880329
