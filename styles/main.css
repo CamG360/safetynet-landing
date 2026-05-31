@@ -625,3 +625,114 @@ h1.hero-title {
     flex-shrink: 0;
     object-fit: cover;
 }
+
+/* ============================================================
+   SafetyNet — "First reactions" recognition marquee
+   APPEND to styles/main.css (plain CSS, loaded after tailwind.css).
+   CSP-clean: no inline styles required; duration is a CSS var here.
+   Inter is the page font (loaded in <head>); no new font needed.
+   ============================================================ */
+
+/* full-bleed marquee viewport */
+.sn-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+/* the moving rail — duration overridable via --sn-marquee-dur */
+.sn-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 18px;
+  padding-inline: 18px;
+  will-change: transform;
+  animation: sn-marquee-scroll var(--sn-marquee-dur, 64s) linear infinite;
+}
+
+@keyframes sn-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* pause on hover (desktop) and when toggled off */
+.sn-marquee:hover .sn-marquee-track,
+.sn-marquee.is-paused .sn-marquee-track {
+  animation-play-state: paused;
+}
+
+/* respect reduced-motion: stop entirely, show a static readable row */
+@media (prefers-reduced-motion: reduce) {
+  .sn-marquee-track { animation: none; }
+}
+
+/* quote cards */
+.sn-mq-card {
+  flex: 0 0 340px;
+  background: #ffffff;
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+@media (max-width: 640px) {
+  .sn-mq-card { flex-basis: 280px; }
+}
+
+.sn-mq-quote {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--color-slate-700, #334155);
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+
+.sn-mq-attr {
+  font-size: 12px;
+  color: var(--color-slate-400, #94a3b8);
+  letter-spacing: 0.01em;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  margin-top: auto;
+}
+.sn-mq-attr strong { color: var(--color-slate-600, #475569); font-weight: 600; }
+
+/* pause/play control */
+.sn-mq-pause {
+  width: 44px;            /* 44px hit target (a11y) */
+  height: 44px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-slate-500, #64748b);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+.sn-mq-pause:hover { color: var(--color-slate-900, #0f172a); background: rgba(15, 23, 42, 0.05); }
+.sn-mq-pause:focus-visible { outline: 2px solid var(--color-blue-600, #2563eb); outline-offset: 2px; }
+.sn-mq-pause i { width: 18px; height: 18px; }
+
+/* bridge link to #problem */
+.sn-reactions-bridge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-slate-600, #475569);
+  font-size: 14.5px;
+  letter-spacing: -0.005em;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.25);
+  padding-bottom: 2px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.sn-reactions-bridge:hover { color: var(--color-slate-900, #0f172a); border-color: var(--color-slate-900, #0f172a); }
+.sn-reactions-bridge:focus-visible { outline: 2px solid var(--color-blue-600, #2563eb); outline-offset: 2px; }
+.sn-reactions-bridge i { width: 14px; height: 14px; transition: transform 180ms ease; }
+.sn-reactions-bridge:hover i { transform: translateY(2px); }
