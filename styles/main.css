@@ -644,7 +644,8 @@ h1.hero-title {
 
 /* the moving rail — duration overridable via --sn-marquee-dur */
 .sn-marquee-track {
-  display: flex;
+  display: inline-flex;
+  flex-wrap: nowrap;
   width: max-content;
   gap: 18px;
   padding-inline: 18px;
