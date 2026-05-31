@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/cli": "^4.1.18",
     "autoprefixer": "^10.4.23",
     "eslint": "^8.57.0",
