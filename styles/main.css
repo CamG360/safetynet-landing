@@ -9,10 +9,6 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.hero-gradient {
-    background: linear-gradient(135deg, var(--color-blue-50) 0%, var(--color-white) 100%);
-}
-
 /* Modal Styles */
 .form-input {
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -461,91 +457,82 @@ button:disabled {
     height: 18px;
 }
 
-/* Section 1 UX Improvements */
-:root {
-    --nav-height: 80px; /* matches h-20 on the nav */
-    --scroll-indicator-height: 4px; /* matches h-1 on the progress bar */
+/* ===== HERO (Light split layout) ===== */
+.hero-section { background: #faf9f6; }
+
+/* Image band — right 56% on desktop */
+.hero-imgband {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 56%;
+  background-image: url('../images/SN_hero_left_no-markings_1554.310526.webp');
+  background-size: cover; background-position: 40% 45%;
+}
+.hero-imgband::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #faf9f6 0%, rgba(250,249,246,0.4) 14%, rgba(250,249,246,0) 32%);
 }
 
-.hero-section {
-    min-height: auto;
-    padding-top: calc(var(--nav-height) + var(--scroll-indicator-height) + clamp(20px, 4vh, 36px) + env(safe-area-inset-top, 0px));
-    padding-bottom: clamp(28px, 5vh, 48px);
+/* Text column — left 52%, clears the 80px sticky nav */
+.hero-textcol {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 52%;
+  display: flex; align-items: center;
+}
+.hero-textcol-inner { padding: 5rem 4rem 0; max-width: 560px; }
+.hero-title { font-size: clamp(2rem, 4vw, 3.375rem); font-weight: 800; line-height: 1.03; margin: 0 0 1.25rem; text-wrap: balance; }
+.hero-sub   { font-size: clamp(1.125rem, 1.6vw, 1.4375rem); font-weight: 400; line-height: 1.4; margin: 0 0 2rem; }
+
+/* CTA — teal pill */
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 15px 26px; border-radius: 999px; font-size: 16px; font-weight: 700;
+  border: 0; cursor: pointer; color: #fff; background: #0d9488;
+  box-shadow: 0 14px 34px -12px rgba(13,148,136,0.6);
+  transition: transform .15s ease, box-shadow .15s ease; margin-bottom: 1.625rem;
+}
+.hero-cta:hover { transform: translateY(-1px); background: #0f766e; }
+
+/* Trust row */
+.hero-trust { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13.5px; font-weight: 500; color: #334155; }
+.hero-trust-item { display: flex; align-items: center; gap: 7px; }
+.hero-trust-chk  { width: 18px; height: 18px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: rgba(13,148,136,0.12); color: #0f766e; }
+.hero-trust-chk svg { width: 11px; height: 11px; }
+
+/* Status cards (glass, light) */
+.hero-cards { position: absolute; right: 40px; bottom: 48px; display: flex; flex-direction: column; gap: 10px; width: 300px; }
+.hero-card {
+  display: flex; align-items: center; gap: 12px; padding: 12px 15px; border-radius: 14px;
+  background: rgba(255,255,255,0.94); color: #0b1220;
+  backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 18px 44px -20px rgba(11,18,32,0.3);
+}
+.hero-card-ic { width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(13,148,136,0.1); color: #0d9488; }
+.hero-card-ic svg { width: 19px; height: 19px; }
+.hero-card-txt { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.hero-card-k { font-size: 12px; font-weight: 500; opacity: 0.62; }
+.hero-card-v { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.hero-card-link { font-size: 14px; font-weight: 600; color: #0d9488; }
+.hero-card-ready { font-size: 14px; font-weight: 700; color: #059669; }
+.hero-card-dot { width: 7px; height: 7px; border-radius: 999px; display: inline-block; margin-right: 6px; vertical-align: middle; background: #059669; }
+
+/* ---- Mobile: stack text over a centred image panel ---- */
+@media (max-width: 767px) {
+  .hero-section { display: flex; flex-direction: column; }
+  .hero-imgband {
+    position: relative; width: 100%; flex: 1; min-height: 320px; order: 2;
+    background-image: url('../images/SN_hero_centre_no-markings_1552.310526.webp'); background-position: 54% 40%;
+  }
+  .hero-imgband::before { display: none; }
+  .hero-textcol { position: relative; width: 100%; order: 1; }
+  .hero-textcol-inner { padding: 6.5rem 1.5rem 1.25rem; text-align: center; max-width: none; }
+  .hero-cta { width: 100%; justify-content: center; }
+  .hero-trust { justify-content: center; }
+  .hero-cards { position: absolute; left: 20px; right: 20px; bottom: 18px; width: auto; transform: scale(0.92); transform-origin: bottom center; }
 }
 
-.hero-content {
-    row-gap: clamp(1rem, 2.5vh, 1.5rem);
-}
-
-.hero-image-wrap {
-    width: min(100%, clamp(320px, 34vw, 460px));
-    margin-block: clamp(8px, 2vh, 16px);
-}
-
-.hero-image {
-    width: 100%;
-    height: auto;
-    max-height: min(42vh, 460px);
-    object-fit: contain;
-}
-
-@media (min-width: 768px) {
-    .hero-section {
-        padding-top: calc(var(--nav-height) + var(--scroll-indicator-height) + clamp(24px, 4vh, 44px) + env(safe-area-inset-top, 0px));
-    }
-}
-
-@media (min-width: 1024px) {
-    .hero-section {
-        padding-top: calc(var(--nav-height) + var(--scroll-indicator-height) + clamp(28px, 4.5vh, 52px) + env(safe-area-inset-top, 0px));
-    }
-}
-
-@media (min-width: 1024px) and (max-height: 820px) {
-    .hero-section {
-        padding-top: calc(var(--nav-height) + var(--scroll-indicator-height) + 20px + env(safe-area-inset-top, 0px));
-        padding-bottom: 32px;
-    }
-
-    .hero-image-wrap {
-        width: min(100%, 380px);
-    }
-
-    .hero-image {
-        max-height: 36vh;
-    }
-
-    #heroJoinWaitlistBtn {
-        font-size: 1rem;
-        padding: 0.875rem 1.5rem;
-    }
-}
-
-/* 1. Un-crowd the Header on Mobile */
-h1.hero-title {
-    font-size: 2.5rem; /* Large but readable */
-    line-height: 1.2; /* Tighter line height prevents vertical sprawl */
-    margin-bottom: 1.5rem; /* Breathing room before subhead */
-    max-width: 90%; /* Prevents text hitting the absolute edge on phones */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* 2. Increase Logo Size (The "Bubble") */
+/* ===== NAV LOGO ===== */
 .nav-logo-icon {
-    transform: scale(0.45); /* Scales medium logo to fit nav height while preserving proportions */
-    transform-origin: center; /* Ensures it grows evenly */
-    margin-right: 8px; /* specific spacing between icon and 'SafetyNet' text */
-}
-
-/* 3. Refine the Sub-headline for Scannability */
-.hero-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-slate-600); /* slightly softer grey to de-emphasize vs H1 */
-    max-width: 600px; /* Constrains width so lines don't get too long */
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
+    transform: scale(0.45);
+    transform-origin: center;
+    margin-right: 8px;
 }
 
 /* Mental model section styles moved to Tailwind utilities in HTML */

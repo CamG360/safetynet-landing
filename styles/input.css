@@ -93,4 +93,15 @@
   --color-black: oklch(0 0 0);
 
   --color-navy-900: #1a1a2e;
+
+  --color-teal-50:  oklch(0.98 0.02 185);
+  --color-teal-100: oklch(0.95 0.04 185);
+  --color-teal-200: oklch(0.90 0.07 185);
+  --color-teal-300: oklch(0.82 0.10 186);
+  --color-teal-400: oklch(0.73 0.12 186);
+  --color-teal-500: oklch(0.66 0.12 186);
+  --color-teal-600: oklch(0.58 0.11 186);
+  --color-teal-700: oklch(0.50 0.09 187);
+  --color-teal-800: oklch(0.42 0.07 187);
+  --color-teal-900: oklch(0.38 0.06 188);
 }
