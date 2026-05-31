@@ -638,8 +638,27 @@ h1.hero-title {
   position: relative;
   width: 100%;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+.sn-marquee::before,
+.sn-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sn-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, #ffffff 0%, transparent 100%);
+}
+
+.sn-marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, #ffffff 0%, transparent 100%);
 }
 
 /* the moving rail — duration overridable via --sn-marquee-dur */
