@@ -10,7 +10,8 @@
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "lint": "eslint js/**/*.js tests/**/*.js",
-    "lint:fix": "eslint js/**/*.js tests/**/*.js --fix"
+    "lint:fix": "eslint js/**/*.js tests/**/*.js --fix",
+    "test:smoke": "npx http-server -p 8123 -s & sleep 2 && BASE_URL=http://localhost:8123 npx playwright test tests/reactions.smoke.spec.js --reporter=line; kill %1 2>/dev/null; exit ${PIPESTATUS[0]}"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
