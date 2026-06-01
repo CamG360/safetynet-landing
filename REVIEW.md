@@ -1,106 +1,99 @@
-# REVIEW — Hero light split layout (SN-LP-hero-light-001)
+# REVIEW — Handoff fitness assessment for hero repair
 
-**Task ID:** SN-LP-hero-light-001
-**Reviewer:** Claude Code reviewer session — agent/reviewer worktree
-**Source under review:** PR #285 from agent/preparer (head d72d3a7)
-**Reviewed against:** origin/main at c9f508f (merge-base 2f8dc6c)
+## What this file is
 
----
+`REVIEW.md` is **not landing-page code** and it does **not update the hero**. It is the written assessment file produced by the repo's preparer/reviewer workflow. In this repo, `HANDOFF.md` is the previous agent's handover, and `REVIEW.md` is where the next agent records whether that handover is good enough to use.
 
-## A. Independent gate re-run
+For this task, the question was: **"Is the handover good enough for someone to fix the hero from it?"**
 
-| Gate | Command | Expected | Result | Notes |
-|---|---|---|---|---|
-| G1 Build | `npm run build:css` | exit 0 | PASS | |
-| G2 Lint | `npm run lint` | 0 errors | PRE-EXISTING FAIL | CRLF in every repo JS/test file — present on main, not caused by this PR. No JS files were modified. |
-| G3 Unit | `npm test` | 117 pass, unchanged | PASS — 117/117 | |
-| G4 Smoke | `npx playwright test tests/reactions.smoke.spec.js` | 8/9 | 8/9 CONFIRMED | Test 6 (#snMarqueePause) pre-existing stale assertion — pause button removed in dd0388f. Independently reproduced. |
+The answer recorded here is: **No. The existing handover is too vague to be used as the repair brief.**
 
----
+**Date:** 2026-06-01
+**Reviewer:** Codex
+**Request assessed:** Whether the handover document is fit for purpose for updating the landing-page hero after a failed previous attempt.
+**Requested handoff path:** `_ops/handoff/handoff_0925.010626`
+**Handoff actually found in repo:** `HANDOFF.md`
+**Target hero reference found in repo:** `images/design-log/yes/SN_light_desktop_1705.310526.png` and `images/design-log/yes/SN_light_mobile_1705.310526.png`
 
-## B. Diff audit
+## Verdict
 
-Run `git diff --stat origin/main..HEAD` — files changed:
+**REJECTED — not fit for purpose as an implementation handoff.**
 
-- [x] `index.html` — hero section replaced, no other section modified. DOM order confirmed: #hero (73) → #reactions (139) → #problem (209). ✓
-- [x] `styles/main.css` — dead centered-hero rules removed; new Light hero block added. Both `url()` references use WebP filenames. ✓
-- [x] `styles/input.css` — teal scale appended to `@theme`. ✓
-- [x] `styles/tailwind.css` — rebuilt output only. ✓
-- [x] `images/SN_hero_left_no-markings_1554.310526.webp` — new file (117 KB). ✓
-- [x] `images/SN_hero_centre_no-markings_1552.310526.webp` — new file (124 KB). ✓
-- [x] `HANDOFF.md` — new file. ✓
-- [x] `images/SN_hero_left_no-markings_1554.310526.png` — **DELETED on merge** (2 MB source PNG uploaded to main at c9f508f, after this branch was cut). Accepted: WebP replacements are intentional per task brief. Cam to confirm source PNG archival is not needed before approving.
-- [x] `images/SN_hero_centre_no-markings_1552.310526.png` — **DELETED on merge** — same as above.
+`HANDOFF.md` is useful as a historical completion summary for the prior `agent/preparer` attempt, but it is not sufficient to hand to another coding agent as the authoritative brief for fixing the current hero. It records what the previous agent says it changed, and it includes several reviewer-open visual questions, but it does not provide enough target-state detail, failure context, or acceptance criteria to reliably produce the supplied target hero.
 
-Red flags — none found:
-- [x] No changes to #problem, hero-to-reactions flow, nav, footer, or other sections
-- [x] No new external URL in any script, style, font, or img
-- [x] No changes to SRI hashes or vercel.json
-- [x] No secrets, keys, or .env-like content
-- [x] No stray/debug files
 
----
+## Plain-English answer
 
-## C. CSP / security audit
+The handoff is **not ready to give to another developer/agent to fix the hero**. It mostly says, "the previous hero change was done," but it does **not** clearly say what the final hero should look like, where the supplied target image lives, what failed in the last attempt, or exactly how to judge whether the next attempt is correct.
 
-- [x] No inline `style=` in inserted hero markup (`grep 'style=' index.html` in new block → none)
-- [x] No inline `on*=` handlers in inserted markup
-- [x] Marquee speed remains CSS var in `main.css`; pause (reactions) remains via `addEventListener` — hero changes do not touch reactions JS
-- [x] No new `<script>` tags added
-- [x] `sri.test.js` green (G3 confirmed) — CDN/SRI surface unchanged
-- [ ] DevTools console check — **requires Vercel preview (Cam)**
+In short:
 
----
+- **Good enough as a record of the previous attempt:** yes.
+- **Good enough as instructions for the next repair attempt:** no.
+- **Main reason:** it does not turn the provided target hero image into concrete build instructions and pass/fail checks.
 
-## D. Content & governance audit
+If the goal is to fix the landing-page hero now, the next step is not to ask another agent to "use the handoff" as-is. The next step is to write a repair brief that says: "make the current page match this target screenshot, at these screen sizes, using these assets, and these are the exact things that must be true when finished."
 
-- [x] Hero headline verbatim: "Text me when you're safe" fails when you can't text.
-- [x] Hero sub verbatim: SafetyNet sends an alert for you.
-- [x] CTA: "Get Early Access" with arrow-right icon. `open-registration-modal` class preserved — modal hook intact.
-- [x] Trust row retained: Automatic alerts / Zero tracking / Your plans private ✓
-- [x] T11 (Cali, Colombia): `grep -in 'colombia\|cali' index.html` → not found ✓
-- [x] Teal scoped to hero CSS classes only; blue-600 unchanged on all other sections
+## Key findings
 
----
+### 1. The requested handoff artifact is absent
 
-## E. Side effects (outside declared scope — accepted or flagged)
+The user-specified path `_ops/handoff/handoff_0925.010626` does not exist in this checkout. The only handoff-like task document present is `HANDOFF.md`; there is no `_ops/` handoff file to evaluate directly.
 
-1. **Nav hover colour now resolves** — `hover:text-teal-600` appears in nav markup (lines 32, 55). Before this PR teal was undefined → rendered as default. Now teal-600 is defined so hover renders as teal. This is a cosmetic improvement, not a regression. **Accepted.**
+**Impact:** A future agent following the user's path will start blocked or will guess that `HANDOFF.md` is the intended substitute.
 
-2. **Stale comment in index.html:137** — reads "Accent = blue-600 (teal is NOT defined in @theme - do not use)." This is now incorrect; teal IS defined. Not a defect, but misleading. **Recommend fixing in a follow-up; not a blocker.**
+### 2. The document meets the minimum governance skeleton, but only at a surface level
 
-3. **PNG source files deleted on merge** — see Section B. Raw 2 MB PNGs (uploaded to main at c9f508f) will be removed when this PR merges. WebP replacements serve the same function at 6% of the file size. **Flag for Cam's explicit acknowledgement before merge.**
+The repo's handoff workflow requires the sections `TASK`, `DONE`, `SKIPPED / REJECTED`, `QUALITY GATES`, `OPEN FOR REVIEWER`, and `BRANCH`. `HANDOFF.md` contains those headings and a branch/commit reference.
 
----
+**Impact:** It is structurally compliant as an audit artifact, but structural compliance is not the same as being an actionable implementation brief.
 
-## F. Visual gates — pending Cam on Vercel preview
+### 3. It lacks a source-of-truth target reference
 
-| # | Check | Status |
-|---|---|---|
-| 1 | Section appears after hero, above #problem | Verified via Playwright (DOM order) |
-| 2 | Split layout: text left, image band right | **Pending preview** |
-| 3 | Three glass cards bottom-right of image band | **Pending preview** |
-| 4 | Teal CTA button (~#0d9488) renders correctly | **Pending preview** |
-| 5 | Cream left-edge feather on image band (desktop) | **Pending preview** |
-| 6 | Mobile (≤767px): text stack top, image panel below, no overflow | **Pending preview** |
-| 7 | All sections above and below render unchanged | **Pending preview** |
-| 8 | Nav Overview still jumps to #problem | Verified via Playwright (test 7) |
-| 9 | No console errors on load | Verified via Playwright (test 8) |
-| 10 | No horizontal overflow at mobile | Verified via Playwright (test 9) |
+`HANDOFF.md` does not identify the target screenshot/image path, viewport dimensions, intended desktop/mobile compositions, or any measurable visual tolerances. It refers only to an approved "Light" hero and to broad traits such as split layout, image band, glass cards, cream feather, and teal CTA.
 
----
+**Impact:** This leaves the most important part of the task — matching the supplied target hero — dependent on unstated visual memory. That is a likely cause of repeated failure.
 
-## F. Verdict
+### 4. It is written as a completion report, not a repair brief
 
-- [x] **APPROVE (conditional)** — all machine gates pass or pre-existing; scope is clean; no regressions in tests or DOM structure. Three items require Cam's sign-off before merge:
-  1. Confirm PNG source file deletion is acceptable (or preserve them separately).
-  2. Verify visual gates (split layout, teal CTA, mobile stack) on the Vercel preview URL.
-  3. Acknowledge stale comment at index.html:137 (recommend follow-up, not a blocker).
+The document says the hero was ported and lists work as already done, including CSS, HTML, rebuilt Tailwind output, and WebP assets. It does not state the current failure, what Claude Code got wrong, what must be retained, or what must be corrected next.
 
-**Decision log:**
-All machine-verifiable gates run independently and confirmed preparer's results. Pre-existing G2 (CRLF) and G4/test-6 (stale pause-button assertion) failures both confirmed pre-existing — not introduced by this PR. Diff scope is surgical: only hero, its CSS, teal tokens, two images, and HANDOFF.md. Side effects are minor and net-positive (nav hover now works correctly). PNG deletion on merge is intentional per the task brief (WebP conversion requested) but needs explicit human acknowledgement.
+**Impact:** A new agent could mistakenly verify the old attempt instead of fixing it.
 
-**Known residual risks accepted:**
-- No automated visual baseline for the split layout — covered by pending preview review (Section F).
-- CRLF normalisation is a separate repo housekeeping task.
-- Stale pause-button smoke test should be cleaned up in a follow-up.
+### 5. Visual gates are delegated but underspecified
+
+The handoff marks desktop layout, mobile layout, Lucide icon rendering, image crop, and teal rendering as open reviewer checks. However, it does not explain what constitutes pass/fail for those checks beyond generic wording.
+
+**Impact:** The handoff correctly flags that visual judgment is needed, but it does not give enough information to make that judgment repeatable.
+
+### 6. It contains stale or now-misleading context
+
+The branch pointer is `agent/preparer @ f880329`, while the current checkout is on branch `work` and includes later merge commits. The prior `REVIEW.md` also described a conditional approval, whereas the current user context says the previous Claude Code attempt failed. Additionally, `index.html` still contains a comment saying teal is not defined in `@theme`, while the theme now defines teal tokens.
+
+**Impact:** The handoff's historical state no longer matches the present repo state or the user's reported outcome.
+
+### 7. It does not warn about relevant implementation mismatches visible in the current code
+
+The current code uses the new hero DOM and CSS, but several target-critical details are not captured as acceptance criteria in the handoff:
+
+- The global navigation remains outside the hero and keeps a blue desktop CTA, while the target hero shows a teal CTA in the top-right navigation area.
+- The current desktop hero image is a CSS background band with specific `background-position`, but there are no target crop coordinates or screenshots to validate against.
+- The current status cards are all the same width and stacked within a 300px column, while the target desktop mockup shows wider cards extending from the image side and partially clipped/offset.
+- The handoff says "hero section only," but the target screenshot visually includes navigation treatment; the document does not resolve whether nav styling is in scope or out of scope.
+
+**Impact:** These are precisely the kinds of ambiguous details that can make an implementation appear technically correct while missing the supplied visual target.
+
+## What a fit-for-purpose handoff should include before another implementation attempt
+
+1. **Correct artifact path:** create or move the handoff to `_ops/handoff/handoff_0925.010626.md`, or update the task to point at `HANDOFF.md`.
+2. **Target references:** list the exact target image files and viewports, e.g. desktop `2048x1080` and mobile target if applicable.
+3. **Current-state diagnosis:** describe what failed in the Claude Code attempt, with current screenshot(s) or concrete observations.
+4. **Implementation scope decision:** explicitly say whether the navigation is allowed to change to match the target screenshot.
+5. **Acceptance criteria:** include measurable desktop and mobile checks: hero height, left/right split ratio, CTA colours, card position/width/overlap, image crop, no horizontal overflow, and section transition below the hero.
+6. **Asset contract:** specify whether to use the WebP files, PNG source files, or another asset, and whether source PNGs must be preserved.
+7. **Testing/checks:** list required commands and known expected failures separately from acceptance-blocking failures.
+8. **Fresh branch/commit state:** update the branch and commit reference to the current working branch or the exact commit under repair.
+
+## Recommended next action
+
+Do not use the existing `HANDOFF.md` alone as the brief for the hero repair. Create a new, repair-oriented handoff at the requested `_ops/handoff/` path, attach or reference the target hero image(s), and include the missing acceptance criteria above. Once that exists, the implementation agent can work against a concrete target instead of reverse-engineering intent from the prior completion summary.
