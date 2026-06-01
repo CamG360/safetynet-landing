@@ -746,6 +746,9 @@ nav.nav--hero a:hover {
 nav.nav--hero .hamburger span {
     background-color: rgba(255, 255, 255, 0.85);
 }
+nav.nav--hero .nav-brand {
+    color: rgba(255, 255, 255, 0.95);
+}
 
 /* ===== Hero: full-bleed image + overlay + live how-it-works card ===== */
 .hero-section { position: relative; overflow: hidden; min-height: 100svh; }
