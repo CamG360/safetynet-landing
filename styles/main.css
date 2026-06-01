@@ -670,6 +670,23 @@ button:disabled {
   flex-direction: column;
   gap: 14px;
   text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.sn-mq-card::before {
+  content: "\201C";
+  position: absolute;
+  top: 6px;
+  left: 14px;
+  font-size: 4.5rem;
+  font-weight: 700;
+  font-family: Georgia, serif;
+  line-height: 1;
+  color: #2563eb;
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
 }
 @media (max-width: 640px) {
   .sn-mq-card { flex-basis: 280px; }
