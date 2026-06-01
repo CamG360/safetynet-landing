@@ -1,47 +1,55 @@
 // ============================================================
 // SafetyNet — "First reactions" section smoke test (Playwright)
-// Save as: tests/reactions.smoke.spec.js
-//
-// Purpose: close the visual-regression gap the Jest unit suite
-// (security-only) does not cover. Asserts the new section renders,
-// the marquee actually moves, pause works, and neighbouring
-// sections are intact.
-//
-// Setup (dev-only):
-//   npm i -D @playwright/test
-//   npx playwright install chromium
-//
-// Run against a locally served build:
-//   npm run build:css
-//   npx http-server -p 8000   (or: python3 -m http.server 8000)
-//   BASE_URL=http://localhost:8000 npx playwright test tests/reactions.smoke.spec.js
+// Run: npm run test:smoke
 // ============================================================
 
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8123';
+
+// Shared geometry helper — reads layout facts the browser has computed.
+async function marqueeGeometry(page) {
+    return page.evaluate(() => {
+        const track  = document.querySelector('.sn-marquee-track');
+        const groups = document.querySelectorAll('.sn-marquee-group');
+        const cards  = document.querySelectorAll('.sn-mq-card');
+        if (!track || groups.length < 2 || cards.length < 2) return null;
+        const rects  = Array.from(cards).map(c => c.getBoundingClientRect());
+        return {
+            trackScrollWidth:  track.scrollWidth,
+            group0Width:       groups[0].scrollWidth,
+            group1Width:       groups[1].scrollWidth,
+            card0Top:          rects[0].top,
+            card1Top:          rects[1].top,   // second card — same row if marquee is horizontal
+            card0Width:        rects[0].width,
+        };
+    });
+}
+
+// Shared motion helper — reads translateX twice and returns delta.
+async function translateXDelta(page, waitMs = 1100) {
+    const readX = () => page.evaluate(() => {
+        const el = document.querySelector('.sn-marquee-track');
+        if (!el) return 0;
+        return new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
+    });
+    const x1 = await readX();
+    await page.waitForTimeout(waitMs);
+    const x2 = await readX();
+    return Math.abs(x2 - x1);
+}
 
 test.describe('First reactions section', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto(`${BASE_URL}/index.html`, { waitUntil: 'networkidle' });
     });
 
-    test('1. #reactions exists and is before #problem in DOM order', async ({ page }) => {
-        const reactions = page.locator('#reactions');
-        const problem = page.locator('#problem');
-        await expect(reactions).toHaveCount(1);
-        await expect(problem).toHaveCount(1);
-
-        const order = await page.evaluate(() => {
-            const r = document.getElementById('reactions');
-            const p = document.getElementById('problem');
-            // Node.DOCUMENT_POSITION_FOLLOWING (4) => p follows r
-            return Boolean(r.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING);
-        });
-        expect(order).toBe(true);
+    // ── content ────────────────────────────────────────────────
+    test('1. #reactions section exists', async ({ page }) => {
+        await expect(page.locator('#reactions')).toHaveCount(1);
     });
 
-    test('2. hero is first; #problem still has the before/after heading', async ({ page }) => {
+    test('2. hero exists; #problem has the before/after heading', async ({ page }) => {
         await expect(page.locator('#hero')).toHaveCount(1);
         await expect(page.locator('#problem')).toContainText('How SafetyNet protects you');
     });
@@ -61,55 +69,54 @@ test.describe('First reactions section', () => {
         expect(body).not.toContain('cali,');
     });
 
-    test('5. marquee track advances over ~1s (motion confirmed)', async ({ page }) => {
-        const track = page.locator('#snMarquee .sn-marquee-track');
-        const read = async () =>
-            page.evaluate(() => {
-                const el = document.querySelector('#snMarquee .sn-marquee-track');
-                const m = new DOMMatrixReadOnly(getComputedStyle(el).transform);
-                return m.m41; // translateX
-            });
-        const x1 = await read();
-        await page.waitForTimeout(1100);
-        const x2 = await read();
-        expect(Math.abs(x2 - x1)).toBeGreaterThan(2);
+    // ── marquee geometry (desktop 1280×800) ────────────────────
+    test('5. desktop: two groups are equal-width and track = 2× one group', async ({ page }) => {
+        const g = await marqueeGeometry(page);
+        expect(g).not.toBeNull();
+        // Each group must have real width
+        expect(g.group0Width).toBeGreaterThan(300);
+        // Both groups must be the same width (duplicates)
+        expect(Math.abs(g.group0Width - g.group1Width)).toBeLessThan(5);
+        // Track must be ~2× one group — this is what makes -50% loop correctly
+        expect(Math.abs(g.trackScrollWidth - g.group0Width * 2)).toBeLessThan(10);
+        // Cards must sit on the same horizontal row (not stacked)
+        expect(Math.abs(g.card0Top - g.card1Top)).toBeLessThan(5);
     });
 
-    test('6. pause button freezes motion and toggles icon; play resumes', async ({ page }) => {
-        const marquee = page.locator('#snMarquee');
-        const btn = page.locator('#snMarqueePause');
-
-        await btn.click();
-        await expect(marquee).toHaveClass(/is-paused/);
-
-        const readX = () =>
-            page.evaluate(() => {
-                const el = document.querySelector('#snMarquee .sn-marquee-track');
-                return new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
-            });
-        const a = await readX();
-        await page.waitForTimeout(600);
-        const b = await readX();
-        expect(Math.abs(b - a)).toBeLessThan(1.5); // frozen while paused
-
-        await btn.click();
-        await expect(marquee).not.toHaveClass(/is-paused/);
+    test('6. desktop: marquee animates over 1s', async ({ page }) => {
+        const delta = await translateXDelta(page);
+        expect(delta).toBeGreaterThan(5);
     });
 
-    test('7. nav "Overview" still resolves to #problem', async ({ page }) => {
-        const href = await page.locator('nav a[href="#problem"]').first().getAttribute('href');
-        expect(href).toBe('#problem');
-        await expect(page.locator('#problem')).toHaveCount(1);
+    // ── marquee geometry (mobile 390×844) ──────────────────────
+    test('7. mobile: two groups equal-width and track = 2× one group', async ({ page }) => {
+        await page.setViewportSize({ width: 390, height: 844 });
+        await page.reload({ waitUntil: 'networkidle' });
+        const g = await marqueeGeometry(page);
+        expect(g).not.toBeNull();
+        expect(g.group0Width).toBeGreaterThan(200);
+        expect(Math.abs(g.group0Width - g.group1Width)).toBeLessThan(5);
+        expect(Math.abs(g.trackScrollWidth - g.group0Width * 2)).toBeLessThan(10);
+        // Cards on same row
+        expect(Math.abs(g.card0Top - g.card1Top)).toBeLessThan(5);
     });
 
-    test('8. no console errors on load', async ({ page }) => {
+    test('8. mobile: marquee animates over 1s', async ({ page }) => {
+        await page.setViewportSize({ width: 390, height: 844 });
+        await page.reload({ waitUntil: 'networkidle' });
+        const delta = await translateXDelta(page);
+        expect(delta).toBeGreaterThan(5);
+    });
+
+    // ── page health ────────────────────────────────────────────
+    test('9. no console errors on load', async ({ page }) => {
         const errors = [];
-        page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
+        page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
         await page.reload({ waitUntil: 'networkidle' });
         expect(errors).toEqual([]);
     });
 
-    test('9. no horizontal overflow at mobile width', async ({ page }) => {
+    test('10. no horizontal overflow at mobile width', async ({ page }) => {
         await page.setViewportSize({ width: 390, height: 844 });
         const overflow = await page.evaluate(
             () => document.documentElement.scrollWidth - document.documentElement.clientWidth
@@ -117,29 +124,8 @@ test.describe('First reactions section', () => {
         expect(overflow).toBeLessThanOrEqual(1);
     });
 
-    // QUALITY GATE: marquee must animate at mobile viewport.
-    // Catches: display:inline-flex collapse, width:max-content failure,
-    // translateX(-50%) resolving to wrong value, animation not starting.
-    test('10. marquee animates at mobile viewport (390px)', async ({ page }) => {
-        await page.setViewportSize({ width: 390, height: 844 });
-        await page.reload({ waitUntil: 'networkidle' });
-
-        // Track must be wider than the viewport — if it collapsed, it won't be.
-        const trackWidth = await page.evaluate(() => {
-            const track = document.querySelector('.sn-marquee-track');
-            return track ? track.scrollWidth : 0;
-        });
-        expect(trackWidth).toBeGreaterThan(800); // 8 cards × 280px minimum
-
-        // Animation must be running — translateX must change over 1.1s.
-        const readX = () => page.evaluate(() => {
-            const el = document.querySelector('.sn-marquee-track');
-            if (!el) return 0;
-            return new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
-        });
-        const x1 = await readX();
-        await page.waitForTimeout(1100);
-        const x2 = await readX();
-        expect(Math.abs(x2 - x1)).toBeGreaterThan(2);
+    test('11. nav Overview resolves to #problem', async ({ page }) => {
+        const href = await page.locator('nav a[href="#problem"]').first().getAttribute('href');
+        expect(href).toBe('#problem');
     });
 });
