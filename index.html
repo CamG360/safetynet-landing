@@ -70,64 +70,80 @@
     </div>
 
     <!-- [SECTION 1: HERO] -->
-    <header id="hero" class="hero-section relative overflow-hidden min-h-svh">
+    <header id="hero" class="hero-section bg-slate-50 min-h-svh flex flex-col items-center justify-center">
+      <div class="hero-content max-w-6xl w-full px-6">
+        <div class="hero-grid">
 
-      <!-- Image band: right half on desktop, becomes lower panel on mobile -->
-      <div class="hero-imgband" role="img"
-           aria-label="A woman walking home at dusk along a riverwalk, protected by SafetyNet">
-        <!-- Status cards overlaid on the image (desktop: bottom-right of band) -->
-        <div class="hero-cards">
-          <div class="hero-card">
-            <span class="hero-card-ic"><i data-lucide="clock"></i></span>
-            <span class="hero-card-txt">
-              <span class="hero-card-k">Check-in by:</span>
-              <span class="hero-card-v">11:30 PM</span>
-            </span>
+          <!-- LEFT: copy (unchanged conversion CTA + trust row) -->
+          <div class="hero-copy">
+            <h1 class="hero-title text-4xl font-extrabold text-black tracking-tight leading-tight">
+              &ldquo;Text me when you&rsquo;re safe&rdquo; fails when you can&rsquo;t text.
+            </h1>
+            <p class="hero-sub text-2xl md:text-3xl font-normal text-slate-500 leading-relaxed">
+              SafetyNet sends an alert for you.
+            </p>
+
+            <!-- DO NOT change this button's id/classes — it is the waitlist conversion trigger -->
+            <button id="heroJoinWaitlistBtn" class="open-registration-modal bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl whitespace-nowrap text-lg">
+              Get Early Access <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+
+            <div class="hero-trust">
+              <div class="hero-trust-item">
+                <span class="hero-trust-ic"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
+                <span class="text-slate-700 font-medium text-sm">Automatic alerts</span>
+              </div>
+              <div class="hero-trust-item">
+                <span class="hero-trust-ic"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
+                <span class="text-slate-700 font-medium text-sm">Zero tracking</span>
+              </div>
+              <div class="hero-trust-item">
+                <span class="hero-trust-ic"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
+                <span class="text-slate-700 font-medium text-sm">Your plans private</span>
+              </div>
+            </div>
           </div>
-          <div class="hero-card">
-            <span class="hero-card-ic"><i data-lucide="users"></i></span>
-            <span class="hero-card-txt">
-              <span class="hero-card-k">Connected to</span>
-              <span class="hero-card-link">emergency contacts</span>
-            </span>
+
+          <!-- RIGHT: clean image + live how-it-works card -->
+          <div class="hero-media">
+            <img src="images/SN_hero_centre_no-markings_1552.310526.webp"
+                 alt="A woman walking home along a riverside path at dusk inside a glowing SafetyNet protection sphere"
+                 class="hero-image" loading="eager" decoding="async" fetchpriority="high"
+                 width="1440" height="810" />
+
+            <div class="hd-card" aria-label="SafetyNet check-in: you set a check-in time; if you don't check in, your contacts are alerted with your plans">
+              <div class="hd-head">
+                <span class="hd-brand"><span class="hd-sh"><i data-lucide="shield-check" style="width:14px;height:14px;"></i></span>SafetyNet</span>
+                <span class="hd-live"><span class="hd-ld"></span>Active</span>
+              </div>
+              <div class="hd-flow">
+                <span class="hd-line"></span>
+                <div class="hd-step">
+                  <span class="hd-node hd-t"><i data-lucide="clock" style="width:19px;height:19px;"></i></span>
+                  <span class="hd-text"><span class="hd-label">You set a check-in time</span><span class="hd-value">Home by 11:30 PM</span></span>
+                </div>
+                <div class="hd-step">
+                  <span class="hd-node hd-a"><i data-lucide="alert-triangle" style="width:18px;height:18px;"></i></span>
+                  <span class="hd-text"><span class="hd-label">You don't check in</span><span class="hd-value hd-muted">No tap detected</span></span>
+                </div>
+                <div class="hd-step hd-payoff">
+                  <span class="hd-node hd-t"><i data-lucide="shield-alert" style="width:18px;height:18px;"></i></span>
+                  <span class="hd-text">
+                    <span class="hd-value" style="font-size:16px;">Your contacts are alerted</span>
+                    <span class="hd-avs">
+                      <span class="hd-av" style="background:#0d9488;">M</span>
+                      <span class="hd-av" style="background:#4f46e5;">A</span>
+                      <span class="hd-sent"><i data-lucide="check" style="width:12px;height:12px;"></i> Sent</span>
+                    </span>
+                    <span class="hd-sub">with your plans</span>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="hero-card">
-            <span class="hero-card-ic"><i data-lucide="shield-check"></i></span>
-            <span class="hero-card-txt">
-              <span class="hero-card-k">Automatic alert</span>
-              <span class="hero-card-ready"><span class="hero-card-dot"></span>ready</span>
-            </span>
-          </div>
+
         </div>
       </div>
-
-      <!-- Text column: left half on desktop, top on mobile -->
-      <div class="hero-textcol">
-        <div class="hero-textcol-inner">
-          <h1 class="hero-title text-black tracking-tight">
-            &ldquo;Text me when you&rsquo;re safe&rdquo; fails when you can&rsquo;t text.
-          </h1>
-          <p class="hero-sub text-slate-600">
-            SafetyNet sends an alert for you.
-          </p>
-          <button class="open-registration-modal hero-cta">
-            Get Early Access <i data-lucide="arrow-right" class="w-5 h-5"></i>
-          </button>
-
-          <div class="hero-trust">
-            <span class="hero-trust-item">
-              <span class="hero-trust-chk"><i data-lucide="check"></i></span>Automatic alerts
-            </span>
-            <span class="hero-trust-item">
-              <span class="hero-trust-chk"><i data-lucide="check"></i></span>Zero tracking
-            </span>
-            <span class="hero-trust-item">
-              <span class="hero-trust-chk"><i data-lucide="check"></i></span>Your plans private
-            </span>
-          </div>
-        </div>
-      </div>
-
     </header>
 
 <!-- ============================================================

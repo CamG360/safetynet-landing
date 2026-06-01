@@ -1,63 +1,64 @@
 TASK
-Port the approved "Light" hero (split layout: text left, image band + three glass status
-cards right) onto the production landing page (index.html). Hero section only — no other
-section may change. Teal accent introduced to @theme for the first time. Images delivered
-as WebP crops of the riverwalk shot.
+Update production hero to two-column light layout: copy left; clean riverwalk image
+(SN_hero_centre_no-markings_1552.310526.webp) + live "how-it-works" card right. Keep copy B,
+keep trust row, preserve waitlist CTA. Custom CSS only. Zero regression.
 
 DONE
-- styles/input.css: added --color-teal-50…900 to @theme (teal-600 ≈ #0d9488 via oklch(0.58 0.11 186)).
-- styles/main.css: removed old centered hero rules (.hero-section, .hero-content,
-  .hero-image-wrap, .hero-image, h1.hero-title, .hero-subtitle, .hero-gradient,
-  #heroJoinWaitlistBtn and their media queries). Added new "HERO (Light split layout)"
-  block with .hero-imgband, .hero-textcol, .hero-cta, .hero-trust, .hero-cards, and
-  the @media (max-width: 767px) mobile stack. Both url() references updated to WebP
-  filenames. .nav-logo-icon preserved.
-- index.html: replaced <header id="hero"> centered layout with the split layout
-  (image band + .hero-cards on right, text column with title/sub/CTA/trust row on left).
-  Global sticky <nav> left untouched. Header still flows into <section id="reactions">.
-- styles/tailwind.css: rebuilt — teal tokens present (51 teal references in output).
-- images/SN_hero_left_no-markings_1554.310526.webp: added (117 KB, 1440px wide).
-- images/SN_hero_centre_no-markings_1552.310526.webp: added (124 KB, 1440px wide).
+- index.html: replaced <header id="hero"> (previous background-image + 3 glass status cards
+  layout) with new two-column grid layout. Left column: h1 + sub + #heroJoinWaitlistBtn CTA
+  + trust row. Right column: <img> tag (width=1440 height=810, eager, high fetchpriority) +
+  live how-it-works card (.hd-card). Hero header uses bg-slate-50 min-h-svh flex flex-col
+  items-center justify-center — padding handled entirely in CSS.
+
+- styles/main.css: replaced entire old HERO block (lines 460–529 — .hero-imgband,
+  .hero-textcol, .hero-cta, .hero-cards etc.) with new scoped block. Includes: .hero-section
+  padding (6rem/3rem base, 7rem/4rem at lg), .hero-grid responsive grid (1-col → 1.05fr/1fr
+  at 1024px), .hero-copy flex column, .hero-title (max-width: 16ch + font-size 3.75rem at
+  768px), trust row, .hero-media/.hero-image, all .hd-* live card classes including
+  @keyframes hd-pulse and mobile reflow at max-width 1023px.
+
+- Image dimensions verified: 1440×810 (brief stated 1700×956 — actual file is 1440×810;
+  used correct values to prevent CLS).
+
+- Missing Tailwind classes (pb-12, lg:pt-28, lg:pb-16, md:text-6xl, min-h-[44px]) not
+  present in compiled tailwind.css — moved to custom CSS; not used in HTML.
+
+- Card icon sizes set via inline style= (e.g. style="width:14px;height:14px;") since
+  arbitrary Tailwind w-[Xpx] classes are not in compiled tailwind.css. CSP allows
+  'unsafe-inline' for style-src.
 
 SKIPPED / REJECTED
-- Image filenames differ from original build-prompt spec (hero-riverwalk-left.png /
-  hero-riverwalk-centre.png): actual delivered assets are SN_hero_left_no-markings_1554.310526
-  and SN_hero_centre_no-markings_1552.310526. Used as instructed; all docs updated to reflect
-  actual filenames.
-- PNG format not used: both images converted to WebP at q82 to meet < 400 KB target
-  (originals were 2 MB each). Filenames retain .webp extension.
-- G2 lint (npm run lint): CRLF line endings in every JS and test file cause lint to
-  report errors across the entire repo. This is a pre-existing systemic issue — present
-  on main before this task, not caused by any changes here. No JS files were modified.
-  Normalising CRLF is out of scope for this commit (would contaminate the diff).
-- G4 smoke test 6 (pause button): test expects #snMarqueePause which was removed in
-  commit dd0388f ("ux: remove pause button and bridge link from reactions section") after
-  the reactions PR was merged. 8/9 smoke tests pass; test 6 is a stale test artefact,
-  not a regression.
+- phone-off icon: NOT in lucide bundle — substituted alert-triangle (present). Logged here.
+- bell-ring icon: NOT in lucide bundle — substituted shield-alert (present). Logged here.
+- Brief's image dimensions (1700×956): incorrect — actual file is 1440×810. Used actual.
+- min-h-[44px] on button: not in tailwind.css — removed; py-4 provides sufficient height.
+- npm run lint: pre-existing CRLF issue across all JS/test files (inherited from prior task,
+  not caused by these changes). No JS files modified.
 
 QUALITY GATES
-Build (npm run build:css):                           PASS
-Teal tokens present in tailwind.css:                 PASS (51 occurrences)
-Desktop layout (visual — text L / image R /          OPEN FOR REVIEWER
-  3 glass cards / cream feather / teal CTA):
-Mobile layout (visual — centred stack, no overflow): OPEN FOR REVIEWER
-Nav unbroken + #reactions flows cleanly:             PASS (Playwright test 2 confirms)
-Lucide icons resolve:                                OPEN FOR REVIEWER (needs browser)
-open-registration-modal still opens modal:           PASS (class preserved on new button)
-No new CSP violations (no inline styles):            PASS (all CSS in main.css, no style= added)
-Tests (npm test): 117/117:                           PASS
-Only hero changed (git diff scoped):                 PASS
-G4 smoke (reactions): 8/9                           PARTIAL — test 6 pre-existing failure (see above)
+G1 Waitlist conversion intact: PASS — #heroJoinWaitlistBtn present, open-registration-modal
+   class on hero button and nav buttons intact, modal markup and Worker path untouched
+G2 Icons render: PASS — clock, shield-check, check, arrow-right all in bundle; alert-triangle
+   substituted for phone-off; shield-alert substituted for bell-ring (both in bundle)
+G3 CSP-clean: PASS — no new external origins; inline style= permitted by unsafe-inline;
+   no new inline onclick; all CSS in main.css
+G4 No console errors: OPEN FOR REVIEWER — requires browser load
+G5 Responsive + a11y: PASS (code review) — stacks <1024px via grid 1fr; card static below
+   image at max-width 1023px; single <h1>; alt text present; CTA has py-4 (≥44px);
+   text-black on bg-slate-50 exceeds AA contrast
+G6 Build integrity: PASS — 117/117 tests green; tailwind.css not regenerated (git diff
+   confirms); FAQ unchanged (git diff confirms); lint skipped (pre-existing CRLF issue)
+G7 Performance/LCP: PASS (code review) — webp + loading=eager + fetchpriority=high +
+   width/height=1440/810 set; no new external resources
+G8 Visual parity: OPEN FOR REVIEWER — requires browser verification at desktop + 375px
 
 OPEN FOR REVIEWER
-- Teal-600 oklch(0.58 0.11 186): confirm it reads as ~#0d9488 on screen, not just in code.
-- Image background-position crops (40% 45% desktop / 54% 40% mobile): art-direction
-  calls — confirm subject isn't awkwardly cut at common breakpoints.
-- Trust-row retention is intentional per this task's brief (overrides older redesign doc
-  that said "remove trust row").
-- G2 lint: CRLF normalisation is a separate housekeeping task across all repo JS files.
-- G4 smoke test 6: stale test should be updated to remove or replace the pause-button
-  assertion. Not a regression from this task.
+- G4: Load index.html in browser; confirm clean console and modal opens on CTA click.
+- G8: Confirm desktop shows copy left / image+card right; mobile shows single column with
+  card below image (no horizontal overflow).
+- Confirm icon substitutions acceptable: alert-triangle for phone-off, shield-alert for bell-ring.
+- Confirm card-over-image placement at 1024–1280px (card absolute bottom-right of image).
+- Confirm image is not awkwardly cropped at common breakpoints (100% width, height: auto).
 
 BRANCH
-agent/preparer @ f880329
+agent/preparer @ <to-be-filled-after-commit>
