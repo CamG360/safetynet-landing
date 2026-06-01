@@ -639,7 +639,6 @@ button:disabled {
   width: max-content;
   gap: 18px;
   padding-inline: 18px;
-  will-change: transform;
   animation: sn-marquee-scroll var(--sn-marquee-dur, 64s) linear infinite;
 }
 
@@ -648,8 +647,14 @@ button:disabled {
   to   { transform: translateX(-50%); }
 }
 
-/* pause on hover (desktop) and when toggled off */
-.sn-marquee:hover .sn-marquee-track,
+/* pause on hover (pointer devices only — prevents touch triggering pause on mobile) */
+@media (hover: hover) {
+  .sn-marquee:hover .sn-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* pause when toggled off */
 .sn-marquee.is-paused .sn-marquee-track {
   animation-play-state: paused;
 }
