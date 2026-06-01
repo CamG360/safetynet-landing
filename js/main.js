@@ -414,6 +414,17 @@ window.addEventListener('scroll', requestScrollTick);
 window.addEventListener('resize', requestScrollTick);
 window.addEventListener('load', updateScrollUI);
 
+// Nav hero state: toggle white text when hero section is in view
+const heroSection = document.getElementById('hero');
+const mainNav = document.querySelector('nav');
+if (heroSection && mainNav) {
+    const heroObserver = new IntersectionObserver(
+        ([entry]) => mainNav.classList.toggle('nav--hero', entry.isIntersecting),
+        { threshold: 0 }
+    );
+    heroObserver.observe(heroSection);
+}
+
 // ============================================
 // Feature Accordions
 // ============================================
