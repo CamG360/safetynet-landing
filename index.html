@@ -70,16 +70,22 @@
     </div>
 
     <!-- [SECTION 1: HERO] -->
-    <header id="hero" class="hero-section bg-slate-50 pt-24 pb-12 lg:pt-28 lg:pb-16 min-h-svh flex flex-col items-center justify-center">
+    <header id="hero" class="hero-section min-h-svh flex flex-col items-center justify-center">
+      <img class="hero-bg-img"
+           src="images/SN_hero_centre_no-markings_1552.310526.webp"
+           alt="A woman walking home along a riverside path at dusk inside a glowing SafetyNet protection sphere"
+           loading="eager" decoding="async" fetchpriority="high"
+           width="1440" height="810" />
+      <div class="hero-overlay"></div>
       <div class="hero-content max-w-6xl w-full px-6">
         <div class="hero-grid">
 
           <!-- LEFT: copy (unchanged conversion CTA + trust row) -->
           <div class="hero-copy">
-            <h1 class="hero-title text-4xl md:text-6xl font-extrabold text-black tracking-tight leading-tight">
+            <h1 class="hero-title text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
               "Text me when you're safe" fails when you can't text.
             </h1>
-            <p class="hero-sub text-2xl md:text-3xl font-normal text-slate-500 leading-relaxed">
+            <p class="hero-sub text-2xl md:text-3xl font-normal leading-relaxed">
               SafetyNet sends an alert for you.
             </p>
 
@@ -91,26 +97,21 @@
             <div class="hero-trust">
               <div class="hero-trust-item">
                 <span class="hero-trust-ic"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
-                <span class="text-slate-700 font-medium text-sm">Automatic alerts</span>
+                <span class="hero-trust-label">Automatic alerts</span>
               </div>
               <div class="hero-trust-item">
                 <span class="hero-trust-ic"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
-                <span class="text-slate-700 font-medium text-sm">Zero tracking</span>
+                <span class="hero-trust-label">Zero tracking</span>
               </div>
               <div class="hero-trust-item">
                 <span class="hero-trust-ic"><i data-lucide="check" class="w-3.5 h-3.5"></i></span>
-                <span class="text-slate-700 font-medium text-sm">Your plans private</span>
+                <span class="hero-trust-label">Your plans private</span>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT: clean image + live how-it-works card -->
-          <div class="hero-media">
-            <img src="images/SN_hero_centre_no-markings_1552.310526.webp"
-                 alt="A woman walking home along a riverside path at dusk inside a glowing SafetyNet protection sphere"
-                 class="hero-image" loading="eager" decoding="async" fetchpriority="high"
-                 width="1440" height="810" />
-
+          <!-- RIGHT: live how-it-works card -->
+          <div class="hero-card-col">
             <div class="hd-card" aria-label="SafetyNet check-in: you set a check-in time; if you don't check in, your contacts are alerted with your plans">
               <div class="hd-head">
                 <span class="hd-brand"><span class="hd-sh"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i></span>SafetyNet</span>

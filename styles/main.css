@@ -728,24 +728,30 @@ button:disabled {
 .sn-reactions-bridge i { width: 14px; height: 14px; transition: transform 180ms ease; }
 .sn-reactions-bridge:hover i { transform: translateY(2px); }
 
-/* ===== Hero: two-column light + live how-it-works card ===== */
+/* ===== Hero: full-bleed image + overlay + live how-it-works card ===== */
+.hero-section { position: relative; overflow: hidden; min-height: 100svh; }
+.hero-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; z-index: 0; }
+.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(105deg, rgba(2,6,23,.78) 0%, rgba(2,6,23,.55) 40%, rgba(2,6,23,.2) 75%, transparent 100%); }
+.hero-content { position: relative; z-index: 2; }
 .hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; width: 100%; }
 .hero-copy { display: flex; flex-direction: column; gap: 1.25rem; align-items: center; text-align: center; }
-.hero-title { max-width: 16ch; }
+.hero-title { max-width: 16ch; color: #fff; }
+.hero-sub { color: rgba(255,255,255,.8); }
 .hero-trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center; margin-top: 0.5rem; }
 .hero-trust-item { display: flex; align-items: center; gap: 0.5rem; }
-.hero-trust-ic { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 9999px; background: #eff6ff; color: #0d9488; }
-.hero-media { position: relative; }
-.hero-media .hero-image { width: 100%; height: auto; max-height: none; object-fit: initial; border-radius: 1rem; box-shadow: 0 20px 50px -20px rgba(2,6,23,.35); display: block; }
+.hero-trust-label { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.85); }
+.hero-trust-ic { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 9999px; background: rgba(13,148,136,.25); color: #2dd4bf; }
+.hero-card-col { display: flex; align-items: center; justify-content: center; }
 
 @media (min-width: 1024px) {
   .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 3.5rem; }
   .hero-copy { align-items: flex-start; text-align: left; }
   .hero-trust { justify-content: flex-start; }
+  .hero-card-col { justify-content: flex-end; }
 }
 
-/* live card */
-.hd-card { position: absolute; right: 16px; bottom: 16px; width: min(360px, 88%);
+/* live card — positioned in flow */
+.hd-card { position: static; width: min(360px, 100%);
   border-radius: 18px; padding: 14px 16px 16px; color: #0b1220;
   background: rgba(255,255,255,.97);
   backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%);
@@ -775,9 +781,3 @@ button:disabled {
 .hd-av:first-child { margin-left: 0; }
 .hd-sent { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: #047857; background: rgba(5,150,105,.12); padding: 3px 8px; border-radius: 9999px; margin-left: 8px; }
 .hd-sub { font-size: 12px; font-weight: 500; color: #6b7280; margin-top: 3px; }
-
-/* card reflows below the image on small screens (no overlap/overflow) */
-@media (max-width: 1023px) {
-  .hd-card { position: static; right: auto; bottom: auto; width: 100%; max-width: 360px;
-    margin: -40px auto 0; }
-}
