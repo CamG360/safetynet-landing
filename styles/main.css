@@ -676,17 +676,16 @@ button:disabled {
 
 .sn-mq-card::before {
   content: "\201C";
-  position: absolute;
-  top: 6px;
-  left: 14px;
-  font-size: 4.5rem;
+  display: block;
+  font-size: 2.5rem;
   font-weight: 700;
   font-family: Georgia, serif;
   line-height: 1;
   color: #2563eb;
-  opacity: 0.12;
+  opacity: 0.35;
   pointer-events: none;
   user-select: none;
+  margin-bottom: -8px;
 }
 @media (max-width: 640px) {
   .sn-mq-card { flex-basis: 280px; }
