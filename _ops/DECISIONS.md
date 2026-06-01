@@ -61,10 +61,10 @@ Before committing any change to a quote or attribution, verify each field agains
 
 Do not infer, correct, or substitute cities or countries based on general knowledge. If the source appears to contain an error, flag it to the user — do not silently change it.
 
-### Open attribution questions (pending user confirmation)
+### Resolved attribution decisions
 
-| Quote | Source | Current HTML | Question |
+| Quote | Source | Applied | Resolution |
 |---|---|---|---|
-| T01 Michael | Leon, France | Leon, France | Is "Leon" correct, or should it be "Lyon"? Source may contain a typo. |
-| T02 Zolania | London, UK | Student, London | Was "UK" deliberately omitted? |
-| T05 Jordan | San Francisco, USA | Parent, San Francisco | Was "USA" deliberately omitted? |
+| T01 Michael | Leon, France | Lyon, France | "Leon" is a typo in source. Confirmed by user: Lyon. |
+| T02 Zolania | London, UK | London, UK | UK restored per user confirmation. |
+| T05 Jordan | San Francisco, USA | San Francisco, USA | USA restored per user confirmation. |
