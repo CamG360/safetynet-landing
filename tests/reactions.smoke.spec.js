@@ -116,4 +116,30 @@ test.describe('First reactions section', () => {
         );
         expect(overflow).toBeLessThanOrEqual(1);
     });
+
+    // QUALITY GATE: marquee must animate at mobile viewport.
+    // Catches: display:inline-flex collapse, width:max-content failure,
+    // translateX(-50%) resolving to wrong value, animation not starting.
+    test('10. marquee animates at mobile viewport (390px)', async ({ page }) => {
+        await page.setViewportSize({ width: 390, height: 844 });
+        await page.reload({ waitUntil: 'networkidle' });
+
+        // Track must be wider than the viewport — if it collapsed, it won't be.
+        const trackWidth = await page.evaluate(() => {
+            const track = document.querySelector('.sn-marquee-track');
+            return track ? track.scrollWidth : 0;
+        });
+        expect(trackWidth).toBeGreaterThan(800); // 8 cards × 280px minimum
+
+        // Animation must be running — translateX must change over 1.1s.
+        const readX = () => page.evaluate(() => {
+            const el = document.querySelector('.sn-marquee-track');
+            if (!el) return 0;
+            return new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
+        });
+        const x1 = await readX();
+        await page.waitForTimeout(1100);
+        const x2 = await readX();
+        expect(Math.abs(x2 - x1)).toBeGreaterThan(2);
+    });
 });
