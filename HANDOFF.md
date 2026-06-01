@@ -55,4 +55,4 @@ OPEN FOR REVIEWER
 - Confirm object-position: center 35% crops the photo to the right focal point.
 
 BRANCH
-agent/preparer @ PENDING
+agent/preparer @ b198bee
