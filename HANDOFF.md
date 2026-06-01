@@ -61,4 +61,4 @@ OPEN FOR REVIEWER
 - Confirm image is not awkwardly cropped at common breakpoints (100% width, height: auto).
 
 BRANCH
-agent/preparer @ <to-be-filled-after-commit>
+agent/preparer @ 615c83a
