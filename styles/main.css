@@ -628,18 +628,18 @@ button:disabled {
   position: relative;
   width: 100%;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
 }
 
 /* the moving rail — duration overridable via --sn-marquee-dur */
 .sn-marquee-track {
-  display: inline-flex;
+  display: flex;
   flex-wrap: nowrap;
   width: max-content;
   gap: 18px;
   padding-inline: 18px;
-  animation: sn-marquee-scroll var(--sn-marquee-dur, 64s) linear infinite;
+  animation: sn-marquee-scroll var(--sn-marquee-dur, 35s) linear infinite;
 }
 
 @keyframes sn-marquee-scroll {
