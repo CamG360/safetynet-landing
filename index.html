@@ -147,81 +147,6 @@
       </div>
     </header>
 
-<!-- ============================================================
-     SafetyNet: "First reactions" recognition section
-     Tailwind v4, Inter-only, CSP-clean
-     Inserted between /header (end of hero) and SECTION 2 (#problem).
-     Accent = blue-600 (teal is NOT defined in @theme - do not use).
-     ============================================================ -->
-<section id="reactions" class="py-10 sm:py-12 md:py-15 lg:py-20 bg-white overflow-hidden">
-  <div class="max-w-[900px] mx-auto px-4 sm:px-5 text-center">
-
-    <!-- eyebrow -->
-    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 mb-5">
-      First reactions &middot; before launch
-    </p>
-
-    <!-- short headline (Inter, weight for hierarchy — no serif) -->
-    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-snug mb-10">
-      Most people don&rsquo;t realise.
-    </h2>
-
-    <!-- lead quote (Zolania) -->
-    <figure class="max-w-3xl mx-auto mb-4">
-      <blockquote class="text-xl sm:text-2xl md:text-3xl font-light text-slate-800 leading-snug">
-        &ldquo;I have five tracking apps. None of them help if I can&rsquo;t reach my phone.&rdquo;
-      </blockquote>
-      <figcaption class="mt-5 text-sm text-slate-500">
-        <span class="font-semibold text-slate-900">Zolania</span>
-        <span class="text-slate-300 mx-2">&middot;</span>Student, London
-      </figcaption>
-    </figure>
-  </div>
-
-  <!-- full-bleed quote-card marquee -->
-  <div class="mt-12">
-    <div class="sn-marquee" id="snMarquee">
-      <div class="sn-marquee-track">
-        <!-- set 1 (read) -->
-        <article class="sn-mq-card">
-          <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, France</p>
-        </article>
-        <article class="sn-mq-card">
-          <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
-        </article>
-        <article class="sn-mq-card">
-          <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town</p>
-        </article>
-        <article class="sn-mq-card">
-          <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco</p>
-        </article>
-        <!-- set 2 (duplicate for seamless loop — hidden from AT) -->
-        <article class="sn-mq-card" aria-hidden="true">
-          <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, France</p>
-        </article>
-        <article class="sn-mq-card" aria-hidden="true">
-          <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
-        </article>
-        <article class="sn-mq-card" aria-hidden="true">
-          <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town</p>
-        </article>
-        <article class="sn-mq-card" aria-hidden="true">
-          <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
-          <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco</p>
-        </article>
-      </div>
-    </div>
-
-  </div>
-</section>
-
     <!-- [SECTION 2: MENTAL MODEL] -->
     <section id="problem" class="py-10 sm:py-12 md:py-15 lg:py-20 px-3 sm:px-4 md:px-5 bg-slate-50 text-center">
       <div class="max-w-[900px] mx-auto">
@@ -660,96 +585,75 @@
         </div>
     </section>
 
-    <!-- [SECTION 6: FIRST REACTIONS] -->
-    <section id="beta-feedback" class="py-24 bg-slate-50 border-t border-slate-100">
-        <div class="max-w-7xl mx-auto px-6">
+    <!-- [SECTION 6: SOCIAL PROOF] -->
+<section id="reactions" class="py-10 sm:py-12 md:py-15 lg:py-20 bg-white overflow-hidden border-t border-slate-100">
+  <div class="max-w-[900px] mx-auto px-4 sm:px-5 text-center">
 
-            <!-- Header Section -->
-            <div class="text-center mb-16 max-w-4xl mx-auto">
-                <!-- Label -->
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-100 border border-teal-200 text-teal-700 text-xs font-bold tracking-widest uppercase mb-8">
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-600 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-600"></span>
-                    </span>
-                    First Reactions
-                </div>
+    <!-- eyebrow -->
+    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 mb-5">
+      First reactions &middot; before launch
+    </p>
 
-                <!-- Headline -->
-                <h2 class="text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-900 leading-[1.1] mb-6">
-                    "I never thought about what would happen if I couldn't reach my phone."
-                </h2>
-            </div>
+    <!-- short headline (Inter, weight for hierarchy — no serif) -->
+    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-snug mb-10">
+      Most people don&rsquo;t realise.
+    </h2>
 
-            <!-- Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- lead quote (Zolania) -->
+    <figure class="max-w-3xl mx-auto mb-4">
+      <blockquote class="text-xl sm:text-2xl md:text-3xl font-light text-slate-800 leading-snug">
+        &ldquo;I have five tracking apps. None of them help if I can&rsquo;t reach my phone.&rdquo;
+      </blockquote>
+      <figcaption class="mt-5 text-sm text-slate-500">
+        <span class="font-semibold text-slate-900">Zolania</span>
+        <span class="text-slate-300 mx-2">&middot;</span>Student, London
+      </figcaption>
+    </figure>
+  </div>
 
-                <!-- Card 1: Student -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-8 flex flex-col h-full transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 group">
-                    <div class="mb-6 opacity-30 group-hover:opacity-100 transition-opacity text-teal-600">
-                        <i data-lucide="quote" class="w-8 h-8"></i>
-                    </div>
+  <!-- full-bleed quote-card marquee -->
+  <div class="mt-12">
+    <div class="sn-marquee" id="snMarquee">
+      <div class="sn-marquee-track">
+        <!-- set 1 (read) -->
+        <article class="sn-mq-card">
+          <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, France</p>
+        </article>
+        <article class="sn-mq-card">
+          <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
+        </article>
+        <article class="sn-mq-card">
+          <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town</p>
+        </article>
+        <article class="sn-mq-card">
+          <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco</p>
+        </article>
+        <!-- set 2 (duplicate for seamless loop — hidden from AT) -->
+        <article class="sn-mq-card" aria-hidden="true">
+          <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, France</p>
+        </article>
+        <article class="sn-mq-card" aria-hidden="true">
+          <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
+        </article>
+        <article class="sn-mq-card" aria-hidden="true">
+          <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town</p>
+        </article>
+        <article class="sn-mq-card" aria-hidden="true">
+          <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
+          <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco</p>
+        </article>
+      </div>
+    </div>
 
-                    <blockquote class="text-lg md:text-xl text-slate-700 leading-relaxed font-medium flex-grow">
-                        "I have five tracking apps. I just realised none of them help if I can't reach my phone."
-                    </blockquote>
-
-                    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700 ring-2 ring-teal-200">
-                            Z
-                        </div>
-                        <div>
-                            <div class="text-slate-900 font-semibold text-sm">Zolania</div>
-                            <div class="text-xs text-slate-500 uppercase tracking-wide font-medium mt-0.5">Student • London, UK</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Parent -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-8 flex flex-col h-full transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 group">
-                    <div class="mb-6 opacity-30 group-hover:opacity-100 transition-opacity text-teal-600">
-                        <i data-lucide="quote" class="w-8 h-8"></i>
-                    </div>
-
-                    <blockquote class="text-lg md:text-xl text-slate-700 leading-relaxed font-medium flex-grow">
-                        "I just want to know if something's wrong — without the back-and-forth of 'text me when you're home."
-                    </blockquote>
-
-                    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700 ring-2 ring-teal-200">
-                            C
-                        </div>
-                        <div>
-                            <div class="text-slate-900 font-semibold text-sm">Catherine</div>
-                            <div class="text-xs text-slate-500 uppercase tracking-wide font-medium mt-0.5">Mother & Owner • Houston</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Professional -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-8 flex flex-col h-full transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 group">
-                    <div class="mb-6 opacity-30 group-hover:opacity-100 transition-opacity text-teal-600">
-                        <i data-lucide="quote" class="w-8 h-8"></i>
-                    </div>
-
-                    <blockquote class="text-lg md:text-xl text-slate-700 leading-relaxed font-medium flex-grow">
-                        "Guys don't usually think about personal safety until something happens. This is a good solution."
-                    </blockquote>
-
-                    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-sm font-bold text-teal-700 ring-2 ring-teal-200">
-                            D
-                        </div>
-                        <div>
-                            <div class="text-slate-900 font-semibold text-sm">David</div>
-                            <div class="text-xs text-slate-500 uppercase tracking-wide font-medium mt-0.5">Risk Manager • Auckland, NZ</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+  </div>
+</section>
 
     <!-- [SECTION 7: COMPARISON] -->
     <!-- Hero Section (Context) -->
