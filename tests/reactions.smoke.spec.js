@@ -15,13 +15,15 @@ async function marqueeGeometry(page) {
         const cards  = document.querySelectorAll('.sn-mq-card');
         if (!track || groups.length < 2 || cards.length < 2) return null;
         const rects  = Array.from(cards).map(c => c.getBoundingClientRect());
+        // Use getBoundingClientRect().width — same value CSS transform percentages resolve against.
+        // scrollWidth includes overflow and would pass even when the track is collapsed to viewport width.
         return {
-            trackScrollWidth:  track.scrollWidth,
-            group0Width:       groups[0].scrollWidth,
-            group1Width:       groups[1].scrollWidth,
-            card0Top:          rects[0].top,
-            card1Top:          rects[1].top,   // second card — same row if marquee is horizontal
-            card0Width:        rects[0].width,
+            trackWidth:   track.getBoundingClientRect().width,
+            group0Width:  groups[0].getBoundingClientRect().width,
+            group1Width:  groups[1].getBoundingClientRect().width,
+            card0Top:     rects[0].top,
+            card1Top:     rects[1].top,
+            card0Width:   rects[0].width,
         };
     });
 }
@@ -78,7 +80,7 @@ test.describe('First reactions section', () => {
         // Both groups must be the same width (duplicates)
         expect(Math.abs(g.group0Width - g.group1Width)).toBeLessThan(5);
         // Track must be ~2× one group — this is what makes -50% loop correctly
-        expect(Math.abs(g.trackScrollWidth - g.group0Width * 2)).toBeLessThan(10);
+        expect(Math.abs(g.trackWidth - g.group0Width * 2)).toBeLessThan(10);
         // Cards must sit on the same horizontal row (not stacked)
         expect(Math.abs(g.card0Top - g.card1Top)).toBeLessThan(5);
     });
@@ -96,7 +98,7 @@ test.describe('First reactions section', () => {
         expect(g).not.toBeNull();
         expect(g.group0Width).toBeGreaterThan(200);
         expect(Math.abs(g.group0Width - g.group1Width)).toBeLessThan(5);
-        expect(Math.abs(g.trackScrollWidth - g.group0Width * 2)).toBeLessThan(10);
+        expect(Math.abs(g.trackWidth - g.group0Width * 2)).toBeLessThan(10);
         // Cards on same row
         expect(Math.abs(g.card0Top - g.card1Top)).toBeLessThan(5);
     });

@@ -626,15 +626,17 @@ button:disabled {
 /* full-bleed marquee viewport */
 .sn-marquee {
   position: relative;
+  display: flex;          /* makes track a flex item — sizes to content, not viewport */
   width: 100%;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
 }
 
-/* the moving rail — two equal groups; -50% always equals exactly one group */
+/* the moving rail — two equal groups; -50% equals exactly one group width */
 .sn-marquee-track {
   display: flex;
+  flex-shrink: 0;         /* do not shrink to viewport — stay content-sized */
   animation: sn-marquee-scroll var(--sn-marquee-dur, 35s) linear infinite;
 }
 
