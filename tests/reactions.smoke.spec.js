@@ -40,48 +40,49 @@ test.describe('First reactions section', () => {
         expect(body).not.toContain('cali,');
     });
 
-    // ── Desktop (≥ 1024 px): carousel ──────────────────────────
-    test('5. desktop: carousel track, 4 cards, and controls present', async ({ page }) => {
+    // ── Desktop (≥ 1024 px): auto-scrolling marquee ───────────
+    test('5. desktop: marquee track, two groups of 4 cards, and pause button present', async ({ page }) => {
         test.skip(vw(page) < 1024, 'desktop-only');
-        await expect(page.locator('#snCarouselTrack')).toHaveCount(1);
-        await expect(page.locator('#snCarouselTrack .sn-mq-card')).toHaveCount(4);
-        await expect(page.locator('#snCarouselPrev')).toHaveCount(1);
-        await expect(page.locator('#snCarouselNext')).toHaveCount(1);
-        await expect(page.locator('.sn-carousel-dot')).toHaveCount(4);
+        await expect(page.locator('#snMarquee')).toHaveCount(1);
+        await expect(page.locator('.sn-marquee-track')).toHaveCount(1);
+        await expect(page.locator('.sn-marquee-group')).toHaveCount(2);
+        await expect(page.locator('.sn-marquee-group:first-child .sn-mq-card')).toHaveCount(4);
+        await expect(page.locator('#snMarqueePause')).toHaveCount(1);
     });
 
-    test('6. desktop: carousel advances on next click and updates active dot', async ({ page }) => {
+    test('6. desktop: marquee animates; pause button toggles is-paused', async ({ page }) => {
         test.skip(vw(page) < 1024, 'desktop-only');
-        // Scroll #reactions into viewport first — overflow:hidden on the section
-        // prevents Playwright's implicit scroll from reaching the button otherwise.
         await page.locator('#reactions').scrollIntoViewIfNeeded();
-        const track = page.locator('#snCarouselTrack');
-        const before = await track.evaluate(el => getComputedStyle(el).transform);
-        await page.locator('#snCarouselNext').click();
-        await page.waitForTimeout(500); // allow transition
-        const after = await track.evaluate(el => getComputedStyle(el).transform);
-        expect(before).not.toBe(after);
-        await expect(page.locator('.sn-carousel-dot').nth(1)).toHaveClass(/sn-carousel-dot--active/);
+        const animName = await page.locator('.sn-marquee-track').evaluate(
+            el => getComputedStyle(el).animationName
+        );
+        expect(animName).toBe('sn-marquee-scroll');
+        await page.locator('#snMarqueePause').click();
+        const hasPaused = await page.locator('#snMarquee').evaluate(
+            el => el.classList.contains('is-paused')
+        );
+        expect(hasPaused).toBe(true);
     });
 
-    // ── Mobile / tablet (< 1024 px): static grid ───────────────
-    test('7. mobile/tablet: static grid visible with all 4 cards', async ({ page }) => {
+    // ── Mobile / tablet (< 1024 px): scroll-snap swipe carousel ──
+    test('7. mobile/tablet: scroll-snap carousel visible with all 4 cards', async ({ page }) => {
         test.skip(vw(page) >= 1024, 'mobile/tablet-only');
         await expect(page.locator('.sn-reactions-mobile')).toBeVisible();
         await expect(page.locator('.sn-reactions-mobile .sn-mq-card')).toHaveCount(4);
+        const snapType = await page.locator('.sn-reactions-mobile').evaluate(
+            el => getComputedStyle(el).scrollSnapType
+        );
+        expect(snapType).toMatch(/x/);
     });
 
-    test('8. mobile/tablet: no CSS animation on static grid; desktop carousel hidden', async ({ page }) => {
+    test('8. mobile/tablet: no CSS animation on swipe container; desktop marquee hidden', async ({ page }) => {
         test.skip(vw(page) >= 1024, 'mobile/tablet-only');
         await expect(page.locator('.sn-reactions-mobile')).toBeVisible();
         const animName = await page.locator('.sn-reactions-mobile').evaluate(
             el => getComputedStyle(el).animationName
         );
         expect(animName).toBe('none');
-        const carousel = page.locator('#snCarousel');
-        if (await carousel.count() > 0) {
-            await expect(carousel).not.toBeVisible();
-        }
+        await expect(page.locator('.sn-reactions-desktop')).not.toBeVisible();
     });
 
     // ── page health ────────────────────────────────────────────

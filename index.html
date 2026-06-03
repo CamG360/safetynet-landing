@@ -606,63 +606,75 @@
     </figure>
   </div>
 
-  <!-- responsive quote section: static grid on touch/tablet, carousel on desktop -->
+  <!-- responsive quote section: scroll-snap swipe on mobile/tablet, auto-marquee on desktop -->
   <div class="mt-12">
 
-    <!-- MOBILE / TABLET (< lg): static stacked cards — no animation, no JS, no WebKit risk -->
-    <div class="sn-reactions-mobile px-4 sm:px-5 max-w-[900px] mx-auto">
+    <!-- MOBILE / TABLET (< lg): horizontal scroll-snap swipe carousel — no CSS animation, no WebKit compositing risk -->
+    <div class="sn-reactions-mobile">
       <article class="sn-mq-card">
-        <p class="sn-mq-quote">I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.</p>
+        <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
         <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, Lyon, France</p>
       </article>
       <article class="sn-mq-card">
-        <p class="sn-mq-quote">We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.</p>
+        <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
         <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
       </article>
       <article class="sn-mq-card">
-        <p class="sn-mq-quote">I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.</p>
+        <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
         <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town, South Africa</p>
       </article>
       <article class="sn-mq-card">
-        <p class="sn-mq-quote">I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.</p>
+        <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
         <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco, USA</p>
       </article>
     </div>
 
-    <!-- DESKTOP (≥ lg): prev/next carousel — no auto-animation -->
+    <!-- DESKTOP (≥ lg): auto-scrolling infinite marquee — pauses on hover and button click -->
     <div class="sn-reactions-desktop">
-      <div class="sn-carousel-viewport" id="snCarousel">
-        <div class="sn-carousel-track" id="snCarouselTrack">
-          <article class="sn-mq-card">
-            <p class="sn-mq-quote">I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.</p>
-            <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, Lyon, France</p>
-          </article>
-          <article class="sn-mq-card">
-            <p class="sn-mq-quote">We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.</p>
-            <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
-          </article>
-          <article class="sn-mq-card">
-            <p class="sn-mq-quote">I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.</p>
-            <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town, South Africa</p>
-          </article>
-          <article class="sn-mq-card">
-            <p class="sn-mq-quote">I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.</p>
-            <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco, USA</p>
-          </article>
+      <div class="sn-marquee" id="snMarquee">
+        <div class="sn-marquee-track">
+          <div class="sn-marquee-group">
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, Lyon, France</p>
+            </article>
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
+            </article>
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town, South Africa</p>
+            </article>
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco, USA</p>
+            </article>
+          </div>
+          <div class="sn-marquee-group" aria-hidden="true">
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, Lyon, France</p>
+            </article>
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;We always share our locations and plans with our friends. We didn&rsquo;t realise we weren&rsquo;t covered.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Anna &amp; Julia</strong> &middot; Germany</p>
+            </article>
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;I often wonder how anyone would know if something happened to me. This is the first app that actually addresses that.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Andrew</strong> &middot; Solo traveller, Cape Town, South Africa</p>
+            </article>
+            <article class="sn-mq-card">
+              <p class="sn-mq-quote">&ldquo;I want to know if something&rsquo;s wrong &mdash; I don&rsquo;t need updates every hour. This would be a relief.&rdquo;</p>
+              <p class="sn-mq-attr"><strong>Jordan</strong> &middot; Parent, San Francisco, USA</p>
+            </article>
+          </div>
         </div>
       </div>
-      <div class="sn-carousel-controls">
-        <button id="snCarouselPrev" class="sn-carousel-btn" aria-label="Previous testimonial" disabled>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <div class="sn-carousel-dots" role="group" aria-label="Testimonial progress">
-          <span class="sn-carousel-dot sn-carousel-dot--active"></span>
-          <span class="sn-carousel-dot"></span>
-          <span class="sn-carousel-dot"></span>
-          <span class="sn-carousel-dot"></span>
-        </div>
-        <button id="snCarouselNext" class="sn-carousel-btn" aria-label="Next testimonial">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <div class="flex items-center justify-center mt-6">
+        <button class="sn-mq-pause" id="snMarqueePause" type="button" aria-label="Pause testimonials">
+          <svg class="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <svg class="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </button>
       </div>
     </div>
