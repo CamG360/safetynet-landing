@@ -7,39 +7,8 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8123';
 
-// Shared geometry helper — reads layout facts the browser has computed.
-async function marqueeGeometry(page) {
-    return page.evaluate(() => {
-        const track  = document.querySelector('.sn-marquee-track');
-        const groups = document.querySelectorAll('.sn-marquee-group');
-        const cards  = document.querySelectorAll('.sn-mq-card');
-        if (!track || groups.length < 2 || cards.length < 2) return null;
-        const rects  = Array.from(cards).map(c => c.getBoundingClientRect());
-        // Use getBoundingClientRect().width — same value CSS transform percentages resolve against.
-        // scrollWidth includes overflow and would pass even when the track is collapsed to viewport width.
-        return {
-            trackWidth:   track.getBoundingClientRect().width,
-            group0Width:  groups[0].getBoundingClientRect().width,
-            group1Width:  groups[1].getBoundingClientRect().width,
-            card0Top:     rects[0].top,
-            card1Top:     rects[1].top,
-            card0Width:   rects[0].width,
-        };
-    });
-}
-
-// Shared motion helper — reads translateX twice and returns delta.
-async function translateXDelta(page, waitMs = 1100) {
-    const readX = () => page.evaluate(() => {
-        const el = document.querySelector('.sn-marquee-track');
-        if (!el) return 0;
-        return new DOMMatrixReadOnly(getComputedStyle(el).transform).m41;
-    });
-    const x1 = await readX();
-    await page.waitForTimeout(waitMs);
-    const x2 = await readX();
-    return Math.abs(x2 - x1);
-}
+// Returns viewport width synchronously — used to skip tier-mismatched tests.
+function vw(page) { return page.viewportSize().width; }
 
 test.describe('First reactions section', () => {
     test.beforeEach(async ({ page }) => {
@@ -71,43 +40,48 @@ test.describe('First reactions section', () => {
         expect(body).not.toContain('cali,');
     });
 
-    // ── marquee geometry (desktop 1280×800) ────────────────────
-    test('5. desktop: two groups are equal-width and track = 2× one group', async ({ page }) => {
-        const g = await marqueeGeometry(page);
-        expect(g).not.toBeNull();
-        // Each group must have real width
-        expect(g.group0Width).toBeGreaterThan(300);
-        // Both groups must be the same width (duplicates)
-        expect(Math.abs(g.group0Width - g.group1Width)).toBeLessThan(5);
-        // Track must be ~2× one group — this is what makes -50% loop correctly
-        expect(Math.abs(g.trackWidth - g.group0Width * 2)).toBeLessThan(10);
-        // Cards must sit on the same horizontal row (not stacked)
-        expect(Math.abs(g.card0Top - g.card1Top)).toBeLessThan(5);
+    // ── Desktop (≥ 1024 px): carousel ──────────────────────────
+    test('5. desktop: carousel track, 4 cards, and controls present', async ({ page }) => {
+        test.skip(vw(page) < 1024, 'desktop-only');
+        await expect(page.locator('#snCarouselTrack')).toHaveCount(1);
+        await expect(page.locator('#snCarouselTrack .sn-mq-card')).toHaveCount(4);
+        await expect(page.locator('#snCarouselPrev')).toHaveCount(1);
+        await expect(page.locator('#snCarouselNext')).toHaveCount(1);
+        await expect(page.locator('.sn-carousel-dot')).toHaveCount(4);
     });
 
-    test('6. desktop: marquee animates over 1s', async ({ page }) => {
-        const delta = await translateXDelta(page);
-        expect(delta).toBeGreaterThan(5);
+    test('6. desktop: carousel advances on next click and updates active dot', async ({ page }) => {
+        test.skip(vw(page) < 1024, 'desktop-only');
+        // Scroll #reactions into viewport first — overflow:hidden on the section
+        // prevents Playwright's implicit scroll from reaching the button otherwise.
+        await page.locator('#reactions').scrollIntoViewIfNeeded();
+        const track = page.locator('#snCarouselTrack');
+        const before = await track.evaluate(el => getComputedStyle(el).transform);
+        await page.locator('#snCarouselNext').click();
+        await page.waitForTimeout(500); // allow transition
+        const after = await track.evaluate(el => getComputedStyle(el).transform);
+        expect(before).not.toBe(after);
+        await expect(page.locator('.sn-carousel-dot').nth(1)).toHaveClass(/sn-carousel-dot--active/);
     });
 
-    // ── marquee geometry (mobile 390×844) ──────────────────────
-    test('7. mobile: two groups equal-width and track = 2× one group', async ({ page }) => {
-        await page.setViewportSize({ width: 390, height: 844 });
-        await page.reload({ waitUntil: 'networkidle' });
-        const g = await marqueeGeometry(page);
-        expect(g).not.toBeNull();
-        expect(g.group0Width).toBeGreaterThan(200);
-        expect(Math.abs(g.group0Width - g.group1Width)).toBeLessThan(5);
-        expect(Math.abs(g.trackWidth - g.group0Width * 2)).toBeLessThan(10);
-        // Cards on same row
-        expect(Math.abs(g.card0Top - g.card1Top)).toBeLessThan(5);
+    // ── Mobile / tablet (< 1024 px): static grid ───────────────
+    test('7. mobile/tablet: static grid visible with all 4 cards', async ({ page }) => {
+        test.skip(vw(page) >= 1024, 'mobile/tablet-only');
+        await expect(page.locator('.sn-static-grid')).toBeVisible();
+        await expect(page.locator('.sn-static-grid .sn-mq-card')).toHaveCount(4);
     });
 
-    test('8. mobile: marquee animates over 1s', async ({ page }) => {
-        await page.setViewportSize({ width: 390, height: 844 });
-        await page.reload({ waitUntil: 'networkidle' });
-        const delta = await translateXDelta(page);
-        expect(delta).toBeGreaterThan(5);
+    test('8. mobile/tablet: no CSS animation on static grid; desktop carousel hidden', async ({ page }) => {
+        test.skip(vw(page) >= 1024, 'mobile/tablet-only');
+        await expect(page.locator('.sn-static-grid')).toBeVisible();
+        const animName = await page.locator('.sn-static-grid').evaluate(
+            el => getComputedStyle(el).animationName
+        );
+        expect(animName).toBe('none');
+        const carousel = page.locator('#snCarousel');
+        if (await carousel.count() > 0) {
+            await expect(carousel).not.toBeVisible();
+        }
     });
 
     // ── page health ────────────────────────────────────────────
