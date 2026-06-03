@@ -738,24 +738,33 @@ button:disabled {
 .sn-mq-pause:focus-visible { outline: 2px solid var(--color-blue-600, #2563eb); outline-offset: 2px; }
 .sn-mq-pause i { width: 18px; height: 18px; }
 
-/* ── Mobile/tablet static card grid (< lg) ──────────────────────── */
-.sn-static-grid {
+/* ── Mobile/tablet static card grid — explicit media queries, no Tailwind classes ── */
+.sn-reactions-mobile {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 @media (min-width: 560px) {
-  .sn-static-grid {
+  .sn-reactions-mobile {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }
-.sn-static-grid .sn-mq-card {
+@media (min-width: 1024px) {
+  .sn-reactions-mobile { display: none; }
+}
+.sn-reactions-mobile .sn-mq-card {
   flex: none;
   width: 100%;
 }
 
-/* ── Desktop carousel (≥ lg) ─────────────────────────────────────── */
+/* ── Desktop carousel — explicit media queries, no Tailwind classes ── */
+.sn-reactions-desktop { display: none; }
+@media (min-width: 1024px) {
+  .sn-reactions-desktop { display: block; }
+}
+
+/* ── Desktop carousel internals ──────────────────────────────────── */
 .sn-carousel-viewport {
   overflow: hidden;
   width: 100%;

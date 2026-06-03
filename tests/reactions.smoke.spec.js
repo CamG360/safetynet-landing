@@ -67,14 +67,14 @@ test.describe('First reactions section', () => {
     // ── Mobile / tablet (< 1024 px): static grid ───────────────
     test('7. mobile/tablet: static grid visible with all 4 cards', async ({ page }) => {
         test.skip(vw(page) >= 1024, 'mobile/tablet-only');
-        await expect(page.locator('.sn-static-grid')).toBeVisible();
-        await expect(page.locator('.sn-static-grid .sn-mq-card')).toHaveCount(4);
+        await expect(page.locator('.sn-reactions-mobile')).toBeVisible();
+        await expect(page.locator('.sn-reactions-mobile .sn-mq-card')).toHaveCount(4);
     });
 
     test('8. mobile/tablet: no CSS animation on static grid; desktop carousel hidden', async ({ page }) => {
         test.skip(vw(page) >= 1024, 'mobile/tablet-only');
-        await expect(page.locator('.sn-static-grid')).toBeVisible();
-        const animName = await page.locator('.sn-static-grid').evaluate(
+        await expect(page.locator('.sn-reactions-mobile')).toBeVisible();
+        const animName = await page.locator('.sn-reactions-mobile').evaluate(
             el => getComputedStyle(el).animationName
         );
         expect(animName).toBe('none');
