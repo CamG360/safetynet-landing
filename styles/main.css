@@ -637,7 +637,8 @@ button:disabled {
 .sn-marquee-track {
   display: flex;
   flex-shrink: 0;         /* do not shrink to viewport — stay content-sized */
-  animation: sn-marquee-scroll var(--sn-marquee-dur, 35s) linear infinite;
+  will-change: transform; /* force GPU layer — prevents compositing stall on iOS Chrome/Edge */
+  animation: sn-marquee-scroll var(--sn-marquee-dur, 20s) linear infinite;
 }
 
 .sn-marquee-group {
