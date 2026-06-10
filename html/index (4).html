@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafetyNet — Your silent safeguard for everyday life</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Tailwind via CDN (sufficient for landing page; no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Fonts: Instrument Serif for editorial display, Plus Jakarta Sans for body, JetBrains Mono for system/monitoring chrome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Instrument Serif"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ink: {
+              950: '#070A14',
+              900: '#0B1020',
+              800: '#141A2E',
+              700: '#1F2742',
+            },
+            signal: {
+              50:  '#ECFEFF',
+              100: '#CFFAFE',
+              200: '#A5F3FC',
+              300: '#67E8F9',
+              400: '#22D3EE',
+              500: '#06B6D4',
+              600: '#0891B2',
+              700: '#0E7490',
+            },
+            vigil: {
+              50:  '#EFF6FF',
+              100: '#DBEAFE',
+              200: '#BFDBFE',
+              400: '#60A5FA',
+              500: '#3B82F6',
+              600: '#2563EB',
+              700: '#1D4ED8',
+              900: '#1E3A8A',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --accent: #06B6D4;       /* signal-500 — teal */
+      --accent-soft: #67E8F9;
+      --primary: #2563EB;      /* vigil-600 */
+      --primary-hover: #1D4ED8;
+      --ink: #070A14;
+      --paper: #FAFAF7;
+      --line: #E2E8F0;
+    }
+    html, body { background: var(--paper); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #0F172A; }
+    body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+
+    /* ============ MONITORING CHROME ============ */
+    .mono-label { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; font-weight: 500; }
+
+    /* Pulse dot */
+    .pulse-dot { position: relative; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); }
+    .pulse-dot::before {
+      content: ''; position: absolute; inset: 0; border-radius: 999px; background: var(--accent);
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(3); opacity: 0; } }
+
+    /* Hero scan ring — overlay subtle animation behind/around bubble */
+    .scan-ring {
+      position: absolute; border-radius: 999px; border: 1px solid rgba(103, 232, 249, 0.18);
+      pointer-events: none;
+    }
+    @keyframes drift-1 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(4px, -6px); } }
+    @keyframes drift-2 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-6px, 4px); } }
+
+    /* Hero gradient overlay - dark side for copy legibility */
+    .hero-overlay {
+      background:
+        linear-gradient(105deg, rgba(7,10,20,0.92) 0%, rgba(7,10,20,0.78) 28%, rgba(7,10,20,0.32) 50%, rgba(7,10,20,0) 68%),
+        linear-gradient(180deg, rgba(7,10,20,0.55) 0%, rgba(7,10,20,0) 22%, rgba(7,10,20,0) 75%, rgba(7,10,20,0.6) 100%);
+    }
+    .hero-grain::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+    }
+
+    /* Corner registration marks - "monitoring system" chrome */
+    .reg-mark { position: absolute; width: 14px; height: 14px; border-color: rgba(207, 250, 254, 0.5); }
+    .reg-mark.tl { top: 24px; left: 24px; border-top: 1px solid; border-left: 1px solid; }
+    .reg-mark.tr { top: 24px; right: 24px; border-top: 1px solid; border-right: 1px solid; }
+    .reg-mark.bl { bottom: 24px; left: 24px; border-bottom: 1px solid; border-left: 1px solid; }
+    .reg-mark.br { bottom: 24px; right: 24px; border-bottom: 1px solid; border-right: 1px solid; }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 26px; border-radius: 999px;
+      background: var(--primary); color: #fff; font-weight: 600; font-size: 15px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 10px 30px -8px rgba(37,99,235,0.55);
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 14px 36px -8px rgba(37,99,235,0.65); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 22px; border-radius: 999px;
+      color: #fff; font-weight: 500; font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.38); }
+
+    /* Editorial display type */
+    .display {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      line-height: 0.98;
+    }
+    .display em { font-style: italic; color: var(--accent-soft); }
+
+    /* Card lift */
+    .lift { transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease; }
+    .lift:hover { transform: translateY(-3px); box-shadow: 0 20px 50px -20px rgba(15, 23, 42, 0.18); }
+
+    /* FAQ accordion */
+    .faq-q { cursor: pointer; }
+    .faq-item .faq-a { max-height: 0; overflow: hidden; transition: max-height 320ms ease, opacity 240ms ease; opacity: 0; }
+    .faq-item.open .faq-a { max-height: 800px; opacity: 1; }
+    .faq-item.open .faq-chev { transform: rotate(180deg); }
+    .faq-chev { transition: transform 240ms ease; }
+
+    /* Modal */
+    .modal { background: rgba(7, 10, 20, 0.78); backdrop-filter: blur(12px); }
+    .modal-card { animation: pop-in 240ms cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes pop-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms ease, transform 700ms ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Comparison row */
+    .vs-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0; }
+    @media (max-width: 768px) { .vs-row { grid-template-columns: 1fr; } }
+
+    /* Density tweak */
+    body[data-density="cozy"] .section-pad { padding-top: 80px; padding-bottom: 80px; }
+    body[data-density="airy"] .section-pad { padding-top: 120px; padding-bottom: 120px; }
+    body[data-density="compact"] .section-pad { padding-top: 56px; padding-bottom: 56px; }
+
+    /* Tweaks panel */
+    #tweaksPanel { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    .tw-section { border-top: 1px solid #1F2742; padding: 14px 16px; }
+    .tw-section:first-child { border-top: 0; }
+    .tw-label { color: #94A3B8; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+    .tw-swatch { width: 28px; height: 28px; border-radius: 999px; border: 2px solid transparent; cursor: pointer; transition: transform 160ms ease; }
+    .tw-swatch.active { border-color: #fff; transform: scale(1.06); }
+    .tw-pill { padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #1F2742; color: #CBD5E1; cursor: pointer; border: 1px solid transparent; }
+    .tw-pill.active { background: #2563EB; color: #fff; border-color: #60A5FA; }
+
+    /* Accent overrides driven by data-accent attribute */
+    body[data-accent="electric"] { --primary: #2563EB; --primary-hover: #1D4ED8; --accent: #06B6D4; --accent-soft: #67E8F9; }
+    body[data-accent="teal"]     { --primary: #0D9488; --primary-hover: #0F766E; --accent: #14B8A6; --accent-soft: #5EEAD4; }
+    body[data-accent="violet"]   { --primary: #7C3AED; --primary-hover: #6D28D9; --accent: #A78BFA; --accent-soft: #C4B5FD; }
+    body[data-accent="rose"]     { --primary: #E11D48; --primary-hover: #BE123C; --accent: #FB7185; --accent-soft: #FECACA; }
+
+    /* Hero-specific text gradient (teal soft) */
+    .glow-accent { color: var(--accent-soft); }
+
+    /* Sticky nav backdrop */
+    .nav-scroll { background: rgba(250, 250, 247, 0.86); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(15,23,42,0.06); }
+
+    /* Subtle floating animation on status card */
+    @keyframes float-1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .float-card { animation: float-1 5s ease-in-out infinite; }
+
+    /* Hide tweaks panel by default */
+    #tweaksPanel.hidden-panel { display: none; }
+
+    /* ============ INTERACTIVE "TRY IT" DEMO ============ */
+    .try-step { animation: pop-in 280ms cubic-bezier(0.16, 1, 0.3, 1); }
+    .step-dots { display: flex; gap: 6px; }
+    .step-dot { width: 26px; height: 4px; border-radius: 999px; background: #E2E8F0; transition: background 200ms; }
+    .step-dot.active { background: var(--accent); }
+    .step-dot.done { background: var(--accent); opacity: 0.45; }
+
+    .scenario-card {
+      width: 100%;
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      background: white;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 160ms, background 160ms, transform 160ms, box-shadow 160ms;
+    }
+    .scenario-card:hover { border-color: var(--accent); background: #F8FAFC; transform: translateY(-1px); box-shadow: 0 4px 14px -6px rgba(6,182,212,0.25); }
+    .scenario-card .scenario-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: #ECFEFF; color: #0E7490;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .scenario-card .scenario-chev { color: #CBD5E1; transition: color 160ms, transform 160ms; margin-left: auto; }
+    .scenario-card:hover .scenario-chev { color: var(--accent); transform: translateX(2px); }
+
+    .try-input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      font-size: 14px;
+      outline: none;
+      background: white;
+      transition: border-color 160ms, box-shadow 160ms;
+      font-family: inherit;
+    }
+    .try-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.10); }
+    .try-input::placeholder { color: #94A3B8; }
+
+    .time-chip {
+      padding: 10px 8px;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      background: white;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 160ms;
+    }
+    .time-chip:hover { border-color: var(--accent); color: var(--ink); }
+    .time-chip.active { background: var(--ink); color: white; border-color: var(--ink); }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; font-weight: 600; color: #64748B;
+      margin-bottom: 12px;
+      cursor: pointer;
+      background: transparent; border: 0; padding: 4px 0;
+    }
+    .back-btn:hover { color: var(--ink); }
+
+    /* Phone-style alert preview */
+    .phone-mock {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 24px 48px -16px rgba(7,10,20,0.30), 0 8px 16px -8px rgba(7,10,20,0.10);
+      overflow: hidden;
+    }
+    .phone-header {
+      background: #DC2626;
+      color: white;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .phone-body { padding: 16px 16px 18px; }
+    .alert-line { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; }
+    .alert-line svg { width: 14px; height: 14px; color: #64748B; margin-top: 3px; flex-shrink: 0; }
+    .alert-line .mono-label { font-size: 9.5px; line-height: 1.2; color: #94A3B8; }
+    .alert-action {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(220,38,38,0.06);
+      border: 1px solid rgba(220,38,38,0.20);
+    }
+    .alert-action ol { font-size: 12.5px; color: #334155; margin-top: 6px; line-height: 1.6; }
+    .alert-action ol li { margin-bottom: 2px; }
+
+    /* Use-case chips for post-signup feedback */
+    .usecase-chip {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid #E2E8F0;
+      background: white;
+      font-size: 13px;
+      color: #475569;
+      cursor: pointer;
+      transition: all 160ms;
+    }
+    .usecase-chip:hover { border-color: var(--primary); color: var(--primary); }
+    .usecase-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* Hero-themed (dark) use-case chips */
+    .hero-usecase-chip {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      font-size: 12.5px;
+      color: #CBD5E1;
+      cursor: pointer;
+      transition: all 160ms;
+    }
+    .hero-usecase-chip:hover { border-color: rgba(103,232,249,0.5); color: white; background: rgba(103,232,249,0.08); }
+    .hero-usecase-chip.active { background: rgba(6,182,212,0.18); border-color: rgba(103,232,249,0.6); color: #ECFEFF; }
+
+    /* Subtle highlight when echoing personalized data */
+    .personalized { color: #0E7490; font-weight: 600; }
+
+    /* Confetti-free success */
+    .success-ring {
+      width: 56px; height: 56px; border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(6,182,212,0.10);
+      border: 1px solid rgba(6,182,212,0.30);
+      margin: 0 auto 14px;
+    }
+
+    /* ============ ANIMATED EXPLAINER ============ */
+    .explainer-phone { position: relative; }
+    .ex-screen { position: absolute; inset: 0; opacity: 0; transition: opacity 420ms cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+    .ex-screen.active { opacity: 1; pointer-events: auto; }
+    .ex-screen .ex-screen-inner { position: absolute; inset: 0; display: flex; flex-direction: column; }
+    .ex-dot { width: 28px; height: 5px; border-radius: 999px; background: #E2E8F0; transition: background 280ms, width 280ms; cursor: pointer; border: 0; padding: 0; }
+    .ex-dot.done { background: #94A3B8; }
+    .ex-dot.active { background: var(--primary); width: 52px; }
+    .ex-countdown { font-variant-numeric: tabular-nums; }
+    .ex-check { opacity: 0; transform: scale(0.6); transition: opacity 280ms ease, transform 280ms cubic-bezier(0.16,1.6,0.3,1); }
+    .ex-check.show { opacity: 1; transform: scale(1); }
+    .ex-confirm-burst { transform: scale(0.5); opacity: 0; transition: opacity 380ms, transform 480ms cubic-bezier(0.16,1.5,0.3,1); }
+    .ex-screen.active .ex-confirm-burst { transform: scale(1); opacity: 1; transition-delay: 80ms; }
+    .ex-feed-line { opacity: 0; transform: translateY(4px); transition: opacity 360ms ease, transform 360ms ease; }
+    .ex-screen.active .ex-feed-line.show { opacity: 1; transform: translateY(0); }
+  </style>
+
+  <!-- TWEAK DEFAULTS -->
+  <script>
+    window.__TWEAK_DEFAULTS__ = /*EDITMODE-BEGIN*/{
+      "accent": "teal",
+      "heroImage": "dateNight",
+      "heroCopy": "becauseYou",
+      "density": "airy",
+      "showSphere": true
+    }/*EDITMODE-END*/;
+  </script>
+</head>
+<body class="text-slate-900" data-accent="electric" data-density="cozy">
+
+  <!-- ============ NAV ============ -->
+  <nav id="nav" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300" data-screen-label="01 Nav">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <span class="font-display text-[26px] tracking-tight text-slate-900 nav-logo-text">SafetyNet</span>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-8 text-[14px] font-medium text-slate-600 nav-links">
+        <a href="#problem" class="hover:text-slate-900 transition">How it protects</a>
+        <a href="#concept" class="hover:text-slate-900 transition">How it works</a>
+        <a href="#examples" class="hover:text-slate-900 transition">Examples</a>
+        <a href="#comparison" class="hover:text-slate-900 transition">Why SafetyNet</a>
+        <a href="#our-story" class="hover:text-slate-900 transition">Our story</a>
+        <a href="#faq" class="hover:text-slate-900 transition">FAQ</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openRegistration()" class="btn-primary text-[13px] !py-2.5 !px-5">
+          Get Early Access
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </button>
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg text-slate-700" aria-label="Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="lg:hidden hidden border-t border-slate-200 bg-white">
+      <div class="px-6 py-5 flex flex-col gap-3">
+        <a href="#problem" class="py-2 text-slate-700">How it protects</a>
+        <a href="#concept" class="py-2 text-slate-700">How it works</a>
+        <a href="#examples" class="py-2 text-slate-700">Examples</a>
+        <a href="#comparison" class="py-2 text-slate-700">Why SafetyNet</a>
+        <a href="#our-story" class="py-2 text-slate-700">Our story</a>
+        <a href="#faq" class="py-2 text-slate-700">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header id="hero" class="relative w-full overflow-hidden bg-ink-950 text-white" style="min-height: 100svh;" data-screen-label="02 Hero">
+    <!-- Image layer -->
+    <div class="absolute inset-0">
+      <img id="heroImage" src="images/hero-dateNight.png" alt="" class="w-full h-full object-cover object-center" />
+    </div>
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 hero-overlay"></div>
+    <!-- Grain -->
+    <div class="absolute inset-0 hero-grain"></div>
+
+    <!-- Animated scan rings -->
+    <div class="absolute inset-0 pointer-events-none hidden lg:block" id="scanRings">
+      <div class="scan-ring" style="width: 720px; height: 720px; top: 50%; left: 58%; transform: translate(-50%,-50%); animation: drift-1 10s ease-in-out infinite;"></div>
+      <div class="scan-ring" style="width: 920px; height: 920px; top: 50%; left: 58%; transform: translate(-50%,-50%); animation: drift-2 14s ease-in-out infinite; border-color: rgba(103,232,249,0.10);"></div>
+      <div class="scan-ring" style="width: 1180px; height: 1180px; top: 50%; left: 58%; transform: translate(-50%,-50%); animation: drift-1 18s ease-in-out infinite; border-color: rgba(103,232,249,0.06);"></div>
+    </div>
+
+    <!-- Reg marks -->
+    <div class="reg-mark tl"></div>
+    <div class="reg-mark tr"></div>
+    <div class="reg-mark bl"></div>
+    <div class="reg-mark br"></div>
+
+    <!-- Top monitoring strip -->
+    <div class="absolute top-24 left-0 right-0 z-20">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between text-slate-200">
+        <div class="flex items-center gap-3">
+          <span class="pulse-dot"></span>
+          <span class="mono-label text-cyan-200/90">System active · monitoring</span>
+        </div>
+        <div class="hidden md:flex items-center gap-5 mono-label text-slate-300/70">
+          <span>v2.0 · BETA</span>
+          <span class="hidden lg:inline">UPTIME 99.97%</span>
+          <span id="navTime">22:18:42 GMT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-44 pb-24 lg:pt-48 lg:pb-32" style="min-height: 100svh; display: flex; flex-direction: column; justify-content: center;">
+      <div class="max-w-2xl">
+        <div class="mono-label text-cyan-300/80 mb-6 flex items-center gap-3">
+          <span class="inline-block w-6 h-px bg-cyan-300/60"></span>
+          <span>A dead man's switch — in plain language</span>
+        </div>
+
+        <h1 id="heroTitle" class="display text-white text-[64px] md:text-[88px] lg:text-[104px] leading-[0.95] mb-8 max-w-[12ch]">
+          Your <em>silent</em><br/>safeguard for<br/>everyday life.
+        </h1>
+
+        <p id="heroSub" class="text-[19px] md:text-[21px] leading-[1.55] text-slate-200 max-w-xl mb-10">
+          <span class="text-slate-400 italic">"Text me when you're safe"</span> fails when you can't text. <span class="text-white font-medium">SafetyNet sends the alert for you.</span>
+        </p>
+
+        <!-- Inline email capture -->
+        <form id="heroForm" onsubmit="submitHeroEmail(event)" class="flex flex-col sm:flex-row gap-2 mb-4 max-w-[520px]">
+          <input id="heroEmail" type="email" required placeholder="you@example.com"
+            class="flex-1 px-5 py-4 rounded-full bg-white/[0.08] border border-white/20 text-white placeholder:text-slate-400 focus:outline-none focus:border-cyan-300/60 focus:bg-white/[0.14] transition text-[15px]" />
+          <button type="submit" class="btn-primary !py-4 justify-center">
+            Get Early Access
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </form>
+        <div id="heroFormResult" class="hidden mb-4">
+          <div class="text-cyan-300 text-sm mb-3 flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>You're on the list — we'll be in touch.</span>
+          </div>
+          <div id="heroFollowup" class="rounded-2xl p-4 border" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.10);">
+            <div class="mono-label text-cyan-200/80 mb-2">One quick question — what would make SafetyNet most useful for you?</div>
+            <div id="heroUseCases" class="flex flex-wrap gap-2 mb-3">
+              <button type="button" class="hero-usecase-chip" data-usecase="dates">First dates</button>
+              <button type="button" class="hero-usecase-chip" data-usecase="solo-outdoors">Solo runs &amp; hikes</button>
+              <button type="button" class="hero-usecase-chip" data-usecase="late-night">Walking home late</button>
+              <button type="button" class="hero-usecase-chip" data-usecase="travel">Travel</button>
+              <button type="button" class="hero-usecase-chip" data-usecase="kids">Kids / family</button>
+              <button type="button" class="hero-usecase-chip" data-usecase="elderly">Aging parents</button>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="submitHeroFeedback()" class="text-xs font-semibold text-cyan-200 hover:text-white transition flex items-center gap-1.5">
+                Send <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </button>
+              <span class="text-xs text-slate-500">·</span>
+              <button onclick="dismissHeroFollowup()" class="text-xs text-slate-400 hover:text-slate-200 transition">Skip</button>
+            </div>
+          </div>
+          <div id="heroFollowupThanks" class="hidden text-cyan-300 text-sm mt-3 flex items-center gap-2">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+            <span>Thanks — that helps shape what we build.</span>
+          </div>
+        </div>
+
+        <!-- Inline secondary actions + proof -->
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mb-12 text-[13.5px] text-slate-300">
+          <button onclick="openTryIt()" class="flex items-center gap-1.5 text-cyan-200 hover:text-cyan-100 transition underline decoration-cyan-200/40 underline-offset-4 hover:decoration-cyan-200">
+            <i data-lucide="play" class="w-3.5 h-3.5"></i>
+            See an alert in action
+          </button>
+          <span class="w-1 h-1 rounded-full bg-slate-500"></span>
+          <span><span class="text-white font-semibold">40+ already on the list</span></span>
+          <span class="w-1 h-1 rounded-full bg-slate-500"></span>
+          <span>Launching <span class="text-white">mid-2026</span></span>
+        </div>
+
+        <!-- Trust row -->
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-slate-300">
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5 rounded-full bg-cyan-400/20 flex items-center justify-center">
+              <i data-lucide="zap" class="w-3 h-3 text-cyan-300"></i>
+            </div>
+            <span>Automatic alerts</span>
+          </div>
+          <div class="w-px h-3 bg-white/20"></div>
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5 rounded-full bg-cyan-400/20 flex items-center justify-center">
+              <i data-lucide="eye-off" class="w-3 h-3 text-cyan-300"></i>
+            </div>
+            <span>Zero tracking</span>
+          </div>
+          <div class="w-px h-3 bg-white/20"></div>
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5 rounded-full bg-cyan-400/20 flex items-center justify-center">
+              <i data-lucide="lock" class="w-3 h-3 text-cyan-300"></i>
+            </div>
+            <span>Your plans stay private</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom-right status card (floats over hero) -->
+    <div class="absolute bottom-12 right-8 lg:bottom-16 lg:right-12 z-20 hidden md:block float-card">
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl px-5 py-4 border border-white/40 max-w-[280px]">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="pulse-dot"></span>
+          <span class="mono-label text-slate-700">Check-in by</span>
+        </div>
+        <div class="text-2xl font-bold text-slate-900 leading-tight">11:30 PM</div>
+        <div class="text-xs text-slate-500 mt-1">If she doesn't tap "I'm Safe" by then, contacts are alerted.</div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden lg:flex flex-col items-center gap-2 text-cyan-200/60">
+      <span class="mono-label">scroll</span>
+      <div class="w-px h-8 bg-cyan-200/30"></div>
+    </div>
+  </header>
+
+  <!-- ============ SECTION: PROBLEM / MENTAL MODEL ============ -->
+  <section id="problem" class="section-pad bg-paper relative" data-screen-label="03 How it protects">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <div class="mono-label text-slate-500 mb-4">01 / Mental model</div>
+        <h2 class="display text-slate-900 text-5xl md:text-6xl mb-5">How SafetyNet protects you</h2>
+        <p class="text-lg text-slate-600">Automatic protection — for when you can't reach your phone.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 lg:gap-10 relative">
+        <!-- Without -->
+        <div class="reveal bg-white rounded-3xl border border-slate-200 p-8 lg:p-10">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+              <i data-lucide="cloud-off" class="w-5 h-5 text-slate-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-700">Without SafetyNet</h3>
+          </div>
+          <div class="flex justify-center mb-6">
+            <img src="images/safetynet-off.webp" alt="Disconnected" class="w-44 lg:w-56 opacity-90" loading="lazy" />
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="x" class="w-3.5 h-3.5 text-slate-500"></i>
+              </div>
+              <p class="text-slate-700"><span class="font-semibold text-slate-900">No one knows</span> something's wrong.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="x" class="w-3.5 h-3.5 text-slate-500"></i>
+              </div>
+              <p class="text-slate-700"><span class="font-semibold text-slate-900">No one knows</span> your plan.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="x" class="w-3.5 h-3.5 text-slate-500"></i>
+              </div>
+              <p class="text-slate-700"><span class="font-semibold text-slate-900">No one knows</span> what to do.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- With -->
+        <div class="reveal rounded-3xl border p-8 lg:p-10 relative overflow-hidden" style="background: linear-gradient(170deg, var(--ink) 0%, #0B1A2E 100%); border-color: rgba(103,232,249,0.18);">
+          <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full" style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, transparent 70%);"></div>
+          <div class="flex items-center gap-3 mb-6 relative">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(34,211,238,0.15);">
+              <i data-lucide="shield-check" class="w-5 h-5 text-cyan-300"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">With SafetyNet</h3>
+          </div>
+          <div class="flex justify-center mb-6 relative">
+            <img src="images/safetynet-on.webp" alt="Connected" class="w-44 lg:w-56" loading="lazy" />
+          </div>
+          <ul class="space-y-3 relative">
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(34,211,238,0.18);">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-300"></i>
+              </div>
+              <p class="text-slate-200">They're <span class="font-semibold text-white">alerted automatically.</span></p>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(34,211,238,0.18);">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-300"></i>
+              </div>
+              <p class="text-slate-200">They know <span class="font-semibold text-white">your plan.</span></p>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(34,211,238,0.18);">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-300"></i>
+              </div>
+              <p class="text-slate-200">They know <span class="font-semibold text-white">exactly what to do.</span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="reveal text-center text-slate-500 mt-12 italic max-w-2xl mx-auto">Your emergency contact receives a safety alert with your plans, context, and step-by-step instructions — not just a notification.</p>
+    </div>
+  </section>
+
+  <!-- ============ THIN BANNER: WHY NOW ============ -->
+  <section class="bg-white border-y border-slate-100 py-8" data-screen-label="04 Why now">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <p class="text-base md:text-lg text-slate-600">
+        <span class="mono-label text-slate-900 mr-2">WHY JOIN NOW —</span>
+        Early members get first access and lifetime discounts.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: ALERT PREVIEW (what your contact receives) ============ -->
+  <section id="alert-preview" class="section-pad bg-white border-t border-slate-100" data-screen-label="05 Alert preview">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center">
+        <!-- Left: copy -->
+        <div class="reveal">
+          <div class="mono-label text-slate-500 mb-4">02 / What they receive</div>
+          <h2 class="display text-slate-900 text-5xl md:text-6xl mb-6 leading-[1.0]">Not a notification.<br/>A <em style="color: var(--primary);">plan of action.</em></h2>
+          <p class="text-lg text-slate-600 mb-8 leading-relaxed">When SafetyNet fires, your emergency contact gets a real SMS and email — with your plans, the time you missed, and exactly what to do, in order.</p>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(6,182,212,0.12); color: var(--accent);">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+              <span class="text-slate-700"><strong class="text-slate-900">Plan context</strong> — who you're with, where you went</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(6,182,212,0.12); color: var(--accent);">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+              <span class="text-slate-700"><strong class="text-slate-900">Location/venue</strong> — the address you shared</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(6,182,212,0.12); color: var(--accent);">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+              <span class="text-slate-700"><strong class="text-slate-900">Step-by-step instructions</strong> — call you, then the venue, then 999</span>
+            </li>
+          </ul>
+
+          <button onclick="openTryIt()" class="btn-primary">
+            Try it on yourself
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Right: phone with the actual SMS your contact receives -->
+        <div class="reveal lg:pl-4">
+          <div class="relative max-w-[320px] mx-auto">
+            <!-- Soft glow behind phone -->
+            <div class="absolute -inset-8 rounded-[80px]" style="background: radial-gradient(circle at center, rgba(220,38,38,0.10) 0%, transparent 65%);"></div>
+
+            <!-- Phone bezel -->
+            <div class="relative bg-slate-900 rounded-[44px] p-2.5 shadow-[0_30px_60px_-15px_rgba(7,10,20,0.45)]">
+              <!-- Screen -->
+              <div class="relative bg-white rounded-[36px] overflow-hidden" style="height: 620px;">
+
+                <!-- Status bar -->
+                <div class="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-7 pt-3 text-[12px] font-semibold text-slate-900">
+                  <span class="font-mono">10:47</span>
+                  <span class="flex items-center gap-1.5">
+                    <svg width="15" height="11" viewBox="0 0 18 12" fill="currentColor" class="text-slate-900"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
+                    <svg width="14" height="10" viewBox="0 0 16 12" fill="currentColor" class="text-slate-900"><path d="M8 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM8 2C4.5 2 1.5 4.5 0.5 6L2 7.5C2.7 6.5 5 5 8 5s5.3 1.5 6 2.5L15.5 6C14.5 4.5 11.5 2 8 2z"/></svg>
+                    <svg width="22" height="11" viewBox="0 0 28 12" fill="none" class="text-slate-900"><rect x="0.5" y="0.5" width="24" height="11" rx="2.5" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/><rect x="25.5" y="3.5" width="2" height="5" rx="0.5" fill="currentColor" opacity="0.4"/></svg>
+                  </span>
+                </div>
+                <!-- Notch -->
+                <div class="absolute top-1.5 left-1/2 -translate-x-1/2 z-30 w-24 h-6 rounded-full bg-slate-900"></div>
+
+                <!-- Conversation header -->
+                <div class="absolute top-0 left-0 right-0 pt-11 z-20" style="background: rgba(247, 247, 247, 0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.06);">
+                  <div class="grid grid-cols-[28px_1fr_28px] items-center px-3 pt-1 pb-2">
+                    <i data-lucide="chevron-left" class="w-5 h-5" style="color: #007AFF;"></i>
+                    <div class="flex flex-col items-center">
+                      <div class="w-10 h-10 rounded-full mb-1 flex items-center justify-center" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                      </div>
+                      <div class="flex items-center gap-0.5">
+                        <span class="text-[11px] font-medium text-slate-900 leading-none">SafetyNet</span>
+                        <i data-lucide="chevron-right" class="w-2.5 h-2.5 text-slate-400"></i>
+                      </div>
+                    </div>
+                    <i data-lucide="video" class="w-5 h-5" style="color: rgba(0,122,255,0.35);"></i>
+                  </div>
+                </div>
+
+                <!-- Conversation body -->
+                <div class="absolute inset-0 pt-[110px] pb-3 px-3 flex flex-col">
+                  <!-- Timestamp -->
+                  <div class="text-center text-[10px] text-slate-400 mb-3">
+                    <span class="font-semibold text-slate-500">Today 10:47 PM</span> &middot; Text Message
+                  </div>
+
+                  <!-- Bubble 1 -->
+                  <div class="self-start max-w-[86%] mb-1.5">
+                    <div class="rounded-[18px] rounded-bl-[5px] px-3.5 py-2.5 text-[13.5px] leading-[1.35] text-slate-900" style="background: #E9E9EB;">
+                      <strong>SafetyNet alert.</strong> Maya didn't check in safe by her 10:00&nbsp;PM cutoff (47&nbsp;min ago).
+                    </div>
+                  </div>
+
+                  <!-- Bubble 2 -->
+                  <div class="self-start max-w-[90%] mt-2 mb-1.5">
+                    <div class="rounded-[18px] rounded-bl-[5px] px-3.5 py-2.5 text-[12.5px] leading-[1.4] font-mono text-slate-800" style="background: #E9E9EB;">
+                      <div><span class="text-slate-500">Who:</span> James (met on Hinge)</div>
+                      <div><span class="text-slate-500">Where:</span> The Bluebird Cafe</div>
+                      <div><span class="text-slate-500">Addr:</span> 14 Market St</div>
+                    </div>
+                  </div>
+
+                  <!-- Bubble 3 -->
+                  <div class="self-start max-w-[92%] mt-2">
+                    <div class="rounded-[18px] rounded-bl-[5px] px-3.5 py-2.5 text-[13px] leading-[1.4] text-slate-900" style="background: #E9E9EB;">
+                      <div class="font-semibold mb-0.5">What to do, in order:</div>
+                      <div>1. Call Maya now.</div>
+                      <div>2. No answer in 5 min &rarr; call the venue: <span class="font-mono">(555) 901-2233</span></div>
+                      <div>3. Still no contact &rarr; call 999 with the details above.</div>
+                    </div>
+                  </div>
+
+                  <!-- Delivered -->
+                  <div class="text-[9.5px] text-slate-400 mt-1.5 ml-2 font-medium">Delivered</div>
+
+                  <div class="flex-1"></div>
+
+                  <!-- Input bar -->
+                  <div class="flex items-center gap-2 px-1">
+                    <i data-lucide="plus" class="w-7 h-7 text-slate-300 flex-shrink-0"></i>
+                    <div class="flex-1 h-9 rounded-full border border-slate-200 px-3.5 flex items-center justify-between text-[12px] text-slate-400">
+                      <span>Text Message</span>
+                      <i data-lucide="mic" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                  </div>
+                  <!-- Home indicator -->
+                  <div class="mt-2 mx-auto w-32 h-1 rounded-full bg-slate-900/90"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Caption below phone -->
+            <div class="mt-7 text-center">
+              <div class="mono-label text-slate-400 mb-1.5">What your contact sees</div>
+              <div class="text-[13px] text-slate-600">Plain SMS &middot; no app, no account, no setup on their end.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: REASSURANCE (the honest answers) ============ -->
+  <section id="reassurance" class="section-pad bg-slate-50/60 border-t border-slate-100" data-screen-label="06 The honest answers">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center max-w-2xl mx-auto mb-14">
+        <div class="mono-label text-slate-500 mb-4">03 / What you might be wondering</div>
+        <h2 class="display text-slate-900 text-5xl md:text-6xl mb-5 leading-[1.0]">The honest answers,<br/><em style="color: var(--primary);">up front.</em></h2>
+        <p class="text-lg text-slate-600">No, no, no, no. The four things you're already thinking.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <!-- Are you tracked? -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-7 flex gap-5">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style="background: rgba(6,182,212,0.10); color: var(--accent);">
+            <i data-lucide="eye-off" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5">
+              <span class="text-2xl font-display" style="color: var(--primary);">No.</span>
+              <h3 class="font-bold text-slate-900">Am I being tracked?</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed text-[15px]">SafetyNet never tracks your location in the background. The timer runs on our servers — your phone is never pinged.</p>
+          </div>
+        </div>
+
+        <!-- Do I share my plan? -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-7 flex gap-5">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style="background: rgba(6,182,212,0.10); color: var(--accent);">
+            <i data-lucide="lock" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5">
+              <span class="text-2xl font-display" style="color: var(--primary);">No.</span>
+              <h3 class="font-bold text-slate-900">Are my contacts seeing my plans?</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed text-[15px]">Your plan stays private — only revealed if an alert is triggered. Until then, no one sees where you are or who you're with.</p>
+          </div>
+        </div>
+
+        <!-- Battery -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-7 flex gap-5">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style="background: rgba(6,182,212,0.10); color: var(--accent);">
+            <i data-lucide="battery-charging" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5">
+              <span class="text-2xl font-display" style="color: var(--primary);">No.</span>
+              <h3 class="font-bold text-slate-900">Will this drain my battery?</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed text-[15px]">Monitoring runs entirely in the cloud. No background GPS. Your battery is untouched.</p>
+          </div>
+        </div>
+
+        <!-- Spam -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-7 flex gap-5">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style="background: rgba(6,182,212,0.10); color: var(--accent);">
+            <i data-lucide="bell-off" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2 mb-1.5">
+              <span class="text-2xl font-display" style="color: var(--primary);">No.</span>
+              <h3 class="font-bold text-slate-900">Will my contacts get spam?</h3>
+            </div>
+            <p class="text-slate-600 leading-relaxed text-[15px]">99% of the time, your contacts hear nothing. Only a real alert reaches them — with everything they need to act.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: HOW IT WORKS (ANIMATED EXPLAINER) ============ -->
+  <section id="concept" class="section-pad bg-white relative" data-screen-label="05 How it works">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center max-w-2xl mx-auto mb-14">
+        <div class="mono-label text-slate-500 mb-4">04 / How it works</div>
+        <h2 class="display text-slate-900 text-5xl md:text-6xl mb-5">A SafetyNet,<br/>start to finish.</h2>
+        <p class="text-lg text-slate-600">Sixty seconds of setup. Then it just runs in the background.</p>
+      </div>
+
+      <div class="reveal max-w-5xl mx-auto grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-center">
+        <!-- Phone canvas -->
+        <div class="flex justify-center">
+          <div id="explainerPhone" class="explainer-phone w-[300px] h-[580px] bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+
+            <!-- Screen 0: Setup -->
+            <div class="ex-screen active" data-screen="0">
+              <div class="ex-screen-inner">
+                <div class="px-4 py-3 flex items-center justify-between text-white" style="background: var(--primary);">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="shield" class="w-4 h-4"></i>
+                    <span class="text-sm font-bold">New SafetyNet</span>
+                  </div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/70"></div>
+                </div>
+                <div class="flex-1 p-5">
+                  <div class="mono-label text-slate-400 mb-2">When</div>
+                  <div class="font-mono text-[44px] leading-none font-bold text-slate-900 tracking-tight mb-1">22:00</div>
+                  <div class="text-[13px] text-slate-500 mb-5">Tonight · Heading home</div>
+                  <div class="h-px bg-slate-100 mb-5"></div>
+                  <div class="mono-label text-slate-400 mb-3">Trusted contacts</div>
+                  <div class="space-y-2.5">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center justify-center">M</div>
+                      <div class="flex-1">
+                        <div class="text-[13px] font-semibold text-slate-800 leading-tight">Mom</div>
+                        <div class="text-[11px] text-slate-400">Call + SMS</div>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center">A</div>
+                      <div class="flex-1">
+                        <div class="text-[13px] font-semibold text-slate-800 leading-tight">Alex</div>
+                        <div class="text-[11px] text-slate-400">Call + SMS</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-5 pt-0">
+                  <button class="w-full py-3.5 rounded-xl text-white font-bold text-sm shadow-md" style="background: var(--primary);">Create SafetyNet</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 1: Active / Watching -->
+            <div class="ex-screen" data-screen="1">
+              <div class="ex-screen-inner">
+                <div class="px-4 py-3 flex items-center justify-between text-white" style="background: var(--primary);">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    <span class="text-sm font-bold">SafetyNet active</span>
+                  </div>
+                  <span class="pulse-dot" style="background: #4ADE80;"></span>
+                </div>
+                <div class="flex-1 p-5 text-center">
+                  <div class="mono-label text-slate-400 mb-2 mt-2">Time remaining</div>
+                  <div class="font-mono text-[44px] leading-none font-bold text-slate-900 tracking-tight mb-4 ex-countdown" id="exCountdown">1h 28m</div>
+                  <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mb-5">
+                    <div class="h-full" id="exProgress" style="background: var(--primary); width: 0%;"></div>
+                  </div>
+                  <div class="h-px bg-slate-100 mb-4"></div>
+                  <div class="text-left space-y-2 font-mono">
+                    <div class="text-[10px] text-slate-400 ex-feed-line" data-step="1">21:38 · ENGAGED · ALL QUIET</div>
+                    <div class="text-[10px] text-slate-400 ex-feed-line" data-step="2">21:48 · MONITORING · 12 MIN</div>
+                    <div class="text-[10px] text-slate-400 ex-feed-line" data-step="3">21:55 · REMINDER QUEUED</div>
+                  </div>
+                </div>
+                <div class="p-5 pt-0">
+                  <button class="w-full py-3.5 rounded-xl text-slate-900 font-bold text-sm border-2 border-slate-900 bg-white">I'm Safe</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 2: Checked in -->
+            <div class="ex-screen" data-screen="2">
+              <div class="ex-screen-inner">
+                <div class="px-4 py-3 flex items-center justify-between text-white" style="background: #16A34A;">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                    <span class="text-sm font-bold">You're safe</span>
+                  </div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/70"></div>
+                </div>
+                <div class="flex-1 px-5 pt-10 pb-5 text-center flex flex-col items-center">
+                  <div class="ex-confirm-burst w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background: rgba(22,163,74,0.12);">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center" style="background: #16A34A;">
+                      <i data-lucide="check" class="w-9 h-9 text-white" stroke-width="3"></i>
+                    </div>
+                  </div>
+                  <div class="text-2xl font-bold text-slate-900 mb-2">Checked in</div>
+                  <div class="text-[13px] text-slate-500 max-w-[14rem] mb-5 leading-relaxed">Goodnight. Your contacts won't hear a thing from us.</div>
+                  <div class="h-px bg-slate-100 w-full mb-3"></div>
+                  <div class="mono-label text-emerald-600">21:53 · SAFE</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 3: Alert sent -->
+            <div class="ex-screen" data-screen="3">
+              <div class="ex-screen-inner">
+                <div class="px-4 py-3 flex items-center justify-between text-white" style="background: #DC2626;">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="bell-ring" class="w-4 h-4"></i>
+                    <span class="text-sm font-bold">Alert sent</span>
+                  </div>
+                  <span class="pulse-dot" style="background: #FCA5A5;"></span>
+                </div>
+                <div class="flex-1 p-5">
+                  <div class="text-center mb-5">
+                    <div class="mono-label text-rose-600 mb-1">22:00 · MISSED CHECK-IN</div>
+                    <div class="text-lg font-bold text-slate-900">Contacts notified</div>
+                  </div>
+                  <div class="space-y-2.5" id="exContactList">
+                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                      <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center justify-center">M</div>
+                      <div class="flex-1">
+                        <div class="text-[13px] font-semibold text-slate-800 leading-tight">Mom</div>
+                        <div class="text-[11px] text-slate-400">Call + SMS delivered</div>
+                      </div>
+                      <i data-lucide="check" class="w-4 h-4 text-emerald-600 ex-check" data-i="0"></i>
+                    </div>
+                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                      <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center">A</div>
+                      <div class="flex-1">
+                        <div class="text-[13px] font-semibold text-slate-800 leading-tight">Alex</div>
+                        <div class="text-[11px] text-slate-400">Call + SMS delivered</div>
+                      </div>
+                      <i data-lucide="check" class="w-4 h-4 text-emerald-600 ex-check" data-i="1"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-5 pt-0">
+                  <button class="w-full py-3.5 rounded-xl font-bold text-sm border-2 bg-white" style="border-color: var(--accent); color: var(--accent);">Cancel alert</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Captions + controls -->
+        <div>
+          <div class="mono-label text-slate-400 mb-3"><span id="exStepNum">01</span> &middot; of 04</div>
+          <h3 class="display text-slate-900 text-4xl md:text-5xl mb-5" id="exTitle">Set your check-in time</h3>
+          <p class="text-slate-600 text-[17px] leading-relaxed mb-8 max-w-md" id="exDesc">Pick when you'll be safe — heading home, finishing a hike, ending a date. The clock starts as soon as you tap Create.</p>
+
+          <div class="flex items-center gap-2 mb-7" id="exDots">
+            <button class="ex-dot active" data-beat="0" aria-label="Go to step 1"></button>
+            <button class="ex-dot" data-beat="1" aria-label="Go to step 2"></button>
+            <button class="ex-dot" data-beat="2" aria-label="Go to step 3"></button>
+            <button class="ex-dot" data-beat="3" aria-label="Go to step 4"></button>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="exPlayPause" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 text-[13px] font-semibold text-slate-700 hover:bg-slate-50 transition">
+              <i data-lucide="pause" class="w-4 h-4"></i>
+              <span>Pause</span>
+            </button>
+            <button id="exRestart" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold text-slate-500 hover:text-slate-900 transition">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              <span>Restart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal flex justify-center mt-14">
+        <button onclick="openTryIt()" class="btn-primary">
+          <i data-lucide="play" class="w-4 h-4"></i>
+          Try the alert with your details
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ SECTION: EXAMPLES ============ -->
+  <section id="examples" class="section-pad bg-slate-50/60 border-t border-slate-100" data-screen-label="06 Examples">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <div class="mono-label text-slate-500 mb-4">05 / Examples</div>
+        <h2 class="display text-slate-900 text-5xl md:text-6xl mb-5">Live your life.<br/>We've got your back.</h2>
+        <p class="text-lg text-slate-600">Set your check-in time for peace of mind in any situation.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Solo travel -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-8 flex flex-col">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="plane" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Solo travel</h3>
+          <p class="text-slate-600 text-[15px] mb-7 leading-relaxed">Exploring a new city on your own? Keep an automatic lifeline open.</p>
+
+          <div class="mt-auto bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clock" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Check-in</div>
+                <div class="text-sm font-semibold text-slate-800">Back at hotel by 6 PM</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="info" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Context</div>
+                <div class="text-sm font-semibold text-slate-800">Hotel &amp; room number</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clipboard-list" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Action</div>
+                <div class="text-sm font-semibold text-slate-800">Call reception first</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modern dating -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-8 flex flex-col">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6" style="background: rgba(225,29,72,0.08); color: #E11D48;">
+            <i data-lucide="heart" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Modern dating</h3>
+          <p class="text-slate-600 text-[15px] mb-7 leading-relaxed">Drinks with someone new? Make sure someone knows you made it home safe.</p>
+
+          <div class="mt-auto bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clock" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Check-in</div>
+                <div class="text-sm font-semibold text-slate-800">Home by 10 PM</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="info" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Context</div>
+                <div class="text-sm font-semibold text-slate-800">Mark from Hinge, Bar Luna</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clipboard-list" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Action</div>
+                <div class="text-sm font-semibold text-slate-800">Call me, then the bar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marketplace -->
+        <div class="reveal lift bg-white rounded-3xl border border-slate-200 p-8 flex flex-col">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6" style="background: rgba(99,102,241,0.10); color: #6366F1;">
+            <i data-lucide="users" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Marketplace sales</h3>
+          <p class="text-slate-600 text-[15px] mb-7 leading-relaxed">Selling items to strangers? Set a short safety timer for the transaction.</p>
+
+          <div class="mt-auto bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clock" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Check-in</div>
+                <div class="text-sm font-semibold text-slate-800">Done by 3 PM</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="info" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Context</div>
+                <div class="text-sm font-semibold text-slate-800">Dave, red Honda, Costa</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clipboard-list" class="w-4 h-4 text-slate-600"></i>
+              </div>
+              <div>
+                <div class="mono-label text-slate-400">Action</div>
+                <div class="text-sm font-semibold text-slate-800">Call me, then 999</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="reveal text-center text-lg text-slate-700 mt-14 max-w-3xl mx-auto">
+        If you can't tap "I'm Safe", your <strong class="text-slate-900">contacts are automatically alerted</strong> and know <strong class="text-slate-900">exactly how to help.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: FIRST REACTIONS ============ -->
+  <section id="beta-feedback" class="section-pad bg-white border-t border-slate-100" data-screen-label="07 First reactions">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center max-w-4xl mx-auto mb-16">
+        <div class="mono-label text-slate-500 mb-4 flex items-center justify-center gap-3">
+          <span class="pulse-dot"></span>
+          <span>06 / First reactions</span>
+        </div>
+        <h2 class="display text-slate-900 text-5xl md:text-6xl leading-[1.05] mb-6">
+          "I never thought about<br/>what would happen if I<br/><em class="italic" style="color: var(--primary);">couldn't reach my phone.</em>"
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="reveal lift bg-slate-50 rounded-3xl border border-slate-100 p-8 flex flex-col">
+          <i data-lucide="quote" class="w-7 h-7 text-cyan-500/60 mb-4"></i>
+          <blockquote class="text-lg leading-relaxed text-slate-800 flex-grow font-medium">"I have five tracking apps. I just realised none of them help if I can't reach my phone."</blockquote>
+          <div class="mt-8 pt-6 border-t border-slate-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background: var(--primary);">Z</div>
+            <div>
+              <div class="text-slate-900 font-semibold text-sm">Zolania</div>
+              <div class="mono-label text-slate-500 mt-0.5">Student · London, UK</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal lift bg-slate-50 rounded-3xl border border-slate-100 p-8 flex flex-col">
+          <i data-lucide="quote" class="w-7 h-7 text-cyan-500/60 mb-4"></i>
+          <blockquote class="text-lg leading-relaxed text-slate-800 flex-grow font-medium">"I just want to know if something's wrong — without the back-and-forth of 'text me when you're home.'"</blockquote>
+          <div class="mt-8 pt-6 border-t border-slate-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background: var(--primary);">C</div>
+            <div>
+              <div class="text-slate-900 font-semibold text-sm">Catherine</div>
+              <div class="mono-label text-slate-500 mt-0.5">Mother &amp; owner · Houston</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal lift bg-slate-50 rounded-3xl border border-slate-100 p-8 flex flex-col">
+          <i data-lucide="quote" class="w-7 h-7 text-cyan-500/60 mb-4"></i>
+          <blockquote class="text-lg leading-relaxed text-slate-800 flex-grow font-medium">"Guys don't usually think about personal safety until something happens. This is a good solution."</blockquote>
+          <div class="mt-8 pt-6 border-t border-slate-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm" style="background: var(--primary);">D</div>
+            <div>
+              <div class="text-slate-900 font-semibold text-sm">David</div>
+              <div class="mono-label text-slate-500 mt-0.5">Risk manager · Auckland, NZ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: COMPARISON ============ -->
+  <section id="comparison" class="section-pad relative overflow-hidden text-white" style="background: linear-gradient(170deg, #070A14 0%, #0B1A2E 60%, #0B1020 100%);" data-screen-label="08 Why SafetyNet">
+    <!-- Decorative scan rings -->
+    <div class="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full" style="background: radial-gradient(circle, rgba(34,211,238,0.10) 0%, transparent 70%);"></div>
+    <div class="absolute -bottom-40 -left-32 w-[600px] h-[600px] rounded-full" style="background: radial-gradient(circle, rgba(37,99,235,0.10) 0%, transparent 70%);"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <div class="mono-label text-cyan-300/80 mb-4">07 / Why SafetyNet</div>
+        <h2 class="display text-white text-5xl md:text-6xl mb-5">More than just a dot<br/>on a map.</h2>
+        <p class="text-lg text-slate-300">Real safety requires actionable information — not just location.</p>
+      </div>
+
+      <!-- Comparison table -->
+      <div class="reveal bg-white/[0.03] backdrop-blur border border-white/10 rounded-3xl overflow-hidden">
+        <!-- Header row -->
+        <div class="vs-row text-[13px] font-medium hidden md:grid border-b border-white/10">
+          <div class="p-5 mono-label text-slate-400">Feature</div>
+          <div class="p-5 flex items-center gap-2 border-l border-white/10" style="background: rgba(34,211,238,0.06);">
+            <div class="w-6 h-6 rounded-md flex items-center justify-center" style="background: var(--accent);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="font-bold text-cyan-200 text-base">SafetyNet</span>
+          </div>
+          <div class="p-5 border-l border-white/10">
+            <span class="mono-label text-slate-400">Standard apps</span>
+            <div class="text-xs text-slate-500 mt-1 normal-case tracking-normal">Find My Friends, Life360</div>
+          </div>
+        </div>
+
+        <!-- Rows -->
+        <div id="vsTable" class="divide-y divide-white/10"></div>
+      </div>
+
+      <p class="reveal text-center text-cyan-200/80 italic mt-10 text-lg">Most apps tell people where you are.<br class="md:hidden"/> We tell them when you're not safe — and what to do.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: OUR STORY ============ -->
+  <section id="our-story" class="section-pad bg-paper" data-screen-label="09 Our story">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10">
+      <div class="reveal grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-16 items-start mb-20">
+        <div>
+          <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-slate-100 mb-4">
+            <img src="images/founder.png" alt="Founder, Campbell McCord" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="mono-label text-slate-500">Campbell McCord</div>
+          <div class="text-sm text-slate-700 mt-1">Founder, SafetyNet</div>
+        </div>
+        <div>
+          <div class="mono-label text-slate-500 mb-4">08 / Our story</div>
+          <h2 class="display text-slate-900 text-5xl md:text-6xl mb-8">The pattern was always<br/>the same.</h2>
+          <div class="space-y-5 text-[17px] text-slate-700 leading-[1.7]">
+            <p>I kept coming across the same problem with "text me when you're safe." Everyone assumed they were fine — until they weren't. No signal. No context. No instructions.</p>
+            <p>This conflicted with the safeguards I used every day in business: dead-man's switches, monitored timeouts, automatic escalation. If a server can have one, why not a person walking home?</p>
+            <p class="font-display text-2xl italic text-slate-900 pt-3 border-t border-slate-200" style="color: var(--primary);">SafetyNet doesn't restrict your life — it enables it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moments grid -->
+      <div class="reveal max-w-3xl mx-auto text-center mb-10">
+        <h3 class="text-2xl md:text-3xl font-display text-slate-900 mb-2">The moments that defined the mission</h3>
+        <p class="text-slate-500">Real scenarios where "text me when you're safe" failed.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- 6 moment cards -->
+        <div class="reveal lift bg-white rounded-2xl border border-slate-200 p-6 flex flex-col gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="heart" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-900">The bad date</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Stuck in an unsafe situation for hours. No one knew there was a problem because she couldn't text.</p>
+        </div>
+        <div class="reveal lift bg-white rounded-2xl border border-slate-200 p-6 flex flex-col gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-900">The compromised state</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">A friend's drink was spiked on a business trip. He became unconscious and couldn't ask for help.</p>
+        </div>
+        <div class="reveal lift bg-white rounded-2xl border border-slate-200 p-6 flex flex-col gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="mountain" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-900">The solo accident</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">A colleague slipped while hiking alone. No one knew she was in trouble until it was too late.</p>
+        </div>
+        <div class="reveal lift bg-white rounded-2xl border border-slate-200 p-6 flex flex-col gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-900">The false assumption</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Friends held hostage in an Airbnb. Everyone assumed they were safe because they were "together."</p>
+        </div>
+        <div class="reveal lift bg-white rounded-2xl border border-slate-200 p-6 flex flex-col gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="globe" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-900">The traveller's fear</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">"If I stopped posting on social media, how long would it take for anyone to actually notice?"</p>
+        </div>
+        <div class="reveal lift bg-white rounded-2xl border border-slate-200 p-6 flex flex-col gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(37,99,235,0.08); color: var(--primary);">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-slate-900">The missing context</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Even when someone was reported missing, search teams had no starting point.</p>
+        </div>
+      </div>
+
+      <!-- Freedom callout -->
+      <div class="reveal mt-16 rounded-3xl p-10 md:p-14 text-center" style="background: linear-gradient(170deg, #070A14 0%, #0B1A2E 100%); color: #fff;">
+        <h3 class="display text-4xl md:text-5xl mb-3 text-white">Your freedom, protected.</h3>
+        <p class="text-lg text-slate-300 mb-8">SafetyNet doesn't restrict your life — it enables it.</p>
+        <div class="flex flex-wrap justify-center gap-3 mb-2">
+          <div class="px-5 py-2.5 rounded-full font-medium flex items-center gap-2 text-sm" style="background: rgba(34,211,238,0.10); color: #67E8F9; border: 1px solid rgba(34,211,238,0.2);">
+            <i data-lucide="check" class="w-4 h-4"></i> Go on that date
+          </div>
+          <div class="px-5 py-2.5 rounded-full font-medium flex items-center gap-2 text-sm" style="background: rgba(34,211,238,0.10); color: #67E8F9; border: 1px solid rgba(34,211,238,0.2);">
+            <i data-lucide="check" class="w-4 h-4"></i> Take the solo trip
+          </div>
+          <div class="px-5 py-2.5 rounded-full font-medium flex items-center gap-2 text-sm" style="background: rgba(34,211,238,0.10); color: #67E8F9; border: 1px solid rgba(34,211,238,0.2);">
+            <i data-lucide="check" class="w-4 h-4"></i> Run the new route
+          </div>
+          <div class="px-5 py-2.5 rounded-full font-medium flex items-center gap-2 text-sm" style="background: rgba(34,211,238,0.10); color: #67E8F9; border: 1px solid rgba(34,211,238,0.2);">
+            <i data-lucide="check" class="w-4 h-4"></i> Move to the new city
+          </div>
+        </div>
+        <p class="mt-8 text-white text-lg font-medium">Because now, someone will know if something goes wrong.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: FAQ ============ -->
+  <section id="faq" class="section-pad bg-white border-t border-slate-100" data-screen-label="10 FAQ">
+    <div class="max-w-4xl mx-auto px-6 lg:px-10">
+      <div class="reveal text-center mb-12">
+        <div class="mono-label text-slate-500 mb-4">09 / FAQ</div>
+        <h2 class="display text-slate-900 text-5xl md:text-6xl mb-5">Common questions.</h2>
+      </div>
+
+      <!-- Tabs -->
+      <div class="reveal flex flex-wrap justify-center gap-2 mb-10" id="faqTabs">
+        <button class="faq-tab px-4 py-2 rounded-full text-sm font-medium transition active" data-cat="all">All</button>
+        <button class="faq-tab px-4 py-2 rounded-full text-sm font-medium transition" data-cat="getting-started">Getting started</button>
+        <button class="faq-tab px-4 py-2 rounded-full text-sm font-medium transition" data-cat="how-it-works">How it works</button>
+        <button class="faq-tab px-4 py-2 rounded-full text-sm font-medium transition" data-cat="privacy">Privacy &amp; security</button>
+        <button class="faq-tab px-4 py-2 rounded-full text-sm font-medium transition" data-cat="why-safetynet">Why SafetyNet</button>
+        <button class="faq-tab px-4 py-2 rounded-full text-sm font-medium transition" data-cat="launch-pricing">Launch &amp; pricing</button>
+      </div>
+
+      <!-- FAQ items -->
+      <div id="faqList" class="space-y-3"></div>
+
+      <!-- Contact -->
+      <div class="reveal mt-12 p-6 rounded-2xl text-center" style="background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.18);">
+        <p class="text-slate-700 mb-1">Can't find what you're looking for?</p>
+        <p class="font-semibold text-slate-900">Contact us at <a href="/cdn-cgi/l/email-protection#8be3eee7e7e4cbf8eaedeefff2e5eeffe9eeffeaa5e8e4e6" style="color: var(--primary);" class="hover:underline"><span class="__cf_email__" data-cfemail="aac2cfc6c6c5ead9cbcccfded3c4cfdec8cfdecb84c9c5c7">[email&#160;protected]</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA + FOOTER ============ -->
+  <footer id="footer" class="relative overflow-hidden text-slate-300" style="background: #070A14;" data-screen-label="11 Footer">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full" style="background: radial-gradient(ellipse, rgba(37,99,235,0.12) 0%, transparent 60%);"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 lg:px-10 pt-24 pb-12">
+      <!-- Email capture -->
+      <div class="text-center mb-20 max-w-2xl mx-auto">
+        <div class="mono-label text-cyan-300/80 mb-5 flex items-center justify-center gap-3">
+          <span class="pulse-dot"></span>
+          <span>Limited early access · 40+ already on the list · launching mid-2026</span>
+        </div>
+        <h2 class="display text-white text-5xl md:text-6xl mb-5">Secure your spot.</h2>
+        <p class="text-slate-400 mb-8 text-lg">Lock in lifetime discounts and help shape the product.</p>
+
+        <form id="footerForm" onsubmit="submitFooterEmail(event)" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+          <input type="email" required placeholder="you@example.com" class="flex-1 px-5 py-4 rounded-full bg-white/5 border border-white/15 text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-300/50 focus:bg-white/10 transition" />
+          <button type="submit" class="btn-primary !py-4">
+            Get Early Access
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </form>
+        <p id="footerFormResult" class="text-cyan-300 text-sm mt-4 hidden">✓ You're on the list. We'll be in touch.</p>
+      </div>
+
+      <!-- Links grid -->
+      <div class="border-t border-white/10 pt-12 grid md:grid-cols-4 gap-10">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <span class="font-display text-2xl text-white">SafetyNet</span>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">Your silent safeguard for everyday life.</p>
+        </div>
+
+        <div>
+          <div class="mono-label text-slate-400 mb-4">Product</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#problem" class="hover:text-white transition">How it protects</a></li>
+            <li><a href="#concept" class="hover:text-white transition">How it works</a></li>
+            <li><a href="#examples" class="hover:text-white transition">Examples</a></li>
+            <li><a href="#comparison" class="hover:text-white transition">Why SafetyNet</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="mono-label text-slate-400 mb-4">Company</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#our-story" class="hover:text-white transition">Our story</a></li>
+            <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#83ebe6efefecc3f0e2e5e6f7faede6f7e1e6f7e2ade0ecee" class="hover:text-white transition">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="mono-label text-slate-400 mb-4">Legal</div>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#" class="hover:text-white transition">Privacy policy</a></li>
+            <li><a href="#" class="hover:text-white transition">Terms of service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div>© 2026 Acorn 360 Ltd. All rights reserved.</div>
+        <div class="mono-label">v2.0 · BETA · safetynetbeta.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ MODAL: REGISTRATION ============ -->
+  <div id="registrationModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal" onclick="closeRegistration(event)">
+    <div class="modal-card relative bg-white rounded-3xl w-full max-w-md p-8 lg:p-10" onclick="event.stopPropagation()">
+      <button onclick="closeRegistration()" class="absolute top-4 right-4 w-9 h-9 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500" aria-label="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="mono-label text-slate-500 mb-3 flex items-center gap-2">
+        <span class="pulse-dot"></span>
+        <span>Early access · waitlist</span>
+      </div>
+      <h3 class="display text-4xl text-slate-900 mb-3">Get on the list.</h3>
+      <p class="text-slate-600 mb-7">Be first to use SafetyNet and lock in early-adopter pricing.</p>
+
+      <form id="regForm" onsubmit="submitRegistration(event)" class="space-y-4">
+        <div>
+          <label class="mono-label text-slate-600 mb-1.5 block">Email</label>
+          <input name="email" type="email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+        </div>
+        <div>
+          <label class="mono-label text-slate-600 mb-1.5 block">First name <span class="text-slate-400 normal-case tracking-normal">(optional)</span></label>
+          <input name="firstName" type="text" placeholder="Maya" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+        </div>
+        <button type="submit" class="btn-primary w-full justify-center">
+          Reserve my spot
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+        <p class="text-xs text-slate-500 text-center">No spam. No tracking. Unsubscribe with one tap.</p>
+      </form>
+
+      <div id="regSuccess" class="hidden py-2">
+        <div class="text-center mb-6">
+          <div class="success-ring">
+            <i data-lucide="check" class="w-7 h-7 text-cyan-600"></i>
+          </div>
+          <h3 class="display text-3xl text-slate-900 mb-1">You're in.</h3>
+          <p class="text-slate-600">We'll be in touch as soon as your spot is ready.</p>
+        </div>
+
+        <div id="regFollowup" class="border-t border-slate-100 pt-5">
+          <div class="mono-label text-slate-600 mb-2">One more thing — what would make SafetyNet most useful for you? <span class="text-slate-400 normal-case tracking-normal">(optional)</span></div>
+          <div id="regUseCases" class="flex flex-wrap gap-2 mb-3">
+            <button type="button" class="usecase-chip" data-usecase="dates">First dates</button>
+            <button type="button" class="usecase-chip" data-usecase="solo-outdoors">Solo runs &amp; hikes</button>
+            <button type="button" class="usecase-chip" data-usecase="late-night">Walking home late</button>
+            <button type="button" class="usecase-chip" data-usecase="travel">Travel</button>
+            <button type="button" class="usecase-chip" data-usecase="kids">Kids / family</button>
+            <button type="button" class="usecase-chip" data-usecase="elderly">Aging parents</button>
+          </div>
+          <textarea id="regNote" rows="2" placeholder="Anything else you'd want us to know?" class="try-input mb-3" style="resize: none;"></textarea>
+          <div class="flex items-center gap-3">
+            <button onclick="submitRegFeedback()" class="btn-primary !py-2.5 text-sm flex-1 justify-center">
+              Send feedback
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            </button>
+            <button onclick="closeRegistration()" class="text-sm font-semibold text-slate-500 hover:text-slate-900 transition">Skip</button>
+          </div>
+        </div>
+
+        <div id="regThanks" class="hidden text-center py-2">
+          <p class="text-slate-600">Thanks — that helps a lot. 💙</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL: INTERACTIVE "TRY IT ON YOURSELF" DEMO ============ -->
+  <div id="tryItModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal" onclick="closeTryIt(event)">
+    <div class="modal-card relative bg-white rounded-3xl w-full max-w-[460px] overflow-hidden" onclick="event.stopPropagation()">
+
+      <!-- Monitoring header strip -->
+      <div class="px-5 py-3 text-white flex items-center justify-between" style="background: #0B1020; border-bottom: 1px solid #1F2742;">
+        <div class="flex items-center gap-2">
+          <span class="pulse-dot"></span>
+          <span class="mono-label text-cyan-300">Try it · interactive demo</span>
+        </div>
+        <button onclick="closeTryIt()" class="w-7 h-7 rounded-md hover:bg-white/10 flex items-center justify-center text-slate-400" aria-label="Close">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Step indicator -->
+      <div class="px-6 pt-4 pb-1 flex items-center justify-between">
+        <div class="step-dots">
+          <div class="step-dot active" data-step-dot="1"></div>
+          <div class="step-dot" data-step-dot="2"></div>
+          <div class="step-dot" data-step-dot="3"></div>
+          <div class="step-dot" data-step-dot="4"></div>
+        </div>
+        <div class="mono-label text-slate-400" id="tryStepLabel">Step 1 of 4</div>
+      </div>
+
+      <!-- ===== STEP 1: PICK A SCENARIO ===== -->
+      <div id="tryStep1" class="try-step px-6 pt-3 pb-6">
+        <h3 class="display text-[28px] leading-[1.1] text-slate-900 mb-1.5">When do you wish<br/>someone <em>had your back?</em></h3>
+        <p class="text-slate-600 text-sm mb-5">Pick a moment. We'll show you what SafetyNet would do for <span class="font-semibold text-slate-900">you</span> — not a stock example.</p>
+        <div class="space-y-2.5">
+          <button class="scenario-card" data-scenario="date">
+            <div class="scenario-icon"><i data-lucide="heart" class="w-5 h-5"></i></div>
+            <div>
+              <div class="font-semibold text-slate-900 text-[15px]">A first date</div>
+              <div class="text-xs text-slate-500">Meeting someone from an app</div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 scenario-chev"></i>
+          </button>
+          <button class="scenario-card" data-scenario="run">
+            <div class="scenario-icon"><i data-lucide="footprints" class="w-5 h-5"></i></div>
+            <div>
+              <div class="font-semibold text-slate-900 text-[15px]">A solo run or hike</div>
+              <div class="text-xs text-slate-500">Off your usual route, maybe at dusk</div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 scenario-chev"></i>
+          </button>
+          <button class="scenario-card" data-scenario="commute">
+            <div class="scenario-icon"><i data-lucide="moon" class="w-5 h-5"></i></div>
+            <div>
+              <div class="font-semibold text-slate-900 text-[15px]">Walking home late</div>
+              <div class="text-xs text-slate-500">From work, a friend's, a bar</div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 scenario-chev"></i>
+          </button>
+          <button class="scenario-card" data-scenario="trip">
+            <div class="scenario-icon"><i data-lucide="plane" class="w-5 h-5"></i></div>
+            <div>
+              <div class="font-semibold text-slate-900 text-[15px]">Traveling solo</div>
+              <div class="text-xs text-slate-500">New city, unfamiliar place</div>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 scenario-chev"></i>
+          </button>
+        </div>
+        <p class="text-xs text-slate-400 text-center mt-5">No data is saved. This stays on your device.</p>
+      </div>
+
+      <!-- ===== STEP 2: DETAILS ===== -->
+      <div id="tryStep2" class="try-step px-6 pt-3 pb-6 hidden">
+        <button class="back-btn" onclick="tryGotoStep(1)">
+          <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+          Back
+        </button>
+        <h3 class="display text-[28px] leading-[1.1] text-slate-900 mb-1.5" id="tryStep2Title">Set up your safety net.</h3>
+        <p class="text-slate-600 text-sm mb-5" id="tryStep2Sub">Just enough so your contact knows what to do.</p>
+
+        <div class="space-y-3.5">
+          <div>
+            <label class="mono-label text-slate-600 mb-1.5 block">Your first name</label>
+            <input id="tryName" type="text" class="try-input" placeholder="Alex" />
+          </div>
+          <div>
+            <label id="tryDetailLabel" class="mono-label text-slate-600 mb-1.5 block">Who you're meeting + where</label>
+            <input id="tryDetail" type="text" class="try-input" placeholder="James, met on Hinge — The Bluebird Cafe, 14 Market St" />
+          </div>
+          <div>
+            <label class="mono-label text-slate-600 mb-1.5 block">Check in safe by</label>
+            <div id="tryTimeChips" class="grid grid-cols-3 gap-2">
+              <!-- populated by JS -->
+            </div>
+          </div>
+        </div>
+        <button id="trySeeAlert" class="btn-primary w-full justify-center mt-5">
+          Show me the alert
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+        <button class="text-xs text-slate-400 hover:text-slate-600 transition mx-auto block mt-3" onclick="tryUseDefaults()">Skip — fill in for me</button>
+      </div>
+
+      <!-- ===== STEP 3: PERSONALIZED ALERT PREVIEW ===== -->
+      <div id="tryStep3" class="try-step hidden">
+        <div class="px-6 pt-3 pb-6" style="background: #F8FAFC;">
+          <button class="back-btn" onclick="tryGotoStep(2)">
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            Edit details
+          </button>
+          <h3 class="display text-[26px] leading-[1.15] text-slate-900 mb-1.5">If <span id="tryHeadName" class="personalized">you</span> didn't check in by <span id="tryHeadTime" class="personalized">11:30 PM</span>…</h3>
+          <p class="text-slate-600 text-sm mb-4">…this is the SMS &amp; email your emergency contact would receive — automatically, with zero action from you.</p>
+
+          <!-- Phone-style alert -->
+          <div class="phone-mock">
+            <div class="phone-header">
+              <span class="pulse-dot" style="background: white;"></span>
+              <span>SafetyNet · SAFETY ALERT</span>
+            </div>
+            <div class="phone-body">
+              <div class="mono-label text-slate-400 mb-2" id="tryAlertReceivedAt">Received via SMS &amp; email · just now</div>
+              <p class="text-slate-900 font-semibold mb-3 leading-snug text-[14px]"><span id="tryAlertName">Alex</span> hasn't checked in safe by their scheduled time.</p>
+
+              <div class="alert-line">
+                <i data-lucide="info"></i>
+                <div>
+                  <div class="mono-label" id="tryAlertContextLabel">Their plan</div>
+                  <div class="text-[13px] font-semibold text-slate-800" id="tryAlertContext">—</div>
+                </div>
+              </div>
+              <div class="alert-line">
+                <i data-lucide="clock"></i>
+                <div>
+                  <div class="mono-label">Scheduled check-in</div>
+                  <div class="text-[13px] font-semibold text-slate-800" id="tryAlertTime">—</div>
+                </div>
+              </div>
+
+              <div class="alert-action">
+                <div class="mono-label" style="color: #DC2626;">What to do</div>
+                <ol id="tryAlertSteps" class="list-none pl-0"></ol>
+              </div>
+            </div>
+          </div>
+
+          <p class="mono-label text-slate-400 mt-3 text-center">This is a demo · no one was alerted</p>
+
+          <button id="tryGoSignup" class="btn-primary w-full justify-center mt-5">
+            Want this to be real? Get on the list
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+          <button class="text-xs text-slate-500 hover:text-slate-700 transition mx-auto block mt-3" onclick="tryGotoStep(1)">Try a different scenario</button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 4: SIGNUP + MICRO-FEEDBACK ===== -->
+      <div id="tryStep4" class="try-step hidden">
+        <div class="px-6 pt-3 pb-6">
+          <button class="back-btn" onclick="tryGotoStep(3)">
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            Back
+          </button>
+          <div class="mono-label text-slate-500 mb-2 flex items-center gap-2">
+            <span class="pulse-dot"></span>
+            <span>Beta · 40+ already on the list</span>
+          </div>
+          <h3 class="display text-[28px] leading-[1.1] text-slate-900 mb-1.5">Lock in your spot.</h3>
+          <p class="text-slate-600 text-sm mb-5">We'll email you the moment SafetyNet is ready. Early waitlist members get lifetime discounts.</p>
+
+          <form id="tryItForm" onsubmit="submitTryItSignup(event)" class="space-y-4">
+            <div>
+              <label class="mono-label text-slate-600 mb-1.5 block">Email</label>
+              <input id="tryEmail" name="email" type="email" required placeholder="you@example.com" class="try-input" />
+            </div>
+            <div>
+              <div class="mono-label text-slate-600 mb-2">What would make SafetyNet most useful for you? <span class="text-slate-400 normal-case tracking-normal">(optional · pick all that apply)</span></div>
+              <div id="tryUseCases" class="flex flex-wrap gap-2">
+                <button type="button" class="usecase-chip" data-usecase="dates">First dates</button>
+                <button type="button" class="usecase-chip" data-usecase="solo-outdoors">Solo runs &amp; hikes</button>
+                <button type="button" class="usecase-chip" data-usecase="late-night">Walking home late</button>
+                <button type="button" class="usecase-chip" data-usecase="travel">Travel</button>
+                <button type="button" class="usecase-chip" data-usecase="kids">Kids / family</button>
+                <button type="button" class="usecase-chip" data-usecase="elderly">Aging parents</button>
+              </div>
+            </div>
+            <div>
+              <label class="mono-label text-slate-600 mb-1.5 block">Anything else? <span class="text-slate-400 normal-case tracking-normal">(optional)</span></label>
+              <textarea id="tryNote" rows="2" placeholder="What's missing, what would make you sign up tomorrow…" class="try-input" style="resize: none;"></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full justify-center">
+              Reserve my spot
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+            <p class="text-xs text-slate-500 text-center">No spam. No tracking. One tap to unsubscribe.</p>
+          </form>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 text-center">
+            <p class="text-xs text-slate-500 mb-2">Not ready to sign up?</p>
+            <button onclick="trySkipToFeedback()" class="text-xs text-slate-700 hover:text-slate-900 underline decoration-slate-300 underline-offset-2 transition">Just leave feedback instead →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== STEP 5: SUCCESS ===== -->
+      <div id="tryStep5" class="try-step hidden px-6 pt-6 pb-7 text-center">
+        <div class="success-ring">
+          <i data-lucide="check" class="w-7 h-7 text-cyan-600"></i>
+        </div>
+        <h3 class="display text-3xl text-slate-900 mb-2">You're in.</h3>
+        <p class="text-slate-600 mb-1" id="trySuccessMsg">We'll be in touch as soon as your spot is ready.</p>
+        <p class="text-sm text-slate-500 mb-5" id="trySuccessFeedback"></p>
+
+        <div class="rounded-2xl p-4 text-left" style="background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.20);">
+          <div class="mono-label text-cyan-700 mb-1.5">While you wait</div>
+          <p class="text-sm text-slate-700">Know someone this would help? Forward them this page. SafetyNet only matters if it spreads to the people who need it.</p>
+        </div>
+
+        <button onclick="closeTryIt()" class="mt-5 text-sm font-semibold text-slate-700 hover:text-slate-900 transition">Done</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ TWEAKS PANEL ============ -->
+  <div id="tweaksPanel" class="hidden-panel fixed bottom-4 right-4 z-50 w-[300px] rounded-2xl shadow-2xl text-white" style="background: #0B1020; border: 1px solid #1F2742;">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-[#1F2742]">
+      <div class="flex items-center gap-2">
+        <span class="pulse-dot"></span>
+        <span class="mono-label text-cyan-300">Tweaks</span>
+      </div>
+      <button id="closeTweaks" class="w-7 h-7 rounded-md hover:bg-white/10 flex items-center justify-center text-slate-400">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <div class="tw-section">
+      <div class="tw-label">Accent</div>
+      <div class="flex gap-2.5">
+        <button class="tw-swatch active" data-accent="electric" style="background: #2563EB;" title="Electric blue"></button>
+        <button class="tw-swatch" data-accent="teal" style="background: #0D9488;" title="Teal"></button>
+        <button class="tw-swatch" data-accent="violet" style="background: #7C3AED;" title="Violet"></button>
+        <button class="tw-swatch" data-accent="rose" style="background: #E11D48;" title="Rose"></button>
+      </div>
+    </div>
+
+    <div class="tw-section">
+      <div class="tw-label">Hero image</div>
+      <div class="flex flex-wrap gap-2">
+        <button class="tw-pill active" data-hero="dateNight">Date night</button>
+        <button class="tw-pill" data-hero="riverwalk">Riverwalk</button>
+        <button class="tw-pill" data-hero="path">Daytime path</button>
+      </div>
+    </div>
+
+    <div class="tw-section">
+      <div class="tw-label">Hero copy</div>
+      <div class="flex flex-wrap gap-2">
+        <button class="tw-pill active" data-copy="silentSafeguard">Silent safeguard</button>
+        <button class="tw-pill" data-copy="deadMan">Dead man's switch</button>
+        <button class="tw-pill" data-copy="becauseYou">Because you can't</button>
+      </div>
+    </div>
+
+    <div class="tw-section">
+      <div class="tw-label">Density</div>
+      <div class="flex gap-2">
+        <button class="tw-pill" data-density="compact">Compact</button>
+        <button class="tw-pill active" data-density="cozy">Cozy</button>
+        <button class="tw-pill" data-density="airy">Airy</button>
+      </div>
+    </div>
+
+    <div class="tw-section">
+      <div class="text-xs text-slate-500">Edits persist on reload.</div>
+    </div>
+  </div>
+
+  <!-- ============ FEEDBACK WIDGET ============ -->
+  <button id="feedbackBtn" class="fixed bottom-5 left-5 z-40 flex items-center gap-2 px-4 py-3 rounded-full bg-slate-900 text-white shadow-2xl hover:bg-slate-800 transition group" aria-label="Give feedback">
+    <i data-lucide="message-circle-heart" class="w-4 h-4 text-cyan-300"></i>
+    <span class="text-sm font-semibold">Feedback</span>
+  </button>
+
+  <div id="feedbackPanel" class="fixed bottom-20 left-5 z-50 w-[340px] max-w-[calc(100vw-40px)] rounded-2xl shadow-2xl bg-white border border-slate-200 hidden">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+      <div class="flex items-center gap-2">
+        <span class="pulse-dot"></span>
+        <span class="mono-label text-slate-700">Quick feedback</span>
+      </div>
+      <button id="feedbackClose" class="w-7 h-7 rounded-md hover:bg-slate-100 flex items-center justify-center text-slate-400" aria-label="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Step 1: reactions -->
+    <div id="feedbackStep1" class="px-5 py-5">
+      <p class="text-slate-900 font-semibold mb-4 text-[15px]">What do you make of SafetyNet?</p>
+      <div class="grid grid-cols-3 gap-2">
+        <button class="feedback-reaction flex flex-col items-center gap-1.5 py-3 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition" data-reaction="useful">
+          <span class="text-2xl">👍</span>
+          <span class="text-xs font-semibold text-slate-700">Useful</span>
+        </button>
+        <button class="feedback-reaction flex flex-col items-center gap-1.5 py-3 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition" data-reaction="curious">
+          <span class="text-2xl">🤔</span>
+          <span class="text-xs font-semibold text-slate-700">Curious</span>
+        </button>
+        <button class="feedback-reaction flex flex-col items-center gap-1.5 py-3 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition" data-reaction="notForMe">
+          <span class="text-2xl">👎</span>
+          <span class="text-xs font-semibold text-slate-700">Not for me</span>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500 mt-3 text-center">Tap one — tell us more next.</p>
+    </div>
+
+    <!-- Step 2: detail -->
+    <div id="feedbackStep2" class="px-5 py-5 hidden">
+      <div class="flex items-center gap-2 mb-3">
+        <span id="feedbackReactionEmoji" class="text-xl"></span>
+        <span id="feedbackReactionLabel" class="text-sm font-semibold text-slate-900"></span>
+        <button id="feedbackBack" class="ml-auto text-xs text-slate-400 hover:text-slate-700 underline">change</button>
+      </div>
+      <label class="mono-label text-slate-600 mb-1.5 block">Want to tell us more?</label>
+      <textarea id="feedbackText" rows="3" placeholder="What's missing? What's confusing? What would make you sign up?" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 resize-none"></textarea>
+      <input id="feedbackEmail" type="email" placeholder="Email (optional, so we can reply)" class="w-full mt-2 px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+      <button id="feedbackSubmit" class="btn-primary w-full justify-center mt-3 !py-2.5 text-sm">
+        Send feedback
+        <i data-lucide="send" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+
+    <!-- Step 3: thanks -->
+    <div id="feedbackStep3" class="px-5 py-7 text-center hidden">
+      <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" style="background: rgba(6,182,212,0.12);">
+        <i data-lucide="heart" class="w-6 h-6 text-cyan-600"></i>
+      </div>
+      <p class="display text-2xl text-slate-900 mb-1">Thank you.</p>
+      <p class="text-sm text-slate-600">Every reaction shapes what we build next.</p>
+    </div>
+  </div>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ===== Lucide icons render =====
+    function renderIcons() { if (window.lucide) window.lucide.createIcons(); }
+    renderIcons();
+
+    // ===== Nav scroll state =====
+    const nav = document.getElementById('nav');
+    function onScroll() {
+      if (window.scrollY > 24) nav.classList.add('nav-scroll');
+      else nav.classList.remove('nav-scroll');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    });
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.add('hidden');
+    }));
+
+    // ===== Reveal on scroll =====
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ===== Live clock in hero monitoring strip =====
+    function tick() {
+      const d = new Date();
+      const hh = String(d.getUTCHours()).padStart(2,'0');
+      const mm = String(d.getUTCMinutes()).padStart(2,'0');
+      const ss = String(d.getUTCSeconds()).padStart(2,'0');
+      const el = document.getElementById('navTime');
+      if (el) el.textContent = `${hh}:${mm}:${ss} UTC`;
+    }
+    setInterval(tick, 1000); tick();
+
+    // ===== Comparison table data =====
+    const vsRows = [
+      { feature: 'Automatic safety alerts', detail: 'Server sends alert if you miss check-in', sn: { label: 'Alert sent', tone: 'good', sub: 'Works even if your phone breaks or battery dies.' }, std: { label: 'No alert', tone: 'bad', sub: 'Dot stops moving. No one is notified.' } },
+      { feature: 'Context with the alert',   detail: 'Plans, who you\'re with, where you went', sn: { label: 'Included', tone: 'good', sub: 'Your plans, who you\'re with, where you\'re going.' }, std: { label: 'Not included', tone: 'bad', sub: 'Shows last known location only.' } },
+      { feature: 'Action plan for contacts', detail: 'Step-by-step instructions',                  sn: { label: 'Included', tone: 'good', sub: 'Call you, then the venue, then 911 if needed.' }, std: { label: 'Not included', tone: 'bad', sub: 'Contacts have to figure it out themselves.' } },
+      { feature: 'Battery drain',            detail: 'Background tracking',                       sn: { label: 'None', tone: 'good', sub: 'Timer runs on our servers, not your phone.' }, std: { label: 'Continuous', tone: 'bad', sub: 'Constant GPS drains your battery.' } },
+      { feature: 'No app required for contacts', detail: 'They just need a phone',                 sn: { label: 'Yes', tone: 'good', sub: 'Alerts come via SMS and email.' }, std: { label: 'Often required', tone: 'bad', sub: 'Both sides must install and configure.' } },
+    ];
+    const vsTable = document.getElementById('vsTable');
+    vsRows.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'vs-row';
+      row.innerHTML = `
+        <div class="p-5 border-l-0 md:border-r border-white/10">
+          <div class="font-semibold text-white text-base">${r.feature}</div>
+          <div class="text-xs text-slate-400 mt-1">${r.detail}</div>
+        </div>
+        <div class="p-5 md:border-l border-white/10" style="background: rgba(34,211,238,0.04);">
+          <div class="md:hidden mono-label text-cyan-300 mb-2">SafetyNet</div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold" style="background: rgba(34,211,238,0.16); color: #67E8F9; border: 1px solid rgba(34,211,238,0.3);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            ${r.sn.label}
+          </div>
+          <p class="text-sm text-slate-300 mt-2 leading-relaxed">${r.sn.sub}</p>
+        </div>
+        <div class="p-5 md:border-l border-white/10">
+          <div class="md:hidden mono-label text-slate-400 mb-2">Standard apps</div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold" style="background: rgba(244,63,94,0.12); color: #FCA5A5; border: 1px solid rgba(244,63,94,0.25);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6l12 12"/></svg>
+            ${r.std.label}
+          </div>
+          <p class="text-sm text-slate-400 mt-2 leading-relaxed">${r.std.sub}</p>
+        </div>
+      `;
+      vsTable.appendChild(row);
+    });
+
+    // ===== FAQ data =====
+    const FAQ_DATA = [
+      { id: 'faq-1', cat: 'privacy', q: 'How does SafetyNet protect my privacy?', a: 'Your information stays private until you need help. We only store what you explicitly set up (check-in times, emergency contacts, custom messages). No continuous location tracking, no background data collection. Your safety information is only shared with your chosen contacts if an alert is triggered.' },
+      { id: 'faq-19', cat: 'privacy', q: 'What do you do with my data?', a: '<strong>Nothing.</strong> We don\'t sell your data. Ever. Your safety information is exactly that — yours.' },
+      { id: 'faq-18', cat: 'privacy', q: 'Who can see my safety information?', a: 'No one sees your safety information when you set up a SafetyNet. Only when an alert is triggered do your chosen contacts get access. Your plans, location, and activities stay private until your need for safety overrides it.' },
+      { id: 'faq-3', cat: 'how-it-works', q: 'How does it work offline or with a dead battery?', a: 'SafetyNet doesn\'t rely on your phone to send the alert — our servers do. When you set a check-in time, our servers start a countdown. If you check in safe, the countdown stops. If you don\'t — for any reason (dead battery, no signal, you can\'t reach your phone) — the alert sends automatically.' },
+      { id: 'faq-4', cat: 'how-it-works', q: 'Will this drain my battery?', a: '<strong>No.</strong> Unlike location-sharing apps, SafetyNet does not track your GPS in the background. The monitoring timer runs entirely on our servers, so your phone battery is untouched while we wait for your check-in.' },
+      { id: 'faq-5', cat: 'how-it-works', q: 'What if I forget to check in but I\'m safe?', a: 'We include customizable extra time and reminder notifications before any alert is sent. If an alert does go out, you can immediately cancel it with one tap to let your contacts know it was a false alarm.' },
+      { id: 'faq-7', cat: 'why-safetynet', q: 'How is this different from Find My Friends or Life360?', a: 'Location-sharing apps require your phone to be working. If you can\'t reach your phone, they fail silently — your contacts just see your last location. SafetyNet sends a clear alert with your context and instructions, so there\'s no ambiguity.' },
+      { id: 'faq-20', cat: 'why-safetynet', q: 'Will my contacts get constant notifications?', a: '<strong>No.</strong> Contacts only hear from SafetyNet when an alert triggers. Their day stays interruption-free.' },
+      { id: 'faq-14', cat: 'getting-started', q: 'Does my emergency contact need the app?', a: '<strong>No.</strong> Your emergency contacts don\'t need to download or install anything. They\'ll receive alerts via SMS and email.' },
+      { id: 'faq-10', cat: 'getting-started', q: 'What does my emergency contact need to do?', a: 'When you add them, they get a one-time confirmation message — takes 10 seconds, no app required. After that, they hear nothing unless an alert triggers.' },
+      { id: 'faq-13', cat: 'getting-started', q: 'What devices does SafetyNet work on?', a: 'iOS, Android, and any modern web browser. You can manage your SafetyNet settings from any device.' },
+      { id: 'faq-8', cat: 'launch-pricing', q: 'When will SafetyNet be available?', a: 'We\'re planning to launch in early 2026. Early access members get priority access and help shape the product.' },
+      { id: 'faq-9', cat: 'launch-pricing', q: 'Will SafetyNet be free?', a: '<strong>Yes.</strong> We\'re committed to a forever-free plan so safety is accessible to everyone. A Premium tier will follow for advanced automation. Early waitlist members lock in lifetime discounts on Premium.' },
+    ];
+
+    const faqList = document.getElementById('faqList');
+    let currentCat = 'all';
+
+    function renderFAQ() {
+      faqList.innerHTML = '';
+      const items = FAQ_DATA.filter(f => currentCat === 'all' || f.cat === currentCat);
+      items.forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'faq-item bg-white rounded-2xl border border-slate-200 px-6';
+        div.innerHTML = `
+          <button class="faq-q w-full flex items-center justify-between py-5 text-left">
+            <h3 class="font-bold text-slate-900 text-base md:text-lg pr-6">${f.q}</h3>
+            <i data-lucide="chevron-down" class="faq-chev w-5 h-5 text-slate-400 flex-shrink-0"></i>
+          </button>
+          <div class="faq-a"><div class="pb-6 text-slate-600 leading-relaxed">${f.a}</div></div>
+        `;
+        div.querySelector('.faq-q').addEventListener('click', () => {
+          div.classList.toggle('open');
+        });
+        faqList.appendChild(div);
+      });
+      renderIcons();
+    }
+    renderFAQ();
+
+    document.querySelectorAll('.faq-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCat = tab.dataset.cat;
+        renderFAQ();
+      });
+    });
+
+    // Style faq-tab active state via JS (since we set/remove class)
+    const tabStyle = document.createElement('style');
+    tabStyle.textContent = `
+      .faq-tab { color: #475569; background: transparent; border: 1px solid transparent; }
+      .faq-tab:hover { background: #F1F5F9; }
+      .faq-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+    `;
+    document.head.appendChild(tabStyle);
+
+    // ===== Modals =====
+    function openRegistration() {
+      const m = document.getElementById('registrationModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      renderIcons();
+    }
+    function closeRegistration(e) {
+      if (e && e.target.id !== 'registrationModal' && e.type === 'click') return;
+      const m = document.getElementById('registrationModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+      document.body.style.overflow = '';
+      // reset
+      document.getElementById('regForm').classList.remove('hidden');
+      document.getElementById('regSuccess').classList.add('hidden');
+      document.getElementById('regFollowup')?.classList.remove('hidden');
+      document.getElementById('regThanks')?.classList.add('hidden');
+    }
+    function submitRegistration(e) {
+      e.preventDefault();
+      document.getElementById('regForm').classList.add('hidden');
+      document.getElementById('regSuccess').classList.remove('hidden');
+      renderIcons();
+    }
+    function openAlertDemo() { openTryIt(); }
+    function closeAlertDemo() { closeTryIt(); }
+
+    // ===== Interactive "Try it on yourself" demo =====
+    const SCENARIOS = {
+      date: {
+        step2Title: 'Set up your safety net for tonight.',
+        step2Sub: "Just enough so your contact knows what to do — and when.",
+        detailLabel: "Who you're meeting + where",
+        detailPlaceholder: 'James, met on Hinge — The Bluebird Cafe, 14 Market St',
+        defaultDetail: 'James, met on Hinge — The Bluebird Cafe, 14 Market St',
+        times: [
+          { value: '22:30', label: '10:30 PM' },
+          { value: '23:30', label: '11:30 PM' },
+          { value: '00:30', label: '12:30 AM' },
+        ],
+        defaultTime: '23:30',
+        alertContextLabel: 'Who they\'re with + plan',
+        alertSteps: (name, detail) => [
+          `Call ${name} directly. If no response in 5 min →`,
+          `Try to reach the venue or person they're with.`,
+          `Call 911 / 999 and share the details above.`,
+        ],
+      },
+      run: {
+        step2Title: 'Set up your safety net for your run.',
+        step2Sub: 'Where are you headed, and when should we hear back?',
+        detailLabel: 'Your route + when you started',
+        detailPlaceholder: 'Riverwalk loop, started at 7:30 PM',
+        defaultDetail: 'Riverwalk loop, started at 7:30 PM',
+        times: [
+          { value: '20:30', label: '8:30 PM' },
+          { value: '21:00', label: '9:00 PM' },
+          { value: '21:30', label: '9:30 PM' },
+        ],
+        defaultTime: '21:00',
+        alertContextLabel: 'Their route + start time',
+        alertSteps: (name) => [
+          `Call ${name}. If no answer in 5 min →`,
+          `Check the route — they may need help on the trail.`,
+          `Call 911 / 999 and share the route details.`,
+        ],
+      },
+      commute: {
+        step2Title: 'Set up your safety net for your walk home.',
+        step2Sub: 'Tell us your route home and when you expect to be safe.',
+        detailLabel: 'Your route home',
+        detailPlaceholder: 'Walking home, 14th & Mission → 16th & Bryant',
+        defaultDetail: 'Walking home, 14th & Mission → 16th & Bryant',
+        times: [
+          { value: '23:00', label: '11:00 PM' },
+          { value: '23:30', label: '11:30 PM' },
+          { value: '00:30', label: '12:30 AM' },
+        ],
+        defaultTime: '23:30',
+        alertContextLabel: 'Their route + intended path',
+        alertSteps: (name) => [
+          `Call ${name}. If no response in 5 min →`,
+          `Try retracing their route from the details above.`,
+          `Call 911 / 999 with the route and last known location.`,
+        ],
+      },
+      trip: {
+        step2Title: 'Set up your safety net for your trip.',
+        step2Sub: 'Where are you, and what are you doing today?',
+        detailLabel: 'Where you are + plans',
+        detailPlaceholder: 'Lisbon hostel — day trip to Sintra',
+        defaultDetail: 'Lisbon hostel — day trip to Sintra',
+        times: [
+          { value: '20:00', label: '8:00 PM local' },
+          { value: '22:00', label: '10:00 PM local' },
+          { value: '23:59', label: 'End of day' },
+        ],
+        defaultTime: '22:00',
+        alertContextLabel: 'Where they are + plans',
+        alertSteps: (name) => [
+          `Call ${name}. Try messaging apps too (they may be on Wi-Fi only).`,
+          `Contact their accommodation from the details above.`,
+          `Reach out to the local consulate / emergency line.`,
+        ],
+      },
+    };
+
+    const tryState = {
+      step: 1,
+      scenario: null,
+      name: '',
+      detail: '',
+      time: '',
+      timeLabel: '',
+      usecases: new Set(),
+      note: '',
+    };
+
+    function fmtTimeLabel(value, scenario) {
+      const s = SCENARIOS[scenario];
+      const m = s && s.times.find(t => t.value === value);
+      return m ? m.label : value;
+    }
+
+    function openTryIt() {
+      const m = document.getElementById('tryItModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      tryGotoStep(1);
+      renderIcons();
+    }
+    function closeTryIt(e) {
+      if (e && e.target.id !== 'tryItModal' && e.type === 'click') return;
+      const m = document.getElementById('tryItModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+      document.body.style.overflow = '';
+      // soft reset (keep entered data for re-open convenience? no — fresh feels better)
+      setTimeout(() => {
+        tryState.step = 1;
+        tryState.scenario = null;
+        tryState.usecases = new Set();
+        tryState.note = '';
+        const form = document.getElementById('tryItForm');
+        if (form) form.reset();
+        document.querySelectorAll('#tryUseCases .usecase-chip').forEach(c => c.classList.remove('active'));
+        // hide success/show form
+        document.getElementById('tryItForm')?.classList.remove('hidden');
+      }, 200);
+    }
+
+    function tryGotoStep(n) {
+      tryState.step = n;
+      ['tryStep1','tryStep2','tryStep3','tryStep4','tryStep5'].forEach((id, i) => {
+        document.getElementById(id).classList.toggle('hidden', (i+1) !== n);
+      });
+      // step dots
+      document.querySelectorAll('.step-dot').forEach((d, i) => {
+        d.classList.remove('active','done');
+        if (i+1 < n) d.classList.add('done');
+        if (i+1 === n) d.classList.add('active');
+      });
+      const stepLabel = document.getElementById('tryStepLabel');
+      if (n <= 4) stepLabel.textContent = `Step ${n} of 4`;
+      else stepLabel.textContent = 'Done';
+      renderIcons();
+    }
+
+    function tryPickScenario(scenarioKey) {
+      const s = SCENARIOS[scenarioKey];
+      if (!s) return;
+      tryState.scenario = scenarioKey;
+      document.getElementById('tryStep2Title').textContent = s.step2Title;
+      document.getElementById('tryStep2Sub').textContent = s.step2Sub;
+      document.getElementById('tryDetailLabel').textContent = s.detailLabel;
+      const detailInput = document.getElementById('tryDetail');
+      detailInput.placeholder = s.detailPlaceholder;
+      detailInput.value = tryState.detail || '';
+
+      // Render time chips
+      const tc = document.getElementById('tryTimeChips');
+      tc.innerHTML = '';
+      s.times.forEach(t => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'time-chip' + (t.value === (tryState.time || s.defaultTime) ? ' active' : '');
+        b.textContent = t.label;
+        b.dataset.time = t.value;
+        b.dataset.label = t.label;
+        b.addEventListener('click', () => {
+          document.querySelectorAll('#tryTimeChips .time-chip').forEach(c => c.classList.remove('active'));
+          b.classList.add('active');
+          tryState.time = t.value;
+          tryState.timeLabel = t.label;
+        });
+        tc.appendChild(b);
+      });
+      // initialize default time if not set
+      if (!tryState.time) {
+        tryState.time = s.defaultTime;
+        tryState.timeLabel = fmtTimeLabel(s.defaultTime, scenarioKey);
+      } else {
+        tryState.timeLabel = fmtTimeLabel(tryState.time, scenarioKey);
+      }
+      tryGotoStep(2);
+    }
+
+    function tryUseDefaults() {
+      const s = SCENARIOS[tryState.scenario] || SCENARIOS.date;
+      document.getElementById('tryName').value = document.getElementById('tryName').value || 'Sam';
+      document.getElementById('tryDetail').value = document.getElementById('tryDetail').value || s.defaultDetail;
+      // ensure default time selected
+      const targetTime = tryState.time || s.defaultTime;
+      document.querySelectorAll('#tryTimeChips .time-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.time === targetTime);
+      });
+      tryState.time = targetTime;
+      tryState.timeLabel = fmtTimeLabel(targetTime, tryState.scenario);
+    }
+
+    function tryBuildAlert() {
+      const s = SCENARIOS[tryState.scenario];
+      const name = (document.getElementById('tryName').value || 'Sam').trim();
+      const detail = (document.getElementById('tryDetail').value || s.defaultDetail).trim();
+      tryState.name = name;
+      tryState.detail = detail;
+      const timeLabel = tryState.timeLabel || fmtTimeLabel(tryState.time, tryState.scenario);
+
+      document.getElementById('tryHeadName').textContent = name;
+      document.getElementById('tryHeadTime').textContent = timeLabel;
+      document.getElementById('tryAlertName').textContent = name;
+      document.getElementById('tryAlertContextLabel').textContent = s.alertContextLabel;
+      document.getElementById('tryAlertContext').textContent = detail;
+      document.getElementById('tryAlertTime').textContent = `${timeLabel} · just now`;
+
+      const steps = s.alertSteps(name, detail);
+      const stepsEl = document.getElementById('tryAlertSteps');
+      stepsEl.innerHTML = '';
+      steps.forEach((txt, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="font-bold mr-1">${i+1}.</span>${txt}`;
+        stepsEl.appendChild(li);
+      });
+    }
+
+    // Bind scenario cards
+    document.querySelectorAll('#tryStep1 .scenario-card').forEach(card => {
+      card.addEventListener('click', () => tryPickScenario(card.dataset.scenario));
+    });
+
+    // Step 2 -> Step 3
+    document.getElementById('trySeeAlert').addEventListener('click', () => {
+      tryBuildAlert();
+      tryGotoStep(3);
+    });
+
+    // Step 3 -> Step 4
+    document.getElementById('tryGoSignup').addEventListener('click', () => {
+      tryGotoStep(4);
+    });
+
+    // Use-case chip toggling (modal)
+    document.querySelectorAll('#tryUseCases .usecase-chip').forEach(c => {
+      c.addEventListener('click', () => {
+        c.classList.toggle('active');
+        const k = c.dataset.usecase;
+        if (c.classList.contains('active')) tryState.usecases.add(k);
+        else tryState.usecases.delete(k);
+      });
+    });
+
+    // Submit signup (step 4)
+    function submitTryItSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('tryEmail').value;
+      const note = document.getElementById('tryNote').value;
+      tryState.note = note;
+      console.log('[SafetyNet] Try-it signup:', {
+        email,
+        scenario: tryState.scenario,
+        name: tryState.name,
+        detail: tryState.detail,
+        time: tryState.time,
+        usecases: [...tryState.usecases],
+        note,
+      });
+      document.getElementById('tryItForm').classList.add('hidden');
+      // friendly success message based on usecases
+      const ucMsg = tryState.usecases.size
+        ? `We'll prioritize features for: ${[...tryState.usecases].map(u => u.replace('-', ' ')).join(', ')}.`
+        : '';
+      document.getElementById('trySuccessFeedback').textContent = ucMsg;
+      tryGotoStep(5);
+    }
+    window.submitTryItSignup = submitTryItSignup;
+
+    // Skip to feedback (no signup path)
+    function trySkipToFeedback() {
+      // collapse the email field but keep the use-case + note open, submit anyway when they hit Send
+      const emailField = document.getElementById('tryEmail');
+      emailField.removeAttribute('required');
+      emailField.value = '';
+      emailField.parentElement.style.display = 'none';
+      // change button copy
+      const btn = document.querySelector('#tryItForm button[type=submit]');
+      btn.innerHTML = 'Send feedback <i data-lucide="send" class="w-3.5 h-3.5"></i>';
+      renderIcons();
+    }
+    window.trySkipToFeedback = trySkipToFeedback;
+    window.tryGotoStep = tryGotoStep;
+    window.tryUseDefaults = tryUseDefaults;
+    window.openTryIt = openTryIt;
+    window.closeTryIt = closeTryIt;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeRegistration(); closeTryIt(); }
+    });
+
+    // Footer email
+    function submitFooterEmail(e) {
+      e.preventDefault();
+      document.getElementById('footerFormResult').classList.remove('hidden');
+      e.target.reset();
+    }
+
+    // Hero inline email
+    function submitHeroEmail(e) {
+      e.preventDefault();
+      const email = document.getElementById('heroEmail').value;
+      console.log('[SafetyNet] Hero signup:', email);
+      document.getElementById('heroForm').classList.add('hidden');
+      document.getElementById('heroFormResult').classList.remove('hidden');
+      renderIcons();
+    }
+
+    // ===== Post-signup feedback (hero) =====
+    const heroUsecases = new Set();
+    document.querySelectorAll('#heroUseCases .hero-usecase-chip').forEach(c => {
+      c.addEventListener('click', () => {
+        c.classList.toggle('active');
+        const k = c.dataset.usecase;
+        if (c.classList.contains('active')) heroUsecases.add(k);
+        else heroUsecases.delete(k);
+      });
+    });
+    function submitHeroFeedback() {
+      console.log('[SafetyNet] Hero post-signup feedback:', { usecases: [...heroUsecases] });
+      document.getElementById('heroFollowup').classList.add('hidden');
+      document.getElementById('heroFollowupThanks').classList.remove('hidden');
+      renderIcons();
+    }
+    function dismissHeroFollowup() {
+      document.getElementById('heroFollowup').classList.add('hidden');
+    }
+    window.submitHeroFeedback = submitHeroFeedback;
+    window.dismissHeroFollowup = dismissHeroFollowup;
+
+    // ===== Post-signup feedback (registration modal) =====
+    const regUsecases = new Set();
+    document.querySelectorAll('#regUseCases .usecase-chip').forEach(c => {
+      c.addEventListener('click', () => {
+        c.classList.toggle('active');
+        const k = c.dataset.usecase;
+        if (c.classList.contains('active')) regUsecases.add(k);
+        else regUsecases.delete(k);
+      });
+    });
+    function submitRegFeedback() {
+      const note = document.getElementById('regNote').value;
+      console.log('[SafetyNet] Reg post-signup feedback:', { usecases: [...regUsecases], note });
+      document.getElementById('regFollowup').classList.add('hidden');
+      document.getElementById('regThanks').classList.remove('hidden');
+    }
+    window.submitRegFeedback = submitRegFeedback;
+
+    // ===== Feedback widget =====
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackPanel = document.getElementById('feedbackPanel');
+    const fbStep1 = document.getElementById('feedbackStep1');
+    const fbStep2 = document.getElementById('feedbackStep2');
+    const fbStep3 = document.getElementById('feedbackStep3');
+    const REACTION_META = {
+      useful:    { emoji: '👍', label: 'Useful' },
+      curious:   { emoji: '🤔', label: 'Curious' },
+      notForMe:  { emoji: '👎', label: 'Not for me' },
+    };
+    let currentReaction = null;
+
+    function showFeedbackStep(n) {
+      fbStep1.classList.toggle('hidden', n !== 1);
+      fbStep2.classList.toggle('hidden', n !== 2);
+      fbStep3.classList.toggle('hidden', n !== 3);
+    }
+    function openFeedback() {
+      feedbackPanel.classList.remove('hidden');
+      feedbackBtn.classList.add('hidden');
+      showFeedbackStep(1);
+      renderIcons();
+    }
+    function closeFeedback() {
+      feedbackPanel.classList.add('hidden');
+      feedbackBtn.classList.remove('hidden');
+    }
+
+    feedbackBtn.addEventListener('click', openFeedback);
+    document.getElementById('feedbackClose').addEventListener('click', closeFeedback);
+    document.querySelectorAll('.feedback-reaction').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentReaction = btn.dataset.reaction;
+        const meta = REACTION_META[currentReaction];
+        document.getElementById('feedbackReactionEmoji').textContent = meta.emoji;
+        document.getElementById('feedbackReactionLabel').textContent = meta.label;
+        showFeedbackStep(2);
+      });
+    });
+    document.getElementById('feedbackBack').addEventListener('click', () => showFeedbackStep(1));
+    document.getElementById('feedbackSubmit').addEventListener('click', () => {
+      const text = document.getElementById('feedbackText').value;
+      const email = document.getElementById('feedbackEmail').value;
+      console.log('[SafetyNet] Feedback:', { reaction: currentReaction, text, email });
+      showFeedbackStep(3);
+      renderIcons();
+      setTimeout(() => {
+        closeFeedback();
+        // reset for next time
+        document.getElementById('feedbackText').value = '';
+        document.getElementById('feedbackEmail').value = '';
+        currentReaction = null;
+      }, 2400);
+    });
+
+    // ===== Tweaks =====
+    const tweaksPanel = document.getElementById('tweaksPanel');
+    const tweakState = { ...window.__TWEAK_DEFAULTS__ };
+
+    const HERO_IMAGES = {
+      dateNight: 'images/hero-dateNight.png',
+      riverwalk: 'images/hero-riverwalk.png',
+      path: 'images/hero-path.jpg',
+    };
+    const HERO_COPY = {
+      silentSafeguard: {
+        h1: 'Your <em>silent</em><br/>safeguard for<br/>everyday life.',
+        sub: '<span class="text-slate-400 italic">"Text me when you\'re safe"</span> fails when you can\'t text. <span class="text-white font-medium">SafetyNet sends the alert for you.</span>',
+        kicker: 'A dead man\'s switch — in plain language'
+      },
+      deadMan: {
+        h1: 'A <em>dead man\'s</em><br/>switch — for<br/>real life.',
+        sub: 'If you don\'t check in by the time you said you would, <span class="text-white font-medium">SafetyNet alerts the people who can help.</span>',
+        kicker: 'Automatic. Server-side. Always on.'
+      },
+      becauseYou: {
+        h1: 'Because<br/>sometimes<br/><em>you can\'t</em> text.',
+        sub: 'A spiked drink. A dead battery. A bad date. <span class="text-white font-medium">SafetyNet sends the alert even when you can\'t.</span>',
+        kicker: 'Built for the moments you didn\'t plan for'
+      },
+    };
+
+    function applyTweak(key, value) {
+      tweakState[key] = value;
+      if (key === 'accent') document.body.setAttribute('data-accent', value);
+      if (key === 'density') document.body.setAttribute('data-density', value);
+      if (key === 'heroImage') {
+        const img = document.getElementById('heroImage');
+        if (img && HERO_IMAGES[value]) img.src = HERO_IMAGES[value];
+      }
+      if (key === 'heroCopy') {
+        const c = HERO_COPY[value];
+        if (c) {
+          document.getElementById('heroTitle').innerHTML = c.h1;
+          document.getElementById('heroSub').innerHTML = c.sub;
+          const kicker = document.querySelector('#hero .mono-label.text-cyan-300\\/80 span:last-child');
+          if (kicker) kicker.textContent = c.kicker;
+        }
+      }
+      try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: value } }, '*'); } catch(e) {}
+    }
+
+    function syncActiveSwatches() {
+      // Accent
+      document.querySelectorAll('[data-accent]').forEach(b => b.classList.toggle('active', b.dataset.accent === tweakState.accent));
+      // Hero
+      document.querySelectorAll('[data-hero]').forEach(b => b.classList.toggle('active', b.dataset.hero === tweakState.heroImage));
+      // Copy
+      document.querySelectorAll('[data-copy]').forEach(b => b.classList.toggle('active', b.dataset.copy === tweakState.heroCopy));
+      // Density
+      document.querySelectorAll('[data-density]').forEach(b => b.classList.toggle('active', b.dataset.density === tweakState.density));
+    }
+
+    // Bind controls
+    document.querySelectorAll('#tweaksPanel [data-accent]').forEach(b => b.addEventListener('click', () => { applyTweak('accent', b.dataset.accent); syncActiveSwatches(); }));
+    document.querySelectorAll('#tweaksPanel [data-hero]').forEach(b => b.addEventListener('click', () => { applyTweak('heroImage', b.dataset.hero); syncActiveSwatches(); }));
+    document.querySelectorAll('#tweaksPanel [data-copy]').forEach(b => b.addEventListener('click', () => { applyTweak('heroCopy', b.dataset.copy); syncActiveSwatches(); }));
+    document.querySelectorAll('#tweaksPanel [data-density]').forEach(b => b.addEventListener('click', () => { applyTweak('density', b.dataset.density); syncActiveSwatches(); }));
+
+    // Apply defaults on load
+    Object.entries(tweakState).forEach(([k, v]) => applyTweak(k, v));
+    syncActiveSwatches();
+
+    document.getElementById('closeTweaks').addEventListener('click', () => {
+      tweaksPanel.classList.add('hidden-panel');
+      try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch(e) {}
+    });
+
+    // Edit mode protocol
+    window.addEventListener('message', (e) => {
+      if (!e.data || typeof e.data !== 'object') return;
+      if (e.data.type === '__activate_edit_mode') tweaksPanel.classList.remove('hidden-panel');
+      if (e.data.type === '__deactivate_edit_mode') tweaksPanel.classList.add('hidden-panel');
+    });
+    try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e) {}
+
+    // ===== Animated explainer (How it works) =====
+    (function explainerInit() {
+      const phone = document.getElementById('explainerPhone');
+      if (!phone) return;
+      const screens = phone.querySelectorAll('.ex-screen');
+      const dots = document.querySelectorAll('#exDots .ex-dot');
+      const titleEl = document.getElementById('exTitle');
+      const descEl = document.getElementById('exDesc');
+      const stepNumEl = document.getElementById('exStepNum');
+      const playPauseBtn = document.getElementById('exPlayPause');
+      const restartBtn = document.getElementById('exRestart');
+      const countdown = document.getElementById('exCountdown');
+      const progress = document.getElementById('exProgress');
+
+      const beats = [
+        {
+          dur: 3200,
+          title: 'Set your check-in time',
+          desc: "Pick when you'll be safe — heading home, finishing a hike, ending a date. The clock starts as soon as you tap Create."
+        },
+        {
+          dur: 5200,
+          title: 'SafetyNet is on the clock',
+          desc: 'It runs quietly in the background. No location tracking, no battery drain. Your phone stays out of sight.'
+        },
+        {
+          dur: 3400,
+          title: "Tap once when you're safe",
+          desc: "You check in. Your contacts hear nothing — their evening is undisturbed."
+        },
+        {
+          dur: 4600,
+          title: "Can't check in? We do.",
+          desc: 'Miss the time and your trusted contacts get a call + SMS with everything you set up — no panic button required.'
+        }
+      ];
+
+      let i = 0;
+      let playing = true;
+      let beatTime = 0;
+      let lastFrame = 0;
+      let raf = null;
+      let inView = true;
+      let countdownTimer = null;
+      let feedTimers = [];
+      let checkTimers = [];
+
+      function clearTransientTimers() {
+        clearInterval(countdownTimer);
+        feedTimers.forEach(clearTimeout); feedTimers = [];
+        checkTimers.forEach(clearTimeout); checkTimers = [];
+      }
+
+      function setBeat(n) {
+        clearTransientTimers();
+        i = n;
+        beatTime = 0;
+        screens.forEach((s, idx) => s.classList.toggle('active', idx === n));
+        dots.forEach((d, idx) => {
+          d.classList.toggle('active', idx === n);
+          d.classList.toggle('done', idx < n);
+        });
+        titleEl.textContent = beats[n].title;
+        descEl.textContent = beats[n].desc;
+        stepNumEl.textContent = String(n + 1).padStart(2, '0');
+
+        // Reset progress + countdown
+        if (progress) { progress.style.transition = 'none'; progress.style.width = '0%'; }
+        if (countdown) countdown.textContent = '1h 28m';
+
+        // Reset feed lines
+        phone.querySelectorAll('.ex-feed-line').forEach(l => l.classList.remove('show'));
+
+        // Reset check marks
+        phone.querySelectorAll('.ex-check').forEach(c => c.classList.remove('show'));
+
+        // Sub-animations per beat
+        if (n === 1) {
+          // Progress bar fills over beat duration
+          requestAnimationFrame(() => {
+            if (i !== 1) return;
+            progress.style.transition = `width ${beats[1].dur - 200}ms linear`;
+            progress.style.width = '100%';
+          });
+          // Countdown ticks down
+          const startMin = 88, endMin = 0;
+          const start = performance.now();
+          countdownTimer = setInterval(() => {
+            const p = Math.min(1, (performance.now() - start) / (beats[1].dur - 200));
+            const remaining = Math.max(0, Math.round(startMin - (startMin - endMin) * p));
+            if (remaining >= 60) {
+              const h = Math.floor(remaining / 60), m = remaining % 60;
+              countdown.textContent = h + 'h ' + String(m).padStart(2, '0') + 'm';
+            } else {
+              countdown.textContent = remaining + 'm';
+            }
+            if (p >= 1) clearInterval(countdownTimer);
+          }, 90);
+          // Feed lines stagger
+          const lines = phone.querySelectorAll('[data-screen="1"] .ex-feed-line');
+          lines.forEach((line, idx) => {
+            feedTimers.push(setTimeout(() => line.classList.add('show'), 700 + idx * 1200));
+          });
+        }
+        if (n === 3) {
+          const checks = phone.querySelectorAll('[data-screen="3"] .ex-check');
+          checks.forEach((c, idx) => {
+            checkTimers.push(setTimeout(() => c.classList.add('show'), 700 + idx * 650));
+          });
+        }
+      }
+
+      function tick(now) {
+        if (!lastFrame) lastFrame = now;
+        const dt = now - lastFrame;
+        lastFrame = now;
+        if (playing && inView) {
+          beatTime += dt;
+          if (beatTime >= beats[i].dur) {
+            setBeat((i + 1) % beats.length);
+          }
+        }
+        raf = requestAnimationFrame(tick);
+      }
+
+      dots.forEach((d, idx) => d.addEventListener('click', () => setBeat(idx)));
+
+      playPauseBtn.addEventListener('click', () => {
+        playing = !playing;
+        playPauseBtn.innerHTML = playing
+          ? '<i data-lucide="pause" class="w-4 h-4"></i><span>Pause</span>'
+          : '<i data-lucide="play" class="w-4 h-4"></i><span>Play</span>';
+        if (window.lucide) lucide.createIcons();
+      });
+
+      restartBtn.addEventListener('click', () => setBeat(0));
+
+      // Pause when out of view
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { inView = e.isIntersecting; });
+        }, { threshold: 0.2 });
+        io.observe(phone);
+      }
+
+      setBeat(0);
+      raf = requestAnimationFrame(tick);
+    })();
+
+    // ===== Re-render lucide icons after dynamic injection =====
+    renderIcons();
+  </script>
+</body>
+</html>
