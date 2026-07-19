@@ -461,41 +461,6 @@ featureItems.forEach((item) => {
 });
 
 // ============================================
-// Story Accordions
-// ============================================
-const storyItems = document.querySelectorAll('.story-item');
-
-storyItems.forEach((item) => {
-    const toggle = item.querySelector('.story-toggle');
-    const details = item.querySelector('.story-details');
-    const chevron = item.querySelector('.story-chevron');
-
-    if (!toggle || !details) return;
-
-    // Set initial collapsed state
-    details.style.maxHeight = '0';
-    details.style.overflow = 'hidden';
-    details.style.transition = 'max-height 0.3s ease, margin-top 0.3s ease';
-    details.style.marginTop = '0';
-
-    toggle.addEventListener('click', () => {
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-        if (isExpanded) {
-            details.style.maxHeight = '0';
-            details.style.marginTop = '0';
-            toggle.setAttribute('aria-expanded', 'false');
-            if (chevron) chevron.style.transform = 'rotate(0deg)';
-        } else {
-            details.style.maxHeight = details.scrollHeight + 'px';
-            details.style.marginTop = '0.5rem';
-            toggle.setAttribute('aria-expanded', 'true');
-            if (chevron) chevron.style.transform = 'rotate(180deg)';
-        }
-    });
-});
-
-// ============================================
 // Our Story Read More Toggle
 // ============================================
 const readMoreStoryBtn = document.getElementById('readMoreStoryBtn');
@@ -537,48 +502,49 @@ if (readMoreStoryBtn && storyDetails) {
 // ============================================
 // Copy Email to Clipboard
 // ============================================
-const copyEmailBtns = document.querySelectorAll('.copy-email-btn');
+document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.copy-email-btn');
+    if (!btn) return;
 
-copyEmailBtns.forEach(btn => {
-    btn.addEventListener('click', async () => {
-        const email = btn.getAttribute('data-email');
-        const tooltip = btn.querySelector('.copy-tooltip');
+    const email = btn.getAttribute('data-email');
+    const tooltip = btn.querySelector('.copy-tooltip');
 
+    try {
+        await navigator.clipboard.writeText(email);
+        if (tooltip) {
+            tooltip.classList.remove('hidden');
+            setTimeout(() => tooltip.classList.add('hidden'), 2000);
+        }
+    } catch (err) {
+        console.error('Failed to copy email:', err);
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
         try {
-            // Use the Clipboard API to copy the email
-            await navigator.clipboard.writeText(email);
-
-            // Show the tooltip
+            document.execCommand('copy');
             if (tooltip) {
                 tooltip.classList.remove('hidden');
-
-                // Hide the tooltip after 2 seconds
-                setTimeout(() => {
-                    tooltip.classList.add('hidden');
-                }, 2000);
+                setTimeout(() => tooltip.classList.add('hidden'), 2000);
             }
-        } catch (err) {
-            console.error('Failed to copy email:', err);
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = email;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-9999px';
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                // Show the tooltip
-                if (tooltip) {
-                    tooltip.classList.remove('hidden');
-                    setTimeout(() => {
-                        tooltip.classList.add('hidden');
-                    }, 2000);
-                }
-            } catch (err2) {
-                console.error('Fallback copy failed:', err2);
-            }
-            document.body.removeChild(textArea);
+        } catch (err2) {
+            console.error('Fallback copy failed:', err2);
         }
-    });
+        document.body.removeChild(textArea);
+    }
 });
+
+// ============================================
+// Demo redirect: ?early-access=1 opens modal
+// ============================================
+if (new URLSearchParams(window.location.search).get('early-access')) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            resetRegistrationForm();
+            toggleModal('registrationModal', true);
+            window.history.replaceState({}, '', '/');
+        }, 400);
+    });
+}

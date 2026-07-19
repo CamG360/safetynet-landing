@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafetyNet — Interactive Demo</title>
+    <meta name="description" content="See how SafetyNet works. Set a check-in, watch the timer, and see the automatic alert your contact receives.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/styles/tailwind.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/demo.css">
+    <script src="/js/vendor/lucide.min.js"></script>
+</head>
+<body>
+
+<div class="demo-outer">
+
+    <!-- Back link (desktop only) -->
+    <a href="/" class="demo-back-link">← safetynetbeta.com</a>
+
+    <!-- ─── Phone frame ─────────────────────────────────────────── -->
+    <div class="demo-phone" role="main" aria-label="SafetyNet interactive demo">
+
+        <!-- Fake status bar -->
+        <div class="demo-status-bar" aria-hidden="true">
+            <span>9:41</span>
+            <span class="demo-status-icons">
+                <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor" aria-hidden="true">
+                    <rect x="0" y="4" width="3" height="7" rx="1"/>
+                    <rect x="4" y="2.5" width="3" height="8.5" rx="1"/>
+                    <rect x="8" y="1" width="3" height="10" rx="1"/>
+                    <rect x="12" y="0" width="3" height="11" rx="1"/>
+                </svg>
+                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <rect x="0.75" y="0.75" width="13" height="9.5" rx="2.5"/>
+                    <rect x="2" y="2" width="9" height="7" rx="1.5" fill="currentColor" stroke="none"/>
+                    <rect x="14" y="3.5" width="1.5" height="4" rx="0.75" fill="currentColor" stroke="none"/>
+                </svg>
+            </span>
+        </div>
+
+        <!-- App nav: logo + step dots + restart -->
+        <div class="demo-app-nav" role="navigation" aria-label="Demo progress">
+            <span class="demo-logo">SafetyNet</span>
+
+            <div class="demo-steps" aria-label="Step indicator">
+                <div class="demo-step step-active" aria-label="Step 1: Create"></div>
+                <div class="demo-step-line"></div>
+                <div class="demo-step" aria-label="Step 2: Active"></div>
+                <div class="demo-step-line"></div>
+                <div class="demo-step" aria-label="Step 3: Result"></div>
+            </div>
+
+            <button class="demo-restart-btn btn-restart" aria-label="Start demo over" title="Start over">
+                <i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i>
+            </button>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             SCREEN 1 — SETUP
+        ══════════════════════════════════════════ -->
+        <div id="screen-setup" class="demo-screen" role="region" aria-label="Create your SafetyNet">
+
+            <h1 class="demo-screen-heading">Create your SafetyNet</h1>
+            <p class="demo-screen-sub">Pre-filled for the demo. Tap to edit.</p>
+
+            <div class="demo-fields">
+                <div class="demo-field">
+                    <label class="demo-label" for="fieldPlan">Plan</label>
+                    <input id="fieldPlan" class="demo-input" type="text" value="Date with James" autocomplete="off">
+                </div>
+                <div class="demo-field">
+                    <label class="demo-label" for="fieldLocation">Location</label>
+                    <input id="fieldLocation" class="demo-input" type="text" value="The Bluebird Cafe, 14 Market St" autocomplete="off">
+                </div>
+                <div class="demo-field">
+                    <label class="demo-label" for="fieldContact">Emergency contact</label>
+                    <input id="fieldContact" class="demo-input" type="text" value="Mum — +61 4XX XXX XXX" autocomplete="off">
+                </div>
+                <div class="demo-field">
+                    <label class="demo-label" for="fieldCheckin">Check in by</label>
+                    <input id="fieldCheckin" class="demo-input" type="text" value="22:00 tonight" readonly style="background:#f8fafc;color:#64748b;">
+                </div>
+            </div>
+
+            <!-- Vault -->
+            <div class="demo-vault-item" aria-label="Vault document attached">
+                <div class="demo-vault-icon">
+                    <i data-lucide="lock"></i>
+                </div>
+                <div>
+                    <div class="demo-vault-name">Emergency_Contacts.pdf</div>
+                    <div class="demo-vault-note">Released to Mum only if your alert fires</div>
+                </div>
+                <span class="demo-vault-badge">Vault</span>
+            </div>
+
+            <button id="btnCreate" class="demo-btn-primary">
+                Create SafetyNet
+                <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            </button>
+
+        </div><!-- /screen-setup -->
+
+
+        <!-- ══════════════════════════════════════════
+             SCREEN 2 — READY
+        ══════════════════════════════════════════ -->
+        <div id="screen-ready" class="demo-screen hidden" role="region" aria-label="SafetyNet ready">
+
+            <div class="ready-badge">
+                <div class="ready-dot"></div>
+                Ready
+            </div>
+
+            <h1 class="demo-screen-heading">Your SafetyNet is set</h1>
+
+            <div class="demo-summary-card" aria-label="Plan summary">
+                <div class="summary-row">
+                    <span class="summary-label">Plan</span>
+                    <span class="summary-value">Date with James</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Location</span>
+                    <span class="summary-value">Bluebird Cafe</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Contact</span>
+                    <span class="summary-value">Mum</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Check in by</span>
+                    <span class="summary-value">22:00 tonight</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Vault</span>
+                    <span class="summary-value">🔒 Emergency_Contacts.pdf</span>
+                </div>
+            </div>
+
+            <p class="demo-body-text">
+                When you tap Start, your timer begins. If you don't check in by 22:00,
+                Mum gets an automatic alert — even if your phone is off or dead.
+            </p>
+
+            <button id="btnStart" class="demo-btn-primary">
+                Start — I'm heading out now
+            </button>
+
+            <button id="btnEdit" class="demo-btn-ghost btn-restart">← Edit details</button>
+
+        </div><!-- /screen-ready -->
+
+
+        <!-- ══════════════════════════════════════════
+             SCREEN 3 — ACTIVE
+        ══════════════════════════════════════════ -->
+        <div id="screen-active" class="demo-screen hidden" role="region" aria-label="SafetyNet active">
+
+            <div class="active-indicator" aria-live="polite">
+                <div class="active-pulse" aria-hidden="true"></div>
+                SafetyNet Active
+            </div>
+
+            <!-- Countdown ring -->
+            <div class="demo-countdown-wrap" aria-label="Time remaining">
+                <div class="demo-countdown-ring">
+                    <svg viewBox="0 0 120 120" aria-hidden="true">
+                        <circle cx="60" cy="60" r="54" class="ring-bg"/>
+                        <circle id="ringProgress" cx="60" cy="60" r="54" class="ring-fill"/>
+                    </svg>
+                    <div class="ring-inner">
+                        <div id="countdownTime" class="countdown-digits" aria-live="polite" aria-label="Time remaining">0:10</div>
+                        <div class="countdown-label">remaining</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active warning (last 3s) -->
+            <div id="activeWarning" class="active-warning hidden" aria-live="assertive">
+                Alert sending soon...
+            </div>
+
+            <!-- Speed controls -->
+            <div class="speed-controls" role="group" aria-label="Demo speed">
+                <span class="speed-label">Speed:</span>
+                <button class="speed-btn active" data-speed="1" aria-pressed="true">×1</button>
+                <button class="speed-btn" data-speed="60" aria-pressed="false">×60</button>
+                <button class="speed-btn skip-btn" data-speed="skip">Skip →</button>
+            </div>
+
+            <!-- Check-in button -->
+            <button id="btnCheckin" class="demo-btn-safe">
+                <i data-lucide="check" style="width:18px;height:18px;"></i>
+                I'm Safe — Check In
+            </button>
+            <p class="checkin-hint">Alert cancelled immediately</p>
+
+        </div><!-- /screen-active -->
+
+
+        <!-- ══════════════════════════════════════════
+             SCREEN 4 — GRACE
+        ══════════════════════════════════════════ -->
+        <div id="screen-grace" class="demo-screen hidden" role="region" aria-label="Grace period">
+
+            <div class="grace-header" aria-live="assertive">
+                <i data-lucide="alert-triangle" style="width:16px;height:16px;"></i>
+                Grace period
+            </div>
+
+            <h1 class="demo-screen-heading">Check-in time missed</h1>
+            <p class="demo-body-text">
+                You didn't check in by 22:00. Alert sending in…
+            </p>
+
+            <div class="grace-countdown-wrap" aria-live="polite" aria-label="Seconds until alert">
+                <div id="graceTime" class="grace-digits">5</div>
+                <div class="grace-label">seconds until alert fires</div>
+            </div>
+
+            <button id="btnSnooze" class="demo-btn-outline">
+                Add 30 minutes
+            </button>
+            <p id="snoozeNote" class="snooze-note hidden">
+                Extending in the real app — demo fires in a moment.
+            </p>
+
+        </div><!-- /screen-grace -->
+
+
+        <!-- ══════════════════════════════════════════
+             SCREEN 5 — ALERT FIRED
+        ══════════════════════════════════════════ -->
+        <div id="screen-alert" class="demo-screen hidden" style="padding:0;" role="region" aria-label="Alert fired">
+
+            <!-- User's perspective -->
+            <div class="alert-user-panel">
+                <div class="alert-sent-icon" aria-hidden="true">
+                    <i data-lucide="send"></i>
+                </div>
+                <h1 class="alert-user-heading">Alert sent to Mum</h1>
+                <p class="alert-user-sub">Automatically — no action needed from you.</p>
+
+                <!-- Vault released -->
+                <div class="vault-released-card" aria-label="Vault document released">
+                    <div class="vault-released-icon" aria-hidden="true">
+                        <i data-lucide="lock-open"></i>
+                    </div>
+                    <div>
+                        <div class="vault-released-name">Emergency_Contacts.pdf</div>
+                        <div class="vault-released-sub">Shared with Mum</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Mum receives -->
+            <div class="contact-divider" aria-hidden="true">What Mum receives</div>
+
+            <!-- Alert card (inline copy of alert-demo.html, Emma persona) -->
+            <div class="contact-alert-wrap">
+                <div class="demo-alert-card alert-card">
+                    <!-- Alert Header -->
+                    <div class="alert-header">
+                        <div class="alert-badge">
+                            <div class="alert-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                                </svg>
+                            </div>
+                            <span class="alert-title">Safety Alert</span>
+                        </div>
+                        <div class="pulse-dot" aria-hidden="true"></div>
+                    </div>
+                    <!-- Alert Content -->
+                    <div class="alert-content">
+                        <div class="intro-text">Emma uses SafetyNet to alert you when something might be wrong.</div>
+
+                        <div class="missed-label">Check-in Time Missed:</div>
+                        <div class="time-display">22:00</div>
+                        <div class="time-context">+ 30 min extra time expired</div>
+
+                        <div class="progress-container" aria-hidden="true">
+                            <div class="progress-bar"></div>
+                        </div>
+
+                        <div class="instructions-header">Essential Context</div>
+                        <div class="context-item">
+                            <span class="context-label-inline">Plan:</span>
+                            <span class="context-value-inline"> Date with James</span>
+                        </div>
+                        <div class="context-item">
+                            <span class="context-label-inline">Location:</span>
+                            <span class="context-value-inline"> The Bluebird Cafe, 14 Market St</span>
+                        </div>
+
+                        <div class="instructions-header" style="margin-top:20px;">What to do</div>
+                        <div class="instruction-item">
+                            <div class="instruction-number" aria-hidden="true">1</div>
+                            <div class="instruction-text">Call Emma</div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-number" aria-hidden="true">2</div>
+                            <div class="instruction-text">Go to the location above</div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-number" aria-hidden="true">3</div>
+                            <div class="instruction-text">Call emergency services if needed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="alert-cta-bar">
+                <button class="demo-btn-primary btn-get-access">
+                    Want this for real? Get Early Access →
+                </button>
+                <button class="demo-btn-ghost btn-restart" style="margin-top:4px;">
+                    Try again
+                </button>
+            </div>
+
+        </div><!-- /screen-alert -->
+
+
+        <!-- ══════════════════════════════════════════
+             SCREEN 6 — CHECKED IN
+        ══════════════════════════════════════════ -->
+        <div id="screen-checkin" class="demo-screen hidden" role="region" aria-label="Checked in safely">
+
+            <div style="text-align:center;">
+                <div class="checkin-success-icon" aria-hidden="true">
+                    <i data-lucide="check"></i>
+                </div>
+
+                <h1 class="checkin-heading">You're safe.</h1>
+                <p class="checkin-sub">SafetyNet cancelled. Mum won't be alerted.</p>
+            </div>
+
+            <div class="checkin-detail-card" aria-label="Check-in summary">
+                <div class="checkin-row">
+                    <span>Check-in time</span>
+                    <span>22:00 ✓</span>
+                </div>
+                <div class="checkin-row">
+                    <span>Status</span>
+                    <span>Checked in</span>
+                </div>
+                <div class="checkin-row">
+                    <span>Contact</span>
+                    <span>Not notified</span>
+                </div>
+                <div class="checkin-row">
+                    <span>Vault</span>
+                    <span>Remains private</span>
+                </div>
+            </div>
+
+            <button class="demo-btn-primary btn-get-access">
+                Set one up for real →
+            </button>
+            <button class="demo-btn-ghost btn-restart" style="margin-top:4px;">
+                Try again
+            </button>
+
+        </div><!-- /screen-checkin -->
+
+    </div><!-- /demo-phone -->
+
+    <p class="demo-footer-label" aria-hidden="true">Interactive demo — no account needed</p>
+
+</div><!-- /demo-outer -->
+
+<script type="module" src="/js/demo.js"></script>
+
+</body>
+</html>
