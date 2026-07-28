@@ -42,7 +42,7 @@
             </button>
 
             <!-- Mobile Menu Button -->
-            <button id="mobileMenuBtn" class="md:hidden hamburger" aria-label="Toggle menu">
+            <button id="mobileMenuBtn" class="md:hidden hamburger" aria-label="Toggle menu" aria-controls="mobileMenu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-slate-100 absolute top-20 left-0 right-0 shadow-lg">
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-slate-100 absolute top-20 left-0 right-0 shadow-lg" aria-label="Mobile navigation">
             <div class="flex flex-col p-6 space-y-4">
                 <a href="#problem" class="mobile-menu-link text-slate-700 hover:text-teal-600 transition font-medium py-2">Overview</a>
                 <a href="#concept" class="mobile-menu-link text-slate-700 hover:text-teal-600 transition font-medium py-2">How it Works</a>

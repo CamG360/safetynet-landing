@@ -66,6 +66,12 @@ function toggleModal(modalId, show) {
  */
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' || e.key === 'Esc') {
+        if (mobileMenu?.classList.contains('active')) {
+            setMobileMenuOpen(false);
+            mobileMenuBtn?.focus();
+            return;
+        }
+
         // Check if any modal is open
         const alertModal = document.getElementById('alertDemoModal');
         const regModal = document.getElementById('registrationModal');
@@ -155,6 +161,7 @@ const openRegBtns = document.querySelectorAll('.open-registration-modal');
 if (regModal) {
     openRegBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            setMobileMenuOpen(false);
             resetRegistrationForm(); // Reset form state before opening
             toggleModal('registrationModal', true);
         });
@@ -241,26 +248,56 @@ document.addEventListener('click', (e) => {
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+const navElement = mobileMenu ? mobileMenu.closest('nav') : null;
+let mobileMenuScrollY = 0;
+
+function setMobileMenuOpen(isOpen, { restoreScroll = true } = {}) {
+    if (!mobileMenu || !mobileMenuBtn) return;
+
+    const wasOpen = mobileMenu.classList.contains('active');
+    if (isOpen === wasOpen) return;
+
+    if (isOpen) {
+        mobileMenuScrollY = window.scrollY;
+        document.body.style.setProperty('--mobile-menu-scroll-y', `-${mobileMenuScrollY}px`);
+    }
+
+    mobileMenu.classList.toggle('active', isOpen);
+    mobileMenuBtn.classList.toggle('active', isOpen);
+    mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    document.documentElement.classList.toggle('mobile-menu-open', isOpen);
+    document.body.classList.toggle('mobile-menu-open', isOpen);
+    navElement?.classList.toggle('mobile-menu-is-open', isOpen);
+
+    if (!isOpen) {
+        const restoreScrollY = mobileMenuScrollY;
+        document.body.style.removeProperty('--mobile-menu-scroll-y');
+        mobileMenuScrollY = 0;
+
+        if (restoreScroll) {
+            window.requestAnimationFrame(() => {
+                window.scrollTo({ top: restoreScrollY, left: 0, behavior: 'instant' });
+            });
+        }
+    }
+}
 
 if (mobileMenuBtn && mobileMenu) {
     mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        mobileMenuBtn.classList.toggle('active');
+        setMobileMenuOpen(!mobileMenu.classList.contains('active'));
     });
 
     // Close menu when clicking on a link
     mobileMenuLinks.forEach(link => {
         link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
+            setMobileMenuOpen(false, { restoreScroll: false });
         });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            mobileMenu.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
+            setMobileMenuOpen(false);
         }
     });
 }
