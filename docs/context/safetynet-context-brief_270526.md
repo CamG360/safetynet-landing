@@ -79,7 +79,7 @@ Only after that realization do the mechanics become intuitive. All copy, structu
 ### In Scope
 - Check-in mechanism (timer, alert, emergency contact notification)
 - Vault (secure document storage, conditional release)
-- In-product feedback mechanism (day one, not bolted on later)
+- <mark>In-product feedback mechanism (day one, not bolted on later)</mark>
 
 ### Out of Scope (do not build, do not suggest)
 - Apple Watch app
@@ -95,7 +95,7 @@ Only after that realization do the mechanics become intuitive. All copy, structu
 
 | # | Hypothesis | Signal |
 |---|-----------|--------|
-| H1 | SafetyNet MVP demonstrates enough value that users sign up and engage | Signups, usage, feedback quality |
+| H1 | SafetyNet MVP demonstrates enough value that users sign up and engage | <mark>Signups, usage, feedback quality</mark> |
 | H2 | Solo AI-assisted build is viable for a non-technical founder | Build progress, documentation quality, maintainability |
 
 ---
@@ -126,7 +126,7 @@ Visitor journey through safetynetbeta.com (section order as built):
 | 3 | Problem / Overview | `#problem` | Establishes the gap: "Text me when you're safe" fails when you can't text |
 | 4 | How it Works | `#concept` | 3-step flow — "Create your SafetyNet in under a minute" + "See what your contacts receive" → opens alert demo modal |
 | 5 | Examples | `#examples` | 3 use-case cards (Solo Travel + 2 others) — "Live your life. We've got your back." |
-| 6 | First Reactions | `#beta-feedback` | Social proof / testimonials — "I never thought about what would happen if I couldn't reach my phone." |
+| 6 | <mark>First Reactions</mark> | `#beta-feedback` | <mark>Social proof / testimonials — "I never thought about what would happen if I couldn't reach my phone."</mark> |
 | 7 | Comparison | `#comparison` | "More than just a dot on a map" — differentiates from location-sharing apps (Find My Friends, Life360) |
 | 8 | Our Story | `#our-story` | Founder narrative |
 | 9 | FAQ | `#faq` | 5 category tabs: Getting Started · How It Works · Privacy & Security · Why SafetyNet · Launch & Pricing |
@@ -155,7 +155,7 @@ Core claims and proof points as stated on the page:
 
 ---
 
-## User Voice
+## <mark>User Voice</mark>
 
 *First reactions from user interviews. Pre-launch — not product reviews.*
 

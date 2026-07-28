@@ -1,16 +1,17 @@
 /**
- * Modal Content Preloader
- * Pre-loads all modal content on page load to ensure close buttons exist for main.js
- * This ensures compatibility with existing modal management in main.js
+ * Modal Content Loader
+ * Keeps the registration modal ready for the existing form wiring while loading
+ * secondary modals only when visitors open them.
  */
 
-// Preload all modals for consistency and separation of concerns
 const modalConfig = {
     'alertDemoModal': 'alert-demo',
     'registrationModal': 'registration',
     'privacyPolicyModal': 'privacy-policy',
     'termsOfServiceModal': 'terms-of-service'
 };
+
+const modalLoadPromises = new Map();
 
 /**
  * Load modal content from external file
@@ -33,39 +34,53 @@ async function loadModalContent(modalFileName) {
 }
 
 /**
- * Pre-load all modal content on page load
- * This ensures close buttons exist when main.js initializes
+ * Ensure a modal's remote content has been loaded into its container.
+ * @param {string} modalId - The modal wrapper ID
+ * @returns {Promise<boolean>} - Whether content exists or was loaded
  */
-async function preloadAllModals() {
-    const loadPromises = Object.entries(modalConfig).map(async ([modalId, fileName]) => {
-        const modalContainer = document.getElementById(modalId);
-        if (!modalContainer) return;
+async function ensureModalContentLoaded(modalId) {
+    const modalContainer = document.getElementById(modalId);
+    const modalFileName = modalConfig[modalId];
 
-        const contentContainer = modalContainer.querySelector('[data-modal-content]');
-        if (!contentContainer) return;
+    if (!modalContainer || !modalFileName) return false;
 
-        // Load and inject content
-        const content = await loadModalContent(fileName);
+    const contentContainer = modalContainer.querySelector('[data-modal-content]');
+    if (!contentContainer) return false;
+
+    if (contentContainer.dataset.loaded === 'true') return true;
+    if (modalLoadPromises.has(modalId)) return modalLoadPromises.get(modalId);
+
+    const loadPromise = (async () => {
+        contentContainer.setAttribute('aria-busy', 'true');
+        const content = await loadModalContent(modalFileName);
         contentContainer.innerHTML = content;
-    });
+        contentContainer.dataset.loaded = 'true';
+        contentContainer.removeAttribute('aria-busy');
 
-    // Wait for all modals to load
-    await Promise.all(loadPromises);
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
 
-    // Reinitialize Lucide icons for all loaded content
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
+        return true;
+    })();
 
-    console.log('✅ All modal content pre-loaded');
+    modalLoadPromises.set(modalId, loadPromise);
+    return loadPromise;
 }
 
-// Pre-load modals immediately (blocks main.js from loading until ready)
-// Uses top-level await to ensure content exists before main.js initializes
+/**
+ * Pre-load selected modal content.
+ * @param {string[]} modalIds - Modal IDs to preload
+ */
+async function preloadModals(modalIds = Object.keys(modalConfig)) {
+    await Promise.all(modalIds.map(ensureModalContentLoaded));
+}
+
+// Keep the registration form available before main.js binds form handlers.
 if (document.readyState === 'loading') {
     await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve));
 }
-await preloadAllModals();
+await preloadModals(['registrationModal']);
 
 // Export for use in other modules
-export { loadModalContent, preloadAllModals };
+export { ensureModalContentLoaded, loadModalContent, preloadModals };

@@ -21,7 +21,6 @@ function setShowMoreVisibility(isVisible) {
     if (!wrapper) return;
 
     wrapper.classList.toggle('hidden', !isVisible);
-    wrapper.hidden = !isVisible;
 }
 
 /**
@@ -222,9 +221,10 @@ function initFAQSearch() {
     const container = document.getElementById('faq-container');
     if (!searchInput || !container) return;
 
+    const faqItems = container.querySelectorAll('.faq-item');
+
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
-        const faqItems = container.querySelectorAll('.faq-item');
 
         if (searchTerm === '') {
             // If search is empty, restore category filter
@@ -279,7 +279,7 @@ function initFAQSearch() {
 /**
  * Initialize FAQ section — enhances existing HTML
  */
-async function initializeFAQSection() {
+function initializeFAQSection() {
     // Initialize accordions immediately (works without JSON)
     initFAQAccordions();
     
@@ -297,10 +297,6 @@ async function initializeFAQSection() {
         lucide.createIcons();
     }
     
-    // Load FAQ data for search functionality (non-blocking)
-    await loadFAQData();
-    
-    // Initialize search (enhanced with JSON data)
     initFAQSearch();
 }
 

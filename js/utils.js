@@ -162,7 +162,6 @@ export function trackSubmission(email) {
         const record = JSON.parse(localStorage.getItem(RATE_LIMIT_STORAGE_KEY)) || {};
         record[email] = Date.now();
         localStorage.setItem(RATE_LIMIT_STORAGE_KEY, JSON.stringify(record));
-        console.log(`Rate limit applied for ${email}`);
     } catch (error) {
         console.warn('Failed to persist submission timestamp:', error);
     }
@@ -181,7 +180,6 @@ export function clearRateLimit(email) {
         if (record[email]) {
             delete record[email];
             localStorage.setItem(RATE_LIMIT_STORAGE_KEY, JSON.stringify(record));
-            console.log(`Rate limit cleared for ${email}`);
         }
     } catch (error) {
         console.warn('Failed to clear rate limit:', error);
@@ -215,7 +213,7 @@ export async function submitToWaitlist(email, workerConfig, turnstileToken = nul
     });
 
     // Defensive: explicit status validation before claiming success
-    if (!response.ok || response.status < 200 || response.status >= 300) {
+    if (!response.ok) {
         const errorMsg = `Waitlist submission failed! HTTP ${response.status}`;
         console.error(errorMsg);
         const error = new Error(errorMsg);

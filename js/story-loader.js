@@ -30,7 +30,7 @@ async function loadExtendedStory() {
             }
 
             // Reinitialize story toggle accordions
-            initStoryToggles();
+            initStoryToggles(container);
 
             // Hide the "Read More" button
             const button = document.getElementById('read-full-story-btn');
@@ -51,8 +51,8 @@ async function loadExtendedStory() {
 /**
  * Initialize story toggle accordions for expanded content
  */
-function initStoryToggles() {
-    const storyItems = document.querySelectorAll('.story-item');
+function initStoryToggles(container = document) {
+    const storyItems = container.querySelectorAll('.story-item');
 
     storyItems.forEach(item => {
         const toggle = item.querySelector('.story-toggle');
