@@ -299,140 +299,127 @@
                 </h2>
             </div>
 
-            <!-- The 3-Step Flow -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            <!-- How It Works — Interactive step switcher -->
+            <div id="hiwSection" data-hiw-active="0">
+                <div class="hiw-grid">
 
-                <!-- Connector Line (Desktop Only) -->
-                <div class="hidden md:block absolute top-[180px] left-[20%] right-[20%] h-0.5 bg-slate-200 -z-10 border-t-2 border-dashed border-slate-300"></div>
+                    <!-- LEFT: step list + play/pause -->
+                    <div class="hiw-steps-col">
+                        <div class="hiw-connector-line"></div>
 
-                <!-- --- STEP 1 --- -->
-                <div class="flex flex-col items-center group">
-                    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-                        1. Set your Check-in Time
-                    </h3>
-
-                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden h-[310px]">
-                        <!-- Banner Header -->
-                        <div class="bg-blue-600 p-3 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="clock" class="w-5 h-5 text-white"></i>
-                                <span class="text-white font-bold tracking-wide text-sm">SafetyNet</span>
-                            </div>
-                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        <div class="hiw-step-list">
+                            <button class="hiw-step-row" data-step="0">
+                                <span class="hiw-num">1</span>
+                                <div class="hiw-step-text">
+                                    <div class="hiw-step-title">Set your check-in time</div>
+                                    <div class="hiw-step-desc">Choose when you expect to be safe — after a night out, a short trip, a date.</div>
+                                </div>
+                            </button>
+                            <button class="hiw-step-row" data-step="1">
+                                <span class="hiw-num">2</span>
+                                <div class="hiw-step-text">
+                                    <div class="hiw-step-title">SafetyNet is active</div>
+                                    <div class="hiw-step-desc">Live your life. Safe? Just tap "I'm Safe" — done.</div>
+                                </div>
+                            </button>
+                            <button class="hiw-step-row" data-step="2">
+                                <span class="hiw-num">3</span>
+                                <div class="hiw-step-text">
+                                    <div class="hiw-step-title">SafetyNet sends an alert for you</div>
+                                    <div class="hiw-step-desc">Can't check in? Your contacts are alerted automatically.</div>
+                                </div>
+                            </button>
                         </div>
 
-                        <div class="p-4 flex-1 flex flex-col relative">
-                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">CHECK-IN TIME:</p>
-                                <div class="text-3xl font-mono font-bold text-slate-800 tracking-tight">22:00</div>
-                                <!-- 0% Full Bar -->
-                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
-                                    <div class="h-full w-0 bg-blue-600 rounded-full"></div>
-                                </div>
-                            </div>
-
-                            <div class="absolute left-4 right-4 bottom-[70px] h-px bg-slate-100"></div>
-
-                            <div class="pt-4 w-full mt-auto z-10 bg-white">
-                                <button class="w-full py-3 px-4 rounded-xl border-2 border-[#0D9488] text-[#0D9488] font-bold text-sm hover:bg-[#F0FDFA] transition-colors bg-transparent">
-                                    Create a SafetyNet
-                                </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-2">Tap to create a SafetyNet</p>
-                            </div>
+                        <div class="hiw-playbar">
+                            <button id="hiwPlayPauseBtn" class="hiw-play-btn" aria-label="Pause auto-play" aria-pressed="true">
+                                <svg class="hiw-icon-pause" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                                <svg class="hiw-icon-play" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            </button>
+                            <span id="hiwPlayLabel" class="hiw-play-label">Auto-playing</span>
                         </div>
                     </div>
 
-                    <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
-                       <b>Choose when you expect to be safe.</b>
-                    </p>
-                </div>
+                    <!-- RIGHT: phone card panels (one per step) -->
+                    <div class="hiw-card-col">
+                        <div class="hiw-phone">
 
-                <!-- --- STEP 2 --- -->
-                <div class="flex flex-col items-center group">
-                    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-                        2. SafetyNet is active
-                    </h3>
-
-                    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 mb-6 relative flex flex-col overflow-hidden h-[310px]">
-                        <!-- Banner Header -->
-                        <div class="bg-blue-600 p-3 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
-                                <span class="text-white font-bold tracking-wide text-sm">SafetyNet Active</span>
-                            </div>
-                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-                        </div>
-
-                        <div class="p-4 flex-1 flex flex-col relative">
-                            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">TIME REMAINING:</p>
-                                <span class="text-3xl font-mono text-slate-600 font-bold">1h 28m</span>
-                                <!-- 65% Full Bar -->
-                                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
-                                    <div class="h-full w-[65%] rounded-full" style="background:#CBD5E1"></div>
+                            <!-- Panel 0: Set check-in time -->
+                            <div class="hiw-panel" data-hiw-panel="0">
+                                <div class="hiw-banner">
+                                    <div class="hiw-banner-left">
+                                        <i data-lucide="clock" class="hiw-banner-icon"></i>
+                                        <span class="hiw-banner-name">SafetyNet</span>
+                                    </div>
+                                    <span class="hiw-banner-dot"></span>
+                                </div>
+                                <div class="hiw-body">
+                                    <div class="hiw-body-top">
+                                        <p class="hiw-body-label">Check-in time:</p>
+                                        <div class="hiw-body-value">22:00</div>
+                                        <div class="hiw-body-bar"><div class="hiw-body-fill" style="width:0%;background:#0d9488;"></div></div>
+                                    </div>
+                                    <div class="hiw-body-divider"></div>
+                                    <div class="hiw-body-bottom">
+                                        <button class="hiw-card-btn hiw-card-btn--teal">Create a SafetyNet</button>
+                                        <p class="hiw-card-hint">Tap to create a SafetyNet</p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="absolute left-4 right-4 bottom-[70px] h-px bg-slate-100"></div>
-
-                            <div class="mt-auto pt-4 z-10 bg-white">
-                                <button class="w-full border-2 border-slate-800 text-slate-900 font-bold py-3 rounded-xl bg-white text-sm">
-                                    I'm Safe
-                                </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-2">Tap to confirm you're safe</p>
+                            <!-- Panel 1: SafetyNet active -->
+                            <div class="hiw-panel" data-hiw-panel="1">
+                                <div class="hiw-banner">
+                                    <div class="hiw-banner-left">
+                                        <i data-lucide="shield-check" class="hiw-banner-icon"></i>
+                                        <span class="hiw-banner-name">SafetyNet Active</span>
+                                    </div>
+                                    <span class="hiw-banner-dot hiw-banner-dot--green"></span>
+                                </div>
+                                <div class="hiw-body">
+                                    <div class="hiw-body-top">
+                                        <p class="hiw-body-label">Time remaining:</p>
+                                        <div class="hiw-body-value">1h 28m</div>
+                                        <div class="hiw-body-bar"><div class="hiw-body-fill" style="width:65%;background:#cbd5e1;"></div></div>
+                                    </div>
+                                    <div class="hiw-body-divider"></div>
+                                    <div class="hiw-body-bottom">
+                                        <button class="hiw-card-btn hiw-card-btn--dark">I'm Safe</button>
+                                        <p class="hiw-card-hint">Tap to confirm you're safe</p>
+                                    </div>
+                                </div>
                             </div>
+
+                            <!-- Panel 2: Alert sent -->
+                            <div class="hiw-panel" data-hiw-panel="2">
+                                <div class="hiw-banner">
+                                    <div class="hiw-banner-left">
+                                        <i data-lucide="bell-ring" class="hiw-banner-icon"></i>
+                                        <span class="hiw-banner-name">SafetyNet Alert</span>
+                                    </div>
+                                    <span class="hiw-banner-ping">
+                                        <span class="hiw-ping-ring"></span>
+                                        <span class="hiw-ping-dot"></span>
+                                    </span>
+                                </div>
+                                <div class="hiw-body">
+                                    <div class="hiw-body-top">
+                                        <p class="hiw-body-label">Status:</p>
+                                        <div class="hiw-body-value">Alert Sent</div>
+                                        <div class="hiw-body-bar"><div class="hiw-body-fill" style="width:100%;background:#cbd5e1;"></div></div>
+                                    </div>
+                                    <div class="hiw-body-divider"></div>
+                                    <div class="hiw-body-bottom">
+                                        <button class="hiw-card-btn hiw-card-btn--teal">Cancel Safety Alert</button>
+                                        <p class="hiw-card-hint">Tap to cancel Safety Alert</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
-                        <b>Safe? Tap the button. Done</b>  
-                    </p>
                 </div>
-
-                <!-- --- STEP 3 --- -->
-               <!-- --- STEP 3 --- -->
-<div class="flex flex-col items-center group">
-    <h3 class="text-lg font-bold text-slate-900 mb-6 text-center h-12 flex items-end">
-        3. SafetyNet sends an alert for you
-    </h3>
-    <div class="w-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group mb-6 h-[310px] flex flex-col relative">
-        
-        <!-- FIXED HEADER: matches Card 2 structure -->
-        <div class="bg-blue-600 p-3 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i data-lucide="bell-ring" class="w-5 h-5 text-white"></i>
-                <span class="text-white font-bold tracking-wide text-sm">SafetyNet Alert</span>
-            </div>
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-red-400"></span>
-            </span>
-        </div>
-
-        <!-- FIXED CONTENT: no progress bar, text-based status -->
-        <div class="p-4 flex-1 flex flex-col relative">
-            <div class="flex-1 flex flex-col justify-center items-center text-center space-y-2 pb-8">
-                <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">STATUS:</p>
-                <div class="text-3xl font-mono font-bold text-slate-800 tracking-tight">Alert Sent</div>
-                <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden mt-2">
-                    <div class="h-full w-full bg-slate-300 rounded-full"></div>
-                </div>
-            </div>
-
-            <div class="absolute left-4 right-4 bottom-[70px] h-px bg-slate-100"></div>
-
-            <div class="mt-auto pt-4 z-10 bg-white">
-                <button type="button" class="w-full py-3 px-4 rounded-xl border-2 border-[#0D9488] text-[#0D9488] font-bold text-sm hover:bg-[#F0FDFA] transition-colors bg-transparent">
-                    Cancel Safety Alert
-                </button>
-                <p class="text-[10px] text-center text-slate-400 mt-2">Tap to cancel Safety Alert</p>
-            </div>
-        </div>
-    </div>
-    <p class="text-slate-500 text-sm text-center leading-relaxed px-2">
-        <b>Can't check in? Your contacts are alerted automatically.</b>    
-    </p>
-</div>
             </div>
             <div class="flex justify-center pt-6">
                 <button id="openAlertDemoBtn" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-sm transition-colors text-sm flex items-center gap-2">

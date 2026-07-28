@@ -3,8 +3,8 @@
  * Handles modals, forms, navigation, and FAQ accordion
  */
 
-// Import modal-loader to create dependency - ensures modals preload before main.js runs
-import './modal-loader.js';
+// Import modal-loader to create dependency - ensures registration preloads before main.js runs
+import { ensureModalContentLoaded } from './modal-loader.js';
 
 import { WORKER_CONFIG, TURNSTILE_CONFIG } from './config.js';
 import { validateEmail, submitToWaitlist, executeTurnstile, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
@@ -36,7 +36,7 @@ hydrateContactEmailPlaceholders();
  * @param {string} modalId - The ID of the modal to toggle
  * @param {boolean} show - Whether to show or hide the modal
  */
-function toggleModal(modalId, show) {
+async function toggleModal(modalId, show) {
     const modal = document.getElementById(modalId);
     if (!modal) {
         console.error(`Modal not found: ${modalId}`);
@@ -44,6 +44,7 @@ function toggleModal(modalId, show) {
     }
 
     if (show) {
+        await ensureModalContentLoaded(modalId);
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         setTimeout(() => {
@@ -585,3 +586,67 @@ if (new URLSearchParams(window.location.search).get('early-access')) {
         }, 400);
     });
 }
+
+// ============================================
+// How It Works — Interactive Step Switcher
+// ============================================
+(function () {
+    const section = document.getElementById('hiwSection');
+    if (!section) return;
+
+    const stepRows = section.querySelectorAll('.hiw-step-row');
+    const panels = section.querySelectorAll('.hiw-panel');
+    const playBtn = document.getElementById('hiwPlayPauseBtn');
+    const playLabel = document.getElementById('hiwPlayLabel');
+
+    let active = 0;
+    let playing = true;
+    let timer = null;
+    const ADVANCE_MS = 4000;
+
+    function setStep(i, pausePlay) {
+        panels.forEach(p => p.classList.remove('hiw-panel--active'));
+        active = i;
+        section.setAttribute('data-hiw-active', String(active));
+        panels[active].classList.add('hiw-panel--active');
+        if (pausePlay) {
+            playing = false;
+            updatePlayUI();
+        }
+    }
+
+    function updatePlayUI() {
+        if (!playBtn || !playLabel) return;
+        playBtn.classList.toggle('is-paused', !playing);
+        playBtn.setAttribute('aria-pressed', String(playing));
+        playBtn.setAttribute('aria-label', playing ? 'Pause auto-play' : 'Resume auto-play');
+        playLabel.textContent = playing ? 'Auto-playing' : 'Paused — tap a step, or resume';
+    }
+
+    function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+            if (playing) setStep((active + 1) % 3, false);
+        }, ADVANCE_MS);
+    }
+
+    setStep(0, false);
+    startTimer();
+
+    stepRows.forEach(row => {
+        row.addEventListener('click', () => setStep(parseInt(row.dataset.step, 10), true));
+        row.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setStep(parseInt(row.dataset.step, 10), true);
+            }
+        });
+    });
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            playing = !playing;
+            updatePlayUI();
+        });
+    }
+})();
