@@ -856,8 +856,8 @@ nav.nav--hero .mobile-menu a:hover {
 .hero-content { position: relative; z-index: 2; }
 .hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; width: 100%; }
 .hero-copy { display: flex; flex-direction: column; gap: 1.25rem; align-items: center; text-align: center; }
-.hero-title { max-width: 16ch; color: #fff; text-shadow: 0 2px 24px rgba(2,6,23,.55), 0 1px 4px rgba(2,6,23,.4); }
-.hero-sub { color: rgba(255,255,255,.85); text-shadow: 0 1px 10px rgba(2,6,23,.5); }
+.hero-title { max-width: 16ch; color: #fff; text-shadow: 0 2px 24px rgba(2,6,23,.55), 0 1px 4px rgba(2,6,23,.4); font-size: clamp(2.25rem, 4vw, 3.75rem); line-height: 1.1; letter-spacing: -0.02em; }
+.hero-sub { color: rgba(255,255,255,.85); text-shadow: 0 1px 10px rgba(2,6,23,.5); font-size: clamp(1.375rem, 2vw, 1.875rem); line-height: 1.5; }
 .hero-trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center; margin-top: 0.5rem; }
 .hero-trust-item { display: flex; align-items: center; gap: 0.5rem; }
 .hero-trust-label { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.85); }
