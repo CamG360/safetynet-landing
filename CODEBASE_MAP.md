@@ -203,7 +203,7 @@ reactions-marquee.js (19 lines) → Pause/play control for reactions marquee
 #### Assets
 - **Favicon**: [`favicon.svg`](./favicon.svg)
 - **Founder headshot**: [`images/campbell-mccord.png`](./images/campbell-mccord.png)
-- **Hero image (live)**: [`images/SN_hero_centre_no-markings_1552.310526.webp`](./images/SN_hero_centre_no-markings_1552.310526.webp)
+- **Hero image (live)**: [`images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp`](./images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp)
 - **Toggle state visuals**: [`images/safetynet-on.webp`](./images/safetynet-on.webp), [`images/safetynet-off.webp`](./images/safetynet-off.webp)
 - **Comparison asset**: [`images/safetynet-comparison.png`](./images/safetynet-comparison.png)
 - **Scene images**: `City-street-dateOnight-out_GPT_*.png`, `City_riverwalk_*.png`, `Freedom_Hike.png`, `Path_bubble_asian_*.jpg`, `Run-shop-walk.jpg`
@@ -390,7 +390,7 @@ Network capture files (`.har`) — development debugging artefacts, not committe
 | **Error messages** | [`js/constants.js`](./js/constants.js) (MESSAGES) | — |
 | **Reactions marquee** | [`index.html`](./index.html) (Section 6: `#reactions`) | [`js/reactions-marquee.js`](./js/reactions-marquee.js), [`tests/reactions.smoke.spec.js`](./tests/reactions.smoke.spec.js) |
 | **Add new modal** | Create `modals/your-modal.html` | [`js/modal-loader.js`](./js/modal-loader.js) (add to config), [`index.html`](./index.html) (add container) |
-| **Hero section** | [`index.html`](./index.html) (Section 1: `#hero`) | [`styles/main.css`](./styles/main.css), [`images/SN_hero_centre_no-markings_1552.310526.webp`](./images/SN_hero_centre_no-markings_1552.310526.webp) |
+| **Hero section** | [`index.html`](./index.html) (Section 1: `#hero`) | [`styles/main.css`](./styles/main.css), [`images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp`](./images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp) |
 | **Colour tokens** | [`styles/warm-palette-overrides.css`](./styles/warm-palette-overrides.css) | [`styles/input.css`](./styles/input.css) (Tailwind source) |
 | **3-step flow** | [`index.html`](./index.html) (Section 4: `#concept`) | — |
 | **Use cases / examples** | [`index.html`](./index.html) (Section 5: `#examples`) | Consider extracting to JSON |
