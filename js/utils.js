@@ -38,16 +38,39 @@ function loadTurnstileScript(timeoutMs = 5000) {
             script.src = TURNSTILE_SCRIPT_URL;
             script.async = true;
             script.defer = true;
-            script.onload = () => resolve();
-            script.onerror = () => reject(new Error('Failed to load Turnstile script'));
+            script.dataset.safetynetTurnstile = 'true';
+
+            let timeoutId;
+            const fail = (error) => {
+                clearTimeout(timeoutId);
+                turnstileScriptPromise = null;
+                script.remove();
+                reject(error);
+            };
+
+            script.onload = () => {
+                clearTimeout(timeoutId);
+                resolve();
+            };
+            script.onerror = () => fail(new Error('Failed to load Turnstile script'));
             document.head.appendChild(script);
 
             // Safety timeout
-            setTimeout(() => reject(new Error('Loading Turnstile timed out')), timeoutMs);
+            timeoutId = setTimeout(() => fail(new Error('Loading Turnstile timed out')), timeoutMs);
         });
     }
 
     return turnstileScriptPromise;
+}
+
+/**
+ * Starts downloading Turnstile before submission without blocking modal display.
+ * A failed preload is retryable when executeTurnstile is called.
+ * @param {object} config - Turnstile configuration ({ loadTimeoutMs })
+ * @returns {Promise<void>} Resolves when the Turnstile API is available
+ */
+export function prepareTurnstile(config = {}) {
+    return loadTurnstileScript(config.loadTimeoutMs ?? 5000);
 }
 
 /**

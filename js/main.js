@@ -7,7 +7,7 @@
 import { ensureModalContentLoaded } from './modal-loader.js';
 
 import { WORKER_CONFIG, TURNSTILE_CONFIG } from './config.js';
-import { validateEmail, submitToWaitlist, executeTurnstile, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
+import { validateEmail, submitToWaitlist, prepareTurnstile, executeTurnstile, isBot, isRateLimited, trackSubmission, clearRateLimit } from './utils.js';
 import { TIMING, MESSAGES, BUTTON_TEXT } from './constants.js';
 import { hydrateContactEmailPlaceholders } from './contact-email.js';
 
@@ -31,6 +31,22 @@ hydrateContactEmailPlaceholders();
 // Modal Management
 // ============================================
 
+const MODAL_FOCUSABLE_SELECTOR = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled]):not([type="hidden"]):not([tabindex="-1"])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+].join(',');
+let activeModal = null;
+let modalReturnFocus = null;
+
+function getModalFocusableElements(modal) {
+    return Array.from(modal.querySelectorAll(MODAL_FOCUSABLE_SELECTOR))
+        .filter((element) => !element.closest('[hidden]') && element.offsetParent !== null);
+}
+
 /**
  * Toggle modal visibility with keyboard support
  * @param {string} modalId - The ID of the modal to toggle
@@ -44,20 +60,26 @@ async function toggleModal(modalId, show) {
     }
 
     if (show) {
+        modalReturnFocus = document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : null;
         await ensureModalContentLoaded(modalId);
         modal.classList.remove('hidden');
+        activeModal = modal;
         document.body.style.overflow = 'hidden';
         setTimeout(() => {
             modal.classList.add('modal-active');
-            // Focus first input or button in modal
-            const firstFocusable = modal.querySelector('input, button, textarea, select');
+            const firstFocusable = modal.querySelector('#email') || getModalFocusableElements(modal)[0];
             if (firstFocusable) firstFocusable.focus();
         }, 10);
     } else {
         modal.classList.remove('modal-active');
         setTimeout(() => {
             modal.classList.add('hidden');
+            if (activeModal === modal) activeModal = null;
             document.body.style.overflow = '';
+            if (modalReturnFocus?.isConnected) modalReturnFocus.focus();
+            modalReturnFocus = null;
         }, TIMING.MODAL_TRANSITION);
     }
 }
@@ -66,6 +88,24 @@ async function toggleModal(modalId, show) {
  * Keyboard event handler for ESC key
  */
 document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' && activeModal) {
+        const focusable = getModalFocusableElements(activeModal);
+        if (focusable.length === 0) {
+            e.preventDefault();
+            return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
+
     if (e.key === 'Escape' || e.key === 'Esc') {
         if (mobileMenu?.classList.contains('active')) {
             setMobileMenuOpen(false);
@@ -135,6 +175,7 @@ function resetRegistrationForm() {
     const submitBtn = document.getElementById('submitBtn');
     const spinner = document.getElementById('submitSpinner');
     const emailError = document.getElementById('email-error');
+    const emailInput = document.getElementById('email');
 
     if (form && successMessage && submitBtn) {
         // Show form, hide success message
@@ -152,7 +193,19 @@ function resetRegistrationForm() {
 
         // Clear any error messages
         if (emailError) emailError.classList.add('hidden');
+        if (emailInput) emailInput.setAttribute('aria-invalid', 'false');
     }
+}
+
+function setEmailError(emailInput, emailError, message) {
+    emailError.textContent = message;
+    emailError.classList.remove('hidden');
+    emailInput.setAttribute('aria-invalid', 'true');
+}
+
+function clearEmailError(emailInput, emailError) {
+    emailError.classList.add('hidden');
+    emailInput.setAttribute('aria-invalid', 'false');
 }
 
 // Registration Modal
@@ -164,6 +217,7 @@ if (regModal) {
         btn.addEventListener('click', () => {
             setMobileMenuOpen(false);
             resetRegistrationForm(); // Reset form state before opening
+            prepareTurnstile(TURNSTILE_CONFIG).catch(() => {});
             toggleModal('registrationModal', true);
         });
     });
@@ -195,6 +249,7 @@ if (heroJoinBtn && heroEmailInput && modalEmailInput) {
         }
 
         // Open the registration modal
+        prepareTurnstile(TURNSTILE_CONFIG).catch(() => {});
         toggleModal('registrationModal', true);
     });
 }
@@ -316,7 +371,8 @@ let autoCloseTimer = null;
 if (closeSuccessBtn) {
     closeSuccessBtn.addEventListener('click', () => {
         if (autoCloseTimer) clearTimeout(autoCloseTimer);
-        resetRegistrationForm();
+        toggleModal('registrationModal', false);
+        setTimeout(resetRegistrationForm, TIMING.MODAL_TRANSITION);
     });
 }
 
@@ -340,21 +396,19 @@ if (form && submitBtn) {
         // Normalize and validate email
         const email = emailInput.value.toLowerCase().trim();
         if (!validateEmail(email)) {
-            emailError.textContent = MESSAGES.EMAIL_INVALID;
-            emailError.classList.remove('hidden');
+            setEmailError(emailInput, emailError, MESSAGES.EMAIL_INVALID);
             emailInput.focus();
             return;
         }
 
         if (isRateLimited(email, TIMING.WAITLIST_RATE_LIMIT)) {
-            emailError.textContent = MESSAGES.RATE_LIMIT;
-            emailError.classList.remove('hidden');
+            setEmailError(emailInput, emailError, MESSAGES.RATE_LIMIT);
             emailInput.focus();
             return;
         }
 
         // Hide any previous errors
-        emailError.classList.add('hidden');
+        clearEmailError(emailInput, emailError);
 
         // Disable button and show loading state
         submitBtn.disabled = true;
@@ -383,6 +437,7 @@ if (form && submitBtn) {
                 if (typeof lucide !== 'undefined') {
                     lucide.createIcons();
                 }
+                closeSuccessBtn?.focus();
             } else {
                 // This should never happen (submitToWaitlist should throw),
                 // but defensive programming requires handling it
@@ -397,13 +452,12 @@ if (form && submitBtn) {
             clearRateLimit(email);
 
             if (error.status === 403) {
-                emailError.textContent = MESSAGES.VERIFICATION_FAILED;
+                setEmailError(emailInput, emailError, MESSAGES.VERIFICATION_FAILED);
             } else if (error.status === 400) {
-                emailError.textContent = MESSAGES.EMAIL_REQUIRED;
+                setEmailError(emailInput, emailError, MESSAGES.EMAIL_REQUIRED);
             } else {
-                emailError.textContent = MESSAGES.SUBMISSION_ERROR;
+                setEmailError(emailInput, emailError, MESSAGES.SUBMISSION_ERROR);
             }
-            emailError.classList.remove('hidden');
 
             // Reset Button
             submitBtn.disabled = false;
