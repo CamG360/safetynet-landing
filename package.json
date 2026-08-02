@@ -11,9 +11,10 @@
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "lint": "eslint js/**/*.js tests/**/*.js",
     "lint:fix": "eslint js/**/*.js tests/**/*.js --fix",
-    "test:smoke": "npx http-server -p 8123 -s & sleep 2 && BASE_URL=http://localhost:8123 npx playwright test tests/reactions.smoke.spec.js --reporter=line; kill %1 2>/dev/null; exit ${PIPESTATUS[0]}"
+    "test:smoke": "playwright test tests/reactions.smoke.spec.js tests/landing.assurance.spec.js --project=chromium-desktop --project=chromium-mobile --reporter=line"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
     "@jest/globals": "^29.7.0",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/cli": "^4.1.18",

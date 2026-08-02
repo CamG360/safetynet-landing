@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SafetyNet automatically alerts your chosen contacts when you miss a check-in, so help can start even when you cannot reach your phone.">
     <title>SafetyNet - Automatic Safety Alerts</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preload" href="fonts/inter-latin-300-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="styles/tailwind.css">
-    <script src="js/vendor/lucide.min.js"></script>
-    <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="js/vendor/lucide.min.js" defer></script>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body class="text-slate-800 bg-white">
@@ -71,11 +70,18 @@
 
     <!-- [SECTION 1: HERO] -->
     <header id="hero" class="hero-section min-h-svh flex flex-col items-center justify-center">
-      <img class="hero-bg-img"
-           src="images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp"
-           alt="A woman walking home along a riverside path at dusk inside a glowing SafetyNet protection sphere"
-           loading="eager" decoding="async" fetchpriority="high"
-           width="1672" height="941" />
+      <picture class="hero-picture">
+        <source media="(max-width: 767px)" type="image/avif" srcset="images/safetynet-hero-mobile-640.avif">
+        <source media="(max-width: 767px)" type="image/webp" srcset="images/safetynet-hero-mobile-640.webp">
+        <source type="image/avif" srcset="images/safetynet-hero-desktop-960.avif 960w, images/safetynet-hero-desktop-1672.avif 1672w" sizes="100vw">
+        <img class="hero-bg-img"
+             src="images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp"
+             srcset="images/safetynet-hero-desktop-960.webp 960w, images/SN_hero_centre_no-markings_light_GPT_1151.290726.webp 1672w"
+             sizes="100vw"
+             alt="A woman walking home along a riverside path at dusk inside a glowing SafetyNet protection sphere"
+             loading="eager" decoding="async" fetchpriority="high"
+             width="1672" height="941">
+      </picture>
       <div class="hero-overlay"></div>
       <div class="hero-content max-w-6xl w-full px-6">
         <div class="hero-grid">
@@ -132,7 +138,7 @@
                   <span class="hd-text">
                     <span class="hd-value" style="font-size:16px;">Your contacts are alerted</span>
                     <span class="hd-avs">
-                      <span class="hd-av" style="background:#0d9488;">M</span>
+                      <span class="hd-av" style="background:#0f766e;">M</span>
                       <span class="hd-av" style="background:#4f46e5;">A</span>
                       <span class="hd-sent"><i data-lucide="check" class="w-3 h-3"></i> Sent</span>
                     </span>
@@ -166,12 +172,15 @@
 
 <div class="flex justify-center mb-8">
     <img
-        src="images/safetynet-off.webp"
+        src="images/safetynet-off-256.webp"
+        srcset="images/safetynet-off-256.webp 256w, images/safetynet-off-512.webp 512w"
+        sizes="(min-width: 768px) 256px, 192px"
         alt="Illustration of a person alone with a disconnected phone"
         class="w-48 md:w-64"
-        width="700"
-        height="700"
+        width="512"
+        height="512"
         loading="lazy"
+        decoding="async"
     >
 </div>
 
@@ -218,12 +227,15 @@
 
 <div class="flex justify-center mb-8">
     <img
-        src="images/safetynet-on.webp"
+        src="images/safetynet-on-256.webp"
+        srcset="images/safetynet-on-256.webp 256w, images/safetynet-on-512.webp 512w"
+        sizes="(min-width: 768px) 256px, 192px"
         alt="Illustration of a person protected by SafetyNet with connected contacts"
         class="w-48 md:w-64"
-        width="700"
-        height="700"
+        width="512"
+        height="512"
         loading="lazy"
+        decoding="async"
     >
 </div>
 
@@ -597,7 +609,7 @@
   <div class="mt-12">
 
     <!-- MOBILE / TABLET (< lg): horizontal scroll-snap swipe carousel — no CSS animation, no WebKit compositing risk -->
-    <div class="sn-reactions-mobile">
+    <div class="sn-reactions-mobile" tabindex="0" role="region" aria-label="Customer reactions carousel">
       <article class="sn-mq-card">
         <p class="sn-mq-quote">&ldquo;I never thought about what would happen if I couldn&rsquo;t reach my phone. Now I can&rsquo;t stop thinking about it.&rdquo;</p>
         <p class="sn-mq-attr"><strong>Michael</strong> &middot; Solo traveller, Lyon, France</p>
@@ -927,9 +939,16 @@
             <div class="founder-header grid grid-cols-1 md:grid-cols-[160px_1fr] gap-8 md:gap-12 items-center mb-16 text-center md:text-left">
                 <div class="relative mx-auto md:mx-0">
                     <img
-                        src="images/campbell-mccord.png?v=2"
+                        src="images/campbell-mccord-160.webp"
+                        srcset="images/campbell-mccord-160.webp 160w, images/campbell-mccord-320.webp 320w"
+                        sizes="(max-width: 768px) 120px, 140px"
                         alt="Campbell McCord"
                         class="founder-photo"
+                        width="140"
+                        height="140"
+                        loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
                         onerror="console.error('Image failed to load:', this.src)"
                     >
                 </div>
