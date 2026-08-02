@@ -315,6 +315,7 @@ Network capture files (`.har`) — development debugging artefacts, not committe
 
 | File | Purpose | Key Sections |
 |------|---------|--------------|
+| [`README.md`](./README.md) | Project README — orientation, stack, full data flow, Plausible status, update triggers | Stack (§10.0), Cloudflare flow (§10.1), email flow (§10.2) |
 | [`CODEBASE_MAP.md`](./CODEBASE_MAP.md) | This file — comprehensive codebase documentation | Architecture, file structure, navigation |
 | [`TECHNICAL_CONTEXT.md`](./TECHNICAL_CONTEXT.md) | Tech stack, deployment, architecture | Worker + Supabase data flow |
 | [`RECAPTCHA_SETUP.md`](./RECAPTCHA_SETUP.md) | Legacy reCAPTCHA v3 guide (superseded by Turnstile) | Setup, configuration, backend verification |
