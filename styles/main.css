@@ -143,9 +143,9 @@ body {
 /* Mobile Menu Styles */
 .mobile-menu {
     position: fixed;
-    inset: 80px 0 0;
+    inset: 80px 0 auto;
     z-index: 45;
-    min-height: calc(100svh - 80px);
+    max-height: calc(100svh - 80px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     visibility: hidden;
