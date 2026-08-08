@@ -161,8 +161,9 @@ Core claims and proof points as stated on the page:
 
 ## Visual Identity
 
-- "Vigil Architecture" concept
-- Electric blue palette, radar/dome metaphor, monitoring system aesthetic
+**Canonical palette (August 2026):** Warm teal. Live site uses `#0f766e` (primary), `#115e59` (hover), `#faf7f2` (warm background). "Electric blue / Vigil Architecture / radar-dome" concept from earlier iterations was superseded — warm-teal is the active system. See `branding/BRAND.md` for full token reference.
+
+- Visual metaphor: full sphere (node-network, teal) — confirmed locked in Locked Design & Copy Decisions above
 - AI-generated video (Seedance 2.0) preferred over stock footage (stock rejected on quality grounds)
 - Image brief criteria: urban date-night · confidence not fear · full sphere · legible card · visible face · production-ready
 

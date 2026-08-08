@@ -1,0 +1,82 @@
+# SafetyNet Landing - Agent Guide
+
+This file is the repo-wide operating guide for Codex and other coding agents.
+It applies to the canonical SafetyNet landing repo and its sibling worktrees.
+
+## Repository Layout
+
+The durable project folder is:
+
+`C:\Users\CampbellMcCord\repos\Safetynet\Safetynet-landing`
+
+That outer folder is not itself the git repo. The canonical repo is:
+
+`C:\Users\CampbellMcCord\repos\Safetynet\Safetynet-landing\safetynet-landing`
+
+Sibling worktrees may also exist:
+
+- `safetynet-landing-preparer` - preparer worktree for drafting, editing, and building implementation tasks.
+- `safetynet-landing-reviewer` - reviewer worktree for validation and critique tasks.
+
+The worktree path is the operating boundary. Do not edit sibling worktrees unless the user explicitly assigns you to that worktree.
+
+## Default Edit Policy
+
+- Use canonical `safetynet-landing` on `main` for repo-wide policy and documentation work unless instructed otherwise.
+- Use `safetynet-landing-preparer` for preparer implementation tasks.
+- Use `safetynet-landing-reviewer` only for reviewer validation tasks.
+- Do not switch branches in the canonical repo while another agent is active in a worktree.
+- Before staging or committing, run `git status --short --branch` and stage only files belonging to the current task.
+
+## Dirty Worktree Policy
+
+- Run `git status --short --branch` before making edits.
+- If the worktree is dirty, identify whether existing changes overlap the task.
+- If existing changes overlap the files you need to edit, pause and summarize the situation before proceeding.
+- Never revert, overwrite, or clean up changes you did not make unless the user explicitly approves it.
+- If canonical `main` is behind remote, note it before real implementation work and avoid merging or rebasing without user direction.
+
+## Handoff Policy
+
+`HANDOFF.md` is required for tasks performed in the preparer worktree only.
+
+Canonical audits, plans, and small repo-policy documentation changes do not require `HANDOFF.md` unless the user asks for one.
+
+When a preparer task requires handoff, use this structure:
+
+```text
+TASK
+[What was asked]
+
+DONE
+[What was executed - specific, not summary]
+
+SKIPPED / REJECTED
+[Anything not done and why - none if not applicable]
+
+QUALITY GATES
+[Gate name]: PASS / FAIL
+
+OPEN FOR REVIEWER
+[Anything requiring reviewer judgment - none if not applicable]
+
+BRANCH
+[Branch name and commit reference]
+```
+
+## Project Commands
+
+- `npm run build:css` - compile Tailwind from `styles/input.css` to `styles/tailwind.css`.
+- `node build-faqs.js` - bake `data/faq.json` into `index.html`.
+- `npm test` - run Jest tests.
+- `npx playwright test` - run Playwright smoke tests.
+- `npm run lint` - run ESLint checks.
+
+Known command caveat: `package.json` sets `"type": "module"`, while `build-faqs.js` currently uses CommonJS `require`. Verify or fix that path before relying on `node build-faqs.js` for production work.
+
+## Known Caveats
+
+- The outer `Safetynet-landing` folder is a container, not the git repo.
+- Canonical `main` may be dirty or behind `origin/main`; check before editing.
+- Existing `CLAUDE.md` contains useful worktree rules, but its preparer-role section is stale or overbroad when read from the canonical repo.
+- `CLAUDE.md` remains unchanged for now; reconciling or replacing it is a separate cleanup task.

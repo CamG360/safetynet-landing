@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @keyframes sn-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes sn-ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+    body { margin: 0; }
+    a { color: #0d9488; }
+    a:hover { color: #0b5351; }
+  </style>
+  <script src="js/vendor/lucide.min.js"></script>
+</helmet>
+
+<div style="width:100%; background:#f8fafc; padding:72px 24px; font-family:'Inter',system-ui,-apple-system,sans-serif; box-sizing:border-box;">
+  <div style="max-width:1080px; margin:0 auto;">
+
+    <div style="text-align:center; margin-bottom:56px;">
+      <p style="color:#0d9488; font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:12px; margin:0 0 10px;">How it works</p>
+      <h2 style="color:#0f172a; font-weight:700; font-size:30px; margin:0 0 12px;">Create your SafetyNet in under a minute</h2>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:56px; align-items:center;">
+
+      <div style="position:relative;">
+        <div style="position:absolute; left:19px; top:40px; bottom:40px; width:2px; background:#e2e8f0; z-index:0;"></div>
+
+        <div style="display:flex; flex-direction:column; gap:8px; position:relative; z-index:1;">
+
+          <div style="{{ step0RowStyle }}" onClick="{{ select0 }}">
+            <span style="{{ step0NumStyle }}">1</span>
+            <div>
+              <div style="{{ step0TitleStyle }}">Set your check-in time</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5;">Choose when you expect to be safe - after a night out, a short trip, a date.</div>
+            </div>
+          </div>
+
+          <div style="{{ step1RowStyle }}" onClick="{{ select1 }}">
+            <span style="{{ step1NumStyle }}">2</span>
+            <div>
+              <div style="{{ step1TitleStyle }}">SafetyNet is active</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5;">Live your life. Safe? Just tap "I'm Safe" - done.</div>
+            </div>
+          </div>
+
+          <div style="{{ step2RowStyle }}" onClick="{{ select2 }}">
+            <span style="{{ step2NumStyle }}">3</span>
+            <div>
+              <div style="{{ step2TitleStyle }}">SafetyNet sends an alert for you</div>
+              <div style="font-size:14px; color:#64748b; line-height:1.5;">Can't check in? Your contacts are alerted automatically.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-top:24px; padding-top:20px; border-top:1px solid #e2e8f0;">
+          <button onClick="{{ togglePlay }}" style="width:36px; height:36px; border-radius:9999px; border:1px solid #e2e8f0; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#475569; flex-shrink:0;">
+            <sc-if value="{{ playing }}" hint-placeholder-val="{{ true }}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </sc-if>
+            <sc-if value="{{ notPlaying }}" hint-placeholder-val="{{ false }}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </sc-if>
+          </button>
+          <span style="font-size:13px; color:#64748b; font-weight:600;">{{ playLabel }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:center;">
+        <div style="width:272px; height:340px; background:#fff; border-radius:22px; border:1px solid #e2e8f0; box-shadow:0 20px 45px -20px rgba(15,23,42,.25); overflow:hidden; display:flex; flex-direction:column;">
+
+          <div style="{{ bannerStyle }}">
+            <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i data-lucide="clock" style="width:18px; height:18px; color:#fff;"></i>
+                <span style="color:#fff; font-weight:700; font-size:14px; letter-spacing:.02em;">SafetyNet</span>
+              </div>
+              <span style="width:8px; height:8px; border-radius:9999px; background:#fff;"></span>
+            </sc-if>
+            <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i data-lucide="shield-check" style="width:18px; height:18px; color:#fff;"></i>
+                <span style="color:#fff; font-weight:700; font-size:14px; letter-spacing:.02em;">SafetyNet Active</span>
+              </div>
+              <span style="width:8px; height:8px; border-radius:9999px; background:#4ade80;"></span>
+            </sc-if>
+            <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <i data-lucide="bell-ring" style="width:18px; height:18px; color:#fff;"></i>
+                <span style="color:#fff; font-weight:700; font-size:14px; letter-spacing:.02em;">SafetyNet Alert</span>
+              </div>
+              <span style="position:relative; display:flex; width:8px; height:8px;">
+                <span style="position:absolute; inset:0; border-radius:9999px; background:#f87171; animation:sn-ping 1.6s cubic-bezier(0,0,.2,1) infinite;"></span>
+                <span style="position:relative; width:8px; height:8px; border-radius:9999px; background:#f87171;"></span>
+              </span>
+            </sc-if>
+          </div>
+
+          <div key="{{ active }}" style="flex:1; padding:18px; display:flex; flex-direction:column; animation:sn-fade .4s ease;">
+
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px;">
+              <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+                <p style="font-size:11px; color:#94a3b8; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin:0;">Check-in time:</p>
+                <div style="font-size:30px; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-weight:800; color:#1e293b; letter-spacing:-.01em;">22:00</div>
+                <div style="height:4px; width:100%; background:#f1f5f9; border-radius:9999px; overflow:hidden; margin-top:6px;">
+                  <div style="height:100%; width:0%; background:#0d9488; border-radius:9999px;"></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:11px; color:#94a3b8; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin:0;">Time remaining:</p>
+                <div style="font-size:30px; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-weight:800; color:#475569;">1h 28m</div>
+                <div style="height:4px; width:100%; background:#f1f5f9; border-radius:9999px; overflow:hidden; margin-top:6px;">
+                  <div style="height:100%; width:65%; background:#cbd5e1; border-radius:9999px;"></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:11px; color:#94a3b8; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin:0;">Status:</p>
+                <div style="font-size:30px; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-weight:800; color:#1e293b; letter-spacing:-.01em;">Alert Sent</div>
+                <div style="height:4px; width:100%; background:#f1f5f9; border-radius:9999px; overflow:hidden; margin-top:6px;">
+                  <div style="height:100%; width:100%; background:#cbd5e1; border-radius:9999px;"></div>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="height:1px; background:#f1f5f9; margin:14px 0;"></div>
+
+            <div>
+              <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+                <button style="width:100%; padding:12px; border-radius:12px; border:2px solid #0d9488; color:#0d9488; background:transparent; font-weight:700; font-size:14px; cursor:pointer;">Create a SafetyNet</button>
+                <p style="font-size:10.5px; text-align:center; color:#94a3b8; margin:8px 0 0;">Tap to create a SafetyNet</p>
+              </sc-if>
+              <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
+                <button style="width:100%; padding:12px; border-radius:12px; border:2px solid #1e293b; color:#0f172a; background:#fff; font-weight:700; font-size:14px; cursor:pointer;">I'm Safe</button>
+                <p style="font-size:10.5px; text-align:center; color:#94a3b8; margin:8px 0 0;">Tap to confirm you're safe</p>
+              </sc-if>
+              <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+                <button style="width:100%; padding:12px; border-radius:12px; border:2px solid #0d9488; color:#0d9488; background:transparent; font-weight:700; font-size:14px; cursor:pointer;">Cancel Safety Alert</button>
+                <p style="font-size:10.5px; text-align:center; color:#94a3b8; margin:8px 0 0;">Tap to cancel Safety Alert</p>
+              </sc-if>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1080,&quot;height&quot;:620},&quot;autoStart&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;advanceSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:4,&quot;min&quot;:2,&quot;max&quot;:8,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { active: 0, playing: true };
+
+  constructor(props) {
+    super(props);
+    this.state.playing = (props && props.autoStart) !== false;
+  }
+
+  componentDidMount() {
+    this.startTimer();
+    this.runIcons();
+  }
+  componentDidUpdate() {
+    this.runIcons();
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  runIcons() {
+    if (window.lucide) window.lucide.createIcons();
+  }
+  startTimer() {
+    clearInterval(this.timer);
+    const secs = this.props.advanceSeconds || 4;
+    this.timer = setInterval(() => {
+      if (this.state.playing) {
+        this.setState(s => ({ active: (s.active + 1) % 3 }));
+      }
+    }, secs * 1000);
+  }
+  select(i) {
+    this.setState({ active: i, playing: false });
+  }
+  togglePlay() {
+    this.setState(s => ({ playing: !s.playing }));
+  }
+
+  renderVals() {
+    const { active, playing } = this.state;
+    const numBase = { width: 40, height: 40, borderRadius: 9999, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 15, transition: 'all .2s ease' };
+    const activeNum = { ...numBase, background: '#0d9488', color: '#fff', border: '2px solid #0d9488' };
+    const inactiveNum = { ...numBase, background: '#fff', color: '#94a3b8', border: '2px solid #e2e8f0' };
+    const titleBase = { fontWeight: 700, fontSize: 17, marginBottom: 4, transition: 'color .2s ease' };
+    const activeTitle = { ...titleBase, color: '#0f172a' };
+    const inactiveTitle = { ...titleBase, color: '#64748b' };
+    const rowBase = { display: 'flex', gap: 16, alignItems: 'flex-start', cursor: 'pointer', borderRadius: 16, padding: '12px 14px', transition: 'background .2s ease' };
+    const activeRow = { ...rowBase, background: '#f0fdfa' };
+    const inactiveRow = { ...rowBase, background: 'transparent' };
+    const bannerBase = { padding: '14px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 };
+    const bannerStyle = { ...bannerBase, background: '#0d9488' };
+
+    return {
+      bannerStyle,
+      active,
+      isStep0: active === 0,
+      isStep1: active === 1,
+      isStep2: active === 2,
+      select0: () => this.select(0),
+      select1: () => this.select(1),
+      select2: () => this.select(2),
+      step0NumStyle: active === 0 ? activeNum : inactiveNum,
+      step1NumStyle: active === 1 ? activeNum : inactiveNum,
+      step2NumStyle: active === 2 ? activeNum : inactiveNum,
+      step0TitleStyle: active === 0 ? activeTitle : inactiveTitle,
+      step1TitleStyle: active === 1 ? activeTitle : inactiveTitle,
+      step2TitleStyle: active === 2 ? activeTitle : inactiveTitle,
+      step0RowStyle: active === 0 ? activeRow : inactiveRow,
+      step1RowStyle: active === 1 ? activeRow : inactiveRow,
+      step2RowStyle: active === 2 ? activeRow : inactiveRow,
+      togglePlay: () => this.togglePlay(),
+      playing,
+      notPlaying: !playing,
+      playLabel: playing ? 'Auto-playing' : 'Paused - tap a step, or resume',
+    };
+  }
+}
+
+</script>
+</body>
+</html>

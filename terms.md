@@ -1,7 +1,7 @@
 # Terms of Service
 
 **Acorn 360 Ltd**  
-Last updated: December 2025
+Last updated: July 2026
 
 ---
 
