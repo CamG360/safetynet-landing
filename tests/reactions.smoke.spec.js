@@ -5,14 +5,15 @@
 
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8123';
+const BASE_URL = process.env.BASE_URL || 'http://127.0.0.1:18123';
 
 // Returns viewport width synchronously — used to skip tier-mismatched tests.
 function vw(page) { return page.viewportSize().width; }
 
 test.describe('First reactions section', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto(`${BASE_URL}/index.html`, { waitUntil: 'networkidle' });
+        await page.goto(`${BASE_URL}/index.html`, { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('#hero')).toBeVisible();
     });
 
     // ── content ────────────────────────────────────────────────
@@ -89,7 +90,8 @@ test.describe('First reactions section', () => {
     test('9. no console errors on load', async ({ page }) => {
         const errors = [];
         page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
-        await page.reload({ waitUntil: 'networkidle' });
+        await page.reload({ waitUntil: 'domcontentloaded' });
+        await expect(page.locator('#hero')).toBeVisible();
         expect(errors).toEqual([]);
     });
 

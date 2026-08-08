@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const BASE_URL = process.env.BASE_URL || 'http://127.0.0.1:8123';
+const BASE_URL = process.env.BASE_URL || 'http://127.0.0.1:18123';
 
 async function expectNoWcagViolations(page) {
     const results = await new AxeBuilder({ page })
@@ -34,8 +34,9 @@ test.describe('Landing-page assurance', () => {
     test.beforeEach(async ({ page }) => {
         await mockTurnstile(page);
         await page.goto(`${BASE_URL}/index.html?utm_source=tiktok&utm_campaign=assurance`, {
-            waitUntil: 'networkidle',
+            waitUntil: 'domcontentloaded',
         });
+        await expect(page.locator('#hero')).toBeVisible();
     });
 
     test('initial interface has no known automated WCAG A/AA violations', async ({ page }) => {

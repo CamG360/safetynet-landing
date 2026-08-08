@@ -97,6 +97,7 @@ https://safetynetbeta.com/sitemap.xml
 
 and reference it from robots.txt
 
-No sitemap - codex - WIP #ver 1711.080826 - 
+No sitemap - codex - Created.  Indexed to google https://safetynetbeta.com/sitemap.xml  (https://search.google.com/search-console/index/drilldown?resource_id=sc-domain%3Asafetynetbeta.com&item_key=CAMYDyAC&hl=en
+)
 No robot.txt - #P2
 No llms/txt - ~P2
